@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ -z `xrandr | grep " connected" | grep 'VGA-0'` ]]; then
+        echo "No monitor found"
+	hsetroot -tile ~/archlinux.jpeg
+else
+        xrandr --output VGA-0 --auto --left-of LVDS
+	hsetroot -full ~/wallpaper.jpg
+fi
