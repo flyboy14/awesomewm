@@ -223,9 +223,7 @@ mymainmenu = awful.menu({ items = {
                         })
 
 mylauncher = awful.widget.launcher({ image = "/home/master-p/Downloads/tv_icon.gif",
---  mylauncher = awful.widget.launcher({ image = "/usr/share/icons/buuf-icon-theme/128x128/Zimages/flame.png",
   	menu = mymainmenu})
---mylauncher = awful.widget.launcher({ image = "/home/master-p/Downloads/starfallenwolf.gif", menu = mymainmenu })
 
 -- Colours
 coldef  = "</span>"
@@ -343,9 +341,9 @@ function (widget, args)
     baticon:set_image(beautiful.widget_ac)
     return '<span background="#92B0A0" font="Fixed 14" rise="1000"><span rise="1600" font="Visitor TT2 BRK 13"color="#46A8C3" rise="1600">AC</span></span>'
     -- critical
-  elseif (args[2] <= 7 and batstate() == 'Discharging') then
+  elseif (args[2] <= 5 and batstate() == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
---    awful.util.spawn("systemctl suspend")
+    awful.util.spawn("systemctl suspend")
        elseif (args[2] >= 90) then
     baticon:set_image(beautiful.widget_battery_high)
   elseif (batstate() == 'Discharging' and args[2] <= 10) then
@@ -394,31 +392,6 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  cpuicon:set_image(beautiful.widget_cpu)
  cpuwidget = wibox.widget.textbox()
  vicious.register(cpuwidget, vicious.widgets.cpu, '<span background="#84D0D0" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 12" color="#005656">CPU <span color="#393E4A">$1% </span></span></span>', 3)
-
--- /home fs widget
- fshicon = wibox.widget.imagebox()
- fshicon:set_image(beautiful.widget_hdd)
- fshwidget = wibox.widget.textbox()
- vicious.register(fshwidget, vicious.widgets.fs,
- function (widget, args)
-  if args["{/home used_p}"] >= 75 then
-    return '<span background="#121212" font="Visitor TT2 BRK 13" rise="1600"> <span font="Visitor TT2 BRK 13" color="#FFA963">/home <span color="#dedede">' .. args["{/home used_p}"] .. '% </span></span></span>'
-  elseif args["{/home used_p}"] >= 97 and args["{/home used_p}"] <= 100 then
-    awful.util.spawn("notify-send -i /usr/share/icons/buuf-icon-theme/48x48/computercase-wrench.png \"Attenzione\" \"Partizione /home esaurita!\nFa' un po' di spazio.\"")
-    return '<span background="#121212" font="Visitor TT2 BRK 13" rise="1600"> <span font="Visitor TT2 BRK 13" color="#e54c62">/home ' .. args["{/home used_p}"] .. '% </span></span>'
-  elseif args["{/home used_p}"] >= 50 then
-    return '<span background="#121212" font="Visitor TT2 BRK 13" rise="1600"> <span font="Visitor TT2 BRK 13" color="#FFF389">/home ' .. args["{/home used_p}"] .. '% </span></span>'
-  else
-    return '<span background="#121212" font="Visitor TT2 BRK 13" rise="1600"> <span font="Visitor TT2 BRK 13" color="#7AC82E">/home ' .. args["{/home used_p}"] .. '% </span></span>'
-  end
- end, 600)
-
--- Disk usage widget
-disk = require("diskusage")
--- the first argument is the widget to trigger the diskusage
--- the second/third is the percentage at which a line gets orange/red
--- true = show only local filesystems
-disk.addToWidget(cpuicon, 75, 90, false)
 
 -- Weather widget
 tempicon = wibox.widget.imagebox()
