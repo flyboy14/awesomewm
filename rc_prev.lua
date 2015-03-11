@@ -431,11 +431,33 @@ disk.addToWidget(cpuicon, 75, 90, false)
 tempicon = wibox.widget.imagebox()
 tempicon:set_image(beautiful.widget_temp)
 weatherwidget = wibox.widget.textbox()
-weather_t = awful.tooltip({ objects = { weatherwidget } })
+   weatherwidget:connect_signal("mouse::enter", function(c)
+                                                 weatherwidget:show_notification()
+                                              end)
+   weatherwidget:connect_signal("mouse::leave", function(c)
+                                                 weatherwidget:hide_notification()
+                                              end)
+function weatherwidget:show_notification()
+   self:hide_notification()
+   self.notification = naughty.notify({
+          text       = weather_t
+          , timeout    = 5
+          , position   = "top_right"
+          , bg         = "#121212"
+          , fg         = "#bebebe"
+                                     })
+end
+
+function weatherwidget:hide_notification()
+   if self.notification ~= nil then
+      naughty.destroy(self.notification)
+      self.notification = nil
+   end
+end
 
 vicious.register(weatherwidget, vicious.widgets.weather,
                 function (widget, args)
-                    weather_t:set_text("City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%")
+                    weather_t = "City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%"
                     if args["{tempc}"] == "N/A" then
                       return '<span font="Visitor TT2 BRK 13" color="#dedede">:(</span>'
                     elseif args["{tempc}"] <= 0 then
@@ -485,8 +507,7 @@ neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.uti
 -- Separators
 face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 13">//\\(o.o_)/\\\\</span>')
 face:buttons(awful.util.table.join(
-awful.button({ }, 1, function ()
-awful.util.spawn_with_shell("sh /home/master-p/bin/paucha.sh") end),
+awful.button({ }, 1, awesome.restart),
 awful.button({ }, 3, function ()
 awful.util.spawn_with_shell("notify-send '//\\(_o.o_)/\\\\' 'Wazzup!!'") end)
         ))
@@ -590,8 +611,8 @@ for s = 1, screen.count() do
 
     -- Create the wibox
 
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
-    mywibox_w[s] = awful.wibox({ position = "bottom", screen = s })
+    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16 })
+    mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16 })
 
 
     -- Widgets that are aligned to the left

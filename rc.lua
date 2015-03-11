@@ -98,12 +98,12 @@ musicplr = "mpd $HOME/.mpd/mpd.conf"
 sc_a = "guake -e \'sh ~/bin/screenshot-area.sh\'"
 sc_w = "sh ~/bin/screenshot-wind.sh"
 sc_r = "sh ~/bin/screenshot-root.sh"
-sc_r5 = "notify-send -t 2000 -i /usr/share/icons/buuf-icon-theme/36x36/Zimages/clock-border-green.png \"Taking shot in 3s\" && sleep 3s && sh ~/bin/screenshot-root.sh"
+sc_r5 = "notify-send -t 2000 -i /usr/share/icons/buuf-icon-theme/36x36/Zimages/clock-border-green.png \"Taking shot in 5s\" && sleep 5s && sh ~/bin/screenshot-root.sh"
 volpa_up = "sh ~/bin/volnoti_pa.sh up"
 volpa_down = "sh ~/bin/volnoti_pa.sh down"
 volpa_mute = "sh ~/bin/volnoti_pa.sh mute"
-vol_up = "sh ~/bin/volnoti.sh up"
-vol_down = "sh ~/bin/volnoti.sh down"
+vol_up = "sh ~/bin/volnoti.sh up&& sleep 1s"
+vol_down = "sh ~/bin/volnoti.sh down&& sleep 1s"
 vol_mute = "sh ~/bin/volnoti.sh mute"
 translate = "sh /home/master-p/bin/translate.sh"
 -- Default modkey.
@@ -191,6 +191,7 @@ mybordermenu = {
 
 mygamesmenu = {
    { "Borderlans II", mybordermenu },
+   { "  Вечное лето", "/home/master-p/Desktop/Everlasting Summer.desktop", "/home/master-p/.steam/steam/SteamApps/common/Everlasting Summer/Everlasting Summer.app/Contents/Resources/icon.icns" },
    { "  Besiege", "/home/master-p/Besiege_v0.01_Linux/Besiege.x86_64", "/home/master-p/Downloads/besiege.png" },
    { "  Portal 2", "/home/master-p/Portal2/portal2_linux", "/home/master-p/Portal2/portal2.png" },
    { "  SPORE", "guake -e \"sh ~/bin/spore.sh\"", "/home/master-p/Downloads/spore.png" },
@@ -214,7 +215,7 @@ mytaskmenu = awful.menu({ items = {
 
 mymainmenu = awful.menu({ items = {
                                     { "  Samowar (beta)", "samowar", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/media-green.png" },
-                                    { "  EiskaltDC++", "eiskaltdcpp-qt", "/home/master-p/Downloads/Eiskaltdcpp_icon_128x128.png" },
+                                    { "  GreylinkDC++", "/home/master-p/Desktop/GreylinkDC.desktop", "/home/master-p/Downloads/DC++.png" },
                                     { "  Расписание", "libreoffice /home/master-p/temp/raspis.xlsx", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/calendar-window.png" },
                                     { "Приложения", xdgmenu },
                                     { "Игры", mygamesmenu },
@@ -344,9 +345,7 @@ function (widget, args)
   elseif (args[2] <= 5 and batstate() == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
     awful.util.spawn("systemctl suspend")
-       elseif (args[2] >= 90) then
-    baticon:set_image(beautiful.widget_battery_high)
-  elseif (batstate() == 'Discharging' and args[2] <= 10) then
+      elseif (batstate() == 'Discharging' and args[2] <= 10) then
 awful.util.spawn("notify-send -i /usr/share/icons/buuf-icon-theme/48x48/Zimages/battery-red.png \"⚡ Внимание! ⚡\" \"Очень  мало энергии\"")
   elseif (args[2] <= 15) then
     baticon:set_image(beautiful.widget_battery_empty)
@@ -356,6 +355,8 @@ awful.util.spawn("notify-send -i /usr/share/icons/buuf-icon-theme/48x48/Zimages/
     baticon:set_image(beautiful.widget_battery_low)
  elseif (args[2] <= 89) then
     baticon:set_image(beautiful.widget_battery_mid)
+ elseif (args[2] >= 90) then
+    baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then return '<span background="#C2C2A4" color="#A42929" font="Fixed 14"> <span rise="1000" font="Fixed 9">↓ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
    elseif (batstate() == 'Charging' and args[2] ~= 100) then return '<span background="#C2C2A4" font="Fixed 14"> <span font="Fixed 9"  rise="1000" color="#006D00">↑ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
@@ -420,6 +421,8 @@ function weatherwidget:hide_notification()
       self.notification = nil
    end
 end
+
+
 --weather_t = awful.tooltip({ objects = { weatherwidget }, })
 weather_t = naughty.notify({ objects = { weatherwidget }, text = texto})
 vicious.register(weatherwidget, vicious.widgets.weather,
@@ -458,8 +461,10 @@ function (widget, args)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
   end
-  return '<span font="Fixed 14" background="#E2AE7C"> <span font="Visitor TT2 BRK 13" rise="1600" color="#4C3D3D">' .. args[1] .. '%</span></span>'
+  volume_t='<span font="Fixed 14" background="#E2AE7C"> <span font="Visitor TT2 BRK 13" rise="1600" color="#4C3D3D">' .. args[1] .. '%</span></span>'
+  return volume_t
 end, 1, "Master")
+
 
 -- Net widget
 netwidget = wibox.widget.textbox()
@@ -540,8 +545,8 @@ mytextclock = awful.widget.textclock("<span background=\"#444444\" font=\"Fixed 
 orglendar.register(mytextclock)
 
 -- Create a wibox for each screen and add it
-mywibox = {}
-mywibox_w = {}
+mywibox = { }
+mywibox_w = { }
 mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
@@ -618,8 +623,8 @@ for s = 1, screen.count() do
 
     -- Create the wibox
 
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
-    mywibox_w[s] = awful.wibox({ position = "bottom", screen = s })
+    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1 })
+    mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1 })
 
 
     -- Widgets that are aligned to the left
@@ -707,7 +712,6 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
-
 
 globalkeys = awful.util.table.join(
     awful.key({ }, "Print", function () awful.util.spawn_with_shell(sc_r) end),
@@ -1084,6 +1088,6 @@ client.connect_signal("focus", function(c)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
                                 awful.util.spawn("sudo renice -n 1 -p " .. c.pid)
-                                c.opacity = 0.7
+                                --c.opacity = 0.7
                              end)
 -- }}}
