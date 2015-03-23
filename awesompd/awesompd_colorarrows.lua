@@ -665,13 +665,13 @@ function awesompd:menu_jamendo_top()
    function ()
       local track_table = jamendo.return_track_table()
       if not track_table then
-         self:show_notification("Can't connect to Jamendo server", "Please check your network connection")
+         self:show_notification("Can't connect to Jamendo server", "Please check your network connection",2)
       else
          self:add_jamendo_tracks(track_table)
          self:show_notification("Jamendo Top 100 by " ..
                                 jamendo.current_request_table.params.order.short_display,
                                 format("Added %s tracks to the playlist",
-                                       #track_table))
+                                       #track_table),2)
       end
    end
 end
@@ -772,11 +772,11 @@ function awesompd:menu_jamendo_search_by(what)
                                                     what.display,
                                                     result.search_res.name),
                                              format("Added %s tracks to the playlist",
-                                                    track_count))
+                                                    track_count),2)
                    else
                       self:show_notification("Search failed",
                                              format("%s \"%s\" was not found",
-                                                    what.display, s))
+                                                    what.display, s),2)
                    end
                 end
              self:display_inputbox("Search music on Jamendo",
@@ -840,11 +840,11 @@ end
 
 -- /// End of menu generation functions ///
 
-function awesompd:show_notification(hint_title, hint_text, hint_image)
+function awesompd:show_notification(hint_title, hint_text, hint_image, timeout)
    self:hide_notification()
    self.notification = naughty.notify({ title      =  hint_title
 					, text       = awesompd.protect_string(hint_text)
-					, timeout    = 2
+					, timeout    = timeout
 					, position   = "top_right"
           , bg         = "#4b3b51"
           , fg         = "#dedede"
@@ -869,7 +869,20 @@ function awesompd:notify_track()
          nf_text = self.get_extended_info(self.current_track)
          al_cover = self.current_track.album_cover
       end
-      self:show_notification(caption, nf_text, al_cover)
+      self:show_notification(caption, nf_text, al_cover, 0)
+   end
+end
+
+function awesompd:notify_track_onstart()
+   if self:playing_or_paused() then
+      local caption = self.status_text
+      local nf_text = self.get_display_name(self.current_track)
+      local al_cover = nil
+      if self.show_album_cover then
+         nf_text = self.get_extended_info(self.current_track)
+         al_cover = self.current_track.album_cover
+      end
+      self:show_notification(caption, nf_text, al_cover, 2)
    end
 end
 
@@ -885,7 +898,7 @@ function awesompd:notify_state(state_changed)
    for i = 2, #state_array do
       full_state = full_state .. "\n" .. state_array[i]
    end
-   self:show_notification(state_header, full_state)
+   self:show_notification(state_header, full_state, 1)
 end
 
 function awesompd:wrap_output(text)
@@ -954,19 +967,19 @@ end
 -- Checks if notification should be shown and shows if positive.
 function awesompd:check_notify()
    if self.to_notify then
-      self:notify_track()
+      self:notify_track_onstart()
       self.to_notify = false
    end
 end
 
 function awesompd:notify_connect()
    self:show_notification("Connected", "Connection established to " .. self.servers[self.current_server].server ..
-		 " on port " .. self.servers[self.current_server].port)
+		 " on port " .. self.servers[self.current_server].port,1)
 end
 
 function awesompd:notify_disconnect()
    self:show_notification("Disconnected", "Cannot connect to " .. self.servers[self.current_server].server ..
-		 " on port " .. self.servers[self.current_server].port)
+		 " on port " .. self.servers[self.current_server].port,1)
 end
 
 function awesompd:update_track(file)

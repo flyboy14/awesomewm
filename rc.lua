@@ -13,16 +13,8 @@ eminent = require("eminent")
 xdg_menu = require("archmenu")
 orglendar = require("orglendar_colorarrows")
 
--- {{{ Localization
-
 --os.setlocale(os.getenv("LANG"))
 
--- }}}
-
--- {{{ Error Handling
-
--- Check if awesome encountered an error during startup and fell back to
--- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Произошла ошибка при запуске awesome! :(",
@@ -53,9 +45,6 @@ end
 function run_pcm(prg)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "pcmanfm -d" .. ")")
 end
-function run_cute(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "sleep 10s && cutegram" .. ")")
-end
 function run_rvxt(prg)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "urxvtd -q -f -o" .. ")")
 end
@@ -65,6 +54,7 @@ autorunApps =
    "sh ~/.config/autostart/autostart.sh",
    "xcompmgr -f -D 4 -o 0.90 -c -S",
    "volnoti -t 2",
+   run_once("pidgin"),
    run_rvxt("urxvtd"),
    run_pcm("pcmanfm"),
    run_once("kbdd"),
@@ -81,7 +71,6 @@ end
 -- Useful Paths
 home = os.getenv("HOME")
 confdir = home .. "/.config/awesome"
-scriptdir = confdir .. "/scripts/"
 themes = confdir .. "/themes/"
 active_theme = themes .. "/arrows"
 -- Themes define colours, icons, and wallpapers
@@ -92,8 +81,6 @@ terminal = "urxvtc"
 browser = "firefox"
 editor = "subl"
 editor_cmd = terminal .. " -e " .. editor
-vbox_xp = "VirtualBox --startvm fc9df495-5bad-47f6-ac35-22f81c701f32"
-vbox_7 = "VirtualBox --startvm win7"
 musicplr = "mpd $HOME/.mpd/mpd.conf"
 sc_a = "guake -e \'sh ~/bin/screenshot-area.sh\'"
 sc_w = "sh ~/bin/screenshot-wind.sh"
@@ -185,15 +172,14 @@ myawesomemenu = {
 }
 
 mybordermenu = {
-  {"  Borderlands II RUS", "vblank_mode=0 optirun ~/Borderlands2/Borderlands2 -language=rus", "/home/master-p/Downloads/border_ru.png"},
-  {"  Borderlands II ENG", "vblank_mode=0 optirun ~/Borderlands2/Borderlands2", "/home/master-p/Downloads/border_en.png"},
+  {"  Borderlands II RUS", "optirun ~/Borderlands2/Borderlands2 -language=rus", "/home/master-p/Downloads/border_ru.png"},
+  {"  Borderlands II ENG", " optirun ~/Borderlands2/Borderlands2", "/home/master-p/Downloads/border_en.png"},
 }
 
 mygamesmenu = {
    { "Borderlans II", mybordermenu },
    { "  Вечное лето", "/home/master-p/Desktop/Everlasting Summer.desktop", "/home/master-p/.steam/steam/SteamApps/common/Everlasting Summer/Everlasting Summer.app/Contents/Resources/icon.icns" },
    { "  Besiege", "/home/master-p/Besiege_v0.01_Linux/Besiege.x86_64", "/home/master-p/Downloads/besiege.png" },
-   { "  Portal 2", "/home/master-p/Portal2/portal2_linux", "/home/master-p/Portal2/portal2.png" },
    { "  SPORE", "guake -e \"sh ~/bin/spore.sh\"", "/home/master-p/Downloads/spore.png" },
    { "  WORMS Revolution", "guake -e \"sh ~/bin/worms.sh\"", "/home/master-p/Downloads/worms.png" },
    { "  Xonotic", "/home/master-p/Xonotic/xonotic-linux64-sdl -basedir /home/master-p/Xonotic/", "/home/master-p/Xonotic/misc/logos/xonotic_icon.svg" },
@@ -204,6 +190,7 @@ mygamesmenu = {
    { "  Elegy for a Dead World", "guake -e \"sh ~/bin/Elegy.sh\"", "/home/master-p/Downloads/Elegy.ico" },
    { "  Iesabel", "Iesabel/Iesabel/Iesabel.x86_64", "/home/master-p/Downloads/Iesabel-Logo.jpg" },
    { "  Anomaly Warzone", "/home/master-p/AnomalyWarzoneEarth/AnomalyWarzoneEarth", "/home/master-p/AnomalyWarzoneEarth/icon.png" },
+   { "  Diablo II LoD", "wine /home/master-p/WINE/wineZ/drive_c/Games/D2/Game.exe", "/home/master-p/WINE/wineZ/drive_c/Games/D2/icone.ICO" },
 
    }
 
@@ -214,9 +201,10 @@ mytaskmenu = awful.menu({ items = {
                         })
 
 mymainmenu = awful.menu({ items = {
-                                    { "  Samowar (beta)", "samowar", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/media-green.png" },
-                                    { "  GreylinkDC++", "/home/master-p/Desktop/GreylinkDC.desktop", "/home/master-p/Downloads/DC++.png" },
-                                    { "  Расписание", "libreoffice /home/master-p/temp/raspis.xlsx", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/calendar-window.png" },
+                                    { "  Samowar (beta)", "samowar", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/musical-note-stripped.png" },
+                                    { "  KeePassX", "keepassx", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/lock.png"},
+                                    { "  Файлообменник", "wine /home/master-p/WINE/wineZ/drive_c/fayloobmennik.net.exe", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/mailbox-arrow-downup.png" },
+                                    { "  Расписание", "libreoffice /home/master-p/temp/raspis.xlsx", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/key-p.png" },
                                     { "Приложения", xdgmenu },
                                     { "Игры", mygamesmenu },
                                     { "  Обои", "nitrogen", "/home/master-p/Downloads/greylink-dc.png" }
@@ -258,7 +246,7 @@ musicwidget = awesompd:create() -- Create awesompd widget
 musicwidget.font = "Visitor TT2 BRK 12"
 musicwidget.font_color = "#DBCFE0"
  musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
- musicwidget.output_size = 100 -- Set the size of widget in symbols
+ musicwidget.output_size = 20 -- Set the size of widget in symbols
  musicwidget.update_interval = 1 -- Set the update interval in seconds
  musicwidget.path_to_icons = "/home/master-p/.config/awesome/awesompd/icons"
  musicwidget.jamendo_format = awesompd.FORMAT_MP3
@@ -275,8 +263,8 @@ musicwidget.font_color = "#DBCFE0"
          port = 6600 },
           }
 musicwidget:register_buttons({ { "", awesompd.MOUSE_LEFT, musicwidget:command_toggle() },
-			         { "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
-			         { "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
+			         --{ "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
+			         --{ "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
 			         { "", awesompd.MOUSE_RIGHT, musicwidget:command_show_menu() },
 			         { "", "XF86AudioPlay", musicwidget:command_playpause() },
 			         { "", "XF86AudioNext", musicwidget:command_next_track() },
@@ -408,7 +396,7 @@ function weatherwidget:show_notification()
    self:hide_notification()
    self.notification = naughty.notify({
           text       = weather_t
-          , timeout    = 5
+          , timeout    = 0
           , position   = "top_right"
           , bg         = "#6F766E"
           , fg         = "#dedede"
@@ -423,12 +411,10 @@ function weatherwidget:hide_notification()
 end
 
 
---weather_t = awful.tooltip({ objects = { weatherwidget }, })
 weather_t = naughty.notify({ objects = { weatherwidget }, text = texto})
 vicious.register(weatherwidget, vicious.widgets.weather,
                 function (widget, args)                   
                     weather_t = "City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%"
-                    --weather_t:set_text("City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%")
                     if args["{tempc}"] == "N/A" then
                       return '<span background="#6F766E" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 13" color="#dedede">:( </span></span>'
                     elseif args["{tempc}"] <= 0 then
@@ -484,22 +470,19 @@ face:buttons(awful.util.table.join(
 awful.button({ }, 1,
 awesome.restart),
 awful.button({ }, 3, function () naughty.notify({ 
-                     title = "//\\(_*___*_)/\\\\",
+                     title = "//\\(_^___~_)/\\\\",
+                     font = "Fixed 90",
+                     height = 500,
+                     width = 1000,
                      fg = "#bebebe",
-                     timeout = 2,
-                     text = "WAZZUUUP!!" })end)
+                     timeout = 0,
+                     text = "WAZZUUUUUUUUUUUUUUUUUUUUUUUUUP!!" })end)
         ))
 bral = wibox.widget.textbox('<span color="#949494">[ </span>')
 brar = wibox.widget.textbox('<span color="#949494"> ]</span>')
 spr = wibox.widget.textbox(' ')
 sepl = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 12"> tasks: </span>')
 sepr = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 12"> :systray </span>')
-arrl = wibox.widget.imagebox()
-arrl:set_image(beautiful.arrl)
-arrl_dl = wibox.widget.imagebox()
-arrl_dl:set_image(beautiful.arrl_dl)
-arrl_ld = wibox.widget.imagebox()
-arrl_ld:set_image(beautiful.arrl_ld)
 arrl_dl_vol = wibox.widget.imagebox()
 arrl_ld_vol = wibox.widget.imagebox()
 arrl_ld_vol:set_image(beautiful.arrl_ld_vol)
@@ -522,20 +505,34 @@ arrl_dl_clock = wibox.widget.imagebox()
 arrl_dl_clock:set_image(beautiful.arrl_dl_clock)
 arrl_ld_mem = wibox.widget.imagebox()
 arrl_ld_mem:set_image(beautiful.arrl_ld_mem)
-yf = wibox.widget.imagebox()
+yf = wibox.widget.imagebox()              
 yf:set_image(beautiful.yf)
 yf:buttons(awful.util.table.join(
-  awful.button({ }, 1, function () awful.util.spawn(terminal) end)
-  ))
+  awful.button({ }, 1, function ()
+     local matcher = function (c)                   
+     return awful.rules.match(c, {class = 'URxvt'}) 
+   end                                                      
+   awful.client.run_or_raise('urxvtc', matcher)
+ end)))
 bf = wibox.widget.imagebox()
 bf:set_image(beautiful.bf)
 bf:buttons(awful.util.table.join(
-  awful.button({ }, 1, function () awful.util.spawn(terminal) end)
+  awful.button({ }, 1, function ()
+     local matcher = function (c)                   
+     return awful.rules.match(c, {class = 'URxvt'}) 
+   end                                                      
+   awful.client.run_or_raise('urxvtc', matcher)
+ end)
   ))   
 gf = wibox.widget.imagebox()
 gf:set_image(beautiful.gf)
 gf:buttons(awful.util.table.join(awful.button(
-  { }, 1, function () awful.util.spawn(terminal) end)
+  { }, 1, function ()
+     local matcher = function (c)                   
+     return awful.rules.match(c, {class = 'URxvt'}) 
+   end                                                      
+   awful.client.run_or_raise('urxvtc', matcher)
+ end)
 ))   
 
 -- Create a textclock widget
@@ -555,8 +552,6 @@ mytaglist.buttons = awful.util.table.join(
                     awful.button({ modkey }, 1, awful.client.movetotag),
                     awful.button({ }, 3, awful.tag.viewtoggle),
                     awful.button({ modkey }, 3, awful.client.toggletag)
-                   -- awful.button({ }, 4, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end),
-                    --awful.button({ }, 5, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end)
                     )
 mytasklist = {}
 mytasklist1 = {'[ mytasklist ]'}
@@ -564,6 +559,7 @@ mytasklist.buttons = awful.util.table.join(
                      awful.button({ }, 1, function (c)
                                               if c == client.focus then
                                                   c.minimized = true
+                                                  mytaskmenu:hide()
                                               else
                                                   -- Without this, the following
                                                   -- :isvisible() makes no sense
@@ -575,6 +571,7 @@ mytasklist.buttons = awful.util.table.join(
                                                   -- the client, if needed
                                                   client.focus = c
                                                   c:raise()
+                                                  mytaskmenu:hide()
                                               end
                                           end),
                      awful.button({ }, 3, function (c) if c == client.focus then
@@ -704,10 +701,8 @@ end
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
-    awful.button({ }, 1, function () mymainmenu:hide() end),
+    awful.button({ }, 1, function () mymainmenu:hide() end, function () mytaskmenu:hide() end),
     awful.button({ }, 3, function () mymainmenu:toggle() end)
-    --awful.button({ }, 4, awful.tag.viewnext),
-    --awful.button({ }, 5, awful.tag.viewprev)
 ))
 -- }}}
 
@@ -724,9 +719,6 @@ globalkeys = awful.util.table.join(
              for i=1, #tag:clients() do
                 tag:clients()[i].minimized=false end
              awful.client.focus.byidx(1) if client.focus then client.focus:raise() end end),
-
-    --awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    --awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "q",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "e",  awful.tag.viewnext       ),
     awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
@@ -758,15 +750,12 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86Sleep", function () awful.util.spawn_with_shell("sudo systemctl suspend") end),
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("systemctl poweroff") end),
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("systemctl reboot") end),
-    --awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
     awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
     awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
     awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
     awful.key({ modkey   }, "Escape", function () awful.util.spawn("xscreensaver-command -activate") end),
     awful.key({ "Control", modkey   }, "b", function () awful.util.spawn("vivaldi-snapshot") end),
-    --awful.key({ "Control" }, "l", function () awful.util.spawn("subl") end),
-    --awful.key({ "Control", "Shift"   }, "l", function () awful.util.spawn("gksudo subl") end),
     awful.key({ alt }, "F1", function () awful.util.spawn(translate) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
 
@@ -794,7 +783,7 @@ globalkeys = awful.util.table.join(
      local matcher = function (c)                   
      return awful.rules.match(c, {class = 'URxvt'}) 
    end                                                      
-   awful.client.run_or_raise('urxvt', matcher)
+   awful.client.run_or_raise('urxvtc', matcher)
  end),
      awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
@@ -814,11 +803,6 @@ globalkeys = awful.util.table.join(
    end                                                      
    awful.client.run_or_raise('firefox', matcher)
  end),
-     
-         --awful.key({ "Control" }, "l", function () awful.util.spawn("subl") end),
-    --awful.key({ "Control", "Shift"   }, "l", function () awful.util.spawn("gksudo subl") end),
-
-
     -- Prompt
     awful.key({ alt,           }, "F2",
               function () awful.prompt.run({prompt="Run:"},
@@ -896,28 +880,30 @@ awful.rules.rules = {
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-            { rule_any = { class = { "Virt-manager", "Remmina" } },
+            { rule_any = { class = { "Virt-manager", "Remmina", "VirtualBox" } },
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Sonata", "Vlc", "Samowar" } },
       properties = { tag = tags[1][4] } },
-            { rule_any = { class = { "Pcmanfm", "org-wellkord-globonote-Main" } },
+            { rule_any = { class = { "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Atom", "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Lightworks" } },
+            { rule_any = { class = { "Atom", "jetbrains-android-studio", "subl", "Evince", "Eclipse", "QtCreator", "Libreoffice", "libreoffice-writer", "Clion", "Lightworks" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
       properties = { tag = tags[1][6] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
-            { rule_any = { class = { "Eiskaltdcpp", "Skype", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka" } },
+            { rule_any = { class = { "Eiskaltdcpp", "Skype", "Viber", "TeamSpeak", "Cutegram", "Pidgin", "Telegram", "Cheese", "Kamerka", "Webcamoid" } },
       properties = { tag = tags[1][7] } },
-            { rule_any = { class = { "Nitrogen", "Samowar", "org-wellkord-globonote-Main", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt" } },
+            { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin" } },
       properties = { floating = true } },
-            { rule_any = { class = { "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
-            "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Lightworks", "Pcmanfm", "Sonata", "Vlc", 
-            "Samowar", "Virt-manager", "Eiskaltdcpp" } },
+            { rule_any = { class = { "Cutegram", "Telegram", "Cheese", "Kamerka", "Webcamoid", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
+            "jetbrains-android-studio", "subl", "Evince", "Eclipse", "QtCreator", "libreoffice", "libreoffice-writer", "Clion", "Lightworks", "Pcmanfm", "Sonata", "Vlc", 
+            "Samowar", "Virt-manager", "Eiskaltdcpp", "Pidgin", "VirtualBox" } },
       properties = { switchtotag = true } },
-            { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity" } },
+            { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux" } },
       properties = { border_width = 0 } },
+            { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Guake" } },
+      properties = { ontop = true } },
 
 }
 -- }}}
@@ -946,6 +932,7 @@ client.connect_signal("manage", function (c, startup)
     end
 
     local titlebars_enabled = false
+    --titlebar(c) = awful.titlebar()
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(
@@ -989,9 +976,6 @@ client.connect_signal("manage", function (c, startup)
         awful.titlebar(c):set_widget(layout)
     end
 end)
-
---mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
---mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
 
 -- {{{ keychains
  keychains.init(globalkeys)
@@ -1045,6 +1029,12 @@ end)
                 awful.util.spawn("gksudo \"virsh start win8.1\"")
             end,
             info    =   "- run windows 8.1"
+        },
+        s   =   {
+            func    =   function()
+                awful.util.spawn("gksu systemctl start smbd")
+            end,
+            info    =   "- samba service"
         },
         c   =   {
             func    =   function()

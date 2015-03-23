@@ -184,15 +184,14 @@ myawesomemenu = {
 }
 
 mybordermenu = {
-  {"  Borderlands II RUS", "vblank_mode=0 optirun ~/Borderlands2/Borderlands2 -language=rus", "/home/master-p/Downloads/border_ru.png"},
-  {"  Borderlands II ENG", "vblank_mode=0 optirun ~/Borderlands2/Borderlands2", "/home/master-p/Downloads/border_en.png"},
+  {"  Borderlands II RUS", "optirun ~/Borderlands2/Borderlands2 -language=rus", "/home/master-p/Downloads/border_ru.png"},
+  {"  Borderlands II ENG", "optirun ~/Borderlands2/Borderlands2", "/home/master-p/Downloads/border_en.png"},
 }
 
 mygamesmenu = {
    { "Borderlans II", mybordermenu },
+   { "  Вечное лето", "/home/master-p/Desktop/Everlasting Summer.desktop", "/home/master-p/.steam/steam/SteamApps/common/Everlasting Summer/Everlasting Summer.app/Contents/Resources/icon.icns" },
    { "  Besiege", "/home/master-p/Besiege_v0.01_Linux/Besiege.x86_64", "/home/master-p/Downloads/besiege.png" },
-   { "  Portal", "/home/master-p/Portal/portal.desktop", "/home/master-p/Desktop/Portal2/portal2.png" },
-   { "  Portal 2", "/home/master-p/Portal2/portal2_linux", "/home/master-p/Desktop/Portal2/portal2.png" },
    { "  SPORE", "guake -e \"sh ~/bin/spore.sh\"", "/home/master-p/Downloads/spore.png" },
    { "  WORMS Revolution", "guake -e \"sh ~/bin/worms.sh\"", "/home/master-p/Downloads/worms.png" },
    { "  Xonotic", "/home/master-p/Xonotic/xonotic-linux64-sdl -basedir /home/master-p/Xonotic/", "/home/master-p/Xonotic/misc/logos/xonotic_icon.svg" },
@@ -203,6 +202,7 @@ mygamesmenu = {
    { "  Elegy for a Dead World", "guake -e \"sh ~/bin/Elegy.sh\"", "/home/master-p/Downloads/Elegy.ico" },
    { "  Iesabel", "Iesabel/Iesabel/Iesabel.x86_64", "/home/master-p/Downloads/Iesabel-Logo.jpg" },
    { "  Anomaly Warzone", "/home/master-p/AnomalyWarzoneEarth/AnomalyWarzoneEarth", "/home/master-p/AnomalyWarzoneEarth/icon.png" },
+   { "  Diablo II LoD", "wine /home/master-p/WINE/wineZ/drive_c/Games/D2/Game.exe", "/home/master-p/WINE/wineZ/drive_c/Games/D2/icone.ICO" },
 
    }
 
@@ -213,9 +213,10 @@ mytaskmenu = awful.menu({ items = {
                         })
 
 mymainmenu = awful.menu({ items = {
-                                    { "  Samowar (beta)", "samowar", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/media-green.png" },
-                                    { "  EiskaltDC++", "eiskaltdcpp-qt", "/home/master-p/Downloads/Eiskaltdcpp_icon_128x128.png" },
-                                    { "  Расписание", "libreoffice /home/master-p/temp/raspis.xlsx", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/calendar-window.png" },
+                                    { "  Samowar (beta)", "samowar", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/musical-note-stripped.png" },
+                                    { "  KeePassX", "keepassx", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/lock.png"},
+                                    { "  Файлообменник", "wine /home/master-p/WINE/wineZ/drive_c/fayloobmennik.net.exe", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/mailbox-arrow-downup.png" },
+                                    { "  Расписание", "libreoffice /home/master-p/temp/raspis.xlsx", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/key-p.png" },
                                     { "Приложения", xdgmenu },
                                     { "Игры", mygamesmenu },
                                     { "  Обои", "nitrogen", "/home/master-p/Downloads/greylink-dc.png" }
@@ -441,7 +442,7 @@ function weatherwidget:show_notification()
    self:hide_notification()
    self.notification = naughty.notify({
           text       = weather_t
-          , timeout    = 5
+          , timeout    = 0
           , position   = "top_right"
           , bg         = "#121212"
           , fg         = "#bebebe"
@@ -518,12 +519,34 @@ sepl = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 12"> ta
 sepr = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 12"> :systray </span>')
 arrl = wibox.widget.imagebox()
 arrl:set_image(beautiful.arrl)
-yf = wibox.widget.imagebox()
+yf = wibox.widget.imagebox()              
 yf:set_image(beautiful.yf)
+yf:buttons(awful.util.table.join(
+  awful.button({ }, 1, function ()
+     local matcher = function (c)                   
+     return awful.rules.match(c, {class = 'URxvt'}) 
+   end                                                      
+   awful.client.run_or_raise('urxvtc', matcher)
+ end)))
 bf = wibox.widget.imagebox()
 bf:set_image(beautiful.bf)
+bf:buttons(awful.util.table.join(
+  awful.button({ }, 1, function ()
+     local matcher = function (c)                   
+     return awful.rules.match(c, {class = 'URxvt'}) 
+   end                                                      
+   awful.client.run_or_raise('urxvtc', matcher)
+ end)
+  ))   
 gf = wibox.widget.imagebox()
 gf:set_image(beautiful.gf)
+gf:buttons(awful.util.table.join(awful.button(
+  { }, 1, function ()
+     local matcher = function (c)                   
+     return awful.rules.match(c, {class = 'URxvt'}) 
+   end                                                      
+   awful.client.run_or_raise('urxvtc', matcher)
+ end)))
 
 
 -- Create a textclock widget
@@ -879,7 +902,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Sonata", "Vlc", "Samowar" } },
       properties = { tag = tags[1][4] } },
-            { rule_any = { class = { "Pcmanfm", "org-wellkord-globonote-Main" } },
+            { rule_any = { class = { "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "Atom", "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Lightworks" } },
       properties = { tag = tags[1][3] } },
@@ -889,7 +912,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Eiskaltdcpp", "Skype", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka" } },
       properties = { tag = tags[1][7] } },
-            { rule_any = { class = { "Nitrogen", "Samowar", "org-wellkord-globonote-Main", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt" } },
+            { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt" } },
       properties = { floating = true } },
             { rule_any = { class = { "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
             "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Lightworks", "Pcmanfm", "Sonata", "Vlc", 
@@ -897,6 +920,8 @@ awful.rules.rules = {
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity" } },
       properties = { border_width = 0 } },
+            { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance" } },
+      properties = { ontop = true } },
 
 }
 -- }}}
@@ -1033,9 +1058,9 @@ end)
         },
         d   =   {
             func    =   function()
-                awful.util.spawn_with_shell("systemctl start smbd nmbd winbindd samba")
+                awful.util.spawn_with_shell("systemctl start smbd")
             end,
-            info    =   "- load samba driver"
+            info    =   "- samba service"
         },
     })
   keychains.add({ modkey },"s","Screen record: ","/usr/share/icons/buuf-icon-theme/36x36/Zimages/camera-video.png",{

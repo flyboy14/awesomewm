@@ -27,7 +27,7 @@ if not awful.util.file_readable(themes .. themename .. "/theme.lua") then
 end
 themedir      = themes .. themename
 
-wallpaper2    = themedir .. "/Wallpapers/nrw/wallpaper-2552963.jpg"
+wallpaper2    = themedir .. "/blackmage.jpg"
 wallpaper3    = sharedthemes .. "/zenburn/zenburn-background1.png"
 wallpaper4    = sharedthemes .. "/default/background.png"
 wpscript      = home .. "/.wallpaper"
