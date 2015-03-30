@@ -1083,7 +1083,7 @@ end)
             info    =   "- QtCreator"
         },
     })
-  keychains.add({ modkey }, "v", "Virtual-manager: ", iconsdir .. "/screen-lightblue.png",{
+  keychains.add({ modkey }, "v", "VirtualBox: ", iconsdir .. "/screen-lightblue.png",{
         d   =   {
             func    =   function()
                 awful.util.spawn("gksudo modprobe vboxdrv")
