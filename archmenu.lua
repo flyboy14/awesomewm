@@ -1,23 +1,16 @@
  local menubeceed89e397495003f6ff5a4d895d66 = {
+     {"Audacity", "audacity ", "/usr/share/icons/hicolor/16x16/apps/audacity.png" },
      {"Cheese", "cheese", "/usr/share/icons/hicolor/16x16/apps/cheese.png" },
      {"DeaDBeeF", "deadbeef ", "/usr/share/icons/hicolor/16x16/apps/deadbeef.png" },
-     {"Gmerlin KBD", "gmerlin_kbd_config", "/usr/share/icons/hicolor/48x48/apps/gmerlin-kbd.png" },
-     {"Gmerlin mixer", "gmerlin_alsamixer", "/usr/share/icons/hicolor/48x48/apps/gmerlin-alsamixer.png" },
-     {"Gmerlin player", "gmerlin", "/usr/share/icons/hicolor/48x48/apps/gmerlin-player.png" },
-     {"Gmerlin recorder", "gmerlin_recorder", "/usr/share/icons/hicolor/48x48/apps/gmerlin-recorder.png" },
-     {"Gmerlin transcoder", "gmerlin_transcoder", "/usr/share/icons/hicolor/48x48/apps/gmerlin-transcoder.png" },
-     {"Gmerlin visualizer", "gmerlin_visualizer", "/usr/share/icons/hicolor/48x48/apps/gmerlin-visualizer.png" },
      {"HDSPConf", "hdspconf", "/usr/share/pixmaps/hdspconf.png" },
      {"HDSPMixer", "hdspmixer", "/usr/share/pixmaps/hdspmixer.png" },
-     {"HandBrake", "ghb "},
      {"Kamerka", "kamerka", "/usr/share/pixmaps/kamerka.png" },
-     {"Kdenlive", "kdenlive  -caption Kdenlive ", "/usr/share/icons/hicolor/32x32/apps/kdenlive.png" },
      {"OpenShot Video Editor", "openshot ", "/usr/share/pixmaps/openshot.svg" },
-     {"PulseAudio Volume Control", "pavucontrol"},
+     {"PulseAudio Volume Control", "pavucontrol", "/usr/share/icons/gnome/16x16/apps/multimedia-volume-control.png" },
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"SimpleScreenRecorder", "simplescreenrecorder --logfile", "/usr/share/icons/hicolor/16x16/apps/simplescreenrecorder.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
-     {"Webcamoid", "webcamoid"},
+     {"Webcamoid", "webcamoid", "/usr/share/icons/gnome/16x16/devices/camera-web.png" },
      {"samowar", "/usr/bin/samowar", "///usr/share/samowar/icons/samowar.png" },
      {"Медиаплеер VLC", "/usr/bin/vlc --started-from-file ", "/usr/share/icons/hicolor/16x16/apps/vlc.png" },
  }
@@ -38,6 +31,7 @@
      {"Kega Fusion", "kega-fusion", "/usr/share/pixmaps/kega-fusion.png" },
      {"Left 4 Dead 2", "steam steam://rungameid/550", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
+     {"Teeworlds", "teeworlds", "/usr/share/pixmaps/teeworlds.png" },
  }
 
  local menu25385e702800d748c19cf6ea4f5811ec = {
@@ -45,6 +39,7 @@
      {"EiskaltDC++ Qt", "eiskaltdcpp-qt ", "/usr/share/icons/hicolor/16x16/apps/eiskaltdcpp.png" },
      {"Everpad", "everpad ", "/usr/share/icons/hicolor/128x128/apps/everpad.png" },
      {"Firefox", "/usr/lib/firefox/firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
+     {"GNOME PPP", "gnome-ppp", "/usr/share/icons/hicolor/48x48/apps/gnome-ppp.png" },
      {"Haguichi", "haguichi", "/usr/share/icons/hicolor/16x16/apps/haguichi.png" },
      {"Remmina", "remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
      {"Sigram", "Sigram", "/usr/share/pixmaps/sigram.png" },
@@ -60,8 +55,8 @@
      {"gFTP", "gftp ", "/usr/share/pixmaps/gftp.png" },
      {"wpa_gui", "wpa_gui", "/usr/share/pixmaps/wpa_gui.svg" },
      {"Клиент обмена мгновенными сообщениями Pidgin", "pidgin", "/usr/share/icons/hicolor/16x16/apps/pidgin.png" },
-     {"Навигатор Avahi по серверам SSH", "/usr/bin/bssh"},
-     {"Навигатор Avahi по серверам VNC", "/usr/bin/bvnc"},
+     {"Навигатор Avahi по серверам SSH", "/usr/bin/bssh", "/usr/share/icons/gnome/16x16/devices/network-wired.png" },
+     {"Навигатор Avahi по серверам VNC", "/usr/bin/bvnc", "/usr/share/icons/gnome/16x16/devices/network-wired.png" },
      {"Удаленный просмотр", "remote-viewer ", "/usr/share/icons/hicolor/16x16/apps/virt-viewer.png" },
  }
 
@@ -116,14 +111,14 @@
      {"Terminology", "terminology", "/usr/share/icons/terminology.png" },
      {"UNetbootin", "/usr/bin/unetbootin", "/usr/share/icons/hicolor/16x16/apps/unetbootin.png" },
      {"gtk2fontsel", "gtk2fontsel"},
-     {"urxvt", "urxvt"},
-     {"urxvt (client)", "urxvtc"},
-     {"urxvt (tabbed)", "urxvt-tabbed"},
+     {"urxvt", "urxvt", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
+     {"urxvt (client)", "urxvtc", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
+     {"urxvt (tabbed)", "urxvt-tabbed", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"Менеджер виртуальных машин", "virt-manager", "/usr/share/icons/hicolor/16x16/apps/virt-manager.png" },
-     {"Обозреватель Avahi Zeroconf", "/usr/bin/avahi-discover"},
+     {"Обозреватель Avahi Zeroconf", "/usr/bin/avahi-discover", "/usr/share/icons/gnome/16x16/devices/network-wired.png" },
      {"Редактор dconf", "dconf-editor", "/usr/share/icons/hicolor/16x16/apps/dconf-editor.png" },
      {"Редактор конфигурации", "gconf-editor", "/usr/share/icons/hicolor/16x16/apps/gconf-editor.png" },
-     {"Файловый менеджер PCManFM", "pcmanfm "},
+     {"Файловый менеджер PCManFM", "pcmanfm ", "/usr/share/icons/gnome/16x16/apps/system-file-manager.png" },
  }
 
  local menu91af6ed4e0be6a48ab48ec8b6e768568 = {
@@ -135,7 +130,7 @@
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
      {"Sublime Text", "subl ", "/usr/share/icons/hicolor/16x16/apps/sublime_text.png" },
      {"Менеджер архивов", "file-roller ", "/usr/share/icons/hicolor/16x16/apps/file-roller.png" },
-     {"Терминал", "exo-open --launch TerminalEmulator"},
+     {"Терминал", "exo-open --launch TerminalEmulator", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"Тест Elementary", "elementary_test", "/usr/share/icons/elementary.png" },
  }
 

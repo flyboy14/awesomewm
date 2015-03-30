@@ -80,31 +80,30 @@ end
 -- Useful Paths
 home = os.getenv("HOME")
 confdir = home .. "/.config/awesome"
-scriptdir = confdir .. "/scripts/"
-themes = confdir .. "/themes/"
+iconsdir = confdir .. "/icons/comicdee"
+themes = confdir .. "/themes"
+scripts = confdir .. "/scripts"
 active_theme = themes .. "/dremora"
 -- Themes define colours, icons, and wallpapers
 beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "urxvtc"
 browser = "firefox"
 editor = "subl"
 editor_cmd = terminal .. " -e " .. editor
-vbox_xp = "VirtualBox --startvm fc9df495-5bad-47f6-ac35-22f81c701f32"
-vbox_7 = "VirtualBox --startvm win7"
-musicplr = "mpd /home/master-p/.mpd/mpd.conf"
-sc_a = "guake -e \'sh ~/bin/screenshot-area.sh\'"
-sc_w = "sh ~/bin/screenshot-wind.sh"
-sc_r = "sh ~/bin/screenshot-root.sh"
-sc_r5 = "notify-send -i /usr/share/icons/buuf-icon-theme/36x36/Zimages/clock-border-green.png \"Screenshot in 5s\" && sleep 6s && sh ~/bin/screenshot-root.sh"
-volpa_up = "sh ~/bin/volnoti_pa.sh up"
-volpa_down = "sh ~/bin/volnoti_pa.sh down"
-volpa_mute = "sh ~/bin/volnoti_pa.sh mute"
-vol_up = "sh ~/bin/volnoti.sh up"
-vol_down = "sh ~/bin/volnoti.sh down"
-vol_mute = "sh ~/bin/volnoti.sh mute"
-translate = "sh /home/master-p/bin/translate.sh"
+musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
+sc_a = "guake -e \'sh " .. scripts .. "screenshot-area.sh\'"
+sc_w = "sh " .. scripts .. "/screenshot-wind.sh"
+sc_r = "sh " .. scripts .. "/screenshot-root.sh"
+sc_r5 = "sleep 5s && sh" .. scripts .. "/screenshot-root.sh"
+volpa_up = "sh " .. scripts .. "/volnoti_pa.sh up"
+volpa_down = "sh " .. scripts .. "/volnoti_pa.sh down"
+volpa_mute = "sh " .. scripts .. "/volnoti_pa.sh mute"
+vol_up = "sh " .. scripts .. "/volnoti.sh up"
+vol_down = "sh " .. scripts .. "/volnoti.sh down"
+vol_mute = "sh " .. scripts .. "/volnoti.sh mute"
+translate = "sh " .. scripts .. "/translate.sh"
 -- Default modkey.
 modkey = "Mod4"
 alt = "Mod1"
@@ -177,55 +176,55 @@ local layouts =
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
-myawesomemenu = {
-   { " edit", editor .. " " .. awesome.conffile, "/usr/share/icons/buuf-icon-theme/36x36/Zimages/clipboard.png" },
-   { " restart", awesome.restart, "/usr/share/icons/buuf-icon-theme/36x36/Zimages/media-circling-arrow.png" },
-   { " quit", "pkill --signal SIGKILL awesome", "/usr/share/icons/buuf-icon-theme/36x36/Zimages/media-no.png" }
+mmyawesomemenu = {
+   { " edit", editor .. " " .. awesome.conffile, iconsdir .. "/clipboard.png" },
+   { " restart", awesome.restart, iconsdir .. "/media-circling-arrow.png" },
+   { " quit", "pkill --signal SIGKILL awesome", iconsdir .. "/media-no.png" }
 }
 
 mybordermenu = {
-  {"  Borderlands II RUS", "optirun ~/Borderlands2/Borderlands2 -language=rus", "/home/master-p/Downloads/border_ru.png"},
-  {"  Borderlands II ENG", "optirun ~/Borderlands2/Borderlands2", "/home/master-p/Downloads/border_en.png"},
+  {"  Borderlands II RUS", "optirun " .. home .. "/Borderlands2/Borderlands2 -language=rus", iconsdir .. "/border_ru.png"},
+  {"  Borderlands II ENG", " optirun ".. home .. "/Borderlands2/Borderlands2", iconsdir .. "/border_en.png"},
 }
 
 mygamesmenu = {
    { "Borderlans II", mybordermenu },
-   { "  Вечное лето", "/home/master-p/Desktop/Everlasting Summer.desktop", "/home/master-p/.steam/steam/SteamApps/common/Everlasting Summer/Everlasting Summer.app/Contents/Resources/icon.icns" },
-   { "  Besiege", "/home/master-p/Besiege_v0.01_Linux/Besiege.x86_64", "/home/master-p/Downloads/besiege.png" },
-   { "  SPORE", "guake -e \"sh ~/bin/spore.sh\"", "/home/master-p/Downloads/spore.png" },
-   { "  WORMS Revolution", "guake -e \"sh ~/bin/worms.sh\"", "/home/master-p/Downloads/worms.png" },
-   { "  Xonotic", "/home/master-p/Xonotic/xonotic-linux64-sdl -basedir /home/master-p/Xonotic/", "/home/master-p/Xonotic/misc/logos/xonotic_icon.svg" },
-   { "  Kingdoms of Amalur", "guake -e \"sh ~/bin/KoA.sh\"", "/home/master-p/Downloads/koa.png" },
-   { "  The Cave", "guake -e \"optirun sh /home/master-p/TheCave/run_game.sh &\"", "/home/master-p/Downloads/the_cave.png" },
-   { "  Dota 2", "guake -e \"dota2\"", "/home/master-p/Downloads/dota2.png" },
-   { "  Battle.net", "guake -e \"sh ~/bin/Battlenet.sh\"", "/home/master-p/Downloads/Badge_battlenet.png" },
-   { "  Elegy for a Dead World", "guake -e \"sh ~/bin/Elegy.sh\"", "/home/master-p/Downloads/Elegy.ico" },
-   { "  Iesabel", "Iesabel/Iesabel/Iesabel.x86_64", "/home/master-p/Downloads/Iesabel-Logo.jpg" },
-   { "  Anomaly Warzone", "/home/master-p/AnomalyWarzoneEarth/AnomalyWarzoneEarth", "/home/master-p/AnomalyWarzoneEarth/icon.png" },
-   { "  Diablo II LoD", "wine /home/master-p/WINE/wineZ/drive_c/Games/D2/Game.exe", "/home/master-p/WINE/wineZ/drive_c/Games/D2/icone.ICO" },
+   { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
+   { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },
+   { "  SPORE", "guake -e 'sh" .. home .. "bin/spore.sh'", iconsdir .. "/spore.png" },
+   { "  WORMS Revolution", "guake -e 'sh " .. scripts .. "/worms.sh'", iconsdir .. "/worms.png" },
+   { "  Xonotic", home .. "/Xonotic/xonotic-linux64-sdl -basedir " .. home .. "/Xonotic/", iconsdir .. "/xonotic_icon.svg" },
+   { "  Kingdoms of Amalur", "guake -e 'sh " .. scripts .. "/KoA.sh'", iconsdir .. "/koa.png" },
+   { "  The Cave", "guake -e 'optirun sh " .. home .. "/TheCave/run_game.sh &'", iconsdir .. "/the_cave.png" },
+   { "  Dota 2", "guake -e 'dota2'", iconsdir .. "/dota2.png" },
+   { "  Battle.net", "guake -e 'sh " .. scripts .. "/Battlenet.sh'", iconsdir .. "/Badge_battlenet.png" },
+   { "  Elegy for a Dead World", "guake -e 'sh " .. scripts .. "/Elegy.sh'", iconsdir .. "/Elegy.ico" },
+   { "  Iesabel", "Iesabel/Iesabel/Iesabel.x86_64", iconsdir .. "/Iesabel-Logo.jpg" },
+   { "  Anomaly Warzone", "/home/master-p/AnomalyWarzoneEarth/AnomalyWarzoneEarth", iconsdir .. "/icon.png" },
+   { "  Diablo II LoD", "wine " .. home .. "/WINE/wineZ/drive_c/Games/D2/Game.exe", iconsdir .. "/icone.ICO" },
+   { "  teeworlds", "teeworlds", iconsdir .. "/redbopp.png" },
 
    }
 
 mytaskmenu = awful.menu({ items = {
-                                    { "Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen  end },
-                                    { "Close", function() client.focus:kill() end },
+                                    { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/screen-measure.png" },
+                                    { "  Close", function() client.focus:kill() end, iconsdir .. "/media-no-36.png" },
                                   }
                         })
 
 mymainmenu = awful.menu({ items = {
-                                    { "  Samowar (beta)", "samowar", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/musical-note-stripped.png" },
-                                    { "  KeePassX", "keepassx", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/lock.png"},
-                                    { "  Файлообменник", "wine /home/master-p/WINE/wineZ/drive_c/fayloobmennik.net.exe", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/mailbox-arrow-downup.png" },
-                                    { "  Расписание", "libreoffice /home/master-p/temp/raspis.xlsx", "/usr/share/icons/buuf-icon-theme/128x128/Zimages/key-p.png" },
+                                    { "  Samowar (beta)", "samowar", iconsdir .. "/musical-note-stripped.png" },
+                                    { "  KeePassX", "keepassx", iconsdir .. "/lock.png"},
+                                    { "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox-arrow-downup.png" },
+                                    { "  Расписание", "libreoffice " .. home .. "/temp/raspis.xlsx", iconsdir .. "/key-p.png" },
                                     { "Приложения", xdgmenu },
                                     { "Игры", mygamesmenu },
-                                    { "  Обои", "nitrogen", "/home/master-p/Downloads/greylink-dc.png" }
+                                    { "  Обои", "nitrogen", iconsdir .. "/greylink-dc.png" }
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = "/home/master-p/Downloads/tv_icon.gif",
---  mylauncher = awful.widget.launcher({ image = "/usr/share/icons/buuf-icon-theme/128x128/Zimages/flame.png",
-  	menu = mymainmenu})
+mylauncher = awful.widget.launcher({ image = iconsdir .. "/tv_icon.gif",
+    menu = mymainmenu})
 --mylauncher = awful.widget.launcher({ image = "/home/master-p/Downloads/starfallenwolf.gif", menu = mymainmenu })
 
 -- Colours
@@ -252,7 +251,7 @@ red = "<span color='#e54c62'>"
 memwidget = wibox.widget.textbox()
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
-vicious.register(memwidget, vicious.widgets.mem, "<span font=\"Visitor TT2 BRK 12\" color=\"#dedede\" rise=\"200\"> $2MB/$3MB </span>", 3)
+vicious.register(memwidget, vicious.widgets.mem, "<span font='Visitor TT2 BRK 12' color='#dedede' rise='200'> $2MB/$3MB </span>", 3)
 
 --awesompd
 
@@ -262,11 +261,11 @@ musicwidget.font_color = "#e54c62"
  musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
  musicwidget.output_size = 100 -- Set the size of widget in symbols
  musicwidget.update_interval = 1 -- Set the update interval in seconds
- musicwidget.path_to_icons = "/home/master-p/.config/awesome/awesompd/icons"
+ musicwidget.path_to_icons = confdir .. "/awesompd/icons"
  musicwidget.jamendo_format = awesompd.FORMAT_MP3
  musicwidget.show_album_cover = true
  musicwidget.album_cover_size = 50
- musicwidget.mpd_config = "/home/master-p/.mpd/mpd.conf"
+ musicwidget.mpd_config = home .. "/.mpd/mpd.conf"
  musicwidget.browser = "firefox"
 
  musicwidget.ldecorator = "<span color='#bebebe'> </span>"
@@ -343,14 +342,16 @@ function (widget, args)
   -- plugged
   if (batstate() == 'Cable plugged') then
     baticon:set_image(beautiful.widget_ac)
-    return '<span font="Visitor TT2 BRK 13"color="#46A8C3" rise="200">AC</span>'
+    return '<span font="Visitor TT2 BRK 13" color="#46A8C3" rise="200">AC</span>'
     -- critical
   elseif (args[2] <= 7 and batstate() == 'Discharging') then
     awful.util.spawn("systemctl suspend")
        elseif (args[2] >= 90) then
     baticon:set_image(beautiful.widget_battery_high)
   elseif (batstate() == 'Discharging' and args[2] <= 10) then
-awful.util.spawn("notify-send -i /usr/share/icons/buuf-icon-theme/48x48/Zimages/battery-red.png \"⚡ Внимание! ⚡\" \"Очень  мало энергии\"")
+    naughty.notify({ title = "⚡ Внимание! ⚡",
+                     text = "Очень  мало энергии",
+                     icon = iconsdir .. "/battery-red.png" })
   elseif (args[2] <= 15) then
     baticon:set_image(beautiful.widget_battery_empty)
   elseif (args[2] <= 25) then
@@ -360,14 +361,14 @@ awful.util.spawn("notify-send -i /usr/share/icons/buuf-icon-theme/48x48/Zimages/
  elseif (args[2] <= 70) then
     baticon:set_image(beautiful.widget_battery_mid)
   end
-   if (batstate() == 'Discharging') then return '<span font="Fixed 9" color="#e54c62" background="#121212">↓ <span font="Visitor TT2 BRK 12" rise="400">' .. args[2] .. '%</span></span>'
-   elseif (batstate() == 'Charging' and args[2] ~= 100) then return '<span font="Fixed 9" background="#121212" color="#7AC82E">↑ <span font="Visitor TT2 BRK 12" rise="400">' .. args[2] .. '%</span></span>'
-   else return '<span font="Fixed 9" color="#46A8C3" background="#121212">⚡ <span font="Visitor TT2 BRK 12" rise="400">' .. args[2] .. '%</span></span>' end
+   if (batstate() == 'Discharging') then return '<span font="Fixed 9" color="#e54c62" background="#121212" rise="400">↓ <span font="Visitor TT2 BRK 12" rise="800">' .. args[2] .. '%</span></span>'
+   elseif (batstate() == 'Charging' and args[2] ~= 100) then return '<span font="Fixed 9" background="#121212" color="#7AC82E" rise="400">↑ <span font="Visitor TT2 BRK 12" rise="800">' .. args[2] .. '%</span></span>'
+   else return '<span font="Fixed 9" color="#46A8C3" background="#121212" rise="400">⚡ <span font="Visitor TT2 BRK 12" rise="800">' .. args[2] .. '%</span></span>' end
 end, 1, 'BAT0')
 
 -- Keyboard layout widget
 kbdwidget = wibox.widget.textbox()
-kbdcolb = "<span rise=\"200\" font=\"Visitor TT2 BRK 13\" color=\"#dedede\">"
+kbdcolb = "<span rise='200' font='Visitor TT2 BRK 13' color='#dedede'>"
 kbdcole = "</span>"
 kbdwidget.border_width = 1
 kbdwidget.border_color = beautiful.fg_normal
@@ -403,34 +404,15 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  cpuwidget = wibox.widget.textbox()
  vicious.register(cpuwidget, vicious.widgets.cpu, '<span font="Visitor TT2 BRK 13" rise="300"> <span font="Visitor TT2 BRK 12" color="#46A8C3" >CPU <span color="#dedede">$1% </span></span></span>', 3)
 
--- /home fs widget
- fshicon = wibox.widget.imagebox()
- fshicon:set_image(beautiful.widget_hdd)
- fshwidget = wibox.widget.textbox()
- vicious.register(fshwidget, vicious.widgets.fs,
- function (widget, args)
-  if args["{/home used_p}"] >= 75 then
-    return '<span background="#121212" font="Visitor TT2 BRK 13" rise="300"> <span font="Visitor TT2 BRK 13" color="#FFA963">/home <span color="#dedede">' .. args["{/home used_p}"] .. '% </span></span></span>'
-  elseif args["{/home used_p}"] >= 97 and args["{/home used_p}"] <= 100 then
-    awful.util.spawn("notify-send -i /usr/share/icons/buuf-icon-theme/48x48/computercase-wrench.png \"Attenzione\" \"Partizione /home esaurita!\nFa' un po' di spazio.\"")
-    return '<span background="#121212" font="Visitor TT2 BRK 13" rise="300"> <span font="Visitor TT2 BRK 13" color="#e54c62">/home ' .. args["{/home used_p}"] .. '% </span></span>'
-  elseif args["{/home used_p}"] >= 50 then
-    return '<span background="#121212" font="Visitor TT2 BRK 13" rise="300"> <span font="Visitor TT2 BRK 13" color="#FFF389">/home ' .. args["{/home used_p}"] .. '% </span></span>'
-  else
-    return '<span background="#121212" font="Visitor TT2 BRK 13" rise="300"> <span font="Visitor TT2 BRK 13" color="#7AC82E">/home ' .. args["{/home used_p}"] .. '% </span></span>'
-  end
- end, 600)
-
--- Disk usage widget
-disk = require("diskusage")
--- the first argument is the widget to trigger the diskusage
--- the second/third is the percentage at which a line gets orange/red
--- true = show only local filesystems
-disk.addToWidget(cpuicon, 75, 90, false)
-
 -- Weather widget
 tempicon = wibox.widget.imagebox()
 tempicon:set_image(beautiful.widget_temp)
+   tempicon:connect_signal("mouse::enter", function(c)
+                                                 weatherwidget:show_notification()
+                                              end)
+   tempicon:connect_signal("mouse::leave", function(c)
+                                                 weatherwidget:hide_notification()
+                                              end)
 weatherwidget = wibox.widget.textbox()
    weatherwidget:connect_signal("mouse::enter", function(c)
                                                  weatherwidget:show_notification()
@@ -503,15 +485,51 @@ awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") en
 vicious.register(netwidget, vicious.widgets.net,'<span font="Visitor TT2 BRK 13" rise="200"> <span font="Visitor TT2 BRK 12" color="#7AC82E">${wlp3s0 down_kb}</span> <span font="fixed 8" color="#ddDDDD">↓ ↑</span> <span font="Visitor TT2 BRK 12" color="#46A8C3">${wlp3s0 up_kb} </span></span>', 3)
 neticon = wibox.widget.imagebox()
 neticon:set_image(beautiful.widget_net_high)
-neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("sudo systemctl restart wpa_supplicant@wlp3s0.service && notify-send \"wpa_supplicant restarted\"") end)))
+neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("sudo systemctl restart wpa_supplicant@wlp3s0.service") end, 
+ function () naughty.notify({ title = "wpa_supplicant",
+                     icon = iconsdir .. "/wrench-base.png",
+                     text = "Сервис перезапущен",
+                     timeout = 3 }) end
+ )))
 
 -- Separators
 face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 13">//\\(o.o_)/\\\\</span>')
 face:buttons(awful.util.table.join(
-awful.button({ }, 1, awesome.restart),
-awful.button({ }, 3, function ()
-awful.util.spawn_with_shell("notify-send '//\\(_o.o_)/\\\\' 'Wazzup!!'") end)
+awful.button({ }, 1, function () awful.util.spawn_with_shell("sh " .. scripts .. "/change_config.sh") end, awesome.restart),
+awful.button({ }, 3, function () naughty.notify({ 
+                     title = "//\\(_^___~_)/\\\\",
+                     font = "Fixed 90",
+                     height = 500,
+                     width = 1000,
+                     fg = "#bebebe",
+                     timeout = 1,
+                     text = "WAZZUUUUUUUUUUUUUUUUUUUUUUUUUP!!" })end)
         ))
+face:connect_signal("mouse::enter", function(c)
+                                                 face:show_notification()
+                                              end)
+face:connect_signal("mouse::leave", function(c)
+                                                 face:hide_notification()
+                                              end)
+function face:show_notification()
+   self:hide_notification()
+   self.notification = naughty.notify({
+          text       = "I have the power to change everything"
+          --, width    = 250
+          , timeout    = 0
+          , position   = "bottom_right"
+          , bg         = "#121212"
+          , fg         = "#dedede"
+                                     })
+end
+
+function face:hide_notification()
+   if self.notification ~= nil then
+      naughty.destroy(self.notification)
+      self.notification = nil
+   end
+end
+
 bral = wibox.widget.textbox('<span color="#949494">[ </span>')
 brar = wibox.widget.textbox('<span color="#949494"> ]</span>')
 spr = wibox.widget.textbox(' ')
@@ -550,9 +568,9 @@ gf:buttons(awful.util.table.join(awful.button(
 
 
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("<span color=\"#bebebe\"><span font=\"Visitor TT2 BRK 14\">%I:%M %p</span></span>")
- orglendar.files = { "$HOME/Documents/Notes/work.org",    -- Specify here all files you want to be parsed, separated by comma.
-                     "$HOME/Documents/Notes/home.org" }
+mytextclock = awful.widget.textclock("<span color='#bebebe'><span font='Visitor TT2 BRK 14'>%I:%M %p</span></span>")
+ orglendar.files = { home .. "/Documents/Notes/work.org",    -- Specify here all files you want to be parsed, separated by comma.
+                     home .. "/Documents/Notes/home.org" }
 orglendar.register(mytextclock)
 
 -- Create a wibox for each screen and add it
@@ -641,7 +659,6 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
     --left_layout:add(mylauncher)
-    left_layout:add(spr)
     left_layout:add(mytaglist[s])
     left_layout:add(mypromptbox[s])
     local left_w = wibox.layout.fixed.horizontal()
@@ -653,6 +670,7 @@ for s = 1, screen.count() do
     right_layout:add(bf)
     right_layout:add(gf)
     right_layout:add(yf)
+    right_layout:add(spr)
     right_layout:add(cpuicon)
     right_layout:add(cpuwidget)
     right_layout:add(arrl) 
@@ -678,7 +696,7 @@ for s = 1, screen.count() do
     right_layout:add(arrl)
     right_layout:add(tempicon)
     right_layout:add(weatherwidget) 
-    right_layout:add(arrl) 
+    right_layout:add(spr)
     right_layout:add(mytextclock)
     right_layout:add(spr)
     right_layout:add(mylayoutbox[s])
@@ -723,10 +741,23 @@ root.buttons(awful.util.table.join(
 
 
 globalkeys = awful.util.table.join(
-    awful.key({ }, "Print", function () awful.util.spawn_with_shell(sc_r) end),
-    awful.key({ "Control", }, "Print", function () awful.util.spawn_with_shell(sc_r5) end),
-    awful.key({ "Shift", }, "Print", function () awful.util.spawn_with_shell(sc_a) end),
-    awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end),
+    awful.key({ }, "Print", function () awful.util.spawn_with_shell(sc_r) end, function () naughty.notify({ text = "Shot taken",
+    icon = iconsdir .. "/camera.png",
+    timeout = 1.5 }) end),
+    awful.key({ "Control", }, "Print", function () naughty.notify({ text = "Taking shot in 5s",
+    icon = iconsdir .. "/clock-border-green.png" }) end,
+    function () awful.util.spawn_with_shell(sc_r5) end, 
+    function () naughty.notify({ text = "Shot taken",
+    icon = iconsdir .. "/camera.png",
+    timeout = 1.5 }) end),
+    awful.key({ "Shift", }, "Print", function () awful.util.spawn_with_shell(sc_a) end, 
+    function () naughty.notify({ text = "Shot taken",
+    icon = iconsdir .. "/camera.png",
+    timeout = 1.5 }) end),
+    awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end, 
+    function () naughty.notify({ text = "Taking shot",
+    icon = iconsdir .. "/camera.png",
+    timeout = 1.5 }) end),
     awful.key({ modkey }, "Tab", awful.client.restore),
     awful.key({ alt }, "Tab", function()
              local tag = awful.tag.selected()
@@ -777,8 +808,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
 
     --backlight control
-    awful.key({ modkey }, "Down", function () awful.util.spawn("xbacklight -dec 25") end),
-    awful.key({ modkey }, "Up", function () awful.util.spawn("xbacklight -inc 25") end),
+    awful.key({            }, "XF86MonBrightnessUp",  function () awful.util.spawn_with_shell("xbacklight -inc 25") end),
+    awful.key({            }, "XF86MonBrightnessDown",  function () awful.util.spawn_with_shell("xbacklight -dec 25") end),
 
            -- Volume control
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell(vol_up) end),
@@ -827,7 +858,14 @@ globalkeys = awful.util.table.join(
                                            mypromptbox[mouse.screen].widget,
                                            check_for_terminal,
                                            clean_for_completion,
-                                           awful.util.getdir("cache") .. "/history") end)
+                                           awful.util.getdir("cache") .. "/history") end),
+    awful.key({ modkey }, "F2",
+              function ()
+                  awful.prompt.run({ prompt = "Run Lua code:" },
+                  mypromptbox[mouse.screen].widget,
+                  awful.util.eval, nil,
+                  awful.util.getdir("cache") .. "/history_eval")
+              end)
 ) -- end
 
 clientkeys = awful.util.table.join(
@@ -900,7 +938,7 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
             { rule_any = { class = { "Virt-manager", "Remmina" } },
       properties = { tag = tags[1][5] } },
-            { rule_any = { class = { "Sonata", "Vlc", "Samowar" } },
+            { rule_any = { class = { "Sonata", "Vlc", "Samowar", "Deadbeef" } },
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
@@ -915,8 +953,8 @@ awful.rules.rules = {
             { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt" } },
       properties = { floating = true } },
             { rule_any = { class = { "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
-            "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Lightworks", "Pcmanfm", "Sonata", "Vlc", 
-            "Samowar", "Virt-manager", "Eiskaltdcpp" } },
+            "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Pcmanfm", "Sonata", "Vlc", 
+            "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity" } },
       properties = { border_width = 0 } },
@@ -999,7 +1037,7 @@ end)
 
 -- {{{ keychains
  keychains.init(globalkeys)
-  keychains.add({ modkey, },"r","Awesome: ","/usr/share/icons/buuf-icon-theme/36x36/Zimages/flower.png",{
+  keychains.add({ modkey, }, "r", "Awesome: ", iconsdir .. "/flower.png",{
         e   =   {
             func    =   function()
                 awful.util.spawn(editor .. " " .. awesome.conffile)
@@ -1017,7 +1055,7 @@ end)
             info    =   "- Quit"
         },
     })
-    keychains.add({ modkey },"i","IDE: ","/usr/share/icons/buuf-icon-theme/36x36/Zimages/lamp.png",{
+    keychains.add({ modkey }, "i", "IDE: ", iconsdir .. "/lamp.png",{
         e   =   {
             func    =   function()
                 awful.util.spawn("eclipse")
@@ -1043,30 +1081,36 @@ end)
             info    =   "- QtCreator"
         },
     })
-  keychains.add({ modkey },"v","Virtual-manager: ","/usr/share/icons/buuf-icon-theme/36x36/Zimages/screen-lightblue.png",{
+  keychains.add({ modkey }, "v", "Virtual-manager: ", iconsdir .. "/screen-lightblue.png",{
+        d   =   {
+            func    =   function()
+                awful.util.spawn("gksudo modprobe vboxdrv")
+            end,
+            info    =   "- load vboxdrv"
+        },
+        s   =   {
+            func    =   function()
+                awful.util.spawn("gksu systemctl start smbd")
+            end,
+            info    =   "- load samba service"
+        },
         x   =   {
             func    =   function()
-                awful.util.spawn("gksudo \"virsh start win8.1\"")
+                awful.util.spawn("virtualbox --startvm makakka_xp")
             end,
-            info    =   "- run windows 8.1"
+            info    =   "- start makakka_xp"
         },
         c   =   {
             func    =   function()
-                awful.util.spawn("virt-manager")
+                awful.util.spawn("virtualbox")
             end,
-            info    =   "- control panel"
-        },
-        d   =   {
-            func    =   function()
-                awful.util.spawn_with_shell("systemctl start smbd")
-            end,
-            info    =   "- samba service"
+            info    =   "- controls"
         },
     })
-  keychains.add({ modkey },"s","Screen record: ","/usr/share/icons/buuf-icon-theme/36x36/Zimages/camera-video.png",{
+  keychains.add({ modkey }, "s", "Screen record: ", iconsdir .. "/camera-video.png",{
         s   =   {
             func    =   function()
-                awful.util.spawn_with_shell("sh ~/bin/record_screen.sh")
+                awful.util.spawn_with_shell("sh " .. scripts .. "/record_screen.sh")
             end,
             info    =   "- Start recording"
         },

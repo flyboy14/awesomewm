@@ -880,7 +880,7 @@ function awesompd:notify_track_onstart()
          nf_text = self.get_extended_info(self.current_track)
          al_cover = self.current_track.album_cover
       end
-      self:show_notification(caption, nf_text, al_cover, 2)
+      self:show_notification(caption, nf_text, al_cover, 1)
    end
 end
 
