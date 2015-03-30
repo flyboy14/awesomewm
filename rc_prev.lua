@@ -83,7 +83,7 @@ confdir = home .. "/.config/awesome"
 iconsdir = confdir .. "/icons/comicdee"
 themes = confdir .. "/themes"
 scripts = confdir .. "/scripts"
-active_theme = themes .. "/dremora"
+active_theme = themes .. "/dark_grey"
 -- Themes define colours, icons, and wallpapers
 beautiful.init(active_theme .. "/theme.lua")
 
@@ -137,8 +137,8 @@ end
 
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, false)
-        --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+        --gears.wallpaper.maximized(beautiful.wallpaper, s, false)
+        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
     end
 end
 
@@ -268,16 +268,16 @@ musicwidget.font_color = "#e54c62"
  musicwidget.mpd_config = home .. "/.mpd/mpd.conf"
  musicwidget.browser = "firefox"
 
- musicwidget.ldecorator = "<span color='#bebebe'> </span>"
- musicwidget.rdecorator = "<span color='#bebebe'> </span>"
+ musicwidget.ldecorator = "<span font='Terminus 8'> "
+ musicwidget.rdecorator = " </span>"
  -- Set all the servers to work with (here can be any servers you use)
  musicwidget.servers = {
     { server = "localhost",
          port = 6600 },
           }
 musicwidget:register_buttons({ { "", awesompd.MOUSE_LEFT, musicwidget:command_toggle() },
-			         { "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
-			         { "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
+			         --{ "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
+			         --{ "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
 			         { "", awesompd.MOUSE_RIGHT, musicwidget:command_show_menu() },
 			         { "", "XF86AudioPlay", musicwidget:command_playpause() },
 			         { "", "XF86AudioNext", musicwidget:command_next_track() },

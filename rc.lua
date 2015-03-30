@@ -45,7 +45,7 @@ confdir = home .. "/.config/awesome"
 iconsdir = confdir .. "/icons/comicdee"
 themes = confdir .. "/themes"
 scripts = confdir .. "/scripts"
-active_theme = themes .. "/arrows"
+active_theme = themes .. "/color_arrows"
 -- Themes define colours, icons, and wallpapers
 beautiful.init(active_theme .. "/theme.lua")
 
