@@ -21,13 +21,13 @@ sharedicons   = shared .. "/icons"
 sharedthemes  = shared .. "/themes"
 themes        = config .. "/themes"
 themename     = "/color_arrows"
-walldir	      = home .. "/Pictures/Wallpapers"
+walldir	      = themes .. "/color_arrows"
 if not awful.util.file_readable(themes .. themename .. "/theme.lua") then
        themes = sharedthemes
 end
 themedir      = themes .. themename
 
-wallpaper2    = themedir .. "/Wallpapers/nrw/wallpaper-2552963.jpg"
+wallpaper2    = walldir .. "/wallpaper-2552963.jpg"
 wallpaper3    = sharedthemes .. "/zenburn/zenburn-background1.png"
 wallpaper4    = sharedthemes .. "/default/background.png"
 wpscript      = home .. "/.wallpaper"

@@ -1,6 +1,10 @@
 ##############################################################################################
 ### awesomewm v3.5.5-1 (works fine also in 3.6) 
 #
+### Requirments
+#
+# awesome(3.5.5 or higher), terminus-font, ttf-visitor, fortune-mod, curl, wget, kbdd
+#
 ### Includes
 - Two customized themes (color_arrows and dark_grey)
 #

@@ -28,7 +28,7 @@ end
 themedir      = themes .. themename
 
 wallpaper2    = themedir .. "/blackmagez.jpg"
-wallpaper3    = sharedthemes .. "/zenburn/zenburn-background1.png"
+wallpaper3    = themedir .. "/zenburn-background1.png"
 wallpaper4    = sharedthemes .. "/default/background.png"
 wpscript      = home .. "/.wallpaper"
 

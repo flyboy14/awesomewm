@@ -60,12 +60,9 @@ autorun = true
 autorunApps =
 {
    "sh ~/.config/autostart/autostart.sh",
-   --run_once("osmo"),
-   --run_cute("cutegram"),
    run_pcm("pcmanfm"),
    "volnoti -t 2",
    run_once("kbdd"),
-   --run_once("globonote"),
    "xcompmgr -f -D 4 -o 0.90 -c -S",
    --"xcowsay 'Moo, brother, moo.'"
 }
@@ -498,14 +495,9 @@ neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.uti
 face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 13">//\\(o.o_)/\\\\</span>')
 face:buttons(awful.util.table.join(
 awful.button({ }, 1, function () awful.util.spawn_with_shell("sh " .. scripts .. "/change_config.sh") end, awesome.restart),
-awful.button({ }, 3, function () naughty.notify({ 
-                     title = "//\\(_^___~_)/\\\\",
-                     font = "Fixed 90",
-                     height = 500,
-                     width = 1000,
-                     fg = "#bebebe",
-                     timeout = 1,
-                     text = "WAZZUUUUUUUUUUUUUUUUUUUUUUUUUP!!" })end)
+awful.button({ }, 3, function(c)
+                                                 face:show_notification()
+                                              end)
         ))
 face:connect_signal("mouse::enter", function(c)
                                                  face:show_notification()
