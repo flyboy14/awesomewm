@@ -90,7 +90,7 @@ browser = "firefox"
 editor = "subl"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
-sc_a = "guake -e \'sh " .. scripts .. "screenshot-area.sh\'"
+sc_a = "guake -e \'sh " .. scripts .. "/screenshot-area.sh\'"
 sc_w = "sh " .. scripts .. "/screenshot-wind.sh"
 sc_r = "sh " .. scripts .. "/screenshot-root.sh"
 sc_r5 = "sleep 5s && sh" .. scripts .. "/screenshot-root.sh"
@@ -134,8 +134,8 @@ end
 
 if beautiful.wallpaper then
     for s = 1, screen.count() do
-        --gears.wallpaper.maximized(beautiful.wallpaper, s, false)
-        gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+        gears.wallpaper.maximized(beautiful.wallpaper, s, false)
+        --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
     end
 end
 
@@ -444,8 +444,8 @@ vicious.register(weatherwidget, vicious.widgets.weather,
                       return '<span font="Visitor TT2 BRK 13" color="#dedede">:(</span>'
                     elseif args["{tempc}"] <= 0 then
                       return '<span font="Visitor TT2 BRK 13" color="#00FFD5">' .. args["{tempc}"] .. 'C</span>'
-                    elseif args["{tempc}"] <= 10 then
-                      return '<span font="Visitor TT2 BRK 13" color="#F8FF4E">+' .. args["{tempc}"] .. 'C</span>'
+                    elseif args["{tempc}"] <= 14 then
+                      return '<span font="Visitor TT2 BRK 13" color="#E4E876">+' .. args["{tempc}"] .. 'C</span>'
                     elseif args["{tempc}"] <= 30 then
                       return '<span font="Visitor TT2 BRK 13" color="#FFAF12">+' .. args["{tempc}"] .. 'C</span>'
                     end
@@ -748,10 +748,7 @@ globalkeys = awful.util.table.join(
     function () naughty.notify({ text = "Shot taken",
     icon = iconsdir .. "/camera.png",
     timeout = 1.5 }) end),
-    awful.key({ "Shift", }, "Print", function () awful.util.spawn_with_shell(sc_a) end, 
-    function () naughty.notify({ text = "Shot taken",
-    icon = iconsdir .. "/camera.png",
-    timeout = 1.5 }) end),
+    awful.key({ "Shift", }, "Print", function () awful.util.spawn_with_shell(sc_a) end),
     awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end, 
     function () naughty.notify({ text = "Taking shot",
     icon = iconsdir .. "/camera.png",
@@ -946,13 +943,13 @@ awful.rules.rules = {
       properties = { tag = tags[1][6] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
-            { rule_any = { class = { "Eiskaltdcpp", "Skype", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka" } },
+            { rule_any = { class = { "Eiskaltdcpp", "Skype", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][7] } },
-            { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt" } },
+            { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin" } },
       properties = { floating = true } },
             { rule_any = { class = { "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
             "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Pcmanfm", "Sonata", "Vlc", 
-            "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef" } },
+            "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "Pidgin" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity" } },
       properties = { border_width = 0 } },
@@ -1129,7 +1126,7 @@ end
 client.connect_signal("focus", function(c)
                               c.border_color = beautiful.border_focus
                               awful.util.spawn("sudo renice -n -1 -p " .. c.pid)
-                              c.opacity = 1
+                              --c.opacity = 1
                            end)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
