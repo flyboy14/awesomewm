@@ -60,12 +60,14 @@ sc_a = "guake -e \'sh " .. scripts .. "/screenshot-area.sh\'"
 sc_w = "sh " .. scripts .. "/screenshot-wind.sh"
 sc_r = "sh " .. scripts .. "/screenshot-root.sh"
 sc_r5 = "sleep 5s && sh " .. scripts .. "/screenshot-root.sh"
-volpa_up = "sh " .. scripts .. "/volnoti_pa.sh up"
-volpa_down = "sh " .. scripts .. "/volnoti_pa.sh down"
-volpa_mute = "sh " .. scripts .. "/volnoti_pa.sh mute"
-vol_up = "sh " .. scripts .. "/volnoti.sh up"
-vol_down = "sh " .. scripts .. "/volnoti.sh down"
-vol_mute = "sh " .. scripts .. "/volnoti.sh mute"
+volpa_up = "sh " .. scripts .. "/vol_pa.sh up"
+volpa_down = "sh " .. scripts .. "/vol_pa.sh down"
+volpa_mute = "sh " .. scripts .. "/vol_pa.sh mute"
+vol_up = "sh " .. scripts .. "/vol.sh up"
+vol_down = "sh " .. scripts .. "/vol.sh down"
+vol_mute = "sh " .. scripts .. "/vol.sh mute"
+bri_up = "sh " .. scripts .. "/bright.sh up"
+bri_down = "sh " .. scripts .. "/bright.sh down"
 translate = "sh " .. scripts .. "/translate.sh"
 -- Default modkey.
 modkey = "Mod4"
@@ -89,8 +91,7 @@ autorunApps =
 {
    "sh " .. home .. "/.config/autostart/autostart.sh",
    "xcompmgr -f -D 4 -o 0.90 -c -S",
-   "volnoti -t 2",
-   "pidgin",
+   run_once("pidgin"),
    run_rvxt("urxvtd"),
    run_pcm("pcmanfm"),
    run_once("kbdd"),
@@ -128,13 +129,13 @@ end
 
 -- {{{ Wallpaper
 
--- if beautiful.wallpaper then
---     for s = 1, screen.count() do
---         gears.wallpaper.maximized(beautiful.wallpaper, s, false)
---         --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
---     end
--- end
-awful.util.spawn_with_shell("sh " .. scripts .. "/nitrogen.sh")
+if beautiful.wallpaper then
+    for s = 1, screen.count() do
+        gears.wallpaper.maximized(beautiful.wallpaper, s, false)
+        --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+    end
+end
+--awful.util.spawn_with_shell("sh " .. scripts .. "/nitrogen.sh")
 
 -- }}}
 
@@ -423,6 +424,11 @@ function weatherwidget:hide_notification()
       self.notification = nil
    end
 end
+
+function show_volume(teext, icoon, tiimeout)
+   naughty.destroy(noti)
+   noti = naughty.notify{text = teext, icon = icoon, timeout = tiimeout}
+ end
 
 
 weather_t = naughty.notify({ objects = { weatherwidget }, text = texto})
@@ -814,8 +820,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
 
     --backlight control
-    awful.key({            }, "XF86MonBrightnessUp",  function () awful.util.spawn_with_shell("xbacklight -inc 25") end),
-    awful.key({            }, "XF86MonBrightnessDown",  function () awful.util.spawn_with_shell("xbacklight -dec 25") end),
+    awful.key({            }, "XF86MonBrightnessUp",  function () awful.util.spawn_with_shell(bri_up) end),
+    awful.key({            }, "XF86MonBrightnessDown",  function () awful.util.spawn_with_shell(bri_down) end),
 
            -- Volume control
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell(vol_up) end),

@@ -44,34 +44,6 @@ do
     end)
 end
 
--- }}}
--- Autorun programs
-
-function run_once(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
-end
-function run_pcm(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "pcmanfm -d" .. ")")
-end
-function run_cute(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "sleep 10s && cutegram" .. ")")
-end
-autorun = true
-autorunApps =
-{
-   "sh ~/.config/autostart/autostart.sh",
-   run_pcm("pcmanfm"),
-   "volnoti -t 2",
-   run_once("kbdd"),
-   "xcompmgr -f -D 4 -o 0.90 -c -S",
-   --"xcowsay 'Moo, brother, moo.'"
-}
-if autorun then
-   for app = 1, #autorunApps do
-      awful.util.spawn_with_shell(autorunApps[app])
-   end
-end
-
 -- {{{ Variable definitions
 
 -- Useful Paths
@@ -90,21 +62,51 @@ browser = "firefox"
 editor = "subl"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
-sc_a = "guake -e \'sh " .. scripts .. "/screenshot-area.sh\'"
+sc_a = "guake -e \'sh " .. scripts .. "/screenshot-area.sh"
 sc_w = "sh " .. scripts .. "/screenshot-wind.sh"
 sc_r = "sh " .. scripts .. "/screenshot-root.sh"
 sc_r5 = "sleep 5s && sh" .. scripts .. "/screenshot-root.sh"
-volpa_up = "sh " .. scripts .. "/volnoti_pa.sh up"
-volpa_down = "sh " .. scripts .. "/volnoti_pa.sh down"
-volpa_mute = "sh " .. scripts .. "/volnoti_pa.sh mute"
-vol_up = "sh " .. scripts .. "/volnoti.sh up"
-vol_down = "sh " .. scripts .. "/volnoti.sh down"
-vol_mute = "sh " .. scripts .. "/volnoti.sh mute"
+volpa_up = "sh " .. scripts .. "/vol_pa.sh up"
+volpa_down = "sh " .. scripts .. "/vol_pa.sh down"
+volpa_mute = "sh " .. scripts .. "/vol_pa.sh mute"
+vol_up = "sh " .. scripts .. "/vol.sh up"
+vol_down = "sh " .. scripts .. "/vol.sh down"
+vol_mute = "sh " .. scripts .. "/vol.sh mute"
+bri_up = "sh " .. scripts .. "/bright.sh up"
+bri_down = "sh " .. scripts .. "/bright.sh down"
 translate = "sh " .. scripts .. "/translate.sh"
 -- Default modkey.
 modkey = "Mod4"
 alt = "Mod1"
 -- }}}
+
+-- }}}
+-- Autorun programs
+
+function run_once(prg)
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
+end
+function run_pcm(prg)
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "pcmanfm -d" .. ")")
+end
+function run_cute(prg)
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "sleep 10s && cutegram" .. ")")
+end
+autorun = true
+autorunApps =
+{
+   "sh " .. home .. "/.config/autostart/autostart.sh",
+   run_pcm("pcmanfm"),
+   run_once("pidgin"),
+   run_once("kbdd"),
+   "xcompmgr -f -D 4 -o 0.90 -c -S",
+   --"xcowsay 'Moo, brother, moo.'"
+}
+if autorun then
+   for app = 1, #autorunApps do
+      awful.util.spawn_with_shell(autorunApps[app])
+   end
+end
 
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
 function check_for_terminal (command)
@@ -138,8 +140,10 @@ end
 --         --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
 --     end
 -- end
-awful.util.spawn_with_shell("sh " .. scripts .. "/nitrogen.sh")
-
+local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file | sed 's/'file='//g'") 
+local wpaper = f:read() 
+f:close()  
+gears.wallpaper.maximized(wpaper,s,false)
 -- }}}
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -340,14 +344,13 @@ function (widget, args)
   -- plugged
   if (batstate() == 'Cable plugged') then
     baticon:set_image(beautiful.widget_ac)
-    return '<span font="Visitor TT2 BRK 13" color="#46A8C3" rise="200">AC</span>'
+    return '<span background="#92B0A0" font="Fixed 14" rise="1000"><span rise="1600" font="Visitor TT2 BRK 13"color="#46A8C3" rise="1600">AC</span></span>'
     -- critical
-  elseif (args[2] <= 7 and batstate() == 'Discharging') then
+  elseif (args[2] <= 5 and batstate() == 'Discharging') then
+    baticon:set_image(beautiful.widget_battery_empty)
     awful.util.spawn("systemctl suspend")
-       elseif (args[2] >= 90) then
-    baticon:set_image(beautiful.widget_battery_high)
-  elseif (batstate() == 'Discharging' and args[2] <= 10) then
-    naughty.notify({ title = "⚡ Внимание! ⚡",
+      elseif (batstate() == 'Discharging' and args[2] <= 10) then
+        naughty.notify({ title = "⚡ Внимание! ⚡",
                      text = "Очень  мало энергии",
                      icon = iconsdir .. "/battery-red.png" })
   elseif (args[2] <= 15) then
@@ -438,13 +441,18 @@ function weatherwidget:hide_notification()
    end
 end
 
+function show_smth(teext, icoon)
+   naughty.destroy(noti)
+   noti = naughty.notify{text = teext, icon = icoon, timeout = 2}
+ end
+
 vicious.register(weatherwidget, vicious.widgets.weather,
                 function (widget, args)
                     weather_t = "City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%"
                     if args["{tempc}"] == "N/A" then
                       return '<span font="Visitor TT2 BRK 13" color="#dedede">:(</span>'
                     elseif args["{tempc}"] <= 0 then
-                      return '<span font="Visitor TT2 BRK 13" color="#00FFD5">' .. args["{tempc}"] .. 'C</span>'
+                      return '<span font="Visitor TT2 BRK 13" color="#69E0CC">' .. args["{tempc}"] .. 'C</span>'
                     elseif args["{tempc}"] <= 14 then
                       return '<span font="Visitor TT2 BRK 13" color="#E4E876">+' .. args["{tempc}"] .. 'C</span>'
                     elseif args["{tempc}"] <= 30 then
@@ -804,8 +812,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "r", awesome.restart),
 
     --backlight control
-    awful.key({            }, "XF86MonBrightnessUp",  function () awful.util.spawn_with_shell("xbacklight -inc 25") end),
-    awful.key({            }, "XF86MonBrightnessDown",  function () awful.util.spawn_with_shell("xbacklight -dec 25") end),
+    awful.key({            }, "XF86MonBrightnessUp",  function () awful.util.spawn_with_shell(bri_up) end),
+    awful.key({            }, "XF86MonBrightnessDown",  function () awful.util.spawn_with_shell(bri_down) end),
 
            -- Volume control
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell(vol_up) end),
@@ -813,6 +821,7 @@ globalkeys = awful.util.table.join(
     awful.key({modkey}, "Right", function () awful.util.spawn_with_shell(volpa_up) end),
     awful.key({modkey}, "Left", function () awful.util.spawn_with_shell(volpa_down) end),
     awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(vol_mute) end),
+    awful.key({ modkey }, "Control","m", function () awful.util.spawn_with_shell(vol_mute) end),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
@@ -932,7 +941,7 @@ awful.rules.rules = {
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-            { rule_any = { class = { "Virt-manager", "Remmina" } },
+            { rule_any = { class = { "Virt-manager", "Remmina", "VirtualBox" } },
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Sonata", "Vlc", "Samowar", "Deadbeef" } },
       properties = { tag = tags[1][4] } },
@@ -950,7 +959,7 @@ awful.rules.rules = {
       properties = { floating = true } },
             { rule_any = { class = { "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
             "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Pcmanfm", "Sonata", "Vlc", 
-            "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "Pidgin" } },
+            "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "Pidgin", "VirtualBox" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity" } },
       properties = { border_width = 0 } },
