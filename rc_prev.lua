@@ -128,12 +128,13 @@ end
 
 -- {{{ Wallpaper
 
-if beautiful.wallpaper then
-    for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, false)
-        --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
-    end
-end
+-- if beautiful.wallpaper then
+--     for s = 1, screen.count() do
+--         gears.wallpaper.maximized(beautiful.wallpaper, s, false)
+--         --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+--     end
+-- end
+awful.util.spawn_with_shell("sh " .. scripts .. "/nitrogen.sh")
 
 -- }}}
 

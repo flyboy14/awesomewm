@@ -1,10 +1,10 @@
 -- Standard awesome library
-local gears = require("gears")
-local awful = require("awful")
+gears = require("gears")
+awful = require("awful")
 awful.rules = require("awful.rules")
 require("awful.autofocus")
 local wibox = require("wibox")
-local beautiful = require("beautiful")
+beautiful = require("beautiful")
 vicious = require("vicious")
 local awesompd = require("awesompd/awesompd")
 naughty = require("naughty")
@@ -132,12 +132,13 @@ end
 
 -- {{{ Wallpaper
 
-if beautiful.wallpaper then
-    for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, false)
-        --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
-    end
-end
+-- if beautiful.wallpaper then
+--     for s = 1, screen.count() do
+--         gears.wallpaper.maximized(beautiful.wallpaper, s, false)
+--         --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+--     end
+-- end
+awful.util.spawn_with_shell("sh " .. scripts .. "/nitrogen.sh")
 
 -- }}}
 
