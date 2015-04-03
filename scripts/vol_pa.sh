@@ -27,7 +27,7 @@ esac
 VOLUME=$($SETVOL --get-volume)
 STATE=$($SETVOL --get-mute)
 if [[ "$STATE" == "true" ]]; then
-  echo 'show_smth("'$VOLUME'", "", "'$HOME/.config/awesome/themes/dark_grey/icons/vol_muted_x16.png'", 2)' | awesome-client 
+  echo 'show_smth("", "", "'$HOME/.config/awesome/themes/dark_grey/icons/vol_muted_x16.png'", 2)' | awesome-client 
 else
 if [ $VOLUME == "0" ]; then
   echo 'show_smth("", "", "'$HOME/.config/awesome/themes/dark_grey/icons/vol_0_x16.png'", 2)' | awesome-client  

@@ -141,7 +141,7 @@ end
 --     end
 -- end
 local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file | sed 's/'file='//g'") 
-local wpaper = f:read() 
+local wpaper = f:read() or beautiful.wallpaper
 f:close()  
 gears.wallpaper.maximized(wpaper,s,false)
 -- }}}
