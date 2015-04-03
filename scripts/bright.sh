@@ -16,14 +16,14 @@ esac
 VALUE=$(cat /sys/class/backlight/intel_backlight/brightness)
 
 if [ "$VALUE" == "0" ]; then
-  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_0_x16.png'")' | awesome-client  
+  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_0_x16.png'", 2)' | awesome-client  
 elif [ $VALUE -lt 1110 ]; then
-  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_25_x16.png'")' | awesome-client 
+  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_25_x16.png'", 2)' | awesome-client 
 elif [ $VALUE -lt 2219 ]; then
-  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_50_x16.png'")' | awesome-client 
+  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_50_x16.png'", 2)' | awesome-client 
 elif [ $VALUE -lt 3328 ]; then
-  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_75_x16.png'")' | awesome-client
+  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_75_x16.png'", 2)' | awesome-client
 elif [ $VALUE -lt 4438 ]; then
-  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_100_x16.png'")' | awesome-client  
+  echo 'show_smth("", "'$HOME/.config/awesome/themes/dark_grey/icons/bri_100_x16.png'", 2)' | awesome-client  
 fi
 exit 0

@@ -168,14 +168,14 @@ end
 
 function awesompd.load_icons(path)
    awesompd.ICONS = {}
-   awesompd.ICONS.PLAY = awesompd.try_load(path .. "/play_icon.png")
-   awesompd.ICONS.PAUSE = awesompd.try_load(path .. "/pause_icon.png")
+   awesompd.ICONS.PLAY = awesompd.try_load(path .. "/play_icon.svg")
+   awesompd.ICONS.PAUSE = awesompd.try_load(path .. "/pause_icon.svg")
    awesompd.ICONS.PLAY_PAUSE = awesompd.try_load(path .. "/play_pause_icon.png")
-   awesompd.ICONS.STOP = awesompd.try_load(path .. "/stop_icon.png")
-   awesompd.ICONS.NEXT = awesompd.try_load(path .. "/next_icon.png")
-   awesompd.ICONS.PREV = awesompd.try_load(path .. "/prev_icon.png")
-   awesompd.ICONS.CHECK = awesompd.try_load(path .. "/check_icon.png")
-   awesompd.ICONS.RADIO = awesompd.try_load(path .. "/radio_icon.png")
+   awesompd.ICONS.STOP = awesompd.try_load(path .. "/stop_icon.svg")
+   awesompd.ICONS.NEXT = awesompd.try_load(path .. "/next_icon.svg")
+   awesompd.ICONS.PREV = awesompd.try_load(path .. "/prev_icon.svg")
+   awesompd.ICONS.CHECK = awesompd.try_load(path .. "/check_icon.svg")
+   awesompd.ICONS.RADIO = awesompd.try_load(path .. "/radio_icon.svg")
    awesompd.ICONS.DEFAULT_ALBUM_COVER = 
       awesompd.try_load(path .. "/default_album_cover.png")
 end

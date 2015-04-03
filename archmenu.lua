@@ -97,7 +97,6 @@
      {"Emacs", "emacs ", "/usr/share/icons/hicolor/16x16/apps/emacs.png" },
      {"Glade", "glade ", "/usr/share/icons/hicolor/16x16/apps/glade.png" },
      {"IPython Qt console", "ipython qtconsole", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
-     {"Modelio", "/opt/modelio-open/modelio ", "///opt/modelio-open/icon.xpm" },
      {"Netbeans-javaee-nightly", "netbeans-javaee-nightly", "/usr/share/pixmaps/netbeans-javaee-nightly.png" },
      {"OpenJDK Monitoring & Management Console", "/usr/bin/jconsole", "/usr/share/icons/hicolor/16x16/apps/java.png" },
      {"OpenJDK Policy Tool", "/usr/bin/policytool", "/usr/share/icons/hicolor/16x16/apps/java.png" },
