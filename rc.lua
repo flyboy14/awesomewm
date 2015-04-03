@@ -420,7 +420,6 @@ weatherwidget = wibox.widget.textbox()
                                                  hide_smth()
                                               end)
 
-weather_t = naughty.notify({ objects = { weatherwidget }, text = texto})
 vicious.register(weatherwidget, vicious.widgets.weather,
                 function (widget, args)                   
                     weather_t = "City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%"
@@ -734,20 +733,14 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 
 globalkeys = awful.util.table.join(
-    awful.key({ }, "Print", function () awful.util.spawn_with_shell(sc_r) end, function () naughty.notify({ text = "Shot taken",
-    icon = iconsdir .. "/camera.svg",
-    timeout = 1.5 }) end),
-    awful.key({ "Control", }, "Print", function () naughty.notify({ text = "Taking shot in 5s",
-    icon = iconsdir .. "/clock.svg" }) end,
+    awful.key({ }, "Print", function () awful.util.spawn_with_shell(sc_r) end, function () show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end),
+    awful.key({ "Control", }, "Print", function () show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil ) end,
     function () awful.util.spawn_with_shell(sc_r5) end, 
-    function () naughty.notify({ text = "Shot taken",
-    icon = iconsdir .. "/camera.svg",
-    timeout = 1.5 }) end),
-    awful.key({ "Shift", }, "Print", function () awful.util.spawn_with_shell(sc_a) end),
+    function () show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end),
+    awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end, 
+      function () awful.util.spawn_with_shell(sc_a) end),
     awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end, 
-    function () naughty.notify({ text = "Taking shot",
-    icon = iconsdir .. "/camera.svg",
-    timeout = 1.5 }) end),
+      function() show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil )end),
     awful.key({ modkey }, "Tab", awful.client.restore),
     awful.key({ alt }, "Tab", function ()
              local tag = awful.tag.selected()
