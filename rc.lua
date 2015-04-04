@@ -84,7 +84,7 @@ alt = "Mod1"
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
    --naughty.destroy(noti)
-   noti = naughty.notify{title = tiitle or "", text = teext or "", icon = icoon or "", timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right" }
+   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right" }
  end
 
  function hide_smth()
@@ -424,14 +424,14 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
 tempicon = wibox.widget.imagebox()
 tempicon:set_image(beautiful.widget_temp)
    tempicon:connect_signal("mouse::enter", function()
-                                                 show_smth(nil, weather_t, nil, 0, "#6F766E", "#dedede", nil, nil)
+                                                 show_smth(nil, weather_t, nil, 0, nil, nil, nil, nil)
                                               end)
    tempicon:connect_signal("mouse::leave", function(c)
                                                  hide_smth()
                                               end)
 weatherwidget = wibox.widget.textbox()
    weatherwidget:connect_signal("mouse::enter", function()
-                                                 show_smth(nil, weather_t, nil, 0, "#6F766E", "#dedede", nil, nil)
+                                                 show_smth(nil, weather_t, nil, 0, nil, nil, nil, nil)
                                               end)
    weatherwidget:connect_signal("mouse::leave", function()
                                                  hide_smth()
