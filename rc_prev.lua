@@ -78,7 +78,7 @@ alt = "Mod1"
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
    --naughty.destroy(noti)
-   noti = naughty.notify{title = tiitle or "", text = teext or "", icon = icoon or "", timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right" }
+   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right" }
  end
 
  function hide_smth()
@@ -323,14 +323,19 @@ baticon = wibox.widget.imagebox()
 baticon:set_image(beautiful.widget_battery)
 
 function batstate()
-
+  local batstate = nil
+  local temp_batstate = batstate
+  local state_changed = 0
   local file = io.open("/sys/class/power_supply/BAT0/status", "r")
 
   if (file == nil) then
     return "Cable plugged"
   end
 
-  local batstate = file:read("*line")
+  batstate = file:read("*line")
+  if (temp_batstate ~= batstate) then
+    state_changed = 1
+  end
   file:close()
 
   if (batstate == 'Discharging' or batstate == 'Charging') then
@@ -341,15 +346,19 @@ function batstate()
 end
 
 batwidget = wibox.widget.textbox()
-batwidget:connect_signal("mouse::enter", function() awful.util.spawn_with_shell("sh " .. scripts .. "/bright_color.sh") end)
-batwidget:connect_signal("mouse::leave", function(c)
+batwidget:connect_signal("mouse::enter", function() awful.util.spawn_with_shell("sh " .. scripts .. "/bright_color.sh none") end)
+batwidget:connect_signal("mouse::leave", function()
                                                  hide_smth()
                                               end)
 vicious.register(batwidget, vicious.widgets.bat,
 function (widget, args)
-  -- plugged
+-- plugged
   if (batstate() == 'Cable plugged') then
     baticon:set_image(beautiful.widget_ac)
+    if (state_changed == 1) then
+    show_smth(nil, "Кабель подключён", beautiful.widget_ac, 2, "#C2C2A4", "#474C3B", nil, nil)
+    state_changed = 0
+  end
     return '<span background="#92B0A0" font="Fixed 14" rise="1000"><span rise="1600" font="Visitor TT2 BRK 13"color="#46A8C3" rise="1600">AC</span></span>'
     -- critical
   elseif (args[2] <= 5 and batstate() == 'Discharging') then
@@ -368,9 +377,20 @@ function (widget, args)
  elseif (args[2] >= 90) then
     baticon:set_image(beautiful.widget_battery_high)
   end
-   if (batstate() == 'Discharging') then return '<span background="#C2C2A4" color="#A42929" font="Fixed 14"> <span rise="1000" font="Fixed 9">↓ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
-   elseif (batstate() == 'Charging' and args[2] ~= 100) then return '<span background="#C2C2A4" font="Fixed 14"> <span font="Fixed 9"  rise="1000" color="#006D00">↑ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
-   else return '<span background="#C2C2A4" font="Fixed 14" color="#004949"> <span font="Fixed 9"  rise="1000">⚡ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>' end
+   if (batstate() == 'Discharging') then
+       if (state_changed == 1) then
+    show_smth(nil, "Кабель отключён", beautiful.widget_ac, 2, "#C2C2A4", "#474C3B", nil, nil)
+    state_changed = 0
+    end 
+    return '<span background="#C2C2A4" color="#A42929" font="Fixed 14"> <span rise="1000" font="Fixed 9">↓ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
+   elseif (batstate() == 'Charging' and args[2] ~= 100) then
+       if (state_changed == 1) then
+    show_smth(nil, "Кабель подключён", beautiful.widget_ac, 2, "#C2C2A4", "#474C3B", nil, nil)
+    state_changed = 0 
+  end
+    return '<span background="#C2C2A4" font="Fixed 14"> <span font="Fixed 9"  rise="1000" color="#006D00">↑ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
+   else 
+    return '<span background="#C2C2A4" font="Fixed 14" color="#004949"> <span font="Fixed 9"  rise="1000">⚡ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>' end
 end, 1, 'BAT0')
 
 -- Keyboard layout widget
@@ -923,7 +943,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Atom", "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Lightworks" } },
+            { rule_any = { class = { "Atom", "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Lightworks", "Openshot" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
       properties = { tag = tags[1][6] }, },

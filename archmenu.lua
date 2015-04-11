@@ -7,6 +7,7 @@
      {"Kamerka", "kamerka", "/usr/share/pixmaps/kamerka.png" },
      {"OpenShot Video Editor", "openshot ", "/usr/share/pixmaps/openshot.svg" },
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
+     {"Shotcut", "shotcut-bin", "/usr/share/pixmaps/shotcut.png" },
      {"SimpleScreenRecorder", "simplescreenrecorder --logfile", "/usr/share/icons/hicolor/16x16/apps/simplescreenrecorder.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
      {"samowar", "/usr/bin/samowar", "///usr/share/samowar/icons/samowar.png" },
@@ -50,7 +51,7 @@
  local menu25385e702800d748c19cf6ea4f5811ec = {
      {"EiskaltDC++ Qt", "eiskaltdcpp-qt ", "/usr/share/icons/hicolor/16x16/apps/eiskaltdcpp.png" },
      {"Everpad", "everpad ", "/usr/share/icons/hicolor/128x128/apps/everpad.png" },
-     {"Firefox", "/usr/lib/firefox/firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
+     {"Firefox", "firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
      {"GNOME PPP", "gnome-ppp", "/usr/share/icons/hicolor/48x48/apps/gnome-ppp.png" },
      {"Haguichi", "haguichi", "/usr/share/icons/hicolor/16x16/apps/haguichi.png" },
      {"Remmina", "remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
