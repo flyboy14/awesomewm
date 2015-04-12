@@ -102,7 +102,7 @@ autorunApps =
 {
    "sh " .. home .. "/.config/autostart/autostart.sh",
    "xcompmgr -f -D 4 -o 0.90 -c -S",
-   run_once("pidgin"),
+   --run_once("pidgin"),
    run_rvxt("urxvtd"),
    run_pcm("pcmanfm"),
    run_once("kbdd"),

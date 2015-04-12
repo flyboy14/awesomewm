@@ -109,7 +109,7 @@ autorunApps =
    "sh " .. home .. "/.config/autostart/autostart.sh",
    "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
-   run_once("pidgin"),
+   --run_once("pidgin"),
    run_once("kbdd"),
    "xcompmgr -f -D 4 -o 0.90 -c -S",
    --"xcowsay 'Moo, brother, moo.'"
@@ -947,7 +947,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Atom", "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Lightworks", "Openshot" } },
+            { rule_any = { class = { "Atom", "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "Clion", "Lightworks", "Shotcut", "Openshot" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
       properties = { tag = tags[1][6] }, },
