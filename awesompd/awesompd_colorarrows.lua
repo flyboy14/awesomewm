@@ -898,7 +898,7 @@ function awesompd:notify_state(state_changed)
    for i = 2, #state_array do
       full_state = full_state .. "\n" .. state_array[i]
    end
-   self:show_notification(state_header, full_state, 1)
+   self:show_notification(state_header, full_state, nil, 2.5)
 end
 
 function awesompd:wrap_output(text)

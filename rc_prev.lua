@@ -281,8 +281,8 @@ musicwidget.font_color = "#DBCFE0"
          port = 6600 },
           }
 musicwidget:register_buttons({ { "", awesompd.MOUSE_LEFT, musicwidget:command_toggle() },
-			         --{ "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
-			         --{ "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
+			         { "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
+			         { "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
 			         { "", awesompd.MOUSE_RIGHT, musicwidget:command_show_menu() },
 			         { "", "XF86AudioPlay", musicwidget:command_playpause() },
 			         { "", "XF86AudioNext", musicwidget:command_next_track() },
@@ -346,10 +346,6 @@ function batstate()
 end
 
 batwidget = wibox.widget.textbox()
-batwidget:connect_signal("mouse::enter", function() awful.util.spawn_with_shell("sh " .. scripts .. "/bright_color.sh none") end)
-batwidget:connect_signal("mouse::leave", function()
-                                                 hide_smth()
-                                              end)
 vicious.register(batwidget, vicious.widgets.bat,
 function (widget, args)
 -- plugged
@@ -758,7 +754,7 @@ globalkeys = awful.util.table.join(
     awful.key({ "Control", }, "Print", function () show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil ) end,
     function () awful.util.spawn_with_shell(sc_r5) end, 
     function () show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end),
-    awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end, 
+    awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/screen-measure.svg", 1.5, nil, nil, nil, nil ) end, 
       function () awful.util.spawn_with_shell(sc_a) end),
     awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end, 
       function() show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil )end),
@@ -905,6 +901,7 @@ for i = 1, 9 do
                           local tag = awful.tag.gettags(client.focus.screen)[i]
                           if tag then
                               awful.client.movetotag(tag)
+                               awful.tag.viewonly(tag)
                           end
                      end
                   end),
@@ -1135,6 +1132,6 @@ client.connect_signal("focus", function(c)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
                                 --awful.util.spawn("sudo renice -n 1 -p " .. c.pid)
-                                --c.opacity = 0.7
+                                c.opacity = 1
                              end)
 -- }}}

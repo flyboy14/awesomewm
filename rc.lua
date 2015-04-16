@@ -83,7 +83,6 @@ alt = "Mod1"
 
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
-   --naughty.destroy(noti)
    noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or nil, timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right" }
  end
 
@@ -220,9 +219,20 @@ mygamesmenu = {
 
    }
 
+myworkspacemenu = {
+                                    { "Home", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[1] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Browse", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[2] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Work", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[3] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Media", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[4] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Virtual", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[5] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Wine", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[6] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Etc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[7] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                       }
+
 mytaskmenu = awful.menu({ items = {
-                                    { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/screen-measure.svg" },
-                                    { "  Close", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
+                                    { "Move to workspace", myworkspacemenu },
+                                    { "  Fullscreen (Super+F)", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/screen-measure.svg" },
+                                    { "  Close (Alt+F4)", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })
 
@@ -290,8 +300,8 @@ musicwidget.font_color = "#e54c62"
          port = 6600 },
           }
 musicwidget:register_buttons({ { "", awesompd.MOUSE_LEFT, musicwidget:command_toggle() },
-			         --{ "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
-			         --{ "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
+			         { "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
+			         { "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
 			         { "", awesompd.MOUSE_RIGHT, musicwidget:command_show_menu() },
 			         { "", "XF86AudioPlay", musicwidget:command_playpause() },
 			         { "", "XF86AudioNext", musicwidget:command_next_track() },
@@ -357,10 +367,6 @@ function batstate()
 end
 
 batwidget = wibox.widget.textbox()
-batwidget:connect_signal("mouse::enter", function() awful.util.spawn_with_shell("sh " .. scripts .. "/bright_dark.sh none") end)
-batwidget:connect_signal("mouse::leave", function(c)
-                                                 hide_smth()
-                                              end)
 vicious.register(batwidget, vicious.widgets.bat,
 function (widget, args)
 -- plugged
@@ -664,8 +670,8 @@ for s = 1, screen.count() do
 
     -- Create the wibox
 
-    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16 })
-    mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16 })
+    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 0.85 })
+    mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 0.85 })
 
 
     -- Widgets that are aligned to the left
@@ -757,7 +763,7 @@ globalkeys = awful.util.table.join(
     awful.key({ "Control", }, "Print", function () show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil ) end,
     function () awful.util.spawn_with_shell(sc_r5) end, 
     function () show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end),
-    awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end, 
+    awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/screen-measure.svg", 1.5, nil, nil, nil, nil ) end, 
       function () awful.util.spawn_with_shell(sc_a) end),
     awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end, 
       function() show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil )end),
@@ -909,6 +915,7 @@ for i = 1, 9 do
                           local tag = awful.tag.gettags(client.focus.screen)[i]
                           if tag then
                               awful.client.movetotag(tag)
+                              awful.tag.viewonly(tag)
                           end
                      end
                   end),
@@ -1135,12 +1142,12 @@ end
 
 client.connect_signal("focus", function(c)
                               c.border_color = beautiful.border_focus
-                              awful.util.spawn("sudo renice -n -1 -p " .. c.pid)
-                              --c.opacity = 1
+                              --awful.util.spawn("sudo renice -n -1 -p " .. c.pid)
+                              c.opacity = 1
                            end)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
-                                awful.util.spawn("sudo renice -n 1 -p " .. c.pid)
-                                --c.opacity = 0.7
+                                --awful.util.spawn("sudo renice -n 1 -p " .. c.pid)
+                                c.opacity = 1
                              end)
 -- }}}
