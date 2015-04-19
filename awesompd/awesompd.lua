@@ -39,8 +39,8 @@ local jamendo = awesompd.try_require("jamendo")
 -- Constants
 awesompd.PLAYING = "Playing"
 awesompd.PAUSED = "Paused"
-awesompd.STOPPED = "<span color='#e54c62'>Stopped</span>"
-awesompd.DISCONNECTED = "<span color='#e54c62'>music</span>"
+awesompd.STOPPED = "<span font='Visitor TT2 BRK 12' color='#e54c62'>Stopped</span>"
+awesompd.DISCONNECTED = "<span font='Visitor TT2 BRK 12' color='#e54c62'>music</span>"
 
 awesompd.MOUSE_LEFT = 1
 awesompd.MOUSE_MIDDLE = 2
@@ -665,13 +665,13 @@ function awesompd:menu_jamendo_top()
    function ()
       local track_table = jamendo.return_track_table()
       if not track_table then
-         self:show_notification("Can't connect to Jamendo server", "Please check your network connection",1)
+         self:show_notification("Can't connect to Jamendo server", "Please check your network connection",nil,1)
       else
          self:add_jamendo_tracks(track_table)
          self:show_notification("Jamendo Top 100 by " ..
                                 jamendo.current_request_table.params.order.short_display,
                                 format("Added %s tracks to the playlist",
-                                       #track_table),1)
+                                       #track_table),nil,1)
       end
    end
 end
@@ -772,11 +772,11 @@ function awesompd:menu_jamendo_search_by(what)
                                                     what.display,
                                                     result.search_res.name),
                                              format("Added %s tracks to the playlist",
-                                                    track_count),2)
+                                                    track_count),nil,2)
                    else
                       self:show_notification("Search failed",
                                              format("%s \"%s\" was not found",
-                                                    what.display, s),2)
+                                                    what.display, s),nil,2)
                    end
                 end
              self:display_inputbox("Search music on Jamendo",
@@ -972,12 +972,12 @@ end
 
 function awesompd:notify_connect()
    self:show_notification("Connected", "Connection established to " .. self.servers[self.current_server].server ..
-		 " on port " .. self.servers[self.current_server].port,1)
+		 " on port " .. self.servers[self.current_server].port,nil,1)
 end
 
 function awesompd:notify_disconnect()
    self:show_notification("Disconnected", "Cannot connect to " .. self.servers[self.current_server].server ..
-		 " on port " .. self.servers[self.current_server].port,1)
+		 " on port " .. self.servers[self.current_server].port,nil,1)
 end
 
 function awesompd:update_track(file)
