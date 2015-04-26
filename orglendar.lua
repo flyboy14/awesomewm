@@ -259,11 +259,11 @@ text = cal_text,
 timeout = 0, hover_timeout = 0.5,
 screen = mouse.screen,
 })
-todo = naughty.notify({ title = "TO-DO list",
-text = create_todo(),
-timeout = 0, hover_timeout = 0.5,
-screen = mouse.screen,
-})
+-- todo = naughty.notify({ title = "TO-DO list",
+-- text = create_todo(),
+-- timeout = 0, hover_timeout = 0.5,
+-- screen = mouse.screen,
+-- })
 end
 function orglendar.register(widget)
 widget:connect_signal("mouse::enter", function() orglendar.show(0) end)
