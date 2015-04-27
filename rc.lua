@@ -57,6 +57,7 @@ active_theme = themes .. "/dark_grey"
 beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
+font_main = "Fixed 14"
 terminal = "urxvtc"
 browser = "firefox"
 editor = "subl"
@@ -164,23 +165,23 @@ local layouts =
     awful.layout.suit.floating,               -- 1
     awful.layout.suit.tile,                   -- 2
     awful.layout.suit.tile.left,              -- 3
-    awful.layout.suit.tile.bottom,            -- 4
-    awful.layout.suit.tile.top,               -- 5
-    awful.layout.suit.fair,                   -- 6
-    awful.layout.suit.fair.horizontal,        -- 7
+    --awful.layout.suit.tile.bottom,            -- 4
+    --awful.layout.suit.tile.top,               -- 5
+    --awful.layout.suit.fair,                   -- 6
+    --awful.layout.suit.fair.horizontal,        -- 7
     awful.layout.suit.spiral,                 -- 8
-    awful.layout.suit.spiral.dwindle,         -- 9
+    --awful.layout.suit.spiral.dwindle,         -- 9
     awful.layout.suit.max,                    -- 10
     awful.layout.suit.max.fullscreen,         -- 11
-    awful.layout.suit.magnifier               -- 12
+    --awful.layout.suit.magnifier               -- 12
 }
 -- }}}
 
  -- {{{ Tags
- theme.taglist_font                  = "Fixed 14"
+ theme.taglist_font                  = font_main
  tags = {
-   names  = { "⌂ ", "℺ ", "⚒ ", "♫ ","♿ ", "⚔ ", "… " },
-   layout = { layouts[2], layouts[10], layouts[6], layouts[3], layouts[1], layouts[1], layouts[1] }
+   names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "… " },
+   layout = { layouts[2], layouts[5], layouts[4], layouts[6], layouts[3], layouts[1], layouts[1], layouts[1] }
  }
 
  for s = 1, screen.count() do
@@ -348,7 +349,8 @@ end, 1)
 baticon = wibox.widget.imagebox()
 baticon:set_image(beautiful.widget_battery)
 baticon:buttons(awful.util.table.join(
-awful.button({ }, 1, function () awful.util.spawn_with_shell("systemctl suspend")end)))
+awful.button({ }, 1, function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend")end)))
+
 
 function batstate()
   local batstate = nil
@@ -392,7 +394,7 @@ function (widget, args)
     -- critical
   elseif (args[2] <= 5 and batstate() == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
-    awful.util.spawn("systemctl suspend")
+    --awful.util.spawn("systemctl suspend")
   elseif (batstate() == 'Discharging' and args[2] <= 10) then
         show_smth("⚡ Внимание! ⚡", "Очень  мало энергии", iconsdir .. "/battery-red.svg", 1, nil, nil, nil, nil )
   elseif (args[2] <= 15) then
@@ -816,7 +818,7 @@ globalkeys = awful.util.table.join(
     end),
 
     -- Standard program
-    awful.key({ }, "XF86Sleep", function () awful.util.spawn_with_shell("systemctl suspend") end),
+    awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("systemctl poweroff") end),
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("systemctl reboot") end),
     awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
@@ -961,19 +963,21 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons } },
             { rule_any = { class = { "Virt-manager", "Remmina", "VirtualBox" } },
-      properties = { tag = tags[1][5] } },
+      properties = { tag = tags[1][6] } },
             { rule_any = { class = { "Sonata", "Vlc", "Samowar", "Deadbeef" } },
-      properties = { tag = tags[1][4] } },
+      properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "gimp", "rawstudio", "Atom", "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "jetbrains-clion", "Shotcut", "Lightworks", "Shotcut", "Openshot" } },
+            { rule_any = { class = { "gimp", "rawstudio", "jetbrains-android-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
+      properties = { tag = tags[1][4] } },
+            { rule_any = { class = { "Libre", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
-      properties = { tag = tags[1][6] }, },
+      properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
-      properties = { tag = tags[1][7] } },
+      properties = { tag = tags[1][8] } },
             { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" } },
       properties = { floating = true } },
             { rule_any = { class = { "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
