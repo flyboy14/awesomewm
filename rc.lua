@@ -969,7 +969,7 @@ awful.rules.rules = {
             { rule_any = { class = { "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "gimp", "rawstudio", "jetbrains-android-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
-      properties = { tag = tags[1][4] } },
+      properties = { tag = tags[1][4], fullscreen = true } },
             { rule_any = { class = { "Libre", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
@@ -978,7 +978,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" } },
+            { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
             "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
@@ -988,6 +988,8 @@ awful.rules.rules = {
       properties = { border_width = 0 } },
             { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },
+            { rule = { instance = "plugin-container" },
+  properties = { floating = true } },
 
 }
 -- }}}

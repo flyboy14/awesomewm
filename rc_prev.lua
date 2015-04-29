@@ -958,7 +958,7 @@ awful.rules.rules = {
             { rule_any = { class = { "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "gimp", "rawstudio", "jetbrains-android-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
-      properties = { tag = tags[1][4] } },
+      properties = { tag = tags[1][4], fullscreen = true } },
             { rule_any = { class = { "Libre", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
@@ -977,6 +977,8 @@ awful.rules.rules = {
       properties = { border_width = 0 } },
             { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },
+            { rule = { instance = "plugin-container" },
+  properties = { floating = true } },
 
 }
 -- }}}
