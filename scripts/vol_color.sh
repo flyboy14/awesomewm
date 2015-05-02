@@ -27,7 +27,7 @@ esac
 VOLUME=$(amixer -M -c 0 get Master | grep 'Mono:' | cut -d ' ' -f 6 | sed -e 's/[^0-9]//g')
 STATE=$(amixer -c 0 get Master | grep 'Mono:' | grep -o "\[off\]")
 # Show volume
-if [[ "$STATE" == "true" ]]; then
+if [[ "$STATE" != "" ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_muted_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
 else
 if [ $VOLUME == "0" ]; then

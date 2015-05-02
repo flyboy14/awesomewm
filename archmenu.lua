@@ -1,10 +1,11 @@
  local menubeceed89e397495003f6ff5a4d895d66 = {
-     {"Audacity", "audacity ", "/usr/share/icons/hicolor/16x16/apps/audacity.png" },
+     {"Audacity", "env UBUNTU_MENUPROXY=0 audacity ", "/usr/share/icons/hicolor/16x16/apps/audacity.png" },
      {"Cheese", "cheese", "/usr/share/icons/hicolor/16x16/apps/cheese.png" },
      {"DeaDBeeF", "deadbeef ", "/usr/share/icons/hicolor/16x16/apps/deadbeef.png" },
      {"HDSPConf", "hdspconf", "/usr/share/pixmaps/hdspconf.png" },
      {"HDSPMixer", "hdspmixer", "/usr/share/pixmaps/hdspmixer.png" },
      {"Kamerka", "kamerka", "/usr/share/pixmaps/kamerka.png" },
+     {"Lightworks", "/usr/bin/lightworks", "///usr/share/lightworks/Icons/App.png" },
      {"OpenShot Video Editor", "openshot ", "/usr/share/pixmaps/openshot.svg" },
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"Shotcut", "shotcut-bin", "/usr/share/pixmaps/shotcut.png" },
@@ -19,12 +20,13 @@
  }
 
  local menu9a1dcda9efe2bfc3963e75f98cc1ffd5 = {
+     {"Blender", "blender", "/usr/share/icons/hicolor/16x16/apps/blender.png" },
      {"GNU Image Manipulation Program", "gimp-2.8 ", "/usr/share/icons/hicolor/16x16/apps/gimp.png" },
      {"Inkscape", "inkscape ", "/usr/share/icons/hicolor/16x16/apps/inkscape.png" },
      {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
+     {"Rawstudio", "rawstudio ", "/usr/share/icons/rawstudio.png" },
      {"mtPaint", "mtpaint ", "/usr/share/pixmaps/mtpaint.png" },
      {"Просмотр документов", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
-     {"Просмотр изображений", "gpicview ", "/usr/share/icons/hicolor/48x48/apps/gpicview.png" },
      {"Просмотр изображений", "eog ", "/usr/share/icons/hicolor/16x16/apps/eog.png" },
  }
 
@@ -49,6 +51,7 @@
  }
 
  local menu25385e702800d748c19cf6ea4f5811ec = {
+     {"ELinks", "xterm -e /usr/bin/elinks ", "/usr/share/icons/gnome/16x16/mimetypes/html.png" },
      {"EiskaltDC++ Qt", "eiskaltdcpp-qt ", "/usr/share/icons/hicolor/16x16/apps/eiskaltdcpp.png" },
      {"Everpad", "everpad ", "/usr/share/icons/hicolor/128x128/apps/everpad.png" },
      {"Firefox", "firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
@@ -102,7 +105,7 @@
      {"OpenJDK Monitoring & Management Console", "/usr/bin/jconsole", "/usr/share/icons/hicolor/16x16/apps/java.png" },
      {"OpenJDK Policy Tool", "/usr/bin/policytool", "/usr/share/icons/hicolor/16x16/apps/java.png" },
      {"Qt Assistant", "/usr/lib/qt/bin/assistant", "/usr/share/icons/hicolor/32x32/apps/assistant.png" },
-     {"Qt Creator", "/usr/bin/qtcreator", "/usr/share/icons/hicolor/16x16/apps/QtProject-qtcreator.png" },
+     {"Qt Creator", "qtcreator ", "/usr/share/icons/hicolor/16x16/apps/QtProject-qtcreator.png" },
      {"Qt Designer", "/usr/lib/qt/bin/designer", "/usr/share/icons/hicolor/128x128/apps/QtProject-designer.png" },
      {"Qt Linguist", "/usr/lib/qt/bin/linguist", "/usr/share/icons/hicolor/16x16/apps/linguist.png" },
      {"Qt QDbusViewer ", "/usr/lib/qt/bin/qdbusviewer", "/usr/share/icons/hicolor/32x32/apps/qdbusviewer.png" },
@@ -117,10 +120,8 @@
 
  local menu13155df48f218a078bb8bdc9649e5b20 = {
      {"GParted", "/usr/bin/gparted_polkit ", "/usr/share/icons/hicolor/16x16/apps/gparted.png" },
-     {"Guake Terminal", "guake", "/usr/share/icons/hicolor/16x16/apps/guake.png" },
      {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
-     {"UNetbootin", "/usr/bin/unetbootin", "/usr/share/icons/hicolor/16x16/apps/unetbootin.png" },
      {"gtk2fontsel", "gtk2fontsel"},
      {"urxvt", "urxvt", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"urxvt (client)", "urxvtc", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
@@ -145,15 +146,13 @@
  }
 
  local menu91af6ed4e0be6a48ab48ec8b6e768568 = {
-     {"7-Zip FM", "7zFM", "/usr/share/icons/hicolor/32x32/apps/p7zip.png" },
      {"Caffeine", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
      {"Characters", "gapplication launch org.gnome.Characters", "/usr/share/icons/hicolor/16x16/apps/gnome-characters.png" },
      {"IPython Qt console", "ipython qtconsole", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
      {"KeePassX", "keepassx ", "/usr/share/pixmaps/keepassx.xpm" },
-     {"Nautilus", "nautilus --new-window ", "/usr/share/icons/gnome/16x16/apps/system-file-manager.png" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
      {"Sublime Text", "subl ", "/usr/share/icons/hicolor/16x16/apps/sublime_text.png" },
-     {"gedit", "gedit ", "/usr/share/icons/gnome/16x16/apps/accessories-text-editor.png" },
+     {"YouTranslate!", "youtranslate", "/usr/share/icons/hicolor/32x32/apps/youtranslate.png" },
      {"ipython", "xterm -e ipython", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
      {"Диски", "gnome-disks", "/usr/share/icons/hicolor/16x16/apps/gnome-disks.png" },
      {"Заметки", "bijiben ", "/usr/share/icons/hicolor/16x16/apps/bijiben.png" },

@@ -101,7 +101,7 @@ autorun = true
 autorunApps =
 {
    "sh " .. home .. "/.config/autostart/autostart.sh",
-   "xcompmgr -c",
+   run_once("xcompmgr"),
    --run_once("pidgin"),
    run_rvxt("urxvtd"),
    run_pcm("pcmanfm"),
@@ -195,15 +195,18 @@ mybordermenu = {
 
 mygamesmenu = {
    { "Borderlans II", mybordermenu },
+   { "  Torchlight II", "optirun wine /home/master-p/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
+   { "  Path of Exile", "optirun wine /home/master-p/WINE/wineZ/drive_c/Games/Path\\ Of\\ Exile/PathOfExile.exe", "/home/master-p/Downloads/cyberman.png" },
    { "  LEGO Star Wars III", "sh " .. scripts .. "/lsw3.sh", home .. "/Downloads/LEGO-Star-Wars-II-4-icon.png" },
    { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
    { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },
-   { "  SPORE", "guake -e 'sh " .. scripts .. "/spore.sh'", iconsdir .. "/spore.png" },
+   { "  SPORE", "guake -e 'sh" .. home .. "/bin/spore.sh'", iconsdir .. "/spore.png" },
    { "  WORMS Revolution", "guake -e 'sh " .. scripts .. "/worms.sh'", iconsdir .. "/worms.png" },
    { "  Xonotic", home .. "/Xonotic/xonotic-linux64-sdl -basedir " .. home .. "/Xonotic/", iconsdir .. "/xonotic_icon.svg" },
    { "  Kingdoms of Amalur", "guake -e 'sh " .. scripts .. "/KoA.sh'", iconsdir .. "/koa.png" },
    { "  The Cave", "guake -e 'optirun sh " .. home .. "/TheCave/run_game.sh &'", iconsdir .. "/the_cave.png" },
-   { "  Dota 2", "guake -e 'dota2'", iconsdir .. "/dota2.png" },
+   { "  Left for Dead 2", "optirun steam steam://rungameid/550", "/home/master-p/.steam/steam/SteamApps/common/Left 4 Dead 2/left4dead2.ico" },
+   { "  Dota 2", "optirun steam steam://rungameid/570", iconsdir .. "/dota2.png" },
    { "  Battle.net", "guake -e 'sh " .. scripts .. "/Battlenet.sh'", iconsdir .. "/Badge_battlenet.png" },
    { "  Elegy for a Dead World", "guake -e 'sh " .. scripts .. "/Elegy.sh'", iconsdir .. "/Elegy.ico" },
    { "  Iesabel", "Iesabel/Iesabel/Iesabel.x86_64", iconsdir .. "/Iesabel-Logo.jpg" },
@@ -216,16 +219,17 @@ mygamesmenu = {
 myworkspacemenu = {
                                     { "Home", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[1] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
                                     { "Browse", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[2] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Work", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[3] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Media", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[4] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Virtual", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[5] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Wine", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[6] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Etc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[7] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Doc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[3] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "IDE", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[4] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Media", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[5] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Virtual", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[6] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Wine", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[7] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Etc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[8] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
                                        }
 
 mytaskmenu = awful.menu({ items = {
                                     { "Move to workspace", myworkspacemenu },
-                                    { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/screen-measure.svg" },
+                                    { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
                                     { "  Close", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })
@@ -440,6 +444,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
 -- Weather widget
 tempicon = wibox.widget.imagebox()
 tempicon:set_image(beautiful.widget_temp)
+tempicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
    tempicon:connect_signal("mouse::enter", function()
                                                  show_smth(nil, weather_t, nil, 0, "#6F766E", "#dedede", nil, nil)
                                               end)
@@ -447,6 +452,7 @@ tempicon:set_image(beautiful.widget_temp)
                                                  hide_smth()
                                               end)
 weatherwidget = wibox.widget.textbox()
+weatherwidget:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
    weatherwidget:connect_signal("mouse::enter", function()
                                                  show_smth(nil, weather_t, nil, 0, "#6F766E", "#dedede", nil, nil)
                                               end)
@@ -814,7 +820,7 @@ globalkeys = awful.util.table.join(
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("systemctl reboot") end),
     awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
-    awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
+    --awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
     awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
     awful.key({ modkey   }, "Escape", function () awful.util.spawn("xscreensaver-command -activate") end),
     awful.key({ "Control", modkey   }, "b", function () awful.util.spawn("vivaldi-snapshot") end),
@@ -847,6 +853,12 @@ globalkeys = awful.util.table.join(
      return awful.rules.match(c, {class = 'URxvt'}) 
    end                                                      
    awful.client.run_or_raise('urxvtc', matcher)
+ end),
+     awful.key({ "Control", }, "Tab", function ()
+     local matcher = function (c)                   
+     return awful.rules.match(c, {class = 'Doublecmd'}) 
+   end                                                      
+   awful.client.run_or_raise('doublecmd', matcher)
  end),
      awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
@@ -955,11 +967,11 @@ awful.rules.rules = {
       properties = { tag = tags[1][6] } },
             { rule_any = { class = { "Sonata", "Vlc", "Samowar", "Deadbeef" } },
       properties = { tag = tags[1][5] } },
-            { rule_any = { class = { "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
+            { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "gimp", "rawstudio", "jetbrains-android-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
       properties = { tag = tags[1][4], fullscreen = true } },
-            { rule_any = { class = { "Libre", "subl", "Evince",  "Atom" } },
+            { rule_any = { class = { "libreoffice", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
       properties = { tag = tags[1][7] }, },
@@ -969,8 +981,8 @@ awful.rules.rules = {
       properties = { tag = tags[1][8] } },
             { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" } },
       properties = { floating = true } },
-            { rule_any = { class = { "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
-            "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
+            { rule_any = { class = { "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
+            "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "libreoffice", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity" } },
