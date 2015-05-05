@@ -61,6 +61,7 @@
      {"Skype", "skype ", "/usr/share/icons/hicolor/16x16/apps/skype.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
      {"TeamSpeak 3", "teamspeak3", "/usr/share/pixmaps/teamspeak3.xpm" },
+     {"Tor-Browser (ru)", "/usr/bin/tor-browser-ru", "///usr/share/pixmaps/tor-browser-ru.png" },
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
      {"Viber", "viber", "/usr/share/icons/hicolor/16x16/apps/viber.png" },
      {"Vivaldi (snapshot)", "/usr/bin/vivaldi-snapshot ", "/usr/share/icons/hicolor/16x16/apps/vivaldi-snapshot.png" },
@@ -77,6 +78,7 @@
 
  local menud26c1170c5110a4264a8a8a89ec20529 = {
      {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
+     {"Marble", "marble ", "/usr/share/icons/hicolor/16x16/apps/marble.png" },
  }
 
  local menu8caf0567988f6898bf53e8c848c6f7bc = {
@@ -115,13 +117,14 @@
      {"Qt4 QDbusViewer ", "qdbusviewer-qt4", "/usr/share/icons/hicolor/32x32/apps/qdbusviewer-qt4.png" },
      {"clion-eap", "\"/usr/bin/clion-eap\" ", "/usr/share/pixmaps/clion-eap.svg" },
      {"ipython", "xterm -e ipython", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
-     {"Браузер базы данных", "gda-browser-5.0", "/usr/share/pixmaps/gda-browser-5.0.png" },
  }
 
  local menu13155df48f218a078bb8bdc9649e5b20 = {
      {"GParted", "/usr/bin/gparted_polkit ", "/usr/share/icons/hicolor/16x16/apps/gparted.png" },
+     {"Guake Terminal", "guake", "/usr/share/icons/hicolor/16x16/apps/guake.png" },
      {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
+     {"Tux Commander", "tuxcmd"},
      {"gtk2fontsel", "gtk2fontsel"},
      {"urxvt", "urxvt", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"urxvt (client)", "urxvtc", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
@@ -148,6 +151,7 @@
  local menu91af6ed4e0be6a48ab48ec8b6e768568 = {
      {"Caffeine", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
      {"Characters", "gapplication launch org.gnome.Characters", "/usr/share/icons/hicolor/16x16/apps/gnome-characters.png" },
+     {"Double Commander", "doublecmd", "/usr/share/pixmaps/doublecmd.png" },
      {"IPython Qt console", "ipython qtconsole", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
      {"KeePassX", "keepassx ", "/usr/share/pixmaps/keepassx.xpm" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },

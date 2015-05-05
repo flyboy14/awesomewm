@@ -237,6 +237,7 @@ mytaskmenu = awful.menu({ items = {
 mymainmenu = awful.menu({ items = {
                                     { "  Samowar (beta)", "samowar", iconsdir .. "/musical-note-stripped.svg" },
                                     { "  KeePassX", "keepassx", iconsdir .. "/keepassx.svg"},
+                                    { "  DoubleCommander", "doublecmd", iconsdir .. "/doublecmd.svg"},
                                     { "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox.svg" },
                                     { "  Расписание", "libreoffice " .. home .. "/temp/raspis.xlsx", iconsdir .. "/key-p.svg" },
                                     { "Приложения", xdgmenu },
@@ -342,8 +343,6 @@ awful.button({ }, 1, function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/i
 
 function batstate()
   local batstate = nil
-  local temp_batstate = batstate
-  local state_changed = 0
   local file = io.open("/sys/class/power_supply/BAT0/status", "r")
 
   if (file == nil) then
@@ -351,9 +350,6 @@ function batstate()
   end
 
   batstate = file:read("*line")
-  if (temp_batstate ~= batstate) then
-    state_changed = 1
-  end
   file:close()
 
   if (batstate == 'Discharging' or batstate == 'Charging') then
@@ -372,13 +368,9 @@ function (widget, args)
 -- plugged
   if (batstate() == 'Cable plugged') then
     baticon:set_image(beautiful.widget_ac)
-    if (state_changed == 1) then
-    show_smth(nil, "Кабель подключён", beautiful.widget_ac, 2, "#C2C2A4", "#474C3B", nil, nil)
-    state_changed = 0
-  end
     return '<span background="#92B0A0" font="Fixed 14" rise="1000"><span rise="1600" font="Visitor TT2 BRK 13"color="#46A8C3" rise="1600">AC</span></span>'
     -- critical
-  elseif (args[2] <= 5 and batstate() == 'Discharging') then
+  elseif (args[2] <= 7 and batstate() == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
     awful.util.spawn("systemctl suspend")
   elseif (batstate() == 'Discharging' and args[2] <= 10) then
@@ -395,16 +387,8 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then
-       if (state_changed == 1) then
-    show_smth(nil, "Кабель отключён", beautiful.widget_ac, 2, "#C2C2A4", "#474C3B", nil, nil)
-    state_changed = 0
-    end 
     return '<span background="#C2C2A4" color="#A42929" font="Fixed 14"> <span rise="1000" font="Fixed 9">↓ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
-       if (state_changed == 1) then
-    show_smth(nil, "Кабель подключён", beautiful.widget_ac, 2, "#C2C2A4", "#474C3B", nil, nil)
-    state_changed = 0 
-  end
     return '<span background="#C2C2A4" font="Fixed 14"> <span font="Fixed 9"  rise="1000" color="#006D00">↑ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
    else 
     return '<span background="#C2C2A4" font="Fixed 14" color="#004949"> <span font="Fixed 9"  rise="1000">⚡ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>' end
@@ -820,7 +804,7 @@ globalkeys = awful.util.table.join(
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("systemctl reboot") end),
     awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
-    --awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
+    awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
     awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
     awful.key({ modkey   }, "Escape", function () awful.util.spawn("xscreensaver-command -activate") end),
     awful.key({ "Control", modkey   }, "b", function () awful.util.spawn("vivaldi-snapshot") end),
@@ -854,12 +838,12 @@ globalkeys = awful.util.table.join(
    end                                                      
    awful.client.run_or_raise('urxvtc', matcher)
  end),
-     awful.key({ "Control", }, "Tab", function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'Doublecmd'}) 
-   end                                                      
-   awful.client.run_or_raise('doublecmd', matcher)
- end),
+ --     awful.key({ "Control", }, "Tab", function ()
+ --     local matcher = function (c)                   
+ --     return awful.rules.match(c, {class = 'Doublecmd'}) 
+ --   end                                                      
+ --   awful.client.run_or_raise('doublecmd', matcher)
+ -- end),
      awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = 'subl'}) 
@@ -957,7 +941,7 @@ root.keys(globalkeys)
 -- {{{ Rules
 awful.rules.rules = {
     -- All clients will match this rule.
-            { rule = { },
+      { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
@@ -969,9 +953,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "gimp", "rawstudio", "jetbrains-android-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
-      properties = { tag = tags[1][4], fullscreen = true } },
-            { rule_any = { class = { "libreoffice", "subl", "Evince",  "Atom" } },
+            { rule_any = { class = { "libreoffice", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
       properties = { tag = tags[1][7] }, },
@@ -979,13 +961,13 @@ awful.rules.rules = {
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" } },
+            { rule_any = { class = { "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
-            "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "libreoffice", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
+            "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "libreoffice", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
-            { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity" } },
+            { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity", "gimp", "rawstudio", "jetbrains-android-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
       properties = { border_width = 0 } },
             { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },
