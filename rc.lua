@@ -87,7 +87,7 @@ alt = "Mod1"
 
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
-   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or nil, timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right" }
+   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or nil, timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.9 }
  end
 
  function hide_smth()
@@ -207,8 +207,8 @@ mybordermenu = {
 
 mygamesmenu = {
    { "Borderlans II", mybordermenu },
-   { "  Torchlight II", "optirun wine /home/master-p/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
-   { "  Path of Exile", "optirun wine /home/master-p/WINE/wineZ/drive_c/Games/Path\\ Of\\ Exile/PathOfExile.exe", "/home/master-p/Downloads/cyberman.png" },   
+   { "  Torchlight II", "optirun wine " .. home .. "/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
+   { "  Path of Exile", "sh " .. scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
    { "  LEGO Star Wars III", "sh " .. scripts .. "/lsw3.sh", home .. "/Downloads/LEGO-Star-Wars-II-4-icon.png" },
    { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
    { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },
@@ -974,13 +974,13 @@ awful.rules.rules = {
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
+            { rule_any = { class = { "Covergloobus.py", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
             "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "libreoffice", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
-            { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity", "gimp", "rawstudio", "jetbrains-android-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
+            { rule_any = { class = { "Covergloobus.py", "Firefox", "Vivaldi","Wine", "dota_linux", "gimp", "rawstudio", "jetbrains-android-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
       properties = { border_width = 0 } },
             { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },

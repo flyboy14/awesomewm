@@ -850,6 +850,7 @@ function awesompd:show_notification(hint_title, hint_text, hint_image, timeout)
           , fg         = "#dedede"
                                         , icon       = hint_image
                                         , icon_size  = self.album_cover_size
+                                        , opacity = 0.95
                                      })
 end
 

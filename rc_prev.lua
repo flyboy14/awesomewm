@@ -78,7 +78,7 @@ alt = "Mod1"
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
    --naughty.destroy(noti)
-   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right" }
+   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.9 }
  end
 
  function hide_smth()
@@ -94,18 +94,16 @@ end
 function run_pcm(prg)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "pcmanfm -d" .. ")")
 end
-function run_rvxt(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "urxvtd -q -f -o" .. ")")
-end
 autorun = true
 autorunApps =
 {
    "sh " .. home .. "/.config/autostart/autostart.sh",
    run_once("xcompmgr"),
    --run_once("pidgin"),
-   run_rvxt("urxvtd"),
+   "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
    run_once("kbdd"),
+   run_once("skype"),
    --"xcowsay 'Moo, brother, moo.'"
 }
 if autorun then
@@ -195,8 +193,8 @@ mybordermenu = {
 
 mygamesmenu = {
    { "Borderlans II", mybordermenu },
-   { "  Torchlight II", "optirun wine /home/master-p/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
-   { "  Path of Exile", "optirun wine /home/master-p/WINE/wineZ/drive_c/Games/Path\\ Of\\ Exile/PathOfExile.exe", "/home/master-p/Downloads/cyberman.png" },
+   { "  Torchlight II", "optirun wine " .. home .. "/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
+   { "  Path of Exile", "sh " .. scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
    { "  LEGO Star Wars III", "sh " .. scripts .. "/lsw3.sh", home .. "/Downloads/LEGO-Star-Wars-II-4-icon.png" },
    { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
    { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },

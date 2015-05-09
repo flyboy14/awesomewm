@@ -1,3 +1,3 @@
 #!/bin/bash
 cd ~/WINE/wineZ/drive_c/Program\ Files/Battle.net/
-optirun env WINEPREFIX=$HOME/WINE/wineZ wine Battle.net\ Launcher.exe
+env WINEPREFIX=$HOME/WINE/wineZ optirun wine Battle.net\ Launcher.exe
