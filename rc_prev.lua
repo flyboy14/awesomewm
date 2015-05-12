@@ -9,7 +9,7 @@ local beautiful = require("beautiful")
 vicious = require("vicious")
 local awesompd = require("awesompd/awesompd_colorarrows")
 naughty = require("naughty")
-keychains = require("keychains")
+--keychains = require("keychains")
 eminent = require("eminent")
 xdg_menu = require("archmenu")
 orglendar = require("orglendar_colorarrows")
@@ -78,7 +78,8 @@ alt = "Mod1"
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
    --naughty.destroy(noti)
-   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5, bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.9 }
+   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
+   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.9 }
  end
 
  function hide_smth()
@@ -951,8 +952,10 @@ awful.rules.rules = {
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "libreoffice", "libreoffice-writer", "subl", "Evince",  "Atom" } },
+            { rule_any = { class = { "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
+            { rule_any = { class = { "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-android-studio"} },
+      properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
       properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
@@ -962,7 +965,7 @@ awful.rules.rules = {
             { rule_any = { class = { "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
-            "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "libreoffice", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
+            "jetbrains-android-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity", "gimp", "rawstudio", "jetbrains-android-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
@@ -1045,92 +1048,92 @@ client.connect_signal("manage", function (c, startup)
 end)
 
 -- {{{ keychains
- keychains.init(globalkeys)
-  keychains.add({ modkey, }, "r", "Awesome: ", iconsdir .. "/flower.png",{
-        e   =   {
-            func    =   function()
-                awful.util.spawn(editor .. " " .. awesome.conffile)
-            end,
-            info    =   "- Edit"
-        },
-        r   =   {
-            func    =   awesome.restart,
-            info    =   "- Restart"
-        },
-        q   =   {
-            func    =   function()
-                awful.util.spawn_with_shell("pkill --signal SIGKILL awesome")
-            end,
-            info    =   "- Quit"
-        },
-    })
-    keychains.add({ modkey }, "i", "IDE: ", iconsdir .. "/lamp.png",{
-        e   =   {
-            func    =   function()
-                awful.util.spawn("eclipse")
-            end,
-            info    =   "- Eclipse"
-        },
-        a   =   {
-            func    =   function()
-                awful.util.spawn("android-studio")
-            end,
-            info    =   "- Android studio"
-        },
-        c   =   {
-            func    =   function()
-                awful.util.spawn("clion-eap")
-            end,
-            info    =   "- CLion"
-        },
-        q   =   {
-            func    =   function()
-                awful.util.spawn("qtcreator")
-            end,
-            info    =   "- QtCreator"
-        },
-    })
-  keychains.add({ modkey }, "v", "VirtualBox: ", iconsdir .. "/screen-lightblue.png",{
-        d   =   {
-            func    =   function()
-                awful.util.spawn("gksudo modprobe vboxdrv")
-            end,
-            info    =   "- load vboxdrv"
-        },
-        s   =   {
-            func    =   function()
-                awful.util.spawn("gksu systemctl start smbd")
-            end,
-            info    =   "- load samba service"
-        },
-        x   =   {
-            func    =   function()
-                awful.util.spawn("virtualbox --startvm makakka_xp")
-            end,
-            info    =   "- start makakka_xp"
-        },
-        c   =   {
-            func    =   function()
-                awful.util.spawn("virtualbox")
-            end,
-            info    =   "- controls"
-        },
-    })
-  keychains.add({ modkey }, "s", "Screen record: ", iconsdir .. "/camera-video.png",{
-        s   =   {
-            func    =   function()
-                awful.util.spawn_with_shell("sh " .. scripts .. "/record_screen.sh")
-            end, 
-            info    =   "- Start recording"
-        },
-        q   =   {
-            func    =   function()
-                awful.util.spawn_with_shell("pkill ffmpeg")
-            end,
-            info    =   "- Quit recording"
-        },
-    })
- keychains.start(3)
+ -- keychains.init(globalkeys)
+ --  keychains.add({ modkey, }, "r", "Awesome: ", iconsdir .. "/flower.png",{
+ --        e   =   {
+ --            func    =   function()
+ --                awful.util.spawn(editor .. " " .. awesome.conffile)
+ --            end,
+ --            info    =   "- Edit"
+ --        },
+ --        r   =   {
+ --            func    =   awesome.restart,
+ --            info    =   "- Restart"
+ --        },
+ --        q   =   {
+ --            func    =   function()
+ --                awful.util.spawn_with_shell("pkill --signal SIGKILL awesome")
+ --            end,
+ --            info    =   "- Quit"
+ --        },
+ --    })
+ --    keychains.add({ modkey }, "i", "IDE: ", iconsdir .. "/lamp.png",{
+ --        e   =   {
+ --            func    =   function()
+ --                awful.util.spawn("eclipse")
+ --            end,
+ --            info    =   "- Eclipse"
+ --        },
+ --        a   =   {
+ --            func    =   function()
+ --                awful.util.spawn("android-studio")
+ --            end,
+ --            info    =   "- Android studio"
+ --        },
+ --        c   =   {
+ --            func    =   function()
+ --                awful.util.spawn("clion-eap")
+ --            end,
+ --            info    =   "- CLion"
+ --        },
+ --        q   =   {
+ --            func    =   function()
+ --                awful.util.spawn("qtcreator")
+ --            end,
+ --            info    =   "- QtCreator"
+ --        },
+ --    })
+ --  keychains.add({ modkey }, "v", "VirtualBox: ", iconsdir .. "/screen-lightblue.png",{
+ --        d   =   {
+ --            func    =   function()
+ --                awful.util.spawn("gksudo modprobe vboxdrv")
+ --            end,
+ --            info    =   "- load vboxdrv"
+ --        },
+ --        s   =   {
+ --            func    =   function()
+ --                awful.util.spawn("gksu systemctl start smbd")
+ --            end,
+ --            info    =   "- load samba service"
+ --        },
+ --        x   =   {
+ --            func    =   function()
+ --                awful.util.spawn("virtualbox --startvm makakka_xp")
+ --            end,
+ --            info    =   "- start makakka_xp"
+ --        },
+ --        c   =   {
+ --            func    =   function()
+ --                awful.util.spawn("virtualbox")
+ --            end,
+ --            info    =   "- controls"
+ --        },
+ --    })
+ --  keychains.add({ modkey }, "s", "Screen record: ", iconsdir .. "/camera-video.png",{
+ --        s   =   {
+ --            func    =   function()
+ --                awful.util.spawn_with_shell("sh " .. scripts .. "/record_screen.sh")
+ --            end, 
+ --            info    =   "- Start recording"
+ --        },
+ --        q   =   {
+ --            func    =   function()
+ --                awful.util.spawn_with_shell("pkill ffmpeg")
+ --            end,
+ --            info    =   "- Quit recording"
+ --        },
+ --    })
+ -- keychains.start(3)
 
 -- local oldspawn = awful.util.spawn
 -- awful.util.spawn = function (s)

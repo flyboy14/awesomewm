@@ -12,7 +12,6 @@
      {"SimpleScreenRecorder", "simplescreenrecorder --logfile", "/usr/share/icons/hicolor/16x16/apps/simplescreenrecorder.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
      {"samowar", "/usr/bin/samowar", "///usr/share/samowar/icons/samowar.png" },
-     {"Видео", "totem ", "/usr/share/icons/hicolor/16x16/apps/totem.png" },
      {"Диктофон", "gnome-sound-recorder", "/usr/share/icons/hicolor/16x16/apps/gnome-sound-recorder.png" },
      {"Медиаплеер VLC", "/usr/bin/vlc --started-from-file ", "/usr/share/icons/hicolor/16x16/apps/vlc.png" },
      {"Музыка", "gnome-music", "/usr/share/icons/hicolor/16x16/apps/gnome-music.png" },
@@ -20,7 +19,7 @@
  }
 
  local menu9a1dcda9efe2bfc3963e75f98cc1ffd5 = {
-     {"Blender", "blender", "/usr/share/icons/hicolor/16x16/apps/blender.png" },
+     {"FontForge", "fontforge ", "/usr/share/icons/hicolor/16x16/apps/fontforge.png" },
      {"GNU Image Manipulation Program", "gimp-2.8 ", "/usr/share/icons/hicolor/16x16/apps/gimp.png" },
      {"Inkscape", "inkscape ", "/usr/share/icons/hicolor/16x16/apps/inkscape.png" },
      {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
@@ -40,7 +39,6 @@
      {"Teeworlds", "teeworlds", "/usr/share/pixmaps/teeworlds.png" },
      {"Клоцки", "gnome-klotski", "/usr/share/icons/hicolor/16x16/apps/gnome-klotski.png" },
      {"Маджонг", "gnome-mahjongg", "/usr/share/icons/hicolor/16x16/apps/gnome-mahjongg.png" },
-     {"Пасьянс Айслериот", "sol", "/usr/share/icons/hicolor/16x16/apps/gnome-aisleriot.png" },
      {"Пять или более", "five-or-more", "/usr/share/icons/hicolor/16x16/apps/five-or-more.png" },
      {"Сапёр", "gnome-mines", "/usr/share/icons/hicolor/16x16/apps/gnome-mines.png" },
      {"Тали", "tali", "/usr/share/icons/hicolor/16x16/apps/tali.png" },
@@ -64,11 +62,9 @@
      {"Tor-Browser (ru)", "/usr/bin/tor-browser-ru", "///usr/share/pixmaps/tor-browser-ru.png" },
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
      {"Viber", "viber", "/usr/share/icons/hicolor/16x16/apps/viber.png" },
-     {"Vivaldi (snapshot)", "/usr/bin/vivaldi-snapshot ", "/usr/share/icons/hicolor/16x16/apps/vivaldi-snapshot.png" },
      {"Zenmap", "zenmap ", "///usr/share/zenmap/pixmaps/zenmap.png" },
      {"Zenmap (as root)", "/usr/share/zenmap/su-to-zenmap.sh ", "///usr/share/zenmap/pixmaps/zenmap.png" },
      {"wpa_gui", "wpa_gui", "/usr/share/pixmaps/wpa_gui.svg" },
-     {"Веб-браузер", "epiphany ", "/usr/share/icons/gnome/16x16/apps/web-browser.png" },
      {"Клиент обмена мгновенными сообщениями Pidgin", "pidgin", "/usr/share/icons/hicolor/16x16/apps/pidgin.png" },
      {"Навигатор Avahi по серверам SSH", "/usr/bin/bssh", "/usr/share/icons/gnome/16x16/devices/network-wired.png" },
      {"Навигатор Avahi по серверам VNC", "/usr/bin/bvnc", "/usr/share/icons/gnome/16x16/devices/network-wired.png" },
@@ -78,7 +74,6 @@
 
  local menud26c1170c5110a4264a8a8a89ec20529 = {
      {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
-     {"Marble", "marble ", "/usr/share/icons/hicolor/16x16/apps/marble.png" },
  }
 
  local menu8caf0567988f6898bf53e8c848c6f7bc = {
@@ -151,6 +146,7 @@
  local menu91af6ed4e0be6a48ab48ec8b6e768568 = {
      {"Caffeine", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
      {"Characters", "gapplication launch org.gnome.Characters", "/usr/share/icons/hicolor/16x16/apps/gnome-characters.png" },
+     {"CoverGloobus", "covergloobus", "///usr/share/covergloobus/images/covergloobus.png" },
      {"Double Commander", "doublecmd", "/usr/share/pixmaps/doublecmd.png" },
      {"IPython Qt console", "ipython qtconsole", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
      {"KeePassX", "keepassx ", "/usr/share/pixmaps/keepassx.xpm" },
@@ -159,7 +155,6 @@
      {"YouTranslate!", "youtranslate", "/usr/share/icons/hicolor/32x32/apps/youtranslate.png" },
      {"ipython", "xterm -e ipython", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
      {"Диски", "gnome-disks", "/usr/share/icons/hicolor/16x16/apps/gnome-disks.png" },
-     {"Заметки", "bijiben ", "/usr/share/icons/hicolor/16x16/apps/bijiben.png" },
      {"Калькулятор", "gnome-calculator", "/usr/share/icons/gnome/16x16/apps/accessories-calculator.png" },
      {"Карты", "gapplication launch org.gnome.Maps", "/usr/share/icons/hicolor/16x16/apps/gnome-maps.png" },
      {"Менеджер архивов", "file-roller ", "/usr/share/icons/hicolor/16x16/apps/file-roller.png" },
