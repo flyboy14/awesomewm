@@ -240,6 +240,13 @@ myworkspacemenu = {
                                     { "Etc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[8] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
                                        }
 
+myvirtualmenu =                   {
+                                    { "  load driver", "gksudo modprobe vboxdrv", iconsdir .. "/driver.svg" },
+                                    { "  start makakka_xp", "virtualbox --startvm makakka_xp", iconsdir .. "/cuteball-windows.png" },
+                                    { "  open virt-manager", "virt-manager", iconsdir .. "/robot-modern.png" },
+                                    { "  open virtualbox", "virtualbox", iconsdir .. "/Vbox.svg" },
+                                  }
+
 mytaskmenu = awful.menu({ items = {
                                     { "Move to workspace", myworkspacemenu },
                                     { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
@@ -253,6 +260,7 @@ mymainmenu = awful.menu({ items = {
                                     { "  DoubleCommander", "doublecmd", iconsdir .. "/doublecmd.svg"},
                                     { "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox.svg" },
                                     { "  Расписание", "libreoffice " .. home .. "/temp/raspis.xlsx", iconsdir .. "/key-p.svg" },
+                                    { "Песочница", myvirtualmenu },
                                     { "Приложения", xdgmenu },
                                     { "Игры", mygamesmenu },
                                     { "  Обои", "nitrogen", iconsdir .. "/greylink-dc.png" }
@@ -815,11 +823,18 @@ globalkeys = awful.util.table.join(
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("systemctl poweroff") end),
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("systemctl reboot") end),
     awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
+    -- awful.key({ modkey, "i"          }, "a", function () awful.util.spawn("android-studio") end),
+    -- awful.key({ modkey, "i"          }, "c", function () awful.util.spawn("eclipse") end),
+    -- awful.key({ modkey, "i"          }, "t", function () awful.util.spawn("qtcreator") end),
+    -- awful.key({ modkey, "v"          }, "d", function () awful.util.spawn_with_shell("gksudo modprobe vboxdrv") end),
+    -- awful.key({ modkey, "v"          }, "o", function () awful.util.spawn("virtualbox") end),
+    -- awful.key({ modkey, "v"          }, "x", function () awful.util.spawn("virtualbox --startvm makakka_xp") end),
+    -- awful.key({ modkey, "s"          }, "g", function () awful.util.spawn_with_shell("sh " .. scripts .. "/record_screen.sh") end),
+    -- awful.key({ modkey, "s"          }, "q", function () awful.util.spawn_with_shell("pkill ffmpeg") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
     awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
     awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
     awful.key({ modkey   }, "Escape", function () awful.util.spawn("xscreensaver-command -activate") end),
-    awful.key({ "Control", modkey   }, "b", function () awful.util.spawn("vivaldi-snapshot") end),
     awful.key({ alt }, "F1", function () awful.util.spawn(translate_o_r) end),
     awful.key({ modkey }, "F1", function () awful.util.spawn(translate_r_e) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
@@ -851,12 +866,6 @@ globalkeys = awful.util.table.join(
    end                                                      
    awful.client.run_or_raise('urxvtc', matcher)
  end),
- --     awful.key({ "Control", }, "Tab", function ()
- --     local matcher = function (c)                   
- --     return awful.rules.match(c, {class = 'Doublecmd'}) 
- --   end                                                      
- --   awful.client.run_or_raise('doublecmd', matcher)
- -- end),
      awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = 'subl'}) 
@@ -1066,24 +1075,6 @@ end)
 
 -- {{{ keychains
  -- keychains.init(globalkeys)
- --  keychains.add({ modkey, }, "r", "Awesome: ", iconsdir .. "/flower.png",{
- --        e   =   {
- --            func    =   function()
- --                awful.util.spawn(editor .. " " .. awesome.conffile)
- --            end,
- --            info    =   "- Edit"
- --        },
- --        r   =   {
- --            func    =   awesome.restart,
- --            info    =   "- Restart"
- --        },
- --        q   =   {
- --            func    =   function()
- --                awful.util.spawn_with_shell("pkill --signal SIGKILL awesome")
- --            end,
- --            info    =   "- Quit"
- --        },
- --    })
  --    keychains.add({ modkey }, "i", "IDE: ", iconsdir .. "/lamp.png",{
  --        e   =   {
  --            func    =   function()
