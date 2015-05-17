@@ -12,7 +12,6 @@ keychains = require("keychains")
 eminent = require("eminent")
 xdg_menu = require("archmenu")
 orglendar = require("orglendar")
-local cyclefocus = require('cyclefocus')
 
 -- {{{ Localization
 
@@ -676,8 +675,8 @@ for s = 1, screen.count() do
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end)))
+                           awful.button({ }, 1, function () awful.layout.inc(1, s, layouts) end),
+                           awful.button({ }, 3, function () awful.layout.inc(-1, s, layouts) end)))
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
@@ -856,8 +855,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey,           }, "space", function () local s = mouse.screen awful.layout.inc(1, s, layouts) end),
+    awful.key({ modkey, "Control"   }, "space", function () local s = mouse.screen awful.layout.inc(-1, s, layouts) end),
 
 --run or raise clients
      awful.key({ modkey, }, "Return", function ()
