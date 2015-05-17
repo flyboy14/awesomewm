@@ -3,7 +3,7 @@
 #
 ### Requirments
 #
-# awesome(3.5.5 or higher), terminus-font, ttf-visitor, fortune-mod, curl, wget, kbdd, lua 5.3!!!
+# awesome-git, terminus-font, ttf-visitor, fortune-mod, curl, wget, kbdd, lua5.3!!!
 #
 ### Includes
 - Two customized themes (color_arrows and dark_grey)
