@@ -18,15 +18,17 @@
 #
 - awesomepd extension (with some fixes)
 #
-- some nice icons from buuf-deuce-theme (and some others)
+- some nice icons from numix-icon-theme (and some others)
 #
 - wisdom spider, quoting fortune
 #
-- some other yummies
+- other yummies
 #
 ### Using
 #
 # First backup your ~/.config/awesome folder, then clone git into ~/.config folder
+#
+# Edit local variables and keybindings in rc.lua and rc_prev.lua
 #
 # Have fun!
 ##############################################################################################

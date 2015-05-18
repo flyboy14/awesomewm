@@ -969,7 +969,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
-            { rule_any = { class = { "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio"} },
+            { rule_any = { class = { "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio"} },
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
       properties = { tag = tags[1][7] }, },

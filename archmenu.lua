@@ -19,6 +19,7 @@
  }
 
  local menu9a1dcda9efe2bfc3963e75f98cc1ffd5 = {
+     {"DraftSight", "\"/opt/dassault-systemes/DraftSight/Linux/DraftSight\""},
      {"FontForge", "fontforge ", "/usr/share/icons/hicolor/16x16/apps/fontforge.png" },
      {"GNU Image Manipulation Program", "gimp-2.8 ", "/usr/share/icons/hicolor/16x16/apps/gimp.png" },
      {"Inkscape", "inkscape ", "/usr/share/icons/hicolor/16x16/apps/inkscape.png" },
