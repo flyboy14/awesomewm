@@ -113,10 +113,9 @@ autorunApps =
    "sh " .. home .. "/.config/autostart/autostart.sh",
    "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
-   --run_once("pidgin"),
    run_once("kbdd"),
    run_once("skype"),
-   run_once("unagi"),
+   run_once("dcompmgr --no-fade"),
    --"xcowsay 'Moo, brother, moo.'"
 }
 if autorun then
@@ -343,8 +342,11 @@ mpdwidget = wibox.widget.textbox()
 mpdicon = wibox.widget.imagebox()
 mpdicon:set_image(beautiful.widget_music)
 mpdicon:buttons(awful.util.table.join(
-awful.button({ }, 1, function () awful.util.spawn_with_shell(musicplr)end),
-awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill mpd") end)))
+awful.button({ }, 1, function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf|sonata") end),
+awful.button({ }, 2, function () awful.util.spawn_with_shell("sonata") end),
+awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill mpd|pkill sonata") end),
+awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5")end),
+awful.button({ }, 5, function () awful.util.spawn_with_shell("mpc volume -5")end)))
 
 vicious.register(mpdwidget, vicious.widgets.mpd,
 function(widget, args)
@@ -977,7 +979,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
-            { rule_any = { class = { "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio"} },
+            { rule_any = { class = { "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio"} },
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
       properties = { tag = tags[1][7] }, },
@@ -987,7 +989,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][8] } },
             { rule_any = { class = { "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
-            { rule_any = { class = { "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
+            { rule_any = { class = { "SpiderOak", "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
             "jetbrains-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
