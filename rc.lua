@@ -111,7 +111,7 @@ autorun = true
 autorunApps =
 {
    "sh " .. home .. "/.config/autostart/autostart.sh",
-   --"urxvtd -o -f -q",
+   "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
    --run_once("pidgin"),
    run_once("kbdd"),
@@ -185,7 +185,7 @@ local layouts =
  theme.taglist_font                  = font_main
  tags = {
    names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "… " },
-   layout = { layouts[2], layouts[5], layouts[4], layouts[6], layouts[3], layouts[1], layouts[1], layouts[1] }
+   layout = { layouts[2], layouts[5], layouts[4], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
  }
 
  for s = 1, screen.count() do
@@ -403,7 +403,7 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_empty)
     awful.util.spawn("systemctl suspend")
   elseif (batstate() == 'Discharging' and args[2] <= 10) then
-        show_smth("⚡ Внимание! ⚡", "Очень  мало энергии", iconsdir .. "/battery-red.svg", 1, nil, nil, nil, nil )
+    show_smth("⚡ Внимание! ⚡", "Очень  мало энергии", iconsdir .. "/battery-red.svg", 1, nil, nil, nil, nil )
   elseif (args[2] <= 15) then
     baticon:set_image(beautiful.widget_battery_empty)
   elseif (args[2] <= 25) then
@@ -466,7 +466,7 @@ tempicon = wibox.widget.imagebox()
 tempicon:set_image(beautiful.widget_temp)
 tempicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
    tempicon:connect_signal("mouse::enter", function()
-                                                 show_smth(nil, weather_t, nil, 0, nil, nil, nil, nil)
+                                                 show_smth(nil, weather_t, nil, 0, nil, "#eeeeee", nil, nil)
                                               end)
    tempicon:connect_signal("mouse::leave", function(c)
                                                  hide_smth()
@@ -474,7 +474,7 @@ tempicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.ut
 weatherwidget = wibox.widget.textbox()
 weatherwidget:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
    weatherwidget:connect_signal("mouse::enter", function()
-                                                 show_smth(nil, weather_t, nil, 0, nil, nil, nil, nil)
+                                                 show_smth(nil, weather_t, nil, 0, nil, "#eeeeee", nil, nil)
                                               end)
    weatherwidget:connect_signal("mouse::leave", function()
                                                  hide_smth()
@@ -991,7 +991,7 @@ awful.rules.rules = {
             "jetbrains-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
-            { rule_any = { class = { "Covergloobus.py", "Firefox", "Vivaldi","Wine", "dota_linux", "gimp", "rawstudio", "jetbrains-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
+            { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
             { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },

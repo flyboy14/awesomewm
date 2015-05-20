@@ -101,7 +101,7 @@ autorunApps =
    "sh " .. home .. "/.config/autostart/autostart.sh",
    run_once("unagi"),
    --run_once("pidgin"),
-   --"urxvtd -o -f -q",
+   "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
    run_once("kbdd"),
    run_once("skype"),
@@ -171,7 +171,7 @@ local layouts =
  theme.taglist_font                  = font_main
  tags = {
    names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "… " },
-   layout = { layouts[2], layouts[5], layouts[4], layouts[6], layouts[3], layouts[1], layouts[1], layouts[1] }
+   layout = { layouts[2], layouts[5], layouts[4], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
  }
 
  for s = 1, screen.count() do
@@ -983,7 +983,7 @@ awful.rules.rules = {
             "jetbrains-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
-            { rule_any = { class = { "Firefox", "Vivaldi","Wine", "dota_linux", "Zenity", "gimp", "rawstudio", "jetbrains-studio", "Eclipce", "QtCreator", "jetbrains-clion", "Lightworks", "Shotcut", "Openshot" } },
+                        { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
             { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },

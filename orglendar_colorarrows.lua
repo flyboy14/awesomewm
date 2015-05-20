@@ -13,7 +13,7 @@ char_width = nil,
 text_color = theme.fg_normal or "#FFFFFF",
 today_color = theme.fg_focus or "#00FF00",
 event_color = theme.fg_urgent or "#FF0000",
-font = theme.font or 'monospace 8',
+font = theme.font or 'terminus 9',
 parse_on_show = true,
 limit_todo_length = nil,
 date_format = "%d-%m-%Y" }
@@ -162,7 +162,7 @@ local first_day_in_week =
 (os.date("%w", first_day) + 6) % 7
 local result = "Пн Вт Ср Чт Пт Сб Вс\n"
 for i = 1, first_day_in_week do
-result = result .. " "
+result = result .. "   "
 end
 local this_month = false
 for day = 1, last_day do
