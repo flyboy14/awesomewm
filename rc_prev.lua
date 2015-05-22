@@ -50,6 +50,7 @@ active_theme = themes .. "/color_arrows"
 beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
+wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc"
 browser = "firefox"
@@ -140,15 +141,16 @@ end
 -- }}}
 
 -- {{{ Wallpaper
-
+--local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file | sed 's/'file='//g'") 
+--local wpaper = f:read()
+--f:close()  
+--if wpaper == nil then
 if beautiful.wallpaper then
-    for s = 1, screen.count() do
-        gears.wallpaper.maximized(beautiful.wallpaper, s, false)
-        --gears.wallpaper.maximized(beautiful.wallpaper, s, true)
-    end
+for s = 1, screen.count() do
+  gears.wallpaper.maximized(wpaper, s, false)
+  --gears.wallpaper.maximized(wpaper,s,true)
 end
---awful.util.spawn_with_shell("sh " .. scripts .. "/nitrogen.sh")
-
+end
 -- }}}
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
