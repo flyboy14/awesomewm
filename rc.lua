@@ -87,7 +87,8 @@ alt = "Mod1"
 
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
-   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or nil, timeout = timeeout or 5
+   --naughty.destroy(noti)
+   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
    , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.9 }
  end
 
@@ -127,9 +128,9 @@ end
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
 function check_for_terminal (command)
    if command:sub(1,1) == ":" then
-      command = terminal .. ' -e "' .. command:sub(2) .. '"'
+      command = terminal .. ' -hold -e "' .. command:sub(2) .. '"'
    end
-   awful.util.spawn(command)
+   awful.util.spawn_with_shell(command)
 end
 
 function clean_for_completion (command, cur_pos, ncomp, shell)
@@ -645,9 +646,7 @@ mytasklist.buttons = awful.util.table.join(
                                                         mytaskmenu:toggle()
                                                       else
                                                         client.focus = c
-                                                        c.minimized = true
-
-
+                                                        c.minimized = false
                                                         mytaskmenu:toggle()
                                                       end
                                                       end),
@@ -821,17 +820,9 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
-    awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("systemctl poweroff") end),
-    awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("systemctl reboot") end),
+    awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to poweroff?' &&systemctl poweroff") end),
+    awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to reboot?' &&systemctl reboot") end),
     awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
-    -- awful.key({ modkey, "i"          }, "a", function () awful.util.spawn("android-studio") end),
-    -- awful.key({ modkey, "i"          }, "c", function () awful.util.spawn("eclipse") end),
-    -- awful.key({ modkey, "i"          }, "t", function () awful.util.spawn("qtcreator") end),
-    -- awful.key({ modkey, "v"          }, "d", function () awful.util.spawn_with_shell("gksudo modprobe vboxdrv") end),
-    -- awful.key({ modkey, "v"          }, "o", function () awful.util.spawn("virtualbox") end),
-    -- awful.key({ modkey, "v"          }, "x", function () awful.util.spawn("virtualbox --startvm makakka_xp") end),
-    -- awful.key({ modkey, "s"          }, "g", function () awful.util.spawn_with_shell("sh " .. scripts .. "/record_screen.sh") end),
-    -- awful.key({ modkey, "s"          }, "q", function () awful.util.spawn_with_shell("pkill ffmpeg") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
     awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
     awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
@@ -981,13 +972,13 @@ awful.rules.rules = {
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio"} },
       properties = { tag = tags[1][4] } },
-            { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
+            { rule_any = { class = { "Steam" ,"Wine", "dota_linux" } },
       properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
+            { rule_any = { class = { "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "SpiderOak", "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
             "jetbrains-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
@@ -995,7 +986,7 @@ awful.rules.rules = {
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
-            { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
+            { rule_any = { class = { "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },
             { rule = { instance = "plugin-container" },
   properties = { floating = true } },

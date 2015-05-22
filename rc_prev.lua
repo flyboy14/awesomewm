@@ -115,7 +115,7 @@ end
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
 function check_for_terminal (command)
    if command:sub(1,1) == ":" then
-      command = terminal .. ' -e "' .. command:sub(2) .. '"'
+      command = terminal .. ' -hold -e "' .. command:sub(2) .. '"'
    end
    awful.util.spawn(command)
 end
@@ -633,9 +633,7 @@ mytasklist.buttons = awful.util.table.join(
                                                         mytaskmenu:toggle()
                                                       else
                                                         client.focus = c
-                                                        c.minimized = true
-
-
+                                                        c.minimized = false
                                                         mytaskmenu:toggle()
                                                       end
                                                       end),
@@ -806,8 +804,8 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
-    awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("systemctl poweroff") end),
-    awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("systemctl reboot") end),
+    awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to poweroff?' &&systemctl poweroff") end),
+    awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to reboot?' &&systemctl reboot") end),
     awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
     -- awful.key({ modkey, "i"          }, "a", function () awful.util.spawn("android-studio") end),
     -- awful.key({ modkey, "i"          }, "e", function () awful.util.spawn("eclipse") end),
