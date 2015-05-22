@@ -756,11 +756,10 @@ for s = 1, screen.count() do
 end
 -- }}}
 
-
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
     awful.button({ }, 1, function () mymainmenu:hide() end, function () mytaskmenu:hide() end),
-    awful.button({ }, 3, function () mymainmenu:toggle() end)
+    awful.button({ }, 3, function () mymainmenu:toggle() end, function () mytaskmenu:hide() end)
 ))
 -- }}}
 
