@@ -103,10 +103,10 @@ function run_once(prg)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
 end
 function run_pcm(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "pcmanfm -d" .. ")")
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. prg ..  " -d)")
 end
-function run_cute(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "sleep 10s && cutegram" .. ")")
+function run_skype(prg)
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "sleep 10s && " .. prg .. ")")
 end
 autorun = true
 autorunApps =
@@ -115,7 +115,7 @@ autorunApps =
    "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
    run_once("kbdd"),
-   run_once("skype"),
+   run_skype("skype"),
    run_once("dcompmgr --no-fade"),
    --"xcowsay 'Moo, brother, moo.'"
 }
@@ -250,6 +250,7 @@ myworkspacemenu = {
 mytaskmenu = awful.menu({ items = {
                                     { "Move to workspace", myworkspacemenu },
                                     { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
+                                    { "  Minimize", function () c = client.focus c.minimized = true end, iconsdir .. "/display.svg"},
                                     { "  Close", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })

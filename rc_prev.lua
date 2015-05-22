@@ -93,7 +93,10 @@ function run_once(prg)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
 end
 function run_pcm(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "pcmanfm -d" .. ")")
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. prg ..  " -d)")
+end
+function run_skype(prg)
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "sleep 10s && " .. prg .. ")")
 end
 autorun = true
 autorunApps =
@@ -103,7 +106,7 @@ autorunApps =
    "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
    run_once("kbdd"),
-   run_once("skype"),
+   run_skype("skype"),
    --"xcowsay 'Moo, brother, moo.'"
 }
 if autorun then
@@ -228,6 +231,7 @@ myworkspacemenu = {
 mytaskmenu = awful.menu({ items = {
                                     { "Move to workspace", myworkspacemenu },
                                     { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
+                                    { "  Minimize", function () c = client.focus c.minimized = true end, iconsdir .. "/display.svg"},
                                     { "  Close", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })
@@ -952,7 +956,7 @@ root.keys(globalkeys)
 -- {{{ Rules
 awful.rules.rules = {
     -- All clients will match this rule.
-      { rule = { },
+            { rule = { },
       properties = { border_width = beautiful.border_width,
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
@@ -964,25 +968,25 @@ awful.rules.rules = {
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
+            { rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio"} },
       properties = { tag = tags[1][4] } },
-            { rule_any = { class = { "Steam" ,"Wine", "dota_linux", "Zenity"} },
+            { rule_any = { class = { "Steam" ,"Wine", "dota_linux" } },
       properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
+            { rule_any = { class = { "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "SpiderOak", "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
             "jetbrains-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
-                        { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
+            { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
-            { rule_any = { class = { "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
+            { rule_any = { class = { "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },
             { rule = { instance = "plugin-container" },
   properties = { floating = true } },
