@@ -42,7 +42,7 @@ else
   theme.wallpaper = wallpaper4
 end
 --}}}
-theme.font                          = "Terminus 9"--"Fixed 9"
+theme.font                          = "Fixed 8"--"Fixed 9"
 theme.taglist_font                  = "Visitor TT2 BRK 12"--"envypn 9"
 theme.fg_normal                     = "#949494"
 theme.fg_focus                      = "#3399FF"--"#FFF9A4"
@@ -108,9 +108,10 @@ theme.widget_battery_empty                  = themedir .. "/icons/battery_no_x16
 theme.widget_mem                            = themedir .. "/icons/mem_x16.png"
 theme.widget_cpu                            = themedir .. "/icons/cpu_x16.png"
 theme.widget_temp                           = themedir .. "/icons/temp_x16.png"
-theme.widget_net_high                            = themedir .. "/icons/net_hi_x16.png"
-theme.widget_net_medium                            = themedir .. "/icons/net_med_x16.png"
-theme.widget_net_low                            = themedir .. "/icons/net_lo_x16.png"
+theme.widget_net_hi                            = themedir .. "/icons/net_hi_x16.png"
+theme.widget_net_mid                            = themedir .. "/icons/net_med_x16.png"
+theme.widget_net_low                            = themedir .. "/icons/net_low_x16.png"
+theme.widget_net_no                            = themedir .. "/icons/net_no_x16.png"
 theme.widget_hdd                            = themedir .. "/icons/hdd.png"
 theme.widget_music                          = themedir .. "/icons/note_x16.png"
 theme.widget_music_on                       = themedir .. "/icons/note_on_x16.png"

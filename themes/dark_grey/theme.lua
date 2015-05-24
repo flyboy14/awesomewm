@@ -42,8 +42,8 @@ else
   theme.wallpaper = wallpaper4
 end
 --}}}
-theme.font                          = "Terminus 9"--"Fixed 9"
-theme.taglist_font                  = "Visitor TT2 BRK 12"--"envypn 9"
+theme.font                          = "Fixed 8"--"Fixed 9"
+theme.taglist_font                  = "Visitor TT2 BRK 10"--"envypn 9"
 theme.fg_normal                     = "#949494"
 theme.fg_focus                      = "#3399FF"--"#FFF9A4"
 theme.bg_normal                     = "#121212"
@@ -91,7 +91,10 @@ theme.widget_battery_empty                  = themedir .. "/icons/battery_no_x16
 theme.widget_mem                            = themedir .. "/icons/mem_x16.png"
 theme.widget_cpu                            = themedir .. "/icons/cpu_x16.png"
 theme.widget_temp                           = themedir .. "/icons/temp_x16.png"
-theme.widget_net                            = themedir .. "/icons/net_hi_x16.png"
+theme.widget_net_hi                            = themedir .. "/icons/net_hi_x16.png"
+theme.widget_net_mid                            = themedir .. "/icons/net_mid_x16.png"
+theme.widget_net_low                            = themedir .. "/icons/net_low_x16.png"
+theme.widget_net_no                            = themedir .. "/icons/net_no_x16.png"
 theme.widget_hdd                            = themedir .. "/icons/hdd.png"
 theme.widget_music                          = themedir .. "/icons/note_x16.png"
 theme.widget_music_on                       = themedir .. "/icons/note_on_x16.png"
@@ -102,6 +105,8 @@ theme.widget_vol_no                         = themedir .. "/icons/vol_no_x16.png
 theme.widget_vol_mute                       = themedir .. "/icons/vol_mute_x16.png"
 theme.widget_mail                           = themedir .. "/icons/mail_x16.png"
 theme.widget_mail_open                           = themedir .. "/icons/mailopen.png"
+theme.arrl_ld_sf							= themedir .. "/icons/arrl_ld_sf_x16.png"
+theme.arrl_dl_sf							= themedir .. "/icons/arrl_dl_sf_x16.png"
 
 theme.tasklist_floating                     = ""
 theme.tasklist_maximized_horizontal         = ""

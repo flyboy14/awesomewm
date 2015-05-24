@@ -107,7 +107,7 @@ autorunApps =
    "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
    run_once("kbdd"),
-   run_skype("skype"),
+   --run_skype("skype"),
    --"xcowsay 'Moo, brother, moo.'"
 }
 if autorun then
@@ -233,7 +233,7 @@ myworkspacemenu = {
 mytaskmenu = awful.menu({ items = {
                                     { "Move to workspace", myworkspacemenu },
                                     { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
-                                    { "  Minimize", function () c = client.focus c.minimized = true end, iconsdir .. "/display.svg"},
+                                    { "  Minimize", function () c = client.focus c.minimized = true end, iconsdir .. "/view-restore.svg"},
                                     { "  Close", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })
@@ -285,12 +285,12 @@ red = "<span color='#D83B59'>"
 memwidget = wibox.widget.textbox()
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
-vicious.register(memwidget, vicious.widgets.mem, "<span font='Fixed 14' background='#EA9B84'> <span font='Visitor TT2 BRK 12' color='#4C3D3D' rise='1600'>$2MB/$3MB </span></span>", 3)
+vicious.register(memwidget, vicious.widgets.mem, "<span font='Fixed 14' background='#EA9B84'> <span font='Visitor TT2 BRK 10' color='#4C3D3D' rise='1600'>$2MB/$3MB </span></span>", 3)
 
 --awesompd
 
 musicwidget = awesompd:create() -- Create awesompd widget
-musicwidget.font = "Terminus 8"
+musicwidget.font = "Fixed 8"
 musicwidget.font_color = "#DBCFE0"
  musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
  musicwidget.output_size = 20 -- Set the size of widget in symbols
@@ -302,7 +302,7 @@ musicwidget.font_color = "#DBCFE0"
  musicwidget.mpd_config = home .. "/.mpd/mpd.conf"
  musicwidget.browser = browser
 
- musicwidget.ldecorator = "<span background='#4B3B51' font='Fixed 14' rise='1000'> <span font='Terminus 8' rise='1400'>"
+ musicwidget.ldecorator = "<span background='#4B3B51' font='Fixed 14'> <span font='Fixed 8' rise='1600'>"
  musicwidget.rdecorator = " </span></span>"
  -- Set all the servers to work with (here can be any servers you use)
  musicwidget.servers = {
@@ -380,13 +380,13 @@ function (widget, args)
 -- plugged
   if (batstate() == 'Cable plugged') then
     baticon:set_image(beautiful.widget_ac)
-    return '<span background="#92B0A0" font="Fixed 14" rise="1000"><span font="Visitor TT2 BRK 13"color="#46A8C3" rise="1600">AC</span></span>'
+    return '<span background="#6F766E" font="Fixed 14"> <span font="Visitor TT2 BRK 10"color="#46A8C3" rise="1600">AC</span></span>'
     -- critical
   elseif (args[2] <= 7 and batstate() == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
     awful.util.spawn("systemctl suspend")
   elseif (batstate() == 'Discharging' and args[2] <= 10) then
-        show_smth("⚡ Внимание! ⚡", "Очень  мало энергии", iconsdir .. "/battery-red.svg", 1, "#C2C2A4", "#474C3B", nil, nil )
+        show_smth("⚡ Внимание! ⚡", "Очень  мало энергии", iconsdir .. "/battery-red.svg", 1, "#6F766E", "#474C3B", nil, nil )
   elseif (args[2] <= 15) then
     baticon:set_image(beautiful.widget_battery_empty)
   elseif (args[2] <= 25) then
@@ -399,27 +399,26 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then
-    return '<span background="#C2C2A4" color="#A42929" font="Fixed 14"> <span rise="1000" font="Fixed 9">↓ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
+    return '<span background="#6F766E" color="#9A2324" font="Fixed 14"> <span rise="1200" font="Fixed 9">↓ <span font="Visitor TT2 BRK 10" rise="1600">' .. args[2] .. '% </span></span></span>'
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
-    return '<span background="#C2C2A4" font="Fixed 14"> <span font="Fixed 9"  rise="1000" color="#006D00">↑ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>'
+    return '<span background="#6F766E" font="Fixed 14"> <span font="Fixed 9" rise="1200" color="#AAD05B">↑ <span font="Visitor TT2 BRK 10" rise="1600">' .. args[2] .. '% </span></span></span>'
    else 
-    return '<span background="#C2C2A4" font="Fixed 14" color="#004949"> <span font="Fixed 9"  rise="1000">⚡ <span font="Visitor TT2 BRK 12" rise="1600">' .. args[2] .. '% </span></span></span>' end
+    return '<span background="#6F766E" font="Fixed 14" color="#6CC0C0"> <span rise="1200" font="Fixed 9">⚡ <span font="Visitor TT2 BRK 10" rise="1600">' .. args[2] .. '% </span></span></span>' end
 end, 1, 'BAT0')
-
 -- Keyboard layout widget
 kbdwidget = wibox.widget.textbox()
-kbdcolb = "<span font='Fixed 14' background='#92B0A0'> <span rise='1600' font='Visitor TT2 BRK 13' color='#3D4C40'>"
+kbdcolb = "<span font='Fixed 14' background='#92B0A0'> <span rise='1600' font='mintsmild 7' color='#3D4C40'>"
 kbdcole = "</span></span>"
-kbdwidget.border_width = 1
+kbdwidget.border_width = 0
 kbdwidget.border_color = beautiful.fg_normal
-kbdwidget:set_markup(kbdcolb.." EN "..kbdcole)
+kbdwidget:set_markup(kbdcolb .. "en-us " .. kbdcole)
 dbus.request_name("session", "ru.gentoo.kbdd")
 dbus.add_match("session", "interface='ru.gentoo.kbdd',member='layoutChanged'")
 dbus.connect_signal("ru.gentoo.kbdd", function(...)
     local data = {...}
     local layout = data[2]
-    lts = {[0] = " EN", [1] = " RU"}
-    kbdwidget:set_markup (kbdcolb..""..lts[layout].." "..kbdcole)
+    lts = {[0] = "en-us ", [1] = "ru-ru "}
+    kbdwidget:set_markup (kbdcolb..""..lts[layout]..""..kbdcole)
     end
 )
 
@@ -427,7 +426,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  mygmail = wibox.widget.textbox()
  mygmail:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
 --Register widget
- vicious.register(mygmail, vicious.widgets.gmoil, '<span font="Fixed 14" background="#4B696D" rise="1000"> <span rise="1600" color="#C5D6F4" font="Visitor TT2 BRK 12">${count} </span></span>', 260)
+ vicious.register(mygmail, vicious.widgets.gmoil, '<span font="Fixed 14" background="#4B696D"> <span rise="3000" color="#C5D6F4" font="Visitor TT2 BRK 10">${count} </span></span>', 260)
  mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
  mygmailimg:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
 
@@ -435,14 +434,14 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  cpuicon = wibox.widget.imagebox()
  cpuicon:set_image(beautiful.widget_cpu)
  cpuwidget = wibox.widget.textbox()
- vicious.register(cpuwidget, vicious.widgets.cpu, '<span background="#84D0D0" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 12" color="#005656">CPU <span color="#393E4A">$1% </span></span></span>', 3)
+ vicious.register(cpuwidget, vicious.widgets.cpu, '<span background="#84D0D0" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 10" color="#005656">CPU <span color="#393E4A">$1% </span></span></span>', 3)
 
 -- Weather widget
 tempicon = wibox.widget.imagebox()
 tempicon:set_image(beautiful.widget_temp)
 tempicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
    tempicon:connect_signal("mouse::enter", function()
-                                                 show_smth(nil, weather_t, nil, 0, "#6F766E", "#dedede", nil, nil)
+                                                 show_smth(nil, weather_t, nil, 0, "#C2C2A4", "#393939", nil, nil)
                                               end)
    tempicon:connect_signal("mouse::leave", function(c)
                                                  hide_smth()
@@ -450,7 +449,7 @@ tempicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.ut
 weatherwidget = wibox.widget.textbox()
 weatherwidget:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
    weatherwidget:connect_signal("mouse::enter", function()
-                                                 show_smth(nil, weather_t, nil, 0, "#6F766E", "#dedede", nil, nil)
+                                                 show_smth(nil, weather_t, nil, 0, "#C2C2A4", "#393939", nil, nil)
                                               end)
    weatherwidget:connect_signal("mouse::leave", function()
                                                  hide_smth()
@@ -460,13 +459,13 @@ vicious.register(weatherwidget, vicious.widgets.weather,
                 function (widget, args)                   
                     weather_t = "City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%"
                     if args["{tempc}"] == "N/A" then
-                      return '<span background="#6F766E" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 13" color="#dedede">:( </span></span>'
+                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 10" color="#23282C">:( </span></span>'
                     elseif args["{tempc}"] <= 0 then
-                      return '<span background="#6F766E" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 13" color="#86CCCC">' .. args["{tempc}"] .. 'C </span></span>'
+                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 10" color="#056C74">' .. args["{tempc}"] .. 'C </span></span>'
                     elseif args["{tempc}"] <= 10 then
-                      return '<span background="#6F766E" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 13" color="#DCDC96">+' .. args["{tempc}"] .. 'C </span></span>'
+                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 10" color="#747405">+' .. args["{tempc}"] .. 'C </span></span>'
                     elseif args["{tempc}"] <= 30 then
-                      return '<span background="#6F766E" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 13" color="#FFD05C">+' .. args["{tempc}"] .. 'C </span></span>'
+                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 10" color="#A26709">+' .. args["{tempc}"] .. 'C </span></span>'
                     end
                 end, 600, "UMMS")
                 --'600': check every 10 minutes.
@@ -491,59 +490,84 @@ function (widget, args)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
   end
-  volume_t='<span font="Fixed 14" background="#E2AE7C"> <span font="Visitor TT2 BRK 13" rise="1600" color="#4C3D3D">' .. args[1] .. '%</span></span>'
+  volume_t='<span font="Fixed 14" background="#E2AE7C"> <span font="Visitor TT2 BRK 10" rise="1600" color="#4C3D3D">' .. args[1] .. '% </span></span>'
   return volume_t
 end, 1, "Master")
 
 
 -- Net widget
 netwidget = wibox.widget.textbox()
+neticon = wibox.widget.imagebox()
+neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("sudo systemctl restart wpa_supplicant@wlp3s0.service") end, 
+ function () show_smth("wpa_supplicant", "Сервис перезапущен", iconsdir .. "/wrench-base.svg", 3, nil, nil, nil, nil) end
+ )))
 netwidget:buttons(awful.util.table.join(
-awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
- end),
+awful.button({ }, 1, function () awful.util.spawn("wpa_gui") end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
-vicious.register(netwidget, vicious.widgets.net,'<span background="#6F766E" font="Fixed 14"> <span font="Visitor TT2 BRK 12" rise="1600" color="#1EC261">${wlp3s0 down_kb}</span> <span font="fixed 8" rise="1000" color="#bebebe">↓ ↑</span> <span font="Visitor TT2 BRK 12" rise="1600" color="#1EBEC2">${wlp3s0 up_kb} </span></span>', 3)
-neticon = wibox.widget.imagebox()
-neticon:set_image(beautiful.widget_net_high)
-neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("sudo systemctl restart wpa_supplicant@wlp3s0.service") end,
- function () show_smth("wpa_supplicant", "Сервис перезапущен", iconsdir .. "/wrench-base.svg", 3, "#6F766E", "#dedede", nil, nil) end
- )))
-
--- Separators
-face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 13">//\\(o.o_)/\\\\</span>')
-face:buttons(awful.util.table.join(
-awful.button({ }, 1, function () awful.util.spawn_with_shell("sh " .. scripts .. "/change_config.sh") end, awesome.restart),
-awful.button({ }, 3, function(c)
-                                                 face:show_notification()
+vicious.register(netwidget, vicious.widgets.wifi, 
+  function (widget, args)
+      link = args['{link}']
+      netwidget:connect_signal("mouse::enter", function()
+                                                 show_smth(args['{ssid}'], "Channel: " .. args['{chan}'] .. "\nBitrate: ".. args['{rate}'] .. " Mb/s" .. "\nLink quality: " .. args['{link}'].. "/70\n" .. "Signal level: " .. args['{sign}'] .. " dBm", nil, nil, "#6F766E", "#dedede", nil, nil)
                                               end)
-        ))
-face:connect_signal("mouse::enter", function(c)
-                                                 face:show_notification()
-                                              end)
-face:connect_signal("mouse::leave", function(c)
+      netwidget:connect_signal("mouse::leave", function()
                                                  hide_smth()
                                               end)
-function face:show_notification()
-   local f = io.popen("fortune -s") 
-   local quote = f:read("*all") 
-   f:close() 
-   self.notification = show_smth(
-          "Wisdom spider: "
-          ,quote
-          ,nil
-          ,0
-          ,"#121212"
-          ,"#dedede"
-          ,"Fixed 10"
-          ,"bottom_right")
-end
+      -- wifiicon.visible = true  -- didnt help
+      if link > 65 then
+        neticon:set_image(beautiful.widget_net_hi)
+      elseif link > 30 and link <= 65 then
+        neticon:set_image(beautiful.widget_net_mid)
+      elseif link > 0 and link <= 30 then
+        neticon:set_image(beautiful.widget_net_low)
+      else
+        neticon:set_image(beautiful.widget_net_no)
+      end
+      if (args['{ssid}'] == 'N/A') then return ''
+      else return '<span background="#6F766E" font="Fixed 14"> <span rise="1600" color="#cecece" font="fixed 7">' .. args['{ssid}'] .. ' </span></span>'
+      end
+    end,
+  3,"wlp3s0")
+-- netwidget = wibox.widget.textbox()
+-- netwidget:buttons(awful.util.table.join(
+-- awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
+--  end),
+-- awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
+-- ))
+-- vicious.register(netwidget, vicious.widgets.net,'<span background="#6F766E" font="Fixed 14"> <span font="Visitor TT2 BRK 10" rise="1600" color="#1EC261">${wlp3s0 down_kb}</span> <span font="fixed 8" rise="1000" color="#bebebe">↓ ↑</span> <span font="Visitor TT2 BRK 10" rise="1600" color="#1EBEC2">${wlp3s0 up_kb} </span></span>', 3)
+-- neticon = wibox.widget.imagebox()
+-- neticon:set_image(beautiful.widget_net_high)
+-- neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("sudo systemctl restart wpa_supplicant@wlp3s0.service") end,
+--  function () show_smth("wpa_supplicant", "Сервис перезапущен", iconsdir .. "/wrench-base.svg", 3, "#6F766E", "#dedede", nil, nil) end
+--  )))
+
+-- Separators
+face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')
+face:buttons(awful.util.table.join(
+awful.button({ }, 1, function () awful.util.spawn_with_shell(scripts .. "/change_config.sh") end, awesome.restart),
+awful.button({ }, 3, function(c)
+  local f = io.popen("fortune -s") 
+  local quote = f:read("*all") 
+  f:close()
+  show_smth("Wisdom spider :", quote, nil, 0, nil, nil, "Fixed 9", "bottom_right") 
+  end)
+))
+face:connect_signal("mouse::enter", function(c)
+  local f = io.popen("fortune -s") 
+  local quote = f:read("*all") 
+  f:close()
+  show_smth("Wisdom spider :", quote, nil, 0, nil, nil, "Fixed 9", "bottom_right") end)
+face:connect_signal("mouse::leave", function(c)
+hide_smth()
+end)
+
 
 bral = wibox.widget.textbox('<span color="#949494">[ </span>')
 brar = wibox.widget.textbox('<span color="#949494"> ]</span>')
 spr = wibox.widget.textbox(' ')
-sepl = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 12"> tasks: </span>')
-sepr = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 12"> :systray </span>')
+sepl = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 10"> tasks: </span>')
+sepr = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 10"> :systray </span>')
 arrl_dl_vol = wibox.widget.imagebox()
 arrl_ld_vol = wibox.widget.imagebox()
 arrl_ld_vol:set_image(beautiful.arrl_ld_vol)
@@ -597,7 +621,7 @@ gf:buttons(awful.util.table.join(awful.button(
 ))   
 
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("<span background='#444444' font='Fixed 14'> <span rise='1600' color='#bebebe'><span font='Visitor TT2 BRK 14'>%I:%M %p </span></span></span>")
+mytextclock = awful.widget.textclock("<span background='#444444' font='Fixed 14'> <span rise='1600' color='#bebebe' font='mintsstrong 7'>%I:%M %p </span></span>")
  orglendar.files = { home .. "/Documents/Notes/work.org",    -- Specify here all files you want to be parsed, separated by comma.
                      home .. "/Documents/Notes/home.org" }
 orglendar.register(mytextclock)
@@ -699,13 +723,13 @@ for s = 1, screen.count() do
     right_layout:add(yf)
     right_layout:add(spr)
     right_layout:add(arrl_ld_mem)
-    --right_layout:add(memicon)
+    right_layout:add(memicon)
     right_layout:add(memwidget)
     right_layout:add(arrl_ld_mail)
-    --right_layout:add(cpuicon)
+    right_layout:add(cpuicon)
     right_layout:add(cpuwidget)
     right_layout:add(arrl_dl_mail)
-    --right_layout:add(neticon)
+    right_layout:add(neticon)
     right_layout:add(netwidget)
     right_layout:add(arrl_ld_cpu)
     right_layout:add(mygmailimg)
@@ -719,11 +743,11 @@ for s = 1, screen.count() do
     right_layout:add(arrl_dl_lang)
     right_layout:add(kbdwidget)
     right_layout:add(arrl_dl_bat)
-    --right_layout:add(baticon)
-    right_layout:add(batwidget)
-    right_layout:add(arrl_dl_net)
-    --right_layout:add(tempicon)
+        right_layout:add(tempicon)
     right_layout:add(weatherwidget)
+    right_layout:add(arrl_dl_net)
+    right_layout:add(baticon)
+    right_layout:add(batwidget)
     right_layout:add(arrl_dl_temp)
     right_layout:add(mytextclock)
     right_layout:add(arrl_dl_clock)

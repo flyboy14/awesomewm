@@ -39,8 +39,8 @@ local jamendo = awesompd.try_require("jamendo")
 -- Constants
 awesompd.PLAYING = "Playing"
 awesompd.PAUSED = "Paused"
-awesompd.STOPPED = "<span font='Visitor TT2 BRK 12' color='#e54c62'>Stopped</span>"
-awesompd.DISCONNECTED = "<span font='Visitor TT2 BRK 12' color='#e54c62'>music</span>"
+awesompd.STOPPED = "<span rise='1200' font='Visitor TT2 BRK 10' color='#e54c62'>Stopped</span>"
+awesompd.DISCONNECTED = "<span font='Visitor TT2 BRK 10' color='#e54c62'>music</span>"
 
 awesompd.MOUSE_LEFT = 1
 awesompd.MOUSE_MIDDLE = 2
@@ -70,15 +70,15 @@ function awesompd.get_display_name(track)
    if track.display_name then
       return "<span color='#e54c62'>" .. track.display_name .. "</span>"
    elseif track.artist_name and track.track_name then
-      return track.name .. " - <span color=\"#bebebe\'" .. track.artist_name .. "</span>"
+      return track.name .. " - <span color=\"#949494\'" .. track.artist_name .. "</span>"
    end
 end
 
 function awesompd.get_display_name_dark(track)
    if track.display_name then
-      return "<span color='#bebebe'>" .. track.display_name .. "</span>"
+      return "<span color='#949494'>" .. track.display_name .. "</span>"
    elseif track.artist_name and track.track_name then
-      return track.name .. " - <span color=\"#bebebe\'" .. track.artist_name .. "</span>"
+      return track.name .. " - <span color=\"#949494\'" .. track.artist_name .. "</span>"
    end
 end
 
