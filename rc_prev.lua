@@ -506,12 +506,6 @@ awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") en
 vicious.register(netwidget, vicious.widgets.wifi, 
   function (widget, args)
       link = args['{link}']
-      netwidget:connect_signal("mouse::enter", function()
-                                                 show_smth(args['{ssid}'], "Channel: " .. args['{chan}'] .. "\nBitrate: ".. args['{rate}'] .. " Mb/s" .. "\nLink quality: " .. args['{link}'].. "/70\n" .. "Signal level: " .. args['{sign}'] .. " dBm", nil, 0, "#6F766E", "#dedede", nil, nil)
-                                              end)
-      netwidget:connect_signal("mouse::leave", function()
-                                                 hide_smth()
-                                              end)
       -- wifiicon.visible = true  -- didnt help
       if link > 65 then
         neticon:set_image(beautiful.widget_net_hi)

@@ -529,12 +529,6 @@ awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") en
 vicious.register(netwidget, vicious.widgets.wifi, 
   function (widget, args)
       link = args['{link}']
-      netwidget:connect_signal("mouse::enter", function()
-                                                 show_smth(args['{ssid}'], "Channel: " .. args['{chan}'] .. "\nBitrate: ".. args['{rate}'] .. " Mb/s" .. "\nLink quality: " .. args['{link}'].. "/70\n" .. "Signal level: " .. args['{sign}'] .. " dBm", nil, 0, nil, nil, nil, nil)
-                                              end)
-      netwidget:connect_signal("mouse::leave", function()
-                                                 hide_smth()
-                                              end)
       -- wifiicon.visible = true  -- didnt help
       if link > 65 then
         neticon:set_image(beautiful.widget_net_hi)
@@ -546,7 +540,7 @@ vicious.register(netwidget, vicious.widgets.wifi,
         neticon:set_image(beautiful.widget_net_no)
       end
       --if (args['{ssid}'] == 'N/A') then return ''
-      return '<span font="fixed 7"> ' .. args['{ssid}'] .. '</span>'
+      return '<span font="fixed 7" rise="-1000"> ' .. args['{ssid}'] .. '</span>'
       --end
     end,
   1,"wlp3s0")
@@ -557,7 +551,7 @@ awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
  end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
-vicious.register(snetwidget, vicious.widgets.net,' | <span font="mintsstrong 7" color="#aeaeae">${wlp3s0 down_kb}<span color="#7AC82E"> ↓</span><span color="#46A8C3">↑ </span>${wlp3s0 up_kb}</span>', 3)
+vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsstrong 7"> | <span color="#aeaeae">${wlp3s0 down_kb}<span color="#7AC82E" rise="-1000"> ↓</span><span color="#46A8C3" rise="-1000">↑ </span>${wlp3s0 up_kb}</span></span>', 3)
 
 
 -- Separators
