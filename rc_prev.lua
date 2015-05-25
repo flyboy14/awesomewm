@@ -531,7 +531,7 @@ awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
  end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
-vicious.register(snetwidget, vicious.widgets.net,'<span font="Fixed 14" background="#6f766e" color="#cecece" rise="16000"> <span rise="1600" font="mintsstrong 7"> ${wlp3s0 down_kb}<span color="#7AC82E">dn</span> ${wlp3s0 up_kb}<span color="#46A8C3">up </span></span></span>', 2)
+vicious.register(snetwidget, vicious.widgets.net,'<span font="Fixed 14" background="#6f766e" color="#cecece"> <span rise="1600" font="mintsstrong 7" color="#bebebe">${wlp3s0 down_kb}<span color="#7AC82E"> ↓</span><span color="#46A8C3">↑ </span>${wlp3s0 up_kb} </span></span>', 3)
 
 -- Separators
 face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')

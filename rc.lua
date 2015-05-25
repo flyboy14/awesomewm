@@ -419,7 +419,7 @@ function (widget, args)
     return '<span background="#121212" font="Fixed 9" color="#7AC82E">↑ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#949494">:' .. args[2] ..' </span></span></span>'
    else 
     return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#949494">:' .. args[2] ..' </span></span></span>' end
-end, 3, 'BAT0')
+end, 1, 'BAT0')
 
 -- Keyboard layout widget
 kbdwidget = wibox.widget.textbox()
@@ -557,7 +557,7 @@ awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
  end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
-vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsstrong 7"> | ${wlp3s0 down_kb}<span color="#7AC82E">dn</span>:${wlp3s0 up_kb}<span color="#46A8C3">up</span></span>', 3)
+vicious.register(snetwidget, vicious.widgets.net,' | <span font="mintsstrong 7" color="#aeaeae">${wlp3s0 down_kb}<span color="#7AC82E"> ↓</span><span color="#46A8C3">↑ </span>${wlp3s0 up_kb}</span>', 3)
 
 
 -- Separators
