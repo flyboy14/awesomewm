@@ -36,7 +36,7 @@ local function worker(format, warg)
 
     -- Check if the battery is present
     if battery.present ~= "1\n" then
-        return {battery_state["Unknown\n"], 0, "N/A", 0}
+        return {battery_state["Unknown\n"], 0, "NAN", 0}
     end
 
 
@@ -51,7 +51,7 @@ local function worker(format, warg)
         remaining, capacity = battery.energy_now, battery.energy_full
         capacity_design = battery.energy_full_design or capacity
     else
-        return {battery_state["Unknown\n"], 0, "N/A", 0}
+        return {battery_state["Unknown\n"], 0, "NAN", 0}
     end
 
     -- Calculate capacity and wear percentage (but work around broken BAT/ACPI implementations)
@@ -65,11 +65,11 @@ local function worker(format, warg)
     elseif battery.power_now then
         rate = tonumber(battery.power_now)
     else
-        return {state, percent, "N/A", wear}
+        return {state, percent, "NAN", wear}
     end
 
     -- Calculate remaining (charging or discharging) time
-    local time = "N/A"
+    local time = "NAN"
 
     if rate ~= nil and rate ~= 0 then
         if state == "+" then
@@ -84,7 +84,7 @@ local function worker(format, warg)
         local hoursleft   = math.floor(timeleft)
         local minutesleft = math.floor((timeleft - hoursleft) * 60 )
 
-        time = string.format("%02d:%02d", hoursleft, minutesleft)
+        time = string.format("%02d%02d", hoursleft, minutesleft)
     end
 
     return {state, percent, time, wear}

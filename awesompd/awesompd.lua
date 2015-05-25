@@ -203,7 +203,7 @@ function awesompd:create()
    instance.recreate_jamendo_order = true
    instance.recreate_jamendo_browse = true
    instance.current_number = 0
-   instance.menu_shown = false
+   instance.menu_shown = true
    instance.state_volume = "NaN"
    instance.state_repeat = "NaN"
    instance.state_random = "NaN"

@@ -83,6 +83,7 @@ theme.layout_magnifier              = themedir .. "/icons/magnifier.png"
 theme.layout_floating               = themedir .. "/icons/floating_x16.png"
 
 theme.widget_ac                             = themedir .. "/icons/ac_x16.png"
+theme.widget_clock                             = themedir .. "/icons/clock_x16.png"
 theme.widget_battery_high                    = themedir .. "/icons/battery_hi_x16.png"
 theme.widget_battery_mid                        = themedir .. "/icons/battery_med_x16.png"
 theme.widget_battery_low                    = themedir .. "/icons/battery_lo_x16.png"
@@ -113,7 +114,7 @@ theme.tasklist_maximized_horizontal         = ""
 theme.tasklist_maximized_vertical           = "" 
 
 -- lain related
-theme.useless_gap_width             = 5
+theme.useless_gap_width             = 0
 theme.layout_uselesstile            = themedir .. "/icons/uselesstile.png"
 theme.layout_uselesstileleft        = themedir .. "/icons/uselesstileleft.png"
 theme.layout_uselesstiletop         = themedir .. "/icons/uselesstiletop.png"

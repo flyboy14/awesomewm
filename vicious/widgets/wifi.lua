@@ -36,8 +36,8 @@ local function worker(format, warg)
 
     -- Default values
     local winfo = {
-        ["{ssid}"] = "N/A",
-        ["{mode}"] = "N/A",
+        ["{ssid}"] = "NAN",
+        ["{mode}"] = "NAN",
         ["{chan}"] = 0,
         ["{rate}"] = 0,
         ["{link}"] = 0,

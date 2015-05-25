@@ -186,7 +186,7 @@ end
 end
 local header
 if this_month then
-header = os.date("%a, %d %b %Y")
+header = os.date("%d %b %Y")
 else
 header = os.date("%B %Y", first_day)
 end

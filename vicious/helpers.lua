@@ -81,6 +81,14 @@ function helpers.uformat(array, key, value, unit)
 
     return array
 end
+-- {{{ Format units to zero decimal point
+function helpers.myformat(array, key, value, unit)
+    for u, v in pairs(unit) do
+        array["{"..key.."_"..u.."}"] = string.format("%1.f", value/v)
+    end
+
+    return array
+end
 -- }}}
 
 -- {{{ Escape a string

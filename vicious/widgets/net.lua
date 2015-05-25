@@ -41,8 +41,8 @@ local function worker(format)
             local send = tonumber(string.match(line,
              "([%d]+)%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d+%s+%d$"))
 
-            helpers.uformat(args, name .. " rx", recv, unit)
-            helpers.uformat(args, name .. " tx", send, unit)
+            helpers.myformat(args, name .. " rx", recv, unit)
+            helpers.myformat(args, name .. " tx", send, unit)
 
             -- Operational state and carrier detection
             local sysnet = helpers.pathtotable("/sys/class/net/" .. name)
@@ -52,8 +52,8 @@ local function worker(format)
             if nets[name] == nil then
                 -- Default values on the first run
                 nets[name] = {}
-                helpers.uformat(args, name .. " down", 0, unit)
-                helpers.uformat(args, name .. " up",   0, unit)
+                helpers.myformat(args, name .. " down", 0, unit)
+                helpers.myformat(args, name .. " up",   0, unit)
             else -- Net stats are absolute, substract our last reading
                 local interval = now - nets[name].time
                 if interval <= 0 then interval = 1 end
@@ -61,8 +61,8 @@ local function worker(format)
                 local down = (recv - nets[name][1]) / interval
                 local up   = (send - nets[name][2]) / interval
 
-                helpers.uformat(args, name .. " down", down, unit)
-                helpers.uformat(args, name .. " up",   up,   unit)
+                helpers.myformat(args, name .. " down", down, unit)
+                helpers.myformat(args, name .. " up",   up,   unit)
             end
 
             nets[name].time = now

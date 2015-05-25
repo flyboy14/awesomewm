@@ -59,7 +59,7 @@ beautiful.init(active_theme .. "/theme.lua")
 -- This is used later as the default terminal and editor to run.
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
-terminal = "urxvtc"
+terminal = "urxvtc -T Terminal"
 browser = "firefox"
 editor = "subl"
 editor_cmd = terminal .. " -e " .. editor
@@ -90,7 +90,7 @@ function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foo
    hide_smth()
    --naughty.destroy(noti)
    noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
-   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.9 }
+   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 1 }
  end
 
  function hide_smth()
@@ -116,8 +116,8 @@ autorunApps =
    "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
    run_once("kbdd"),
-   run_skype("skype"),
-   run_once("dcompmgr --no-fade"),
+   --run_skype("skype"),
+   run_once("unagi"),
    --"xcowsay 'Moo, brother, moo.'"
 }
 if autorun then
@@ -242,13 +242,6 @@ myworkspacemenu = {
                                     { "Etc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[8] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
                                        }
 
--- myvirtualmenu =                   {
---                                     { "  load driver", "gksudo modprobe vboxdrv", iconsdir .. "/driver.svg" },
---                                     { "  start makakka_xp", "virtualbox --startvm makakka_xp", iconsdir .. "/cuteball-windows.png" },
---                                     { "  open virt-manager", "virt-manager", iconsdir .. "/robot-modern.png" },
---                                     { "  open virtualbox", "virtualbox", iconsdir .. "/Vbox.svg" },
---                                   }
-
 mytaskmenu = awful.menu({ items = {
                                     { "Move to workspace", myworkspacemenu },
                                     { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
@@ -263,7 +256,6 @@ mymainmenu = awful.menu({ items = {
                                     { "  DoubleCommander", "doublecmd", iconsdir .. "/doublecmd.svg"},
                                     { "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox.svg" },
                                     { "  Расписание", "libreoffice " .. home .. "/temp/raspis.xlsx", iconsdir .. "/key-p.svg" },
-                                    -- { "Песочница", myvirtualmenu },
                                     { "Приложения", xdgmenu },
                                     { "Игры", mygamesmenu },
                                     { "  Обои", "nitrogen", iconsdir .. "/greylink-dc.png" }
@@ -298,7 +290,7 @@ red = "<span color='#e54c62'>"
 memwidget = wibox.widget.textbox()
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
-vicious.register(memwidget, vicious.widgets.mem, "<span font='Visitor TT2 BRK 10' color='#949494'> $2MB/$3MB </span>", 3)
+vicious.register(memwidget, vicious.widgets.mem, "<span font='mintsstrong 7' color='#949494'> $2MB/$3MB </span>", 3)
 
 --awesompd
 
@@ -306,7 +298,7 @@ musicwidget = awesompd:create() -- Create awesompd widget
 musicwidget.font = "Fixed 8"
 musicwidget.font_color = "#e54c62"
  musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
- musicwidget.output_size = 100 -- Set the size of widget in symbols
+ musicwidget.output_size = 30 -- Set the size of widget in symbols
  musicwidget.update_interval = 1 -- Set the update interval in seconds
  musicwidget.path_to_icons = confdir .. "/awesompd/icons"
  musicwidget.jamendo_format = awesompd.FORMAT_MP3
@@ -422,26 +414,26 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then
-    return '<span background="#121212" color="#e54c62" font="Fixed 9">↓ <span font="Visitor TT2 BRK 10">' .. args[2] .. '% </span></span>'
+    return '<span background="#121212" color="#e54c62" font="Fixed 9">↓ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#949494">:' .. args[2] ..' </span></span></span>'
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
-    return '<span background="#121212" font="Fixed 9" color="#7AC82E">↑ <span font="Visitor TT2 BRK 10">' .. args[2] .. '% </span></span>'
+    return '<span background="#121212" font="Fixed 9" color="#7AC82E">↑ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#949494">:' .. args[2] ..' </span></span></span>'
    else 
-    return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span font="Visitor TT2 BRK 10">' .. args[2] .. '% </span></span>' end
-end, 1, 'BAT0')
+    return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#949494">:' .. args[2] ..' </span></span></span>' end
+end, 3, 'BAT0')
 
 -- Keyboard layout widget
 kbdwidget = wibox.widget.textbox()
-kbdcolb = "| <span font='mintsmild 7'>"
+kbdcolb = "<span font='mintsmild 7'>> "
 kbdcole = "</span>"
 kbdwidget.border_width = 0
 kbdwidget.border_color = beautiful.fg_normal
-kbdwidget:set_markup(kbdcolb .. "en-us " .. kbdcole)
+kbdwidget:set_markup(kbdcolb .. "en-us" .. kbdcole)
 dbus.request_name("session", "ru.gentoo.kbdd")
 dbus.add_match("session", "interface='ru.gentoo.kbdd',member='layoutChanged'")
 dbus.connect_signal("ru.gentoo.kbdd", function(...)
     local data = {...}
     local layout = data[2]
-    lts = {[0] = "en-us ", [1] = "ru-ru "}
+    lts = {[0] = "en-us", [1] = "ru-ru"}
     kbdwidget:set_markup (kbdcolb..""..lts[layout]..""..kbdcole)
     end
 )
@@ -465,7 +457,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  cpuicon = wibox.widget.imagebox()
  cpuicon:set_image(beautiful.widget_cpu)
  cpuwidget = wibox.widget.textbox()
- vicious.register(cpuwidget, vicious.widgets.cpu, '<span font="Visitor TT2 BRK 10" color="#46A8C3"> CPU <span color="#949494">$1% </span></span>', 3)
+ vicious.register(cpuwidget, vicious.widgets.cpu, '<span font="mintsstrong 7" color="#46A8C3"> CPU <span color="#949494">$1% </span></span>', 3)
 
 -- Weather widget
 tempicon = wibox.widget.imagebox()
@@ -497,7 +489,7 @@ vicious.register(weatherwidget, vicious.widgets.weather,
                       return '<span font="Visitor TT2 BRK 10" color="#E4E876">+' .. args["{tempc}"] .. 'C</span>'
                     elseif args["{tempc}"] <= 30 then
                       return '<span font="Visitor TT2 BRK 10" color="#E09620">+' .. args["{tempc}"] .. 'C</span>'
-                    elseif args["{tempc}"] <= 30 then
+                    elseif args["{tempc}"] > 30 then
                       return '<span font="Visitor TT2 BRK 10" color="#E05721">fuck, it\'s +' .. args["{tempc}"] .. 'C</span>'
                     end
                 end, 600, "UMMS")
@@ -523,15 +515,13 @@ function (widget, args)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
   end
-  return '<span font="Visitor TT2 BRK 10" color="#949494">' .. args[1] .. '%</span>'
+  return '<span font="mintsstrong 7" color="#949494">' .. args[1] .. '%</span>'
 end, 1, "Master")
 
 -- Net widget
 netwidget = wibox.widget.textbox()
 neticon = wibox.widget.imagebox()
-neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("sudo systemctl restart wpa_supplicant@wlp3s0.service") end, 
- function () show_smth("wpa_supplicant", "Сервис перезапущен", iconsdir .. "/wrench-base.svg", 3, nil, nil, nil, nil) end
- )))
+neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("systemctl restart wpa_supplicant@wlp3s0 systemd-networkd") end)))
 netwidget:buttons(awful.util.table.join(
 awful.button({ }, 1, function () awful.util.spawn("wpa_gui") end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
@@ -540,7 +530,7 @@ vicious.register(netwidget, vicious.widgets.wifi,
   function (widget, args)
       link = args['{link}']
       netwidget:connect_signal("mouse::enter", function()
-                                                 show_smth(args['{ssid}'], "Channel: " .. args['{chan}'] .. "\nBitrate: ".. args['{rate}'] .. " Mb/s" .. "\nLink quality: " .. args['{link}'].. "/70\n" .. "Signal level: " .. args['{sign}'] .. " dBm", nil, nil, nil, nil, nil, nil)
+                                                 show_smth(args['{ssid}'], "Channel: " .. args['{chan}'] .. "\nBitrate: ".. args['{rate}'] .. " Mb/s" .. "\nLink quality: " .. args['{link}'].. "/70\n" .. "Signal level: " .. args['{sign}'] .. " dBm", nil, 0, nil, nil, nil, nil)
                                               end)
       netwidget:connect_signal("mouse::leave", function()
                                                  hide_smth()
@@ -555,11 +545,20 @@ vicious.register(netwidget, vicious.widgets.wifi,
       else
         neticon:set_image(beautiful.widget_net_no)
       end
-      if (args['{ssid}'] == 'N/A') then return ''
-      else return '<span font="fixed 7"> ' .. args['{ssid}'] .. '</span>'
-      end
+      --if (args['{ssid}'] == 'N/A') then return ''
+      return '<span font="fixed 7"> ' .. args['{ssid}'] .. '</span>'
+      --end
     end,
-  3,"wlp3s0")
+  1,"wlp3s0")
+
+snetwidget = wibox.widget.textbox()
+snetwidget:buttons(awful.util.table.join(
+awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
+ end),
+awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
+))
+vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsstrong 7"> | ${wlp3s0 down_kb}<span color="#7AC82E">dn</span>:${wlp3s0 up_kb}<span color="#46A8C3">up</span></span>', 3)
+
 
 -- Separators
 face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')
@@ -569,7 +568,7 @@ awful.button({ }, 3, function(c)
   local f = io.popen("fortune -s") 
   local quote = f:read("*all") 
   f:close()
-  show_smth("Wisdom spider :", quote, nil, 0, nil, nil, "Fixed 9", "bottom_right") 
+  show_smth("Wisdom spider", quote, nil, 0, nil, nil, "Fixed 9", "bottom_right") 
   end)
 ))
 face:connect_signal("mouse::enter", function(c)
@@ -620,10 +619,12 @@ gf:buttons(awful.util.table.join(awful.button(
 
 
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("<span font='mintsstrong 7'>%I:%M %p </span>")
+mytextclock = awful.widget.textclock("<span font='mintsstrong 7'>| %I%M%p </span>")
  orglendar.files = { home .. "/Documents/Notes/work.org",    -- Specify here all files you want to be parsed, separated by comma.
                      home .. "/Documents/Notes/home.org" }
 orglendar.register(mytextclock)
+clockicon=wibox.widget.imagebox()
+clockicon:set_image(beautiful.widget_clock)
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -710,9 +711,10 @@ for s = 1, screen.count() do
     local left_layout = wibox.layout.fixed.horizontal()
     --left_layout:add(mylauncher)
     left_layout:add(mytaglist[s])
-    left_layout:add(mypromptbox[s])
     left_layout:add(arrl)
     left_layout:add(mylayoutbox[s])
+    left_layout:add(spr)
+    left_layout:add(mypromptbox[s])
     local left_w = wibox.layout.fixed.horizontal()
     left_w:add(sepl)
     left_w:add(bral)
@@ -729,6 +731,7 @@ for s = 1, screen.count() do
     right_layout:add(memwidget)
     right_layout:add(neticon)
     right_layout:add(netwidget)
+    right_layout:add(snetwidget)
     right_layout:add(spr)
     right_layout:add(mygmailimg)
     right_layout:add(spr)
@@ -747,7 +750,7 @@ for s = 1, screen.count() do
     right_layout:add(spr)
         right_layout:add(baticon)
     right_layout:add(batwidget)
-    right_layout:add(spr)
+    --right_layout:add(clockicon)
     right_layout:add(mytextclock)
     local right_w = wibox.layout.fixed.horizontal()
     right_w:add(brar)
@@ -892,14 +895,16 @@ globalkeys = awful.util.table.join(
 
     -- Prompt
     awful.key({ alt,           }, "F2",
-              function () awful.prompt.run({prompt="Run:"},
+              function () awful.prompt.run({prompt="> "},
                                            mypromptbox[mouse.screen].widget,
                                            check_for_terminal,
                                            clean_for_completion,
-                                           awful.util.getdir("cache") .. "/history") end),
+                                           awful.util.getdir("cache") .. "/history") 
+              --arrl.visible = false
+              end),
     awful.key({ modkey }, "F2",
               function ()
-                  awful.prompt.run({ prompt = "Run Lua code:" },
+                  awful.prompt.run({ prompt = ">> " },
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
@@ -993,13 +998,13 @@ awful.rules.rules = {
       properties = { tag = tags[1][8] } },
             { rule_any = { class = { "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
-            { rule_any = { class = { "SpiderOak", "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
+            { rule_any = { class = { "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
             "jetbrains-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
-            { rule_any = { class = { "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
+            { rule_any = { class = { "Polkit-gnome-authentication-agent-1", "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },
             { rule = { instance = "plugin-container" },
   properties = { floating = true } },
@@ -1155,7 +1160,6 @@ end)
 
 client.connect_signal("focus", function(c)
                               c.border_color = beautiful.border_focus
-                              --awful.util.spawn("sudo renice -n -1 -p " .. c.pid)
                               c.opacity = 1
                            end)
 client.connect_signal("unfocus", function(c)
