@@ -116,7 +116,7 @@ autorunApps =
    "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
    run_once("kbdd"),
-   --run_skype("skype"),
+   run_once("hidcur"),
    run_once("unagi"),
    --"xcowsay 'Moo, brother, moo.'"
 }
@@ -184,7 +184,7 @@ local layouts =
 -- }}}
 
  -- {{{ Tags
- theme.taglist_font                  = font_main
+ theme.taglist_font                  = "mintsstrong 7"
  tags = {
    names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "… " },
    layout = { layouts[2], layouts[5], layouts[4], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
@@ -245,7 +245,7 @@ myworkspacemenu = {
 mytaskmenu = awful.menu({ items = {
                                     { "Move to workspace", myworkspacemenu },
                                     { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
-                                    { "  Minimize", function () c = client.focus c.minimized = true end, iconsdir .. "/display.svg"},
+                                    { "  Minimize", function () c = client.focus c.minimized = true end, iconsdir .. "/view-restore.svg"},
                                     { "  Close", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })
@@ -290,7 +290,7 @@ red = "<span color='#e54c62'>"
 memwidget = wibox.widget.textbox()
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
-vicious.register(memwidget, vicious.widgets.mem, "<span font='mintsstrong 7' color='#949494'> $2MB/$3MB </span>", 3)
+vicious.register(memwidget, vicious.widgets.mem, "<span font='mintsstrong 7' color='#aeaeae'> $2MB/$3MB </span>", 3)
 
 --awesompd
 
@@ -414,16 +414,16 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then
-    return '<span background="#121212" color="#e54c62" font="Fixed 9">↓ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#949494">:' .. args[2] ..' </span></span></span>'
+    return '<span background="#121212" color="#e54c62" font="Fixed 9">↓ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">:' .. args[2] ..' </span></span></span>'
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
-    return '<span background="#121212" font="Fixed 9" color="#7AC82E">↑ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#949494">:' .. args[2] ..' </span></span></span>'
+    return '<span background="#121212" font="Fixed 9" color="#7AC82E">↑ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">:' .. args[2] ..' </span></span></span>'
    else 
-    return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#949494">:' .. args[2] ..' </span></span></span>' end
-end, 1, 'BAT0')
+    return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">:' .. args[2] ..' </span></span></span>' end
+end, 3, 'BAT0')
 
 -- Keyboard layout widget
 kbdwidget = wibox.widget.textbox()
-kbdcolb = "<span font='mintsmild 7'>> "
+kbdcolb = "<span font='mintsmild 7' color='#aeaeae'>> "
 kbdcole = "</span>"
 kbdwidget.border_width = 0
 kbdwidget.border_color = beautiful.fg_normal
@@ -443,13 +443,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  mygmail:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
 --Register widget
  vicious.register(mygmail, vicious.widgets.gmoil, 
- --function(widget, args)
-  --if(args[0] > 0) then
-     --mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
-   --else 
-    --mygmailimg = wibox.widget.imagebox(beautiful.widget_mail_open)
-    --end end,
-  '<span color="#FFA963" font="Visitor TT2 BRK 10">${count}</span>', 260)
+  ' <span color="#FFA963" font="Visitor TT2 BRK 10">${count}</span>', 260)
  mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
  mygmailimg:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
 
@@ -457,7 +451,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  cpuicon = wibox.widget.imagebox()
  cpuicon:set_image(beautiful.widget_cpu)
  cpuwidget = wibox.widget.textbox()
- vicious.register(cpuwidget, vicious.widgets.cpu, '<span font="mintsstrong 7" color="#46A8C3"> CPU <span color="#949494">$1% </span></span>', 3)
+ vicious.register(cpuwidget, vicious.widgets.cpu, '<span font="mintsstrong 7" color="#46A8C3"> CPU <span color="#aeaeae">$1<span font="Visitor TT2 BRK 10">% </span></span></span>', 3)
 
 -- Weather widget
 tempicon = wibox.widget.imagebox()
@@ -515,7 +509,7 @@ function (widget, args)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
   end
-  return '<span font="mintsstrong 7" color="#949494">' .. args[1] .. '%</span>'
+  return '<span font="mintsstrong 7" color="#aeaeae">' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span></span>'
 end, 1, "Master")
 
 -- Net widget
@@ -539,11 +533,10 @@ vicious.register(netwidget, vicious.widgets.wifi,
       else
         neticon:set_image(beautiful.widget_net_no)
       end
-      --if (args['{ssid}'] == 'N/A') then return ''
-      return '<span font="fixed 7" rise="-1000"> ' .. args['{ssid}'] .. '</span>'
+      return '<span font="fixed 7" color="#aeaeae" rise="-1000">' .. args['{ssid}'] .. '</span>'
       --end
     end,
-  1,"wlp3s0")
+  2,"wlp3s0")
 
 snetwidget = wibox.widget.textbox()
 snetwidget:buttons(awful.util.table.join(
@@ -551,7 +544,7 @@ awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
  end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
-vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsstrong 7"> | <span color="#aeaeae">${wlp3s0 down_kb}<span color="#7AC82E" rise="-1000"> ↓</span><span color="#46A8C3" rise="-1000">↑ </span>${wlp3s0 up_kb}</span></span>', 3)
+vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsmild 7" color="#aeaeae"> <span color="#7ac82e">${wlp3s0 down_kb}</span><span color="#aeaeae" rise="-1000"> ↓</span><span rise="-1000">↑ </span><span color="#46A8C3">${wlp3s0 up_kb}</span></span>', 3)
 
 
 -- Separators
@@ -574,11 +567,11 @@ face:connect_signal("mouse::leave", function(c)
 hide_smth()
 end)
 
-bral = wibox.widget.textbox('<span color="#949494">[ </span>')
-brar = wibox.widget.textbox('<span color="#949494"> ]</span>')
+bral = wibox.widget.textbox('<span color="#aeaeae">[ </span>')
+brar = wibox.widget.textbox('<span color="#aeaeae"> ]</span>')
 spr = wibox.widget.textbox(' ')
-sepl = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 10"> tasks: </span>')
-sepr = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 10"> :systray </span>')
+sepl = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> tasks: </span>')
+sepr = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> :systray </span>')
 arrl = wibox.widget.imagebox()
 arrl:set_image(beautiful.arrl)
 yf = wibox.widget.imagebox()              
@@ -613,7 +606,7 @@ gf:buttons(awful.util.table.join(awful.button(
 
 
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("<span font='mintsstrong 7'>| %I%M%p </span>")
+mytextclock = awful.widget.textclock("<span font='mintsstrong 7' color='#aeaeae'>| %I%M%p </span>")
  orglendar.files = { home .. "/Documents/Notes/work.org",    -- Specify here all files you want to be parsed, separated by comma.
                      home .. "/Documents/Notes/home.org" }
 orglendar.register(mytextclock)
@@ -728,7 +721,7 @@ for s = 1, screen.count() do
     right_layout:add(snetwidget)
     right_layout:add(spr)
     right_layout:add(mygmailimg)
-    right_layout:add(spr)
+    --right_layout:add(spr)
     right_layout:add(mygmail)
     right_layout:add(spr)
     right_layout:add(spr)
@@ -858,8 +851,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-    awful.key({ modkey,           }, "space", function () local s = mouse.screen awful.layout.inc(1, s, layouts) end),
-    awful.key({ modkey, "Control"   }, "space", function () local s = mouse.screen awful.layout.inc(-1, s, layouts) end),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
+    awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
 --run or raise clients
      awful.key({ modkey, }, "Return", function ()

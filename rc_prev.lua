@@ -99,6 +99,9 @@ end
 function run_skype(prg)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "sleep 10s && " .. prg .. ")")
 end
+function run_hidcur(prg)
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. prg .. " -i 3)")
+end
 autorun = true
 autorunApps =
 {
@@ -107,7 +110,7 @@ autorunApps =
    "urxvtd -o -f -q",
    run_pcm("pcmanfm"),
    run_once("kbdd"),
-   --run_skype("skype"),
+   run_hidcur("hhpc"),
    --"xcowsay 'Moo, brother, moo.'"
 }
 if autorun then
@@ -434,7 +437,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  cpuicon = wibox.widget.imagebox()
  cpuicon:set_image(beautiful.widget_cpu)
  cpuwidget = wibox.widget.textbox()
- vicious.register(cpuwidget, vicious.widgets.cpu, '<span background="#84D0D0" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#005656">CPU <span color="#393E4A">$1% </span></span></span>', 3)
+ vicious.register(cpuwidget, vicious.widgets.cpu, '<span background="#84D0D0" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#005656">CPU <span color="#393E4A">$1<span font="Visitor TT2 BRK 10">%</span> </span></span></span>', 3)
 
 -- Weather widget
 tempicon = wibox.widget.imagebox()
@@ -459,7 +462,7 @@ vicious.register(weatherwidget, vicious.widgets.weather,
                 function (widget, args)                   
                     weather_t = "City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%"
                     if args["{tempc}"] == "N/A" then
-                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#23282C">:( </span></span>'
+                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 10" color="#23282C">:( </span></span>'
                     elseif args["{tempc}"] <= 0 then
                       return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#056C74">' .. args["{tempc}"] .. 'C </span></span>'
                     elseif args["{tempc}"] <= 10 then
@@ -490,7 +493,7 @@ function (widget, args)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
   end
-  volume_t='<span font="Fixed 14" background="#E2AE7C"> <span font="mintsstrong 7" rise="1600" color="#4C3D3D">' .. args[1] .. '% </span></span>'
+  volume_t='<span font="Fixed 14" background="#E2AE7C"> <span font="mintsstrong 7" rise="1600" color="#4C3D3D">' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span> </span></span>'
   return volume_t
 end, 1, "Master")
 
@@ -678,8 +681,8 @@ for s = 1, screen.count() do
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
     mylayoutbox[s]:buttons(awful.util.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end)))
+                           awful.button({ }, 1, function () awful.layout.inc(1, s, layouts) end),
+                           awful.button({ }, 3, function () awful.layout.inc(-1, s, layouts) end)))
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
 
@@ -822,14 +825,6 @@ globalkeys = awful.util.table.join(
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to poweroff?' &&systemctl poweroff") end),
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to reboot?' &&systemctl reboot") end),
     awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
-    -- awful.key({ modkey, "i"          }, "a", function () awful.util.spawn("android-studio") end),
-    -- awful.key({ modkey, "i"          }, "e", function () awful.util.spawn("eclipse") end),
-    -- awful.key({ modkey, "i"          }, "a", function () awful.util.spawn("qtcreator") end),
-    -- awful.key({ modkey, "v"          }, "d", function () awful.util.spawn_with_shell("gksudo modprobe vboxdrv") end),
-    -- awful.key({ modkey, "v"          }, "o", function () awful.util.spawn("virtualbox") end),
-    -- awful.key({ modkey, "v"          }, "x", function () awful.util.spawn("virtualbox --startvm makakka_xp") end),
-    -- awful.key({ modkey, "s"          }, "g", function () awful.util.spawn_with_shell("sh " .. scripts .. "/record_screen.sh") end),
-    -- awful.key({ modkey, "s"          }, "q", function () awful.util.spawn_with_shell("pkill ffmpeg") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
     awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
     awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
