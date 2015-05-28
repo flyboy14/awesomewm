@@ -184,7 +184,7 @@ local layouts =
 -- }}}
 
  -- {{{ Tags
- theme.taglist_font                  = "mintsstrong 7"
+ theme.taglist_font                  = "Fixed 14"
  tags = {
    names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "… " },
    layout = { layouts[2], layouts[5], layouts[4], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
@@ -414,11 +414,11 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then
-    return '<span background="#121212" color="#e54c62" font="Fixed 9">↓ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">:' .. args[2] ..' </span></span></span>'
+    return '<span background="#121212" color="#e54c62" font="Fixed 9">↓ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
-    return '<span background="#121212" font="Fixed 9" color="#7AC82E">↑ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">:' .. args[2] ..' </span></span></span>'
+    return '<span background="#121212" font="Fixed 9" color="#7AC82E">↑ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
    else 
-    return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">:' .. args[2] ..' </span></span></span>' end
+    return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">AC<span color="#aeaeae">p' .. args[2] ..' </span></span></span>' end
 end, 3, 'BAT0')
 
 -- Keyboard layout widget
@@ -544,7 +544,7 @@ awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
  end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
-vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsmild 7" color="#aeaeae"> <span color="#7ac82e">${wlp3s0 down_kb}</span><span color="#aeaeae" rise="-1000"> ↓</span><span rise="-1000">↑ </span><span color="#46A8C3">${wlp3s0 up_kb}</span></span>', 3)
+vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsstrong 7" color="#aeaeae"> <span color="#7ac82e">${wlp3s0 down_kb}</span><span color="#aeaeae" rise="-1000"> ↓</span><span rise="-1000">↑ </span><span color="#46A8C3">${wlp3s0 up_kb}</span></span>', 3)
 
 
 -- Separators
@@ -828,7 +828,7 @@ globalkeys = awful.util.table.join(
     awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
     awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
-    awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
+    --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
     awful.key({ modkey   }, "Escape", function () awful.util.spawn("xscreensaver-command -activate") end),
     awful.key({ alt }, "F1", function () awful.util.spawn(translate_o_r) end),
     awful.key({ modkey }, "F1", function () awful.util.spawn(translate_r_e) end),

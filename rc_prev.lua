@@ -402,11 +402,11 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then
-    return '<span background="#6F766E" color="#6E1212" font="Fixed 14"> <span rise="1200" font="Fixed 9">↓ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">:' .. args[2] ..' </span></span></span></span>'
+    return '<span background="#6F766E" color="#6E1212" font="Fixed 14"> <span rise="1200" font="Fixed 9">↓ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">p' .. args[2] ..' </span></span></span></span>'
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
-    return '<span background="#6F766E" font="Fixed 14" color="#AAD05B"> <span font="Fixed 9" rise="1200">↑ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">:' .. args[2] ..' </span></span></span></span>'
+    return '<span background="#6F766E" font="Fixed 14" color="#AAD05B"> <span font="Fixed 9" rise="1200">↑ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">p' .. args[2] ..' </span></span></span></span>'
    else 
-    return '<span background="#6F766E" font="Fixed 14" color="#6CC0C0"> <span rise="1200" font="Fixed 9">⚡ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">:' .. args[2] ..' </span></span></span></span>' end
+    return '<span background="#6F766E" font="Fixed 14" color="#6CC0C0"> <span rise="1200" font="Fixed 9">⚡ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">p' .. args[2] ..' </span></span></span></span>' end
 end, 1, 'BAT0')
 -- Keyboard layout widget
 kbdwidget = wibox.widget.textbox()

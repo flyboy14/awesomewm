@@ -1,6 +1,5 @@
  local menubeceed89e397495003f6ff5a4d895d66 = {
      {"Audacity", "env UBUNTU_MENUPROXY=0 audacity ", "/usr/share/icons/hicolor/16x16/apps/audacity.png" },
-     {"Cheese", "cheese", "/usr/share/icons/hicolor/16x16/apps/cheese.png" },
      {"DeaDBeeF", "deadbeef ", "/usr/share/icons/hicolor/16x16/apps/deadbeef.png" },
      {"HDSPConf", "hdspconf", "/usr/share/pixmaps/hdspconf.png" },
      {"HDSPMixer", "hdspmixer", "/usr/share/pixmaps/hdspmixer.png" },
@@ -12,14 +11,13 @@
      {"SimpleScreenRecorder", "simplescreenrecorder --logfile", "/usr/share/icons/hicolor/16x16/apps/simplescreenrecorder.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
      {"samowar", "/usr/bin/samowar", "///usr/share/samowar/icons/samowar.png" },
-     {"Диктофон", "gnome-sound-recorder", "/usr/share/icons/hicolor/16x16/apps/gnome-sound-recorder.png" },
      {"Медиаплеер VLC", "/usr/bin/vlc --started-from-file ", "/usr/share/icons/hicolor/16x16/apps/vlc.png" },
-     {"Музыка", "gnome-music", "/usr/share/icons/hicolor/16x16/apps/gnome-music.png" },
-     {"Регулятор громкости PulseAudio", "pavucontrol", "/usr/share/icons/hicolor/16x16/apps/multimedia-volume-control.png" },
+     {"Регулятор громкости PulseAudio", "pavucontrol", "/usr/share/icons/gnome/16x16/apps/multimedia-volume-control.png" },
  }
 
  local menu9a1dcda9efe2bfc3963e75f98cc1ffd5 = {
      {"DraftSight", "\"/opt/dassault-systemes/DraftSight/Linux/DraftSight\""},
+     {"Feh", "feh ", "///usr/share/feh/images/feh.png" },
      {"FontForge", "fontforge ", "/usr/share/icons/hicolor/16x16/apps/fontforge.png" },
      {"GNU Image Manipulation Program", "gimp-2.8 ", "/usr/share/icons/hicolor/16x16/apps/gimp.png" },
      {"Inkscape", "inkscape ", "/usr/share/icons/hicolor/16x16/apps/inkscape.png" },
@@ -37,17 +35,7 @@
      {"Everlasting Summer", "steam steam://rungameid/331470"},
      {"Left 4 Dead 2", "steam steam://rungameid/550", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
-     {"Swell Foop", "swell-foop", "/usr/share/icons/hicolor/16x16/apps/swell-foop.png" },
      {"Teeworlds", "teeworlds", "/usr/share/pixmaps/teeworlds.png" },
-     {"Клоцки", "gnome-klotski", "/usr/share/icons/hicolor/16x16/apps/gnome-klotski.png" },
-     {"Маджонг", "gnome-mahjongg", "/usr/share/icons/hicolor/16x16/apps/gnome-mahjongg.png" },
-     {"Пять или более", "five-or-more", "/usr/share/icons/hicolor/16x16/apps/five-or-more.png" },
-     {"Сапёр", "gnome-mines", "/usr/share/icons/hicolor/16x16/apps/gnome-mines.png" },
-     {"Тали", "tali", "/usr/share/icons/hicolor/16x16/apps/tali.png" },
-     {"Тетравекс", "gnome-tetravex", "/usr/share/icons/hicolor/16x16/apps/gnome-tetravex.png" },
-     {"Туши свет", "lightsoff"},
-     {"Четыре-в-ряд", "four-in-a-row", "/usr/share/icons/hicolor/16x16/apps/four-in-a-row.png" },
-     {"Ягно", "iagno", "/usr/share/icons/hicolor/16x16/apps/iagno.png" },
  }
 
  local menu25385e702800d748c19cf6ea4f5811ec = {
@@ -57,29 +45,34 @@
      {"Firefox", "firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
      {"GNOME PPP", "gnome-ppp", "/usr/share/icons/hicolor/48x48/apps/gnome-ppp.png" },
      {"Haguichi", "haguichi", "/usr/share/icons/hicolor/16x16/apps/haguichi.png" },
+     {"Luakit", "luakit ", "/usr/share/pixmaps/luakit.png" },
+     {"Midori (приватный режим)", "midori --private ", "/usr/share/icons/hicolor/16x16/apps/midori.png" },
+     {"NetSurf Web Browser", "netsurf "},
      {"Remmina", "remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
      {"Skype", "skype ", "/usr/share/icons/hicolor/16x16/apps/skype.png" },
+     {"SlimBoat", "/opt/slimboat/slimboat.sh ", "/usr/share/icons/hicolor/16x16/apps/slimboat.png" },
+     {"SpiderOak", "SpiderOak", "/usr/share/pixmaps/SpiderOak.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
      {"TeamSpeak 3", "teamspeak3", "/usr/share/pixmaps/teamspeak3.xpm" },
      {"Tor-Browser (ru)", "/usr/bin/tor-browser-ru", "///usr/share/pixmaps/tor-browser-ru.png" },
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
      {"Viber", "viber", "/usr/share/icons/hicolor/16x16/apps/viber.png" },
+     {"Wicd", "/usr/bin/wicd-client", "/usr/share/icons/hicolor/16x16/apps/wicd-gtk.png" },
      {"Zenmap", "zenmap ", "///usr/share/zenmap/pixmaps/zenmap.png" },
      {"Zenmap (as root)", "/usr/share/zenmap/su-to-zenmap.sh ", "///usr/share/zenmap/pixmaps/zenmap.png" },
      {"wpa_gui", "wpa_gui", "/usr/share/pixmaps/wpa_gui.svg" },
-     {"Клиент обмена мгновенными сообщениями Pidgin", "pidgin", "/usr/share/icons/hicolor/16x16/apps/pidgin.png" },
+     {"Интернет", "midori ", "/usr/share/icons/hicolor/16x16/apps/midori.png" },
      {"Навигатор Avahi по серверам SSH", "/usr/bin/bssh", "/usr/share/icons/gnome/16x16/devices/network-wired.png" },
      {"Навигатор Avahi по серверам VNC", "/usr/bin/bvnc", "/usr/share/icons/gnome/16x16/devices/network-wired.png" },
-     {"Просмотр удалённых рабочих столов", "vinagre ", "/usr/share/icons/gnome/16x16/apps/preferences-desktop-remote-desktop.png" },
      {"Удаленный просмотр", "remote-viewer ", "/usr/share/icons/hicolor/16x16/apps/virt-viewer.png" },
  }
 
  local menud26c1170c5110a4264a8a8a89ec20529 = {
      {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
+     {"Математический инструмент Genius", "gnome-genius ", "/usr/share/icons/hicolor/32x32/apps/gnome-genius.png" },
  }
 
  local menu8caf0567988f6898bf53e8c848c6f7bc = {
-     {"Evolution", "evolution ", "/usr/share/icons/hicolor/16x16/apps/evolution.png" },
      {"LibreOffice", "libreoffice ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-startcenter.png" },
      {"LibreOffice Base", "libreoffice --base ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-base.png" },
      {"LibreOffice Calc", "libreoffice --calc ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-calc.png" },
@@ -87,19 +80,17 @@
      {"LibreOffice Impress", "libreoffice --impress ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-impress.png" },
      {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
      {"LibreOffice Writer", "libreoffice --writer ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-writer.png" },
+     {"Master PDF Editor", "/opt/masterpdfeditor/master-pdf-editor ", "/usr/share/pixmaps/pdfeditor.png" },
      {"Просмотр документов", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
-     {"Словарь", "gnome-dictionary", "/usr/share/icons/gnome/16x16/apps/accessories-dictionary.png" },
  }
 
  local menu8b25bc71fce7a929a6124e9354c07cdb = {
-     {"Accerciser", "/usr/bin/accerciser", "/usr/share/icons/hicolor/16x16/apps/accerciser.png" },
      {"Android SDK", "android", "/usr/share/pixmaps/android-sdk.png" },
      {"Android Studio", "android-studio ", "/usr/share/pixmaps/android-studio.png" },
      {"CMake", "cmake-gui ", "/usr/share/icons/hicolor/32x32/apps/CMakeSetup.png" },
      {"Eclipse", "eclipse", "/usr/share/icons/hicolor/16x16/apps/eclipse.png" },
      {"Emacs", "emacs ", "/usr/share/icons/hicolor/16x16/apps/emacs.png" },
      {"Glade", "glade ", "/usr/share/icons/hicolor/16x16/apps/glade.png" },
-     {"IPython Qt console", "ipython qtconsole", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
      {"Netbeans-javaee-nightly", "netbeans-javaee-nightly", "/usr/share/pixmaps/netbeans-javaee-nightly.png" },
      {"OpenJDK Monitoring & Management Console", "/usr/bin/jconsole", "/usr/share/icons/hicolor/16x16/apps/java.png" },
      {"OpenJDK Policy Tool", "/usr/bin/policytool", "/usr/share/icons/hicolor/16x16/apps/java.png" },
@@ -113,7 +104,6 @@
      {"Qt4 Linguist ", "linguist-qt4", "/usr/share/icons/hicolor/16x16/apps/linguist-qt4.png" },
      {"Qt4 QDbusViewer ", "qdbusviewer-qt4", "/usr/share/icons/hicolor/32x32/apps/qdbusviewer-qt4.png" },
      {"clion-eap", "\"/usr/bin/clion-eap\" ", "/usr/share/pixmaps/clion-eap.svg" },
-     {"ipython", "xterm -e ipython", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
  }
 
  local menu13155df48f218a078bb8bdc9649e5b20 = {
@@ -128,47 +118,26 @@
      {"urxvt (client)", "urxvtc", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"urxvt (tabbed)", "urxvt-tabbed", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"urxvtdaemon", "urxvtd -ofq", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
-     {"Анализатор использования дисков", "baobab", "/usr/share/icons/hicolor/16x16/apps/baobab.png" },
-     {"Журналы", "gnome-logs", "/usr/share/icons/hicolor/16x16/apps/gnome-logs.png" },
      {"Менеджер виртуальных машин", "virt-manager", "/usr/share/icons/hicolor/16x16/apps/virt-manager.png" },
      {"Обозреватель Avahi Zeroconf", "/usr/bin/avahi-discover", "/usr/share/icons/gnome/16x16/devices/network-wired.png" },
-     {"Программа просмотра системных журналов", "gnome-system-log", "/usr/share/icons/hicolor/16x16/apps/logview.png" },
-     {"Просмотрщик цветовых профилей", "gcm-viewer", "/usr/share/icons/hicolor/16x16/apps/gnome-color-manager.png" },
      {"Редактор конфигурации", "gconf-editor", "/usr/share/icons/hicolor/16x16/apps/gconf-editor.png" },
-     {"Сетевые инструменты", "gnome-nettool", "/usr/share/icons/hicolor/16x16/apps/gnome-nettool.png" },
-     {"Системный монитор", "gnome-system-monitor", "/usr/share/icons/gnome/16x16/apps/utilities-system-monitor.png" },
      {"Файловый менеджер PCManFM", "pcmanfm ", "/usr/share/icons/gnome/16x16/apps/system-file-manager.png" },
-     {"Центр приложений", "gnome-software", "/usr/share/icons/hicolor/16x16/apps/gnome-software.png" },
- }
-
- local menub9b82c82e3e9e523baacb98c6c38e423 = {
-     {"Accerciser", "/usr/bin/accerciser", "/usr/share/icons/hicolor/16x16/apps/accerciser.png" },
-     {"Экранный диктор", "orca --replace", "/usr/share/icons/hicolor/16x16/apps/orca.png" },
  }
 
  local menu91af6ed4e0be6a48ab48ec8b6e768568 = {
+     {"Android File Transfer (MTP)", "android-file-transfer", "/usr/share/icons/hicolor/128x128/apps/android-file-transfer.png" },
      {"Caffeine", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
-     {"Characters", "gapplication launch org.gnome.Characters", "/usr/share/icons/hicolor/16x16/apps/gnome-characters.png" },
      {"CoverGloobus", "covergloobus", "///usr/share/covergloobus/images/covergloobus.png" },
      {"Double Commander", "doublecmd", "/usr/share/pixmaps/doublecmd.png" },
-     {"IPython Qt console", "ipython qtconsole", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
      {"KeePassX", "keepassx ", "/usr/share/pixmaps/keepassx.xpm" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
+     {"SpiderOak", "SpiderOak", "/usr/share/pixmaps/SpiderOak.png" },
      {"Sublime Text", "subl ", "/usr/share/icons/hicolor/16x16/apps/sublime_text.png" },
      {"YouTranslate!", "youtranslate", "/usr/share/icons/hicolor/32x32/apps/youtranslate.png" },
-     {"ipython", "xterm -e ipython", "/usr/share/icons/gnome/16x16/status/gnome-netstatus-idle.png" },
      {"Диски", "gnome-disks", "/usr/share/icons/hicolor/16x16/apps/gnome-disks.png" },
-     {"Заметки", "bijiben ", "/usr/share/icons/hicolor/16x16/apps/bijiben.png" },
-     {"Калькулятор", "gnome-calculator", "/usr/share/icons/gnome/16x16/apps/accessories-calculator.png" },
-     {"Карты", "gapplication launch org.gnome.Maps", "/usr/share/icons/hicolor/16x16/apps/gnome-maps.png" },
+     {"Математический инструмент Genius", "gnome-genius ", "/usr/share/icons/hicolor/32x32/apps/gnome-genius.png" },
      {"Менеджер архивов", "file-roller ", "/usr/share/icons/hicolor/16x16/apps/file-roller.png" },
-     {"Пароли и ключи", "/usr/bin/seahorse", "/usr/share/icons/hicolor/16x16/apps/seahorse.png" },
-     {"Погода", "gapplication launch org.gnome.Weather.Application", "/usr/share/icons/hicolor/16x16/apps/org.gnome.Weather.Application.png" },
-     {"Поиск данных", "tracker-needle", "/usr/share/icons/gnome/16x16/actions/system-search.png" },
-     {"Снимок экрана", "gnome-screenshot --interactive", "/usr/share/icons/gnome/16x16/apps/applets-screenshooter.png" },
-     {"Таблица символов", "gucharmap", "/usr/share/icons/gnome/16x16/apps/accessories-character-map.png" },
      {"Терминал", "exo-open --launch TerminalEmulator", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
-     {"Экранный диктор", "orca --replace", "/usr/share/icons/hicolor/16x16/apps/orca.png" },
  }
 
 xdgmenu = {
@@ -180,7 +149,6 @@ xdgmenu = {
     {"Офис", menu8caf0567988f6898bf53e8c848c6f7bc},
     {"Программирование", menu8b25bc71fce7a929a6124e9354c07cdb},
     {"Системные", menu13155df48f218a078bb8bdc9649e5b20},
-    {"Специальные возможности", menub9b82c82e3e9e523baacb98c6c38e423},
     {"Стандартные", menu91af6ed4e0be6a48ab48ec8b6e768568},
 }
 
