@@ -90,27 +90,24 @@ function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foo
 -- }}}
 -- Autorun programs
 
-function run_once(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
+function run_once(why, what)
+  if what == nil then what = why end
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " || (" .. what .. ")")
 end
-function run_pcm(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. prg ..  " -d)")
+function run_when(why, what)
+  if what == nil then what = why end
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " && (" .. what .. ")")
 end
-function run_skype(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "sleep 10s && " .. prg .. ")")
-end
-function run_hidcur(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. prg .. " -i 3)")
-end
+
 autorun = true
 autorunApps =
 {
    "sh " .. home .. "/.config/autostart/autostart.sh",
    run_once("unagi"),
-   "urxvtd -o -f -q",
-   run_pcm("pcmanfm"),
+   run_once("urxvtd", "urxvtd -o -f -q"),
+   run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
-   run_hidcur("hhpc"),
+   run_once("hidcur"),
    --"xcowsay 'Moo, brother, moo.'"
 }
 if autorun then
@@ -203,10 +200,8 @@ mygamesmenu = {
    { "Borderlans II", mybordermenu },
    { "  Torchlight II", "optirun wine " .. home .. "/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
    { "  Path of Exile", "sh " .. scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
-   { "  LEGO Star Wars III", "sh " .. scripts .. "/lsw3.sh", home .. "/Downloads/LEGO-Star-Wars-II-4-icon.png" },
    { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
    { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },
-   { "  SPORE", "guake -e 'sh" .. home .. "/bin/spore.sh'", iconsdir .. "/spore.png" },
    { "  WORMS Revolution", "guake -e 'sh " .. scripts .. "/worms.sh'", iconsdir .. "/worms.png" },
    { "  Xonotic", home .. "/Xonotic/xonotic-linux64-sdl -basedir " .. home .. "/Xonotic/", iconsdir .. "/xonotic_icon.svg" },
    { "  Kingdoms of Amalur", "guake -e 'sh " .. scripts .. "/KoA.sh'", iconsdir .. "/koa.png" },
@@ -328,7 +323,7 @@ mpdwidget = wibox.widget.textbox()
 mpdicon = wibox.widget.imagebox()
 mpdicon:set_image(beautiful.widget_music)
 mpdicon:buttons(awful.util.table.join(
-awful.button({ }, 1, function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf|sonata") end),
+awful.button({ }, 1, function () run_when("mpd", "sonata") end, function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf") end),
 awful.button({ }, 2, function () awful.util.spawn_with_shell("sonata") end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill mpd|pkill sonata") end),
 awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5")end),
@@ -406,7 +401,7 @@ function (widget, args)
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
     return '<span background="#6F766E" font="Fixed 14" color="#AAD05B"> <span font="Fixed 9" rise="1200">↑ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">p' .. args[2] ..' </span></span></span></span>'
    else 
-    return '<span background="#6F766E" font="Fixed 14" color="#6CC0C0"> <span rise="1200" font="Fixed 9">⚡ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">p' .. args[2] ..' </span></span></span></span>' end
+    return '<span background="#6F766E" font="Fixed 14" color="#6CC0C0"> <span rise="1200" font="Fixed 9">⚡ <span font="mintsstrong 7" rise="1600">full<span color="#CEDCCC">p' .. args[2] ..' </span></span></span></span>' end
 end, 1, 'BAT0')
 -- Keyboard layout widget
 kbdwidget = wibox.widget.textbox()
@@ -492,9 +487,9 @@ function (widget, args)
       else volicon:set_image(beautiful.widget_vol_hi)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
+  return '<span font="Fixed 14" background="#E2AE7C"> <span font="mintsstrong 7" rise="1600" color="#4C3D3D"><span color="#e54c62">muted</span>' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span> </span></span>'
   end
-  volume_t='<span font="Fixed 14" background="#E2AE7C"> <span font="mintsstrong 7" rise="1600" color="#4C3D3D">' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span> </span></span>'
-  return volume_t
+  return  '<span font="Fixed 14" background="#E2AE7C"> <span font="mintsstrong 7" rise="1600" color="#4C3D3D">' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span> </span></span>'
 end, 1, "Master")
 
 

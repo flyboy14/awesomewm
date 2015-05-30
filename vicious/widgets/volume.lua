@@ -15,7 +15,6 @@ local string = { match = string.match }
 -- vicious.widgets.volume
 local volume = {}
 
-
 -- {{{ Volume widget type
 local function worker(format, warg)
     if not warg then return end
@@ -50,4 +49,4 @@ local function worker(format, warg)
 end
 -- }}}
 
-return setmetatable(volume, { __call = function(_, ...) return worker(...) end })
+return setmetatable(volume, { __call = function(_, ...) return worker(...) end, head })

@@ -88,9 +88,8 @@ alt = "Mod1"
 
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
-   --naughty.destroy(noti)
    noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
-   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 1 }
+   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.8 }
  end
 
  function hide_smth()
@@ -99,22 +98,21 @@ function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foo
 
 -- }}}
 -- Autorun programs
+function run_once(why, what)
+  if what == nil then what = why end
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " || (" .. what .. ")")
+end
+function run_when(why, what)
+  if what == nil then what = why end
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " && (" .. what .. ")")
+end
 
-function run_once(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
-end
-function run_pcm(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. prg ..  " -d)")
-end
-function run_skype(prg)
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg  .. " || (" .. "sleep 10s && " .. prg .. ")")
-end
 autorun = true
 autorunApps =
 {
    "sh " .. home .. "/.config/autostart/autostart.sh",
    "urxvtd -o -f -q",
-   run_pcm("pcmanfm"),
+   run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
    run_once("hidcur"),
    run_once("unagi"),
@@ -212,10 +210,8 @@ mygamesmenu = {
    { "Borderlans II", mybordermenu },
    { "  Torchlight II", "optirun wine " .. home .. "/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
    { "  Path of Exile", "sh " .. scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
-   { "  LEGO Star Wars III", "sh " .. scripts .. "/lsw3.sh", home .. "/Downloads/LEGO-Star-Wars-II-4-icon.png" },
    { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
    { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },
-   { "  SPORE", "guake -e 'sh" .. home .. "/bin/spore.sh'", iconsdir .. "/spore.png" },
    { "  WORMS Revolution", "guake -e 'sh " .. scripts .. "/worms.sh'", iconsdir .. "/worms.png" },
    { "  Xonotic", home .. "/Xonotic/xonotic-linux64-sdl -basedir " .. home .. "/Xonotic/", iconsdir .. "/xonotic_icon.svg" },
    { "  Kingdoms of Amalur", "guake -e 'sh " .. scripts .. "/KoA.sh'", iconsdir .. "/koa.png" },
@@ -332,13 +328,12 @@ musicwidget:register_buttons({ { "", awesompd.MOUSE_LEFT, musicwidget:command_to
 --   mpdicon:set_image(beautiful.widget_music)
 -- end
 --  end
-
 -- Music widget 
 mpdwidget = wibox.widget.textbox()
 mpdicon = wibox.widget.imagebox()
 mpdicon:set_image(beautiful.widget_music)
 mpdicon:buttons(awful.util.table.join(
-awful.button({ }, 1, function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf|sonata") end),
+awful.button({ }, 1, function () run_when("mpd", "sonata") end, function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf") end),
 awful.button({ }, 2, function () awful.util.spawn_with_shell("sonata") end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill mpd|pkill sonata") end),
 awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5")end),
@@ -418,7 +413,7 @@ function (widget, args)
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
     return '<span background="#121212" font="Fixed 9" color="#7AC82E">↑ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
    else 
-    return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">AC<span color="#aeaeae">p' .. args[2] ..' </span></span></span>' end
+    return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">full<span color="#aeaeae">p' .. args[2] ..' </span></span></span>' end
 end, 3, 'BAT0')
 
 -- Keyboard layout widget
@@ -508,7 +503,9 @@ function (widget, args)
       else volicon:set_image(beautiful.widget_vol_hi)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
+    return '<span font="mintsstrong 7" color="#aeaeae"><span color="#E42641">muted</span>' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span></span>'
   end
+  if(args[3] == "yes") then volicon:set_image(beautiful.widget_clock) end
   return '<span font="mintsstrong 7" color="#aeaeae">' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span></span>'
 end, 1, "Master")
 
@@ -816,10 +813,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
 
-    awful.key({  }, "F8", function ()
-    mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-    mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
-    end),
+    -- awful.key({  }, "F8", function ()
+    -- mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+    -- mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
+    -- end),
 
     -- Standard program
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
@@ -975,7 +972,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
-            { rule_any = { class = { "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio"} },
+            { rule_any = { class = { "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio"} },
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux" } },
       properties = { tag = tags[1][7] }, },
