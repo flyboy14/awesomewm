@@ -488,7 +488,7 @@ vicious.register(weatherwidget, vicious.widgets.weather,
 -- Volume widget
 volicon = wibox.widget.imagebox()
 volicon:set_image(beautiful.widget_vol_hi)
-volicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(volpa_mute) end)))
+volicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(vol_mute) end)))
 volumewidget = wibox.widget.textbox()
 volumewidget:buttons(awful.util.table.join(
   awful.button({ }, 4, function () awful.util.spawn_with_shell(vol_up) end),
@@ -503,10 +503,9 @@ function (widget, args)
       else volicon:set_image(beautiful.widget_vol_hi)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
-    return '<span font="mintsstrong 7" color="#aeaeae"><span color="#E42641">muted</span>' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span></span>'
+  return '<span font="mintsstrong 7" color="#aeaeae">' .. args[1] .. '<span font="Visitor TT2 BRK 10" color="#e54c62">@</span>'.. args[3] ..'</span>'
   end
-  if(args[3] == "yes") then volicon:set_image(beautiful.widget_clock) end
-  return '<span font="mintsstrong 7" color="#aeaeae">' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span></span>'
+  return '<span font="mintsstrong 7" color="#aeaeae">' .. args[1] .. '<span font="Visitor TT2 BRK 10" color="#7A999A">@</span>'.. args[3] ..'</span>'
 end, 1, "Master")
 
 -- Net widget
@@ -840,8 +839,8 @@ globalkeys = awful.util.table.join(
     awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell(vol_down) end),
     awful.key({modkey}, "Right", function () awful.util.spawn_with_shell(volpa_up) end),
     awful.key({modkey}, "Left", function () awful.util.spawn_with_shell(volpa_down) end),
-    awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(volpa_mute) end),
-    awful.key({ modkey }, "Control","m", function () awful.util.spawn_with_shell(vol_mute) end),
+    awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(vol_mute) end),
+    awful.key({ modkey }, "Control","m", function () awful.util.spawn_with_shell(volpa_mute) end),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
@@ -1094,8 +1093,14 @@ end)
             end,
             info    =   "- QtCreator"
         },
+        s   =   {
+            func    =   function()
+                awful.util.spawn_with_shell("wine " .. home .. "/WINE/wineZ/drive_c/Program\\ Files/Emu8086v3.05/Emu8086.exe")
+            end,
+            info    =   "- emu8086"
+        },
     })
-  keychains.add({ modkey }, "v", "VirtualBox: ", iconsdir .. "/screen-lightblue.png",{
+  keychains.add({ modkey }, "v", "Virtual machines: ", iconsdir .. "/screen-lightblue.png",{
         d   =   {
             func    =   function()
                 awful.util.spawn("gksudo modprobe vboxdrv")
