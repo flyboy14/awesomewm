@@ -774,14 +774,12 @@ root.buttons(awful.util.table.join(
 
 
 globalkeys = awful.util.table.join(
-        awful.key({ }, "Print", function () awful.util.spawn_with_shell(sc_r) end, function () show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end),
+    awful.key({            }, "Print", function () awful.util.spawn_with_shell(sc_r) end),
     awful.key({ "Control", }, "Print", function () show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil ) end,
-    function () awful.util.spawn_with_shell(sc_r5) end, 
-    function () show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end),
-    awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/screen-measure.svg", 1.5, nil, nil, nil, nil ) end, 
+    function () awful.util.spawn_with_shell(sc_r5) end), 
+    awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) end, 
       function () awful.util.spawn_with_shell(sc_a) end),
-    awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end, 
-      function() show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil )end),
+    awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end),
     awful.key({ alt }, "Tab", function()
              local tag = awful.tag.selected()
              for i=1, #tag:clients() do
@@ -812,10 +810,10 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
 
-    -- awful.key({  }, "F8", function ()
-    -- mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-    -- mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
-    -- end),
+    awful.key({ "Control" }, "F8", function ()
+    mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+    mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
+    end),
 
     -- Standard program
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
@@ -971,7 +969,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
-            { rule_any = { class = { "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio"} },
+            { rule_any = { class = { "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux" } },
       properties = { tag = tags[1][7] }, },
@@ -982,7 +980,7 @@ awful.rules.rules = {
             { rule_any = { class = { "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
-            "jetbrains-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
+            "jetbrains-studio", "subl", "Evince", "Eclipse", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
@@ -1009,7 +1007,7 @@ client.connect_signal("manage", function (c, startup)
     if not startup then
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
-        -- awful.client.setslave(c)
+         awful.client.setslave(c)
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
@@ -1020,6 +1018,7 @@ client.connect_signal("manage", function (c, startup)
 
     local titlebars_enabled = false
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
+      --titlebar(c) = awful.titlebar()
         -- buttons for the titlebar
         local buttons = awful.util.table.join(
                 awful.button({ }, 1, function()

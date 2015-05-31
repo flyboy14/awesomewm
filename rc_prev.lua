@@ -397,7 +397,7 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then
-    return '<span background="#6F766E" color="#6E1212" font="Fixed 14"> <span rise="1200" font="Fixed 9">↓ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">p' .. args[2] ..' </span></span></span></span>'
+    return '<span background="#6F766E" color="#8E1212" font="Fixed 14"> <span rise="1200" font="Fixed 9">↓ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">p' .. args[2] ..' </span></span></span></span>'
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
     return '<span background="#6F766E" font="Fixed 14" color="#AAD05B"> <span font="Fixed 9" rise="1200">↑ <span font="mintsstrong 7" rise="1600">' .. args[3] .. '<span color="#CEDCCC">p' .. args[2] ..' </span></span></span></span>'
    else 
@@ -487,10 +487,7 @@ function (widget, args)
       else volicon:set_image(beautiful.widget_vol_hi)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
-  -- return '<span font="Fixed 14" background="#E2AE7C"> <span font="mintsstrong 7" rise="1600" color="#4C3D3D"><span color="#E42641">muted</span>' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span> </span></span>'
-  -- end
-  -- return  '<span font="Fixed 14" background="#E2AE7C"> <span font="mintsstrong 7" rise="1600" color="#4C3D3D">' .. args[1] .. '<span font="Visitor TT2 BRK 10">%</span> </span></span>'
-  return '<span font="Fixed 14" background="#E2AE7C"> <span rise="1600" font="mintsstrong 7" color="#4c3d3d">' .. args[1] .. '<span color="#e54c62">@</span>'.. args[3] ..'</span></span>'
+  return '<span font="Fixed 14" background="#E2AE7C"> <span rise="1600" font="mintsstrong 7" color="#4c3d3d">' .. args[1] .. '<span color="#C2283E">@</span>'.. args[3] ..'</span></span>'
   end
   return '<span font="Fixed 14" background="#E2AE7C"> <span rise="1600" font="mintsstrong 7" color="#4c3d3d">' .. args[1] .. '<span color="#797979">@</span>'.. args[3] ..'</span></span>'
 end, 1, "Master")
@@ -526,7 +523,8 @@ awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
  end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
-vicious.register(snetwidget, vicious.widgets.net,'<span font="Fixed 14" background="#6f766e" color="#cecece"> <span rise="1600" font="mintsstrong 7" color="#bebebe">${wlp3s0 down_kb}<span color="#7AC82E"> ↓</span><span color="#46A8C3">↑ </span>${wlp3s0 up_kb} </span></span>', 3)
+--vicious.register(snetwidget, vicious.widgets.net,'<span font="Fixed 14" background="#6f766e" color="#cecece"> <span rise="1600" font="mintsstrong 7" color="#bebebe">${wlp3s0 down_kb}<span color="#7AC82E"> ↓</span><span color="#46A8C3">↑ </span>${wlp3s0 up_kb} </span></span>', 3)
+vicious.register(snetwidget, vicious.widgets.net,'<span font="Fixed 14" background="#6f766e" color="#cecece"> <span rise="1600" font="mintsstrong 7"> <span color="#7ac82e">${wlp3s0 down_kb}</span> ↓↑ <span color="#46A8C3">${wlp3s0 up_kb}</span></span></span>', 3)
 
 -- Separators
 face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')
@@ -777,14 +775,12 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 
 globalkeys = awful.util.table.join(
-    awful.key({ }, "Print", function () awful.util.spawn_with_shell(sc_r) end, function () show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end),
+    awful.key({            }, "Print", function () awful.util.spawn_with_shell(sc_r) end),
     awful.key({ "Control", }, "Print", function () show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil ) end,
-    function () awful.util.spawn_with_shell(sc_r5) end, 
-    function () show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil ) end),
-    awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/screen-measure.svg", 1.5, nil, nil, nil, nil ) end, 
+    function () awful.util.spawn_with_shell(sc_r5) end), 
+    awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) end, 
       function () awful.util.spawn_with_shell(sc_a) end),
-    awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end, 
-      function() show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 1.5, nil, nil, nil, nil )end),
+    awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end),
     awful.key({ modkey }, "Tab", awful.client.restore),
     awful.key({ alt }, "Tab", function ()
              local tag = awful.tag.selected()
@@ -813,7 +809,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
 
-    awful.key({  }, "F8", function ()
+    awful.key({ "Control" }, "F8", function ()
     mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
     mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
     end),
@@ -974,7 +970,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
-            { rule_any = { class = { "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio"} },
+            { rule_any = { class = { "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Steam" ,"Wine", "dota_linux" } },
       properties = { tag = tags[1][7] }, },
@@ -985,7 +981,7 @@ awful.rules.rules = {
             { rule_any = { class = { "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "SpiderOak", "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
-            "jetbrains-studio", "subl", "Evince", "Eclipce", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
+            "jetbrains-studio", "subl", "Evince", "Eclipse", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
@@ -1022,7 +1018,6 @@ client.connect_signal("manage", function (c, startup)
     end
 
     local titlebars_enabled = false
-    --titlebar(c) = awful.titlebar()
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(
