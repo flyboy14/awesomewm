@@ -34,7 +34,7 @@ local function worker(format, warg)
 
     -- Capture mixer control state:          [5%] ... ... [on]
     local volu, mute = string.match(mixer, "([%d]+)%%.*%[([%l]*)")
-    local volpa = pulsevol
+    local volpa = string.match(pulsevol, "([%d]+)")
     -- Handle mixers without data
     if volu == nil then
        return {0, mixer_state["off"], volpa}

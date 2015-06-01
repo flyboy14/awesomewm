@@ -487,9 +487,11 @@ function (widget, args)
       else volicon:set_image(beautiful.widget_vol_hi)
       end
   else volicon:set_image(beautiful.widget_vol_mute)
-  return '<span font="Fixed 14" background="#E2AE7C"> <span rise="1600" font="mintsstrong 7" color="#4c3d3d">' .. args[1] .. '<span color="#C2283E">@</span>'.. args[3] ..'</span></span>'
+  -- return '<span font="Fixed 14" background="#E2AE7C"> <span rise="1600" font="mintsstrong 7" color="#4c3d3d">' .. args[1] .. '<span color="#C2283E">@</span>'.. args[3] ..'</span></span>'
+  return '<span font="Fixed 14" background="#E2AE7C"> <span font="Visitor TT2 BRK 10" rise="1600" color="#C2283E">muted<span font="mintsstrong 7" color="#4c3d3d">'.. args[3] ..'<span font="Visitor TT2 BRK 10">%</span></span></span></span>'
   end
-  return '<span font="Fixed 14" background="#E2AE7C"> <span rise="1600" font="mintsstrong 7" color="#4c3d3d">' .. args[1] .. '<span color="#797979">@</span>'.. args[3] ..'</span></span>'
+  --return '<span font="Fixed 14" background="#E2AE7C"> <span rise="1600" font="mintsstrong 7" color="#4c3d3d">' .. args[1] .. '<span color="#797979">@</span>'.. args[3] ..'</span></span>'
+return '<span font="Fixed 14" background="#E2AE7C"> <span rise="1600" font="mintsstrong 7" color="#4c3d3d">'.. args[3] ..'<span font="Visitor TT2 BRK 10">%</span></span></span>'
 end, 1, "Master")
 
 
@@ -832,11 +834,11 @@ globalkeys = awful.util.table.join(
     awful.key({            }, "XF86MonBrightnessDown",  function () awful.util.spawn_with_shell(bri_down) end),
 
            -- Volume control
-    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell(vol_up) end),
-    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell(vol_down) end),
-    awful.key({modkey}, "Right", function () awful.util.spawn_with_shell(volpa_up) end),
-    awful.key({modkey}, "Left", function () awful.util.spawn_with_shell(volpa_down) end),
-    awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(vol_mute) end),
+    awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell(volpa_up) end),
+    awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell(volpa_down) end),
+    awful.key({modkey}, "Right", function () awful.util.spawn_with_shell(vol_up) end),
+    awful.key({modkey}, "Left", function () awful.util.spawn_with_shell(vol_down) end),
+    awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(volpa_mute) end),
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
     awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
@@ -853,12 +855,6 @@ globalkeys = awful.util.table.join(
    end                                                      
    awful.client.run_or_raise(terminal, matcher)
  end),
- --     awful.key({ "Control", }, "Tab", function ()
- --     local matcher = function (c)                   
- --     return awful.rules.match(c, {class = 'Doublecmd'}) 
- --   end                                                      
- --   awful.client.run_or_raise('doublecmd', matcher)
- -- end),
      awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = 'subl'}) 
@@ -972,7 +968,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
-            { rule_any = { class = { "Steam" ,"Wine", "dota_linux" } },
+            { rule_any = { class = { "Steam" ,".exe", "dota_linux" } },
       properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
