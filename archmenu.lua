@@ -1,5 +1,6 @@
  local menubeceed89e397495003f6ff5a4d895d66 = {
      {"Audacity", "env UBUNTU_MENUPROXY=0 audacity ", "/usr/share/icons/hicolor/16x16/apps/audacity.png" },
+     {"Cheese", "cheese", "/usr/share/icons/hicolor/16x16/apps/cheese.png" },
      {"HDSPConf", "hdspconf", "/usr/share/pixmaps/hdspconf.png" },
      {"HDSPMixer", "hdspmixer", "/usr/share/pixmaps/hdspmixer.png" },
      {"Kamerka", "kamerka", "/usr/share/pixmaps/kamerka.png" },
@@ -16,6 +17,7 @@
  local menu9a1dcda9efe2bfc3963e75f98cc1ffd5 = {
      {"DraftSight", "\"/opt/dassault-systemes/DraftSight/Linux/DraftSight\""},
      {"Feh", "feh ", "///usr/share/feh/images/feh.png" },
+     {"FontForge", "fontforge ", "/usr/share/icons/hicolor/16x16/apps/fontforge.png" },
      {"GNU Image Manipulation Program", "gimp-2.8 ", "/usr/share/icons/hicolor/16x16/apps/gimp.png" },
      {"Inkscape", "inkscape ", "/usr/share/icons/hicolor/16x16/apps/inkscape.png" },
      {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
@@ -23,7 +25,7 @@
      {"XnView Retro", "/opt/XnRetro/XnRetro", "/usr/share/pixmaps/xnretro.png" },
      {"mtPaint", "mtpaint ", "/usr/share/pixmaps/mtpaint.png" },
      {"Просмотр документов", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
-     {"Просмотр изображений", "gpicview ", "/usr/share/icons/hicolor/48x48/apps/gpicview.png" },
+     {"Просмотр изображений", "eog ", "/usr/share/icons/hicolor/16x16/apps/eog.png" },
  }
 
  local menu9450b445fe92072aefd60520dcc39900 = {
@@ -102,6 +104,7 @@
      {"Guake Terminal", "guake", "/usr/share/icons/hicolor/16x16/apps/guake.png" },
      {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
+     {"Q4Wine", "q4wine -b "},
      {"WinUSB", "winusbgui", "/usr/share/pixmaps/winusbgui-icon.png" },
      {"urxvt", "urxvt", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"urxvt (client)", "urxvtc", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
