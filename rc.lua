@@ -57,6 +57,7 @@ active_theme = themes .. "/dark_grey"
 beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
+iface = "wlp3s0"
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc -T Terminal"
@@ -111,10 +112,10 @@ autorun = true
 autorunApps =
 {
    "sh " .. home .. "/.config/autostart/autostart.sh",
-   "urxvtd -o -f -q",
+   run_once("urxvtd", "urxvtd -o -f -q"),
    run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
-   run_once("hidcur"),
+   "systemctl --user restart hidcur spideroak",
    run_once("unagi"),
    --"xcowsay 'Moo, brother, moo.'"
 }
@@ -181,10 +182,10 @@ local layouts =
 }
 -- }}}
 
- -- {{{ Tags
+ -- {{{ Tags ₪ 
  theme.taglist_font                  = "Fixed 14"
  tags = {
-   names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "… " },
+   names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
    layout = { layouts[2], layouts[5], layouts[4], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
  }
 
@@ -259,14 +260,9 @@ mymainmenu = awful.menu({ items = {
                                   }
                         })
 
-mylauncher = awful.widget.launcher({ image = iconsdir .. "/tv_icon.gif",
-    menu = mymainmenu})
+mylauncher = awful.widget.launcher({ image = iconsdir .. "/tv_icon.gif", menu = mymainmenu})
 --mylauncher = awful.widget.launcher({ image = "/home/master-p/Downloads/starfallenwolf.gif", menu = mymainmenu })
 
--- Colours
-coldef  = "</span>"
-colwhi  = "<span color='#b2b2b2'>"
-red = "<span color='#e54c62'>"
 --=
 -- set the desired pixel coordinates:
 
@@ -322,13 +318,6 @@ musicwidget:register_buttons({ { "", awesompd.MOUSE_LEFT, musicwidget:command_to
 			         })
  musicwidget:run()
 
---  function mpdicon()
---   if musicwidget:playing() then
--- mpdicon:set_image(beautiful.widget_music_on)
--- else
---   mpdicon:set_image(beautiful.widget_music)
--- end
---  end
 -- Music widget 
 mpdwidget = wibox.widget.textbox()
 mpdicon = wibox.widget.imagebox()
@@ -345,14 +334,14 @@ function(widget, args)
   -- play
   if (args["{state}"] == "Play") then
     mpdicon:set_image(beautiful.widget_music_on)
-    return "<span background='#121212' font='Visitor TT2 BRK 10'> <span font='Visitor TT2 BRK 10'>" .. "<span color='#e54c62'>" .. args["{Title}"] .. "</span>" .. "<span color='#dedede'>" .. " - " .. "</span>" .. "<span color='#b2b2b2'>"  .. args["{Artist}"] .. "</span>" .. " </span></span>"
+    return 0
   -- pause
   elseif (args["{state}"] == "Pause" or args["{state}"] == "Stop") then
     mpdicon:set_image(beautiful.widget_music)
-    return "<span background='#121212' font='Visitor TT2 BRK 10'> <span font='Visitor TT2 BRK 10'>" .. colwhi .. args["{Title}"] .. coldef .. colwhi .. " - " .. coldef .. colwhi  .. args["{Artist}"] .. coldef .. " </span></span>"
+    return 0
   else
     mpdicon:set_image(beautiful.widget_music)
-    return "<span font='Visitor TT2 BRK 10' color='#e54c62'>musico </span>"
+    return 0
   end
 end, 1)
 
@@ -391,7 +380,7 @@ function (widget, args)
 -- plugged
   if (batstate() == 'Cable plugged') then
     baticon:set_image(beautiful.widget_ac)
-    return '<span background="#121212" font="Fixed 14"><span font="Visitor TT2 BRK 10"color="#46A8C3">AC</span></span>'
+    return '<span font="Visitor TT2 BRK 10" color="#46A8C3">AC</span>'
     -- critical
   elseif (args[2] <= 7 and batstate() == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
@@ -410,19 +399,17 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then
-    return '<span background="#121212" color="#e54c62" font="Fixed 9">↓ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
+    return '<span color="#e54c62" font="Fixed 9">↓ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
    elseif (batstate() == 'Charging' and args[2] ~= 100) then
-    return '<span background="#121212" font="Fixed 9" color="#7AC82E">↑ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
+    return '<span font="Fixed 9" color="#7AC82E">↑ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
    else 
-    return '<span background="#121212" color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">full<span color="#aeaeae">p' .. args[2] ..' </span></span></span>' end
+    return '<span color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="mintsstrong 7">full<span color="#aeaeae">p' .. args[2] ..' </span></span></span>' end
 end, 3, 'BAT0')
 
 -- Keyboard layout widget
 kbdwidget = wibox.widget.textbox()
 kbdcolb = "<span font='mintsmild 7' color='#aeaeae'>> "
 kbdcole = "</span>"
-kbdwidget.border_width = 0
-kbdwidget.border_color = beautiful.fg_normal
 kbdwidget:set_markup(kbdcolb .. "en-us" .. kbdcole)
 dbus.request_name("session", "ru.gentoo.kbdd")
 dbus.add_match("session", "interface='ru.gentoo.kbdd',member='layoutChanged'")
@@ -527,7 +514,6 @@ awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") en
 vicious.register(netwidget, vicious.widgets.wifi, 
   function (widget, args)
       link = args['{link}']
-      -- wifiicon.visible = true  -- didnt help
       if link > 65 then
         neticon:set_image(beautiful.widget_net_hi)
       elseif link > 30 and link <= 65 then
@@ -537,10 +523,10 @@ vicious.register(netwidget, vicious.widgets.wifi,
       else
         neticon:set_image(beautiful.widget_net_no)
       end
-      return '<span font="fixed 7" color="#aeaeae" rise="-1000">' .. args['{ssid}'] .. '</span>'
+      return '<span font="fixed 7" color="#aeaeae">' .. args['{ssid}'] .. '</span>'
       --end
     end,
-  2,"wlp3s0")
+  2, iface)
 
 snetwidget = wibox.widget.textbox()
 snetwidget:buttons(awful.util.table.join(
@@ -548,7 +534,7 @@ awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
  end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
-vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsstrong 7" color="#aeaeae"> <span color="#7ac82e">${wlp3s0 down_kb}</span><span color="#aeaeae" rise="-1000"> ↓</span><span rise="-1000">↑ </span><span color="#46A8C3">${wlp3s0 up_kb}</span></span>', 3)
+vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsstrong 7" color="#aeaeae"> <span color="#7ac82e">${' .. iface .. ' down_kb}</span><span color="#aeaeae"> ↓↑ </span><span color="#46A8C3">${' .. iface .. ' up_kb}</span></span>', 3)
 
 
 -- Separators
@@ -794,8 +780,8 @@ globalkeys = awful.util.table.join(
                 tag:clients()[i].minimized=false end
              awful.client.focus.byidx(1) if client.focus then client.focus:raise() end end),
 
-    --awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    --awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
+    -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
+    -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "q",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "e",  awful.tag.viewnext       ),
     awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
@@ -983,15 +969,15 @@ awful.rules.rules = {
       properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
-            { rule_any = { class = { "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
+            { rule_any = { class = { "Covergloobus", "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
+            { rule_any = { class = { "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Shotcut", "Gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,".exe", "Zenity", "Atom", 
             "jetbrains-studio", "subl", "Evince", "Eclipse", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
-            { rule_any = { class = { "Firefox", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
+            { rule_any = { class = { "Covergloobus", "Firefox", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
             { rule_any = { class = { "Polkit-gnome-authentication-agent-1", "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },

@@ -50,6 +50,7 @@ active_theme = themes .. "/color_arrows"
 beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
+iface = "wlp3s0"
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc"
@@ -107,7 +108,7 @@ autorunApps =
    run_once("urxvtd", "urxvtd -o -f -q"),
    run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
-   run_once("hidcur"),
+   "systemctl --user start hidcur spideroak",
    --"xcowsay 'Moo, brother, moo.'"
 }
 if autorun then
@@ -261,9 +262,6 @@ mylauncher = awful.widget.launcher({ image = iconsdir .. "/tv_icon.gif",
   	menu = mymainmenu})
 
 -- Colours
-coldef  = "</span>"
-colwhi  = "<span color='#D5B6E8'>"
-red = "<span color='#D83B59'>"
 --=
 -- set the desired pixel coordinates:
 
@@ -291,7 +289,7 @@ vicious.register(memwidget, vicious.widgets.mem, "<span font='Fixed 14' backgrou
 musicwidget = awesompd:create() -- Create awesompd widget
 musicwidget.font = "Fixed 8"
 musicwidget.font_color = "#DBCFE0"
- musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
+ musicwidget.scrolling = true -- If true, the text in the widget will be scrolled
  musicwidget.output_size = 20 -- Set the size of widget in symbols
  musicwidget.update_interval = 1 -- Set the update interval in seconds
  musicwidget.path_to_icons = confdir .. "/awesompd/icons"
@@ -524,7 +522,7 @@ vicious.register(netwidget, vicious.widgets.wifi,
       end
         return '<span background="#6F766E" font="Fixed 14"> <span rise="1600" color="#cecece" font="fixed 7">' .. args['{ssid}'] .. '</span></span>'
     end,
-  3,"wlp3s0")
+  2, iface)
 snetwidget = wibox.widget.textbox()
 snetwidget:buttons(awful.util.table.join(
 awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
@@ -532,7 +530,7 @@ awful.button({ }, 1, function () awful.util.spawn("wpa_gui")
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
 --vicious.register(snetwidget, vicious.widgets.net,'<span font="Fixed 14" background="#6f766e" color="#cecece"> <span rise="1600" font="mintsstrong 7" color="#bebebe">${wlp3s0 down_kb}<span color="#7AC82E"> ↓</span><span color="#46A8C3">↑ </span>${wlp3s0 up_kb} </span></span>', 3)
-vicious.register(snetwidget, vicious.widgets.net,'<span font="Fixed 14" background="#6f766e" color="#cecece"> <span rise="1600" font="mintsstrong 7"> <span color="#7ac82e">${wlp3s0 down_kb}</span> ↓↑ <span color="#46A8C3">${wlp3s0 up_kb} </span></span></span>', 3)
+vicious.register(snetwidget, vicious.widgets.net,'<span font="Fixed 14" background="#6f766e" color="#cecece"> <span rise="1600" font="mintsstrong 7"> <span color="#7ac82e">${' .. iface .. ' down_kb}</span> ↓↑ <span color="#46A8C3">${' .. iface ..' up_kb} </span></span></span>', 3)
 
 -- Separators
 face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')
