@@ -68,9 +68,11 @@ awesompd.ESCAPE_MENU_SYMBOL_MAPPING["&"] = "'n'"
 -- and notification.
 function awesompd.get_display_name(track)
    if track.display_name then
-      return "<span color='#e54c62'>" .. track.display_name .. "</span>"
+      track.display_name = '<span color="#e54c62">' .. track.display_name .. '</span>'
+      return track.display_name
    elseif track.artist_name and track.track_name then
-      return track.name .. " - <span color=\"#cecece\'" .. track.artist_name .. "</span>"
+      track.artist_name = "<span color='#cecece'" .. track.artist_name .. "</span>"
+      return track.name .. " - " .. track.artist_name
    end
 end
 
@@ -78,7 +80,7 @@ function awesompd.get_display_name_dark(track)
    if track.display_name then
       return "<span color='#cecece'>" .. track.display_name .. "</span>"
    elseif track.artist_name and track.track_name then
-      return track.name .. " - <span color=\"#cecece\'" .. track.artist_name .. "</span>"
+      return track.name .. " - <span color=\'#cecece\'" .. track.artist_name .. "</span>"
    end
 end
 
@@ -930,7 +932,7 @@ function awesompd:scroll_text(text)
    local result = text
    if self.scrolling then
       if self.output_size < utf8.len(text) then
-         text = text .. " - "
+         --text = text .. " - "
          if self.scroll_pos + self.output_size - 1 > utf8.len(text) then
             result = utf8.sub(text, self.scroll_pos)
             result = result .. utf8.sub(text, 1, self.scroll_pos + self.output_size - 1 - utf8.len(text))
@@ -949,6 +951,7 @@ end
 
 -- This function is called every second.
 function awesompd:update_widget()
+   --self.text = self.get_display_name(self.current_track)
    self:set_text(self:scroll_text(self.text))
    self:check_notify()
 end
