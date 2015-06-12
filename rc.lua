@@ -62,7 +62,7 @@ wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc -T Terminal"
 browser = "firefox"
-editor = "subl"
+editor = "gvim"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
 sc_a = "sh " .. scripts .. "/screenshot-area.sh"
@@ -90,7 +90,7 @@ alt = "Mod1"
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
    noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
-   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.8 }
+   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.9 }
  end
 
  function hide_smth()
@@ -111,7 +111,7 @@ end
 autorun = true
 autorunApps =
 {
-   "sh " .. home .. "/.config/autostart/autostart.sh",
+   home .. "/.config/autostart/autostart.sh",
    run_once("urxvtd", "urxvtd -o -f -q"),
    run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
@@ -230,21 +230,29 @@ mygamesmenu = {
    }
 
 myworkspacemenu = {
-                                  { "Home", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[1] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Browse", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[2] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Doc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[3] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "IDE", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[4] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Media", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[5] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Virtual", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[6] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Wine", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[7] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Etc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[8] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                  { "Home", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[1] 
+                                      if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Browse", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[2] 
+                                        if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Doc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[3] 
+                                        if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "IDE", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[4] 
+                                        if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Media", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[5] 
+                                        if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Virtual", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[6] 
+                                        if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Wine", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[7] 
+                                        if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
+                                    { "Etc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[8] 
+                                        if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
                                        }
 
 mytaskmenu = awful.menu({ items = {
-                                    { "Move to workspace", myworkspacemenu },
-                                    { "  Fullscreen", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
-                                    { "  Minimize", function () c = client.focus c.minimized = true end, iconsdir .. "/view-restore.svg"},
-                                    { "  Close", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
+                                    { "Отправить на тэг:", myworkspacemenu },
+                                    { "  На весь экран", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
+                                    { "  Свернуть", function () c = client.focus c.minimized = true end, iconsdir .. "/view-restore.svg"},
+                                    { "  Закрыть", function() client.focus:kill()  if not client.focus then moveMouse(1366/2, 768/2) end end, iconsdir .. "/media-no.svg" },
                                   }
                         })
 
@@ -267,17 +275,15 @@ mylauncher = awful.widget.launcher({ image = iconsdir .. "/tv_icon.gif", menu = 
 -- set the desired pixel coordinates:
 
 --  if your screen is 1024x768 the this line sets the bottom right.
---local safeCoords = {x=0, y=768}
---local moveMouseOnStartup = true
---local function moveMouse(x_co, y_co)
---    mouse.coords({ x=x_co, y=y_co })
---end
+-- local safeCoords = {x=0, y=768}
+-- local moveMouseOnStartup = true
+local function moveMouse(x_co, y_co)
+    mouse.coords({ x=x_co, y=y_co })
+end
 
---if moveMouseOnStartup then
---        moveMouse(safeCoords.x, safeCoords.y)
---end
-
---=
+-- if moveMouseOnStartup then
+--         moveMouse(safeCoords.x, safeCoords.y)
+-- end
 
 -- Memory widget
 memwidget = wibox.widget.textbox()
@@ -384,7 +390,7 @@ function (widget, args)
     -- critical
   elseif (args[2] <= 7 and batstate() == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
-    awful.util.spawn("systemctl suspend")
+    --awful.util.spawn("systemctl suspend")
   elseif (batstate() == 'Discharging' and args[2] <= 10) then
     show_smth("⚡ Внимание! ⚡", "Очень  мало энергии", iconsdir .. "/battery-red.svg", 1, nil, nil, nil, nil )
   elseif (args[2] <= 15) then
@@ -395,8 +401,7 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_low)
  elseif (args[2] <= 89) then
     baticon:set_image(beautiful.widget_battery_mid)
- elseif (args[2] >= 90) then
-    baticon:set_image(beautiful.widget_battery_high)
+ elseif (args[2] >= 90) then baticon:set_image(beautiful.widget_battery_high)
   end
    if (batstate() == 'Discharging') then
     return '<span color="#e54c62" font="Fixed 9">↓ <span rise="1000" font="mintsstrong 7">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
@@ -813,7 +818,6 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to poweroff?' &&systemctl poweroff") end),
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to reboot?' &&systemctl reboot") end),
-    awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
     awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
     --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
@@ -839,8 +843,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
     awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
     awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-    awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
-    awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(layouts, -1) end),
+    awful.key({ modkey,           }, "space", function () awful.layout.inc(1, s, layouts) end),
+    awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(-1, s, layouts) end),
 
 --run or raise clients
      awful.key({ modkey, }, "Return", function ()
@@ -849,11 +853,11 @@ globalkeys = awful.util.table.join(
    end                                                      
    awful.client.run_or_raise(terminal, matcher)
  end),
-     awful.key({ "Control" }, "l", function ()
+     awful.key({ modkey }, "l", function ()
      local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'subl'}) 
+     return awful.rules.match(c, {class = 'Gvim'}) 
    end                                                      
-   awful.client.run_or_raise('subl', matcher)
+   awful.client.run_or_raise(editor, matcher)
  end),
      awful.key({ "Control", "Shift" }, "l", function ()
      local matcher = function (c)                   
@@ -889,10 +893,10 @@ globalkeys = awful.util.table.join(
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
-    awful.key({ alt, }, "F4",      function (c) c:kill()                         end),
+    awful.key({ alt, }, "F4",      function (c) c:kill() if not client.focus then moveMouse(1366/2, 768/2) end end),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-    awful.key({ alt,           }, "Escape", function (c) c.minimized = true end)
+    awful.key({ alt,           }, "Escape", function (c) c.minimized = true if not client.focus then moveMouse(1366/2, 768/2) end end)
 )
 
 -- Bind all key numbers to tags.
@@ -954,14 +958,15 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
+                     buttons = clientbuttons,
+                     size_hints_honor = false } },
             { rule_any = { class = { "Virt-manager", "Remmina", "VirtualBox" } },
       properties = { tag = tags[1][6] } },
             { rule_any = { class = { "Sonata", "Vlc", "Samowar", "Deadbeef" } },
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
+            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
@@ -973,7 +978,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][8] } },
             { rule_any = { class = { "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
-            { rule_any = { class = { "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Shotcut", "Gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,".exe", "Zenity", "Atom", 
+            { rule_any = { class = { "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Shotcut", "Gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,".exe", "Zenity", "Atom", 
             "jetbrains-studio", "subl", "Evince", "Eclipse", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
@@ -1001,7 +1006,7 @@ client.connect_signal("manage", function (c, startup)
     if not startup then
         -- Set the windows at the slave,
         -- i.e. put it at the end of others instead of setting it master.
-         awful.client.setslave(c)
+         --awful.client.setslave(c)
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
@@ -1140,12 +1145,23 @@ end)
 --   oldspawn(s, false)
 -- end
 
+function under_pointer()
+    local obj = mouse.object_under_pointer()
+    if type(obj) == "client" then
+        return obj
+    end
+end
+
 client.connect_signal("focus", function(c)
                               c.border_color = beautiful.border_focus
+                              local her = under_pointer()
+                              if(her == client.focus) then return 1
+                                else moveMouse(c:geometry()['x']+c:geometry()['width']/2, c:geometry()['y']+c:geometry()['height']/2) end
                               c.opacity = 1
                            end)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
+                                --c.border_width = beautiful.border_width
                                 --awful.util.spawn("sudo renice -n 1 -p " .. c.pid)
                                 c.opacity = 1
                              end)

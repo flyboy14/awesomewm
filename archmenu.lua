@@ -75,7 +75,7 @@
      {"LibreOffice Impress", "libreoffice --impress ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-impress.png" },
      {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
      {"LibreOffice Writer", "libreoffice --writer ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-writer.png" },
-     {"Master PDF Editor", "/opt/masterpdfeditor/master-pdf-editor ", "/usr/share/pixmaps/pdfeditor.png" },
+     {"Master PDF Editor", "/opt/masterpdfeditor/masterpdfeditor3 ", "/usr/share/pixmaps/pdfeditor.png" },
      {"Просмотр документов", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
  }
 
@@ -117,8 +117,8 @@
  }
 
  local menu91af6ed4e0be6a48ab48ec8b6e768568 = {
-     {"Android File Transfer (MTP)", "android-file-transfer", "/usr/share/icons/hicolor/128x128/apps/android-file-transfer.png" },
      {"Caffeine", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
+     {"CoverGloobus", "covergloobus", "///usr/share/covergloobus/images/covergloobus.png" },
      {"Double Commander", "doublecmd", "/usr/share/pixmaps/doublecmd.png" },
      {"KeePassX", "keepassx ", "/usr/share/pixmaps/keepassx.xpm" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
@@ -127,7 +127,9 @@
      {"Диски", "gnome-disks", "/usr/share/icons/hicolor/16x16/apps/gnome-disks.png" },
      {"Математический инструмент Genius", "gnome-genius ", "/usr/share/icons/hicolor/32x32/apps/gnome-genius.png" },
      {"Менеджер архивов", "file-roller ", "/usr/share/icons/hicolor/16x16/apps/file-roller.png" },
+     {"Погода", "gapplication launch org.gnome.Weather.Application", "/usr/share/icons/hicolor/16x16/apps/org.gnome.Weather.Application.png" },
      {"Терминал", "exo-open --launch TerminalEmulator", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
+     {"Улучшенный VI", "gvim -f ", "/usr/share/pixmaps/gvim.png" },
  }
 
 xdgmenu = {

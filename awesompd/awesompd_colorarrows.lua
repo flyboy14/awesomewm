@@ -68,11 +68,9 @@ awesompd.ESCAPE_MENU_SYMBOL_MAPPING["&"] = "'n'"
 -- and notification.
 function awesompd.get_display_name(track)
    if track.display_name then
-      track.display_name = '<span color="#e54c62">' .. track.display_name .. '</span>'
-      return track.display_name
+      return "<span color='#e54c62'>" .. track.display_name .. "</span>"
    elseif track.artist_name and track.track_name then
-      track.artist_name = "<span color='#cecece'" .. track.artist_name .. "</span>"
-      return track.name .. " - " .. track.artist_name
+      return track.name .. " - <span color=\"#cecece\'" .. track.artist_name .. "</span>"
    end
 end
 
@@ -80,7 +78,7 @@ function awesompd.get_display_name_dark(track)
    if track.display_name then
       return "<span color='#cecece'>" .. track.display_name .. "</span>"
    elseif track.artist_name and track.track_name then
-      return track.name .. " - <span color=\'#cecece\'" .. track.artist_name .. "</span>"
+      return track.name .. " - <span color=\"#cecece\'" .. track.artist_name .. "</span>"
    end
 end
 
@@ -151,8 +149,8 @@ function awesompd.split(s)
    s = s .. "\n"
    local f = function (s) 
                 l.n = l.n + 1
-		l[l.n] = s
-	     end
+    l[l.n] = s
+       end
    local p = "%s*(.-)%s*\n%s*"
    s = string.gsub(s,p,f)
    return l
@@ -581,19 +579,19 @@ function awesompd:menu_list()
    end
    return self.list_menu
 end
-	     
+       
 -- Returns the playlists menu. Menu consists of all files in the playlist folder.
 function awesompd:menu_playlists()
    if self.recreate_playlists then
       local new_menu = {}
       if #self.playlists_array > 0 then
-	 for i = 1, #self.playlists_array do
-	    local submenu = {}
-	    submenu[1] = { "Add to current", self:command_load_playlist(self.playlists_array[i]) }
-	    submenu[2] = { "Replace current", self:command_replace_playlist(self.playlists_array[i]) }
-	    new_menu[i] = { self.playlists_array[i], submenu }
-	 end
-	 table.insert(new_menu, {"", ""}) -- This is a separator
+   for i = 1, #self.playlists_array do
+      local submenu = {}
+      submenu[1] = { "Add to current", self:command_load_playlist(self.playlists_array[i]) }
+      submenu[2] = { "Replace current", self:command_replace_playlist(self.playlists_array[i]) }
+      new_menu[i] = { self.playlists_array[i], submenu }
+   end
+   table.insert(new_menu, {"", ""}) -- This is a separator
       end
       table.insert(new_menu, { "Refresh", function() self:check_playlists() end })
       self.recreate_playlists = false
@@ -607,9 +605,9 @@ function awesompd:menu_servers()
    if self.recreate_servers then
       local new_menu = {}
       for i = 1, #self.servers do
-	 table.insert(new_menu, {"Server: " .. self.servers[i].server .. 
-				 ", port: " .. self.servers[i].port,
-			      function() self:change_server(i) end,
+   table.insert(new_menu, {"Server: " .. self.servers[i].server .. 
+         ", port: " .. self.servers[i].port,
+            function() self:change_server(i) end,
                               self:menu_item_radio(i == self.current_server)})
       end
       self.servers_menu = new_menu
@@ -794,9 +792,9 @@ function awesompd:check_list()
    if info ~= self.list_line then
       self.list_line = info
       if string.len(info) > 0 then
-	 self.list_array = self.split(string.sub(info,1,string.len(info)))
+   self.list_array = self.split(string.sub(info,1,string.len(info)))
       else
-	 self.list_array = {}
+   self.list_array = {}
       end
       self.recreate_menu = true
       self.recreate_list = true
@@ -811,9 +809,9 @@ function awesompd:check_playlists()
    if info ~= self.playlists_line then
       self.playlists_line = info
       if string.len(info) > 0 then
-	 self.playlists_array = self.split(info)
+   self.playlists_array = self.split(info)
       else
-	 self.playlists_array = {}
+   self.playlists_array = {}
       end
       self.recreate_menu = true
       self.recreate_playlists = true
@@ -845,9 +843,9 @@ end
 function awesompd:show_notification(hint_title, hint_text, hint_image, timeout)
    self:hide_notification()
    self.notification = naughty.notify({ title      =  hint_title
-					, text       = awesompd.protect_string(hint_text)
-					, timeout    = timeout
-					, position   = "top_right"
+          , text       = awesompd.protect_string(hint_text)
+          , timeout    = timeout
+          , position   = "top_right"
           , bg         = "#4b3b51"
           , fg         = "#dedede"
                                         , icon       = hint_image
@@ -891,10 +889,10 @@ end
 
 function awesompd:notify_state(state_changed)
    state_array = { "Volume: " .. self.state_volume ,
-		   "Repeat: " .. self.state_repeat ,
-		   "Random: " .. self.state_random ,
-		   "Single: " .. self.state_single ,
-		   "Consume: " .. self.state_consume }
+       "Repeat: " .. self.state_repeat ,
+       "Random: " .. self.state_random ,
+       "Single: " .. self.state_single ,
+       "Consume: " .. self.state_consume }
    state_header = state_array[state_changed]
    table.remove(state_array,state_changed)
    full_state = state_array[1]
@@ -932,7 +930,7 @@ function awesompd:scroll_text(text)
    local result = text
    if self.scrolling then
       if self.output_size < utf8.len(text) then
-         --text = text .. " - "
+         text = text .. " - "
          if self.scroll_pos + self.output_size - 1 > utf8.len(text) then
             result = utf8.sub(text, self.scroll_pos)
             result = result .. utf8.sub(text, 1, self.scroll_pos + self.output_size - 1 - utf8.len(text))
@@ -951,7 +949,6 @@ end
 
 -- This function is called every second.
 function awesompd:update_widget()
-   --self.text = self.get_display_name(self.current_track)
    self:set_text(self:scroll_text(self.text))
    self:check_notify()
 end
@@ -978,12 +975,12 @@ end
 
 function awesompd:notify_connect()
    self:show_notification("Connected", "Connection established to " .. self.servers[self.current_server].server ..
-		 " on port " .. self.servers[self.current_server].port,nil,1)
+     " on port " .. self.servers[self.current_server].port,nil,1)
 end
 
 function awesompd:notify_disconnect()
    self:show_notification("Disconnected", "Cannot connect to " .. self.servers[self.current_server].server ..
-		 " on port " .. self.servers[self.current_server].port,nil,1)
+     " on port " .. self.servers[self.current_server].port,nil,1)
 end
 
 function awesompd:update_track(file)
@@ -1000,29 +997,29 @@ function awesompd:update_track(file)
 
    if not track_line or string.len(track_line) == 0 then
       if self.status ~= awesompd.DISCONNECTED then
-	 self:notify_disconnect()
-	 self.recreate_menu = true
+   self:notify_disconnect()
+   self.recreate_menu = true
          self.status = awesompd.DISCONNECTED
          self.current_track = { }
          self:update_widget_text()
       end
    else
       if self.status == awesompd.DISCONNECTED then
-	 self:notify_connect()
-	 self.recreate_menu = true
+   self:notify_connect()
+   self.recreate_menu = true
          self:update_widget_text()
       end
       if string.find(track_line,"volume:") or string.find(track_line,"Updating DB") then
-	 if self.status ~= awesompd.STOPPED then
+   if self.status ~= awesompd.STOPPED then
             self.status = awesompd.STOPPED
-	    self.current_number = 0
-	    self.recreate_menu = true
-	    self.recreate_playback = true
-	    self.recreate_list = true
+      self.current_number = 0
+      self.recreate_menu = true
+      self.recreate_playback = true
+      self.recreate_list = true
             self.album_cover = nil
             self.current_track = { }
             self:update_widget_text()
-	 end
+   end
          self:update_state(track_line)
       else
          self:update_state(options_line)
@@ -1042,7 +1039,7 @@ function awesompd:update_track(file)
                force_update = true
             end
          end
-	 if new_file ~= self.current_track.unique_name or force_update then
+   if new_file ~= self.current_track.unique_name or force_update then
             self.current_track = jamendo.get_track_by_link(new_file)
             if not self.current_track then
                self.current_track = { display_name = display_name,
@@ -1052,11 +1049,11 @@ function awesompd:update_track(file)
             if self.show_album_cover then
                self.current_track.album_cover = self:get_cover(new_file)
             end
-	    self.to_notify = true
-	    self.recreate_menu = true
-	    self.recreate_playback = true
-	    self.recreate_list = true
-	    self.current_number = tonumber(self.find_pattern(status_line,"%d+"))
+      self.to_notify = true
+      self.recreate_menu = true
+      self.recreate_playback = true
+      self.recreate_list = true
+      self.current_number = tonumber(self.find_pattern(status_line,"%d+"))
             self:update_widget_text()
 
             -- If the track is not the last, asynchronously download
@@ -1068,20 +1065,20 @@ function awesompd:update_track(file)
                                     self.current_number + 1 .. ' | tail -1', "*line")
                jamendo.try_get_cover_async(next_track)
             end
-	 end
-	 local tmp_pst = string.find(status_line,"%d+%:%d+%/")
-	 local progress = self.find_pattern(status_line,"%#%d+/%d+") .. " " .. string.sub(status_line,tmp_pst)
+   end
+   local tmp_pst = string.find(status_line,"%d+%:%d+%/")
+   local progress = self.find_pattern(status_line,"%#%d+/%d+") .. " " .. string.sub(status_line,tmp_pst)
          local new_status = awesompd.PLAYING
-	 if string.find(status_line,"paused") then
+   if string.find(status_line,"paused") then
             new_status = awesompd.PAUSED
-	 end
-	 if new_status ~= self.status then
-	    self.to_notify = true
-	    self.recreate_list = true
+   end
+   if new_status ~= self.status then
+      self.to_notify = true
+      self.recreate_list = true
             self.status = new_status
             self:update_widget_text()
-	 end
-	 self.status_text = self.status .. " " .. progress
+   end
+   self.status_text = self.status .. " " .. progress
       end
    end
 end
@@ -1120,8 +1117,8 @@ end
 
 function awesompd:run_prompt(welcome,hook)
    awful.prompt.run({ prompt = welcome },
-		    self.promptbox[mouse.screen].widget,
-		    hook)
+        self.promptbox[mouse.screen].widget,
+        hook)
 end
 
 -- Replaces control characters with escaped ones.
