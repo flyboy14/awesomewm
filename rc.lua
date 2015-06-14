@@ -57,7 +57,7 @@ active_theme = themes .. "/dark_grey"
 beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-iface = "wlp3s0"
+iface = "enp4s0"
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc -T Terminal"
@@ -65,20 +65,20 @@ browser = "firefox"
 editor = "gvim"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
-sc_a = "sh " .. scripts .. "/screenshot-area.sh"
-sc_w = "sh " .. scripts .. "/screenshot-wind.sh"
-sc_r = "sh " .. scripts .. "/screenshot-root.sh"
-sc_r5 = "sleep 5s && sh " .. scripts .. "/screenshot-root.sh"
-volpa_up = "sh " .. scripts .. "/vol_pa_dark.sh up"
-volpa_down = "sh " .. scripts .. "/vol_pa_dark.sh down"
-volpa_mute = "sh " .. scripts .. "/vol_pa_dark.sh mute"
-vol_up = "sh " .. scripts .. "/vol_dark.sh up"
-vol_down = "sh " .. scripts .. "/vol_dark.sh down"
-vol_mute = "sh " .. scripts .. "/vol_dark.sh mute"
-bri_up = "sh " .. scripts .. "/bright_dark.sh up"
-bri_down = "sh " .. scripts .. "/bright_dark.sh down"
-translate_o_r = "sh " .. scripts .. "/translate_other_ru.sh"
-translate_r_e = "sh " .. scripts .. "/translate_ru_en.sh"
+sc_a = scripts .. "/screenshot-area.sh"
+sc_w = scripts .. "/screenshot-wind.sh"
+sc_r = scripts .. "/screenshot-root.sh"
+sc_r5 = "sleep 5s && " .. scripts .. "/screenshot-root.sh"
+volpa_up = scripts .. "/vol_pa_dark.sh up"
+volpa_down = scripts .. "/vol_pa_dark.sh down"
+volpa_mute = scripts .. "/vol_pa_dark.sh mute"
+vol_up = scripts .. "/vol_dark.sh up"
+vol_down = scripts .. "/vol_dark.sh down"
+vol_mute = scripts .. "/vol_dark.sh mute"
+bri_up = scripts .. "/bright_dark.sh up"
+bri_down = scripts .. "/bright_dark.sh down"
+translate_o_r = scripts .. "/translate_en_ru.sh"
+translate_r_e = scripts .. "/translate_ru_en.sh"
 tagimage_current = iconsdir .. "/media-record-green.svg"
 tagimage_other = iconsdir .. "/media-record.svg"
 tagico = tagimage_other
@@ -186,7 +186,7 @@ local layouts =
  theme.taglist_font                  = "Fixed 14"
  tags = {
    names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
-   layout = { layouts[2], layouts[5], layouts[4], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
+   layout = { layouts[2], layouts[5], layouts[2], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
  }
 
  for s = 1, screen.count() do
@@ -210,18 +210,18 @@ mybordermenu = {
 mygamesmenu = {
    { "Borderlans II", mybordermenu },      
    { "  Torchlight II", "optirun wine " .. home .. "/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
-   { "  Godus", "sh " .. scripts .. "/godus.sh", "/home/master-p/WINE/wineZ/drive_c/Program Files/Godus/generated_images/Win32_Icon_32x32_0.ico" },
-   { "  Path of Exile", "sh " .. scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
+   { "  Godus", scripts .. "/godus.sh", "/home/master-p/WINE/wineZ/drive_c/Program Files/Godus/generated_images/Win32_Icon_32x32_0.ico" },
+   { "  Path of Exile", scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
    { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
    { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },
-   { "  WORMS Revolution", "sh " .. scripts .. "/worms.sh", iconsdir .. "/worms.png" },
+   { "  WORMS Revolution", scripts .. "/worms.sh", iconsdir .. "/worms.png" },
    { "  Xonotic", home .. "/Xonotic/xonotic-linux64-sdl -basedir " .. home .. "/Xonotic/", iconsdir .. "/xonotic_icon.svg" },
-   { "  Kingdoms of Amalur", "sh " .. scripts .. "/KoA.sh", iconsdir .. "/koa.png" },
-   { "  The Cave", "optirun sh " .. home .. "/TheCave/run_game.sh &", iconsdir .. "/the_cave.png" },
+   { "  Kingdoms of Amalur", scripts .. "/KoA.sh", iconsdir .. "/koa.png" },
+   { "  The Cave", "optirun " .. home .. "/TheCave/run_game.sh &", iconsdir .. "/the_cave.png" },
    { "  Left for Dead 2", "optirun steam steam://rungameid/550", "/home/master-p/.steam/steam/SteamApps/common/Left 4 Dead 2/left4dead2.ico" },
    { "  Dota 2", "optirun steam steam://rungameid/570", iconsdir .. "/dota2.png" },
-   { "  Battle.net", "sh " .. scripts .. "/Battlenet.sh", iconsdir .. "/Badge_battlenet.png" },
-   { "  Elegy for a Dead World", "sh " .. scripts .. "/Elegy.sh", iconsdir .. "/Elegy.ico" },
+   { "  Battle.net", scripts .. "/Battlenet.sh", iconsdir .. "/Badge_battlenet.png" },
+   { "  Elegy for a Dead World", scripts .. "/Elegy.sh", iconsdir .. "/Elegy.ico" },
    { "  Iesabel", "Iesabel/Iesabel/Iesabel.x86_64", iconsdir .. "/Iesabel-Logo.jpg" },
    { "  Anomaly Warzone", "/home/master-p/AnomalyWarzoneEarth/AnomalyWarzoneEarth", iconsdir .. "/icon.png" },
    { "  Diablo II LoD", "wine " .. home .. "/WINE/wineZ/drive_c/Games/D2/Game.exe", iconsdir .. "/icone.ICO" },
@@ -252,7 +252,7 @@ mytaskmenu = awful.menu({ items = {
                                     { "Отправить на тэг:", myworkspacemenu },
                                     { "  На весь экран", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
                                     { "  Свернуть", function () c = client.focus c.minimized = true end, iconsdir .. "/view-restore.svg"},
-                                    { "  Закрыть", function() client.focus:kill()  if not client.focus then moveMouse(1366/2, 768/2) end end, iconsdir .. "/media-no.svg" },
+                                    { "  Закрыть", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })
 
@@ -511,7 +511,7 @@ end, 1, "Master")
 -- Net widget
 netwidget = wibox.widget.textbox()
 neticon = wibox.widget.imagebox()
-neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("systemctl restart wpa_supplicant@wlp3s0 systemd-networkd") end)))
+neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("systemctl restart wpa_supplicant@" ..  " systemd-networkd") end)))
 netwidget:buttons(awful.util.table.join(
 awful.button({ }, 1, function () awful.util.spawn("wpa_gui") end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
@@ -783,7 +783,7 @@ globalkeys = awful.util.table.join(
              local tag = awful.tag.selected()
              for i=1, #tag:clients() do
                 tag:clients()[i].minimized=false end
-             awful.client.focus.byidx(1) if client.focus then client.focus:raise() end end),
+             awful.client.focus.byidx(1) if client.focus then client.focus:raise() mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end end),
 
     -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
@@ -853,7 +853,7 @@ globalkeys = awful.util.table.join(
    end                                                      
    awful.client.run_or_raise(terminal, matcher)
  end),
-     awful.key({ modkey }, "l", function ()
+     awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = 'Gvim'}) 
    end                                                      
@@ -893,10 +893,10 @@ globalkeys = awful.util.table.join(
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
-    awful.key({ alt, }, "F4",      function (c) c:kill() if not client.focus then moveMouse(1366/2, 768/2) end end),
+    awful.key({ alt, }, "F4",      function (c) c:kill() end),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-    awful.key({ alt,           }, "Escape", function (c) c.minimized = true if not client.focus then moveMouse(1366/2, 768/2) end end)
+    awful.key({ alt,           }, "Escape", function (c) c.minimized = true end)
 )
 
 -- Bind all key numbers to tags.
@@ -966,7 +966,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
+            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Atril",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
@@ -979,7 +979,7 @@ awful.rules.rules = {
             { rule_any = { class = { "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
             { rule_any = { class = { "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Shotcut", "Gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,".exe", "Zenity", "Atom", 
-            "jetbrains-studio", "subl", "Evince", "Eclipse", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
+            "jetbrains-studio", "subl", "Atril", "Eclipse", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Covergloobus", "Firefox", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
@@ -1127,7 +1127,7 @@ end)
   keychains.add({ modkey }, "s", "Screen record: ", iconsdir .. "/camera-video.png",{
         s   =   {
             func    =   function()
-                awful.util.spawn_with_shell("sh " .. scripts .. "/record_screen.sh")
+                awful.util.spawn_with_shell(scripts .. "/record_screen.sh")
             end,
             info    =   "- Start recording"
         },
@@ -1145,24 +1145,20 @@ end)
 --   oldspawn(s, false)
 -- end
 
-function under_pointer()
-    local obj = mouse.object_under_pointer()
-    if type(obj) == "client" then
-        return obj
-    end
-end
 
 client.connect_signal("focus", function(c)
-                              c.border_color = beautiful.border_focus
-                              local her = under_pointer()
-                              if(her == client.focus) then return 1
-                                else moveMouse(c:geometry()['x']+c:geometry()['width']/2, c:geometry()['y']+c:geometry()['height']/2) end
-                              c.opacity = 1
+                                c.border_color = beautiful.border_focus
                            end)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
-                                --c.border_width = beautiful.border_width
-                                --awful.util.spawn("sudo renice -n 1 -p " .. c.pid)
-                                c.opacity = 1
                              end)
+
+client.connect_signal("unmanage", function(c)
+                                if(not client.focus) then mouse.coords({x=683, y=384}) end 
+                             end)
+
+client.connect_signal("manage", function(c)
+                                if(mouse.object_under_pointer() == client.focus) then return
+                                  else mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) end
+end)
 -- }}}

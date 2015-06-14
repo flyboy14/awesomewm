@@ -50,10 +50,10 @@ theme.bg_normal                     = "#121212"
 theme.bg_focus                      = "#121212"
 theme.fg_urgent                     = "#CC9393"
 theme.bg_urgent                     = "#2A1F1E"
+theme.border_normal                 = "#121212"
 theme.border_width                  = "1"
 theme.menu_border_width           	= "5"
-theme.menu_border_color           	= "[5]#121212"
-theme.border_normal                 = "#121212"
+theme.menu_border_color             = "[5]#121212"
 theme.border_focus                  = "#3399FF"--"#DCD87B"
 theme.titlebar_bg_focus             = "#292929"
 theme.tooltip_fg_color				= "#cecece"
@@ -61,8 +61,8 @@ theme.tooltip_bg_color 				= "#6F766E"
 
 theme.taglist_fg_focus              = "#dcdcdc" --#dcdcdc"
 theme.taglist_bg_focus              = "#121212"
-theme.menu_height                   = "28"
-theme.menu_width                    = "190"
+theme.menu_height                   = "24"
+theme.menu_width                    = "170"
 
 theme.menu_submenu_icon             = themedir .. "/icons/submenu.png"
 theme.taglist_squares_sel           = themedir .. "/icons/square_sel.png"
@@ -130,7 +130,7 @@ theme.tasklist_maximized_horizontal         = ""
 theme.tasklist_maximized_vertical           = "" 
 
 -- lain related
-theme.useless_gap_width             = 10
+theme.useless_gap_width             = 0
 theme.layout_uselesstile            = themedir .. "/icons/uselesstile.png"
 theme.layout_uselesstileleft        = themedir .. "/icons/uselesstileleft.png"
 theme.layout_uselesstiletop         = themedir .. "/icons/uselesstiletop.png"

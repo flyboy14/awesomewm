@@ -20,7 +20,7 @@ if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
                      title = "Произошла ошибка при запуске awesome! :(",
                      text = awesome.startup_errors })
-end
+                 end
 
 -- Handle runtime errors after startup
 do
@@ -55,7 +55,7 @@ wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc"
 browser = "firefox"
-editor = "subl"
+editor = "gvim"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
 sc_a = scripts .. "/screenshot-area.sh"
@@ -63,20 +63,22 @@ sc_w = scripts .. "/screenshot-wind.sh"
 sc_r = scripts .. "/screenshot-root.sh"
 sc_r5 = "sleep 5s && " .. scripts .. "/screenshot-root.sh"
 volpa_up = scripts .. "/vol_pa_color.sh up"
-volpa_down =scripts .. "/vol_pa_color.sh down"
-volpa_mute =scripts .. "/vol_pa_color.sh mute"
+volpa_down = scripts .. "/vol_pa_color.sh down"
+volpa_mute = scripts .. "/vol_pa_color.sh mute"
 vol_up = scripts .. "/vol_color.sh up"
 vol_down = scripts .. "/vol_color.sh down"
 vol_mute = scripts .. "/vol_color.sh mute"
 bri_up = scripts .. "/bright_color.sh up"
 bri_down = scripts .. "/bright_color.sh down"
-translate_o_r = scripts .. "/translate_other_ru.sh"
+translate_o_r = scripts .. "/translate_en_ru.sh"
 translate_r_e = scripts .. "/translate_ru_en.sh"
 -- Default modkey.
 modkey = "Mod4"
 alt = "Mod1"
 -- }}}
-
+local function moveMouse(x_co, y_co)
+   mouse.coords({ x=x_co, y=y_co })
+end
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
    --naughty.destroy(noti)
@@ -207,7 +209,7 @@ mygamesmenu = {
    { "  WORMS Revolution", scripts .. "/worms.sh", iconsdir .. "/worms.png" },
    { "  Xonotic", home .. "/Xonotic/xonotic-linux64-sdl -basedir " .. home .. "/Xonotic/", iconsdir .. "/xonotic_icon.svg" },
    { "  Kingdoms of Amalur", scripts .. "/KoA.sh", iconsdir .. "/koa.png" },
-   { "  The Cave", "optirun sh " .. home .. "/TheCave/run_game.sh &", iconsdir .. "/the_cave.png" },
+   { "  The Cave", "optirun " .. home .. "/TheCave/run_game.sh &", iconsdir .. "/the_cave.png" },
    { "  Left for Dead 2", "optirun steam steam://rungameid/550", "/home/master-p/.steam/steam/SteamApps/common/Left 4 Dead 2/left4dead2.ico" },
    { "  Dota 2", "optirun steam steam://rungameid/570", iconsdir .. "/dota2.png" },
    { "  Battle.net", scripts .. "/Battlenet.sh", iconsdir .. "/Badge_battlenet.png" },
@@ -234,16 +236,9 @@ mytaskmenu = awful.menu({ items = {
                                     { "Отправить на тэг:", myworkspacemenu },
                                     { "  На весь экран", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
                                     { "  Свернуть", function () c = client.focus c.minimized = true end, iconsdir .. "/view-restore.svg"},
-                                    { "  Закрыть", function() client.focus:kill() if not client.focus then moveMouse(1366/2, 768/2) end end, iconsdir .. "/media-no.svg" },
+                                    { "  Закрыть", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })
-
--- myvirtualmenu =                   {
---                                     { "  load driver", "gksudo modprobe vboxdrv", iconsdir .. "/driver.svg" },
---                                     { "  start makakka_xp", "virtualbox --startvm makakka_xp", iconsdir .. "/cuteball-windows.png" },
---                                     { "  open virt-manager", "virt-manager", iconsdir .. "/robot-modern.png" },
---                                     { "  open virtualbox", "virtualbox", iconsdir .. "/Vbox.svg" },
---                                   }
 
 mymainmenu = awful.menu({ items = {
                                     { "  Samowar (beta)", "samowar", iconsdir .. "/musical-note-stripped.svg" },
@@ -792,7 +787,7 @@ globalkeys = awful.util.table.join(
              local tag = awful.tag.selected()
              for i=1, #tag:clients() do
                 tag:clients()[i].minimized=false end
-             awful.client.focus.byidx(1) if client.focus then client.focus:raise() end end),
+             awful.client.focus.byidx(1) if client.focus then client.focus:raise() mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end end),
     awful.key({ modkey,           }, "q",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "e",  awful.tag.viewnext       ),
     awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
@@ -824,7 +819,6 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to poweroff?' &&systemctl poweroff") end),
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to reboot?' &&systemctl reboot") end),
-    awful.key({ "Control",           }, "k", function () awful.util.spawn("kamerka") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
     awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
     awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
@@ -861,15 +855,15 @@ globalkeys = awful.util.table.join(
  end),
      awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'subl'}) 
+     return awful.rules.match(c, {class = 'Gvim'}) 
    end                                                      
-   awful.client.run_or_raise('subl', matcher)
+   awful.client.run_or_raise(editor, matcher)
  end),
      awful.key({ "Control", "Shift" }, "l", function ()
      local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'subl'}) 
+     return awful.rules.match(c, {class = 'Gvim'}) 
    end                                                      
-   awful.client.run_or_raise('gksudo subl', matcher)
+   awful.client.run_or_raise('gksudo gvim', matcher)
  end),
      awful.key({ modkey }, "b", function ()
      local matcher = function (c)                   
@@ -895,11 +889,11 @@ globalkeys = awful.util.table.join(
 
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
-    awful.key({ alt, }, "F4",      function (c) c:kill() if not client.focus then moveMouse(1366/2, 768/2) end end),
+    awful.key({ alt, }, "F4",      function (c) c:kill() end),
     awful.key({ modkey, }, "w",  awful.client.floating.toggle                     ),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-    awful.key({ alt,           }, "Escape", function (c) c.minimized = true if not client.focus then moveMouse(1366/2, 768/2) end end)
+    awful.key({ alt,           }, "Escape", function (c) c.minimized = true end)
 )
 
 -- Bind all key numbers to tags.
@@ -961,14 +955,15 @@ awful.rules.rules = {
                      border_color = beautiful.border_normal,
                      focus = awful.client.focus.filter,
                      keys = clientkeys,
-                     buttons = clientbuttons } },
+                     buttons = clientbuttons,
+                     size_hints_honor = false } },
             { rule_any = { class = { "Virt-manager", "Remmina", "VirtualBox" } },
       properties = { tag = tags[1][6] } },
             { rule_any = { class = { "Sonata", "Vlc", "Samowar", "Deadbeef" } },
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
+            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Atril",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
@@ -980,8 +975,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][8] } },
             { rule_any = { class = { "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
-            { rule_any = { class = { "SpiderOak", "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", 
-            "jetbrains-studio", "subl", "Evince", "Eclipse", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
+            { rule_any = { class = { "SpiderOak", "Doublecmd", "Shotcut", "gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi", "Steam" ,"Wine", "Zenity", "Atom", "jetbrains-studio", "subl", "Atril", "Eclipse", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
@@ -1149,17 +1143,20 @@ function under_pointer()
         return obj
     end
 end
+
 client.connect_signal("focus", function(c)
-                              c.border_color = beautiful.border_focus
-                              local her = under_pointer()
-                              if(her == client.focus) then return 1
-                                else moveMouse(c:geometry()['x']+c:geometry()['width']/2, c:geometry()['y']+c:geometry()['height']/2) end
-                              c.opacity = 1
+                                c.border_color = beautiful.border_focus
                            end)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
-                                --c.border_width = beautiful.border_width
-                                --awful.util.spawn("sudo renice -n 1 -p " .. c.pid)
-                                c.opacity = 1
                              end)
+
+client.connect_signal("unmanage", function(c)
+                                if(not client.focus) then mouse.coords({x=683, y=384}) end 
+                             end)
+
+client.connect_signal("manage", function(c)
+                                if(mouse.object_under_pointer() == client.focus) then return
+                                  else mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) end
+end)
 -- }}}
