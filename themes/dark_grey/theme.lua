@@ -62,7 +62,7 @@ theme.taglist_bg_focus              = "#121212"
 theme.menu_height                   = "24"
 theme.menu_width                    = "170"
 
-theme.menu_submenu_icon             = themedir .. "/icons/submenu.png"
+theme.menu_submenu_icon             = themedir .. "/icons/sub.png"
 theme.taglist_squares_sel           = themedir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel         = themedir .. "/icons/square_unsel.png"
 theme.arrl                   = themedir .. "/icons/submenuzz.png"

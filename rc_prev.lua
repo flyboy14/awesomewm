@@ -55,7 +55,7 @@ wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc"
 browser = "firefox"
-editor = "gvim"
+editor = "subl"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
 sc_a = scripts .. "/screenshot-area.sh"
@@ -76,9 +76,6 @@ translate_r_e = scripts .. "/translate_ru_en.sh"
 modkey = "Mod4"
 alt = "Mod1"
 -- }}}
-local function moveMouse(x_co, y_co)
-   mouse.coords({ x=x_co, y=y_co })
-end
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
    --naughty.destroy(noti)
@@ -234,8 +231,8 @@ myworkspacemenu = {
 
 mytaskmenu = awful.menu({ items = {
                                     { "Отправить на тэг:", myworkspacemenu },
-                                    { "  На весь экран", function () c = client.focus c.fullscreen = not c.fullscreen end, iconsdir .. "/display.svg" },
-                                    { "  Свернуть", function () c = client.focus c.minimized = true end, iconsdir .. "/view-restore.svg"},
+                                    { "  На весь экран", function () client.focus.fullscreen = not client.focus.fullscreen end, iconsdir .. "/display.svg" },
+                                    { "  Свернуть", function () client.focus.minimized = true if (client.focus) then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/3, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) else mouse.coords({x=683, y=384}) end end,  iconsdir .. "/view-restore.svg"},
                                     { "  Закрыть", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })
@@ -255,24 +252,6 @@ mymainmenu = awful.menu({ items = {
 
 mylauncher = awful.widget.launcher({ image = iconsdir .. "/tv_icon.gif",
   	menu = mymainmenu})
-
--- Colours
---=
--- set the desired pixel coordinates:
-
---  if your screen is 1024x768 the this line sets the bottom right.
---local safeCoords = {x=0, y=768}
---local moveMouseOnStartup = true
---local function moveMouse(x_co, y_co)
---    mouse.coords({ x=x_co, y=y_co })
---end
-
---if moveMouseOnStartup then
---        moveMouse(safeCoords.x, safeCoords.y)
---end
-
---=
-
 -- Memory widget
 memwidget = wibox.widget.textbox()
 memicon = wibox.widget.imagebox()
@@ -795,12 +774,14 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
-            if client.focus then client.focus:raise() end
+            if client.focus then client.focus:raise()
+            mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
         end),
     awful.key({ modkey,           }, "k",
         function ()
             awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
+            if client.focus then client.focus:raise() 
+            mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
         end),
 
     -- Layout manipulation
@@ -855,15 +836,15 @@ globalkeys = awful.util.table.join(
  end),
      awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'Gvim'}) 
+     return awful.rules.match(c, {class = editor }) 
    end                                                      
    awful.client.run_or_raise(editor, matcher)
  end),
      awful.key({ "Control", "Shift" }, "l", function ()
      local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'Gvim'}) 
+     return awful.rules.match(c, {class = editor }) 
    end                                                      
-   awful.client.run_or_raise('gksudo gvim', matcher)
+   awful.client.run_or_raise('gksudo ' .. editor, matcher)
  end),
      awful.key({ modkey }, "b", function ()
      local matcher = function (c)                   
