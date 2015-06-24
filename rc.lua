@@ -466,7 +466,7 @@ vicious.register(weatherwidget, vicious.widgets.weather,
                 --'600': check every 10 minutes.
                 --'UMMS': the Minsk ICAO code.
 
--- Volume widget
+--Volume widget
 volicon = wibox.widget.imagebox()
 volicon:set_image(beautiful.widget_vol_hi)
 volicon:buttons(awful.util.table.join(
@@ -965,9 +965,9 @@ awful.rules.rules = {
       properties = { tag = tags[1][1] } },
             { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Atril",  "Atom" } },
       properties = { tag = tags[1][3] } },
-            { rule_any = { class = { "Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
+            { rule_any = { class = { "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
-            { rule_any = { class = { "Steam" ,".exe", "dota_linux" } },
+            { rule_any = { class = { "Steam" ,".exe", ".EXE", "dota_linux" } },
       properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
@@ -975,8 +975,8 @@ awful.rules.rules = {
       properties = { tag = tags[1][8] } },
             { rule_any = { class = { "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
       properties = { floating = true } },
-            { rule_any = { class = { "Haguichi", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Shotcut", "Gimp", "rawstudio", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", 
-            "jetbrains-studio", "subl", "Atril", "Eclipse", "QtCreator", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
+            { rule_any = { class = { "Haguichi", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", 
+            "subl", "Atril", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
             "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Covergloobus", "Firefox", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },

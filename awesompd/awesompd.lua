@@ -40,7 +40,7 @@ local jamendo = awesompd.try_require("jamendo")
 -- Constants
 awesompd.PLAYING = "Проигрывается"
 awesompd.PAUSED = "Пауза"
-awesompd.STOPPED = "<span rise='1200' font='Visitor TT2 BRK 10' color='#e54c62'>Остановлен</span>"
+awesompd.STOPPED = "<span rise='1200' font='Visitor TT2 BRK 10' color='#e54c62'>Stopped</span>"
 awesompd.DISCONNECTED = "<span font='Visitor TT2 BRK 10' color='#e54c62'>music</span>"
 
 awesompd.MOUSE_LEFT = 1

@@ -854,14 +854,14 @@ globalkeys = awful.util.table.join(
  end),
     -- Prompt
     awful.key({ alt,           }, "F2",
-              function () awful.prompt.run({ prompt="Run: " },
+              function () awful.prompt.run({ prompt=">> " },
                                            mypromptbox[mouse.screen].widget,
                                            check_for_terminal,
                                            clean_for_completion,
                                            awful.util.getdir("cache") .. "/history") end),
     awful.key({ modkey }, "F2",
               function ()
-                  awful.prompt.run({ prompt = "Run Lua code: " },
+                  awful.prompt.run({ prompt = "> " },
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
