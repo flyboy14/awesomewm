@@ -57,7 +57,7 @@ active_theme = themes .. "/dark_grey"
 beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-iface = "wlp3s0"
+iface = "enp4s0"
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc -T Terminal"
@@ -86,11 +86,28 @@ tagico = tagimage_other
 modkey = "Mod4"
 alt = "Mod1"
 -- }}}
+function check_()
+local tag = awful.tag.selected() 
+local val = ""
+             local finished = false
+             local c=tag:clients()
+             for i=1, #c do
+                if (c[i]:geometry()['y'] <= 18 and not c[i].minimized and finished == false) then 
+                val = "#121212"
+                finished = true
+                break
+                else
+              val = "#12121244"
+              finished = false
+                end
+              end
+              return val
+end
 
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
    noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
-   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.9 }
+   , bg = baackground or check_(), fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 1, border_color = "#000000" }
  end
 
  function hide_smth()
@@ -669,12 +686,11 @@ for s = 1, screen.count() do
 
     -- Create a tasklist widget
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
-
+    --mytasklist[s].set_bg(beautiful.bg_tasklist)
     -- Create the wibox
-
-    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1 })
-    mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1 })
-
+  
+    mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = "#12121244" })
+    mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = "#12121244" })    
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
@@ -744,10 +760,8 @@ for s = 1, screen.count() do
 
     mywibox[s]:set_widget(layout)
     mywibox_w[s]:set_widget(layout_w)
-
 end
 -- }}}
-
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
@@ -771,7 +785,7 @@ globalkeys = awful.util.table.join(
              for i=1, #tag:clients() do
                 tag:clients()[i].minimized=false end
              awful.client.focus.byidx(1) if client.focus then client.focus:raise() 
-             mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) 
+             mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
              end end),
 
     -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -809,12 +823,11 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
-    awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to poweroff?' &&systemctl poweroff") end),
-    awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to reboot?' &&systemctl reboot") end),
+    awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("obshutdown") end),
+    awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("obshutdown") end),
     awful.key({ "Control", "Shift"        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
     awful.key({ "Control",           }, "Tab", function () awful.util.spawn("pcmanfm") end),
     --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
-    awful.key({ modkey   }, "Escape", function () awful.util.spawn("xscreensaver-command -activate") end),
     awful.key({ alt }, "F1", function () awful.util.spawn_with_shell(translate_o_r) end),
     awful.key({ modkey }, "F1", function () awful.util.spawn_with_shell(translate_r_e) end),
     awful.key({ modkey, "Control" }, "r", awesome.restart),
@@ -845,24 +858,29 @@ globalkeys = awful.util.table.join(
      return awful.rules.match(c, {class = 'URxvt'}) 
    end                                                      
    awful.client.run_or_raise(terminal, matcher)
+   if client.focus then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
  end),
      awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = editor}) 
    end                                                      
    awful.client.run_or_raise(editor, matcher)
+   if client.focus then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, 
+    y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
  end),
      awful.key({ "Control", "Shift" }, "l", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = editor}) 
    end                                                      
    awful.client.run_or_raise('gksudo ' .. editor, matcher)
+   if client.focus then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
  end),
      awful.key({ modkey }, "b", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = 'Firefox'}) 
    end                                                      
    awful.client.run_or_raise('firefox', matcher)
+   if client.focus then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
  end),
 
     -- Prompt
@@ -967,24 +985,20 @@ awful.rules.rules = {
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
-            { rule_any = { class = { "Steam" ,".exe", ".EXE", "dota_linux" } },
+            { rule_any = { class = { "Steam" ,".exe", ".EXE", "dota_linux", ".tmp" } },
       properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Haguichi", "Covergloobus", "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
+            { rule_any = { class = { "Obshutdown", "Org.gnome.Weather.Application", "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, instance = {"plugin-container"} },
       properties = { floating = true } },
-            { rule_any = { class = { "Haguichi", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", 
-            "subl", "Atril", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", 
-            "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
+            { rule_any = { class = { "Haguichi", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", "subl", "Atril", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
-            { rule_any = { class = { "Covergloobus", "Firefox", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
+            { rule_any = { class = { "Obshutdown", "Covergloobus", "Firefox", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
-            { rule_any = { class = { "Polkit-gnome-authentication-agent-1", "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
+            { rule_any = { class = { "Obshutdown", "Polkit-gnome-authentication-agent-1", "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },
-            { rule = { instance = "plugin-container" },
-  properties = { floating = true } },
 
 }
 -- }}}
@@ -1145,9 +1159,15 @@ end)
 
 client.connect_signal("focus", function(c)
                                 c.border_color = beautiful.border_focus
+              mywibox[mouse.screen]:set_bg(check_())
+              mywibox_w[mouse.screen]:set_bg(check_())
                            end)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
+                                if not client.focus then
+                                  mywibox[mouse.screen]:set_bg("#12121244")
+                                  mywibox_w[mouse.screen]:set_bg("#12121244")
+                                end
                              end)
 
 client.connect_signal("unmanage", function()

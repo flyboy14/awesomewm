@@ -216,7 +216,7 @@ function awesompd:create()
    instance.font = "Monospace"
    instance.font_color = beautiful.fg_normal
    instance.font_color_dark = beautiful.fg_normal
-   instance.background = beautiful.bg_normal
+   instance.background = "#121212"
    instance.scrolling = true
    instance.output_size = 30
    instance.update_interval = 10
@@ -227,6 +227,7 @@ function awesompd:create()
    instance.show_album_cover = true
    instance.album_cover_size = 50
    instance.browser = "firefox"
+   instance.bg_noti = beautiful.border_normal
    
 -- Widget configuration
    instance.widget:connect_signal("mouse::enter", function(c)
@@ -851,7 +852,9 @@ function awesompd:show_notification(hint_title, hint_text, hint_image, timeout)
 					, position   = "top_right"
                                         , icon       = hint_image
                                         , icon_size  = self.album_cover_size
-                                        , opacity = 0.95
+                                        , opacity = 1
+                                        , bg = check_()
+                                        , border_color = "#000000"
                                      })
 end
 
@@ -905,13 +908,13 @@ end
 
 function awesompd:wrap_output(text)
   if self:playing() then
-   return format('<span font="%s" color="%s" background="%s">%s%s%s</span>',
-                 self.font, self.font_color, self.background,
+   return format('<span font="%s" color="%s">%s%s%s</span>',
+                 self.font, self.font_color,
                  (text == "" and "" or self.ldecorator), awesompd.protect_string(text),
                  (text == "" and "" or self.rdecorator))
  else 
-  return format('<span font="%s" color="%s" background="%s">%s%s%s</span>',
-                 self.font, self.font_color_dark, self.background,
+  return format('<span font="%s" color="%s">%s%s%s</span>',
+                 self.font, self.font_color_dark,
                  (text == "" and "" or self.ldecorator), awesompd.protect_string(text),
                  (text == "" and "" or self.rdecorator))
   end
