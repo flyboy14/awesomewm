@@ -2,6 +2,7 @@
 gears = require("gears")
 awful = require("awful")
 awful.rules = require("awful.rules")
+my_launcher = require("launcher_my")
 require("awful.autofocus")
 local wibox = require("wibox")
 beautiful = require("beautiful")
@@ -138,7 +139,7 @@ autorunApps =
 }
 if autorun then
    for app = 1, #autorunApps do
-      awful.util.spawn_with_shell(autorunApps[app])
+      awful.util.spawn_with_shell(autorunApps[app], false)
    end
 end
 
@@ -431,15 +432,11 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
 
 -- Mail widget
  mygmail = wibox.widget.textbox()
- mygmail:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
 --Register widget
  vicious.register(mygmail, vicious.widgets.gmoil, 
   ' <span color="#FFA963" font="Visitor TT2 BRK 10">${count}</span>', 260)
  --mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
-   mygmailimg = awful.widget.launcher({
-    image = beautiful.widget_mail,
-    command = browser .. " gmail.com"
-  })
+   mygmailimg = my_launcher({ image = beautiful.widget_mail, command = browser .. " gmail.com" })
  --mygmailimg:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
 
 -- CPU widget
@@ -489,7 +486,7 @@ vicious.register(weatherwidget, vicious.widgets.weather,
                 --'UMMS': the Minsk ICAO code.
 
 --Volume widget
-  volicon = awful.widget.launcher({
+  volicon = my_launcher({
     image = beautiful.widget_vol_hi,
     command = vol_mute
   })
