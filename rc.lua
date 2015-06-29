@@ -88,7 +88,7 @@ alt = "Mod1"
 -- }}}
 function check_()
 local tag = awful.tag.selected() 
-local val = ""
+local val = "12121244"
              local finished = false
              local c=tag:clients()
              for i=1, #c do
@@ -132,7 +132,7 @@ autorunApps =
    run_once("urxvtd", "urxvtd -o -f -q"),
    run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
-   "systemctl --user restart hidcur spideroak",
+   "systemctl --user restart hidcur",
    run_once("unagi"),
    --"xcowsay 'Moo, brother, moo.'"
 }
@@ -268,7 +268,7 @@ myworkspacemenu = {
 mytaskmenu = awful.menu({ items = {
                                     { "Отправить на тэг:", myworkspacemenu },
                                     { "  На весь экран", function () client.focus.fullscreen = not client.focus.fullscreen end, iconsdir .. "/display.svg" },
-                                    { "  Свернуть", function () client.focus.minimized = true if (client.focus) then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/3, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) else mouse.coords({x=683, y=384}) end end,  iconsdir .. "/view-restore.svg"},
+                                    { "  Свернуть", function () client.focus.minimized = true if client.focus then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/3, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end end,  iconsdir .. "/view-restore.svg"},
                                     { "  Закрыть", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
                                   }
                         })
@@ -328,7 +328,8 @@ musicwidget:register_buttons({ { "", awesompd.MOUSE_LEFT, musicwidget:command_to
 
 -- Music widget 
 mpdwidget = wibox.widget.textbox()
-mpdicon = wibox.widget.imagebox()
+  mpdicon = wibox.widget.imagebox()
+
 mpdicon:set_image(beautiful.widget_music)
 mpdicon:buttons(awful.util.table.join(
 awful.button({ }, 1, function () run_when("mpd", "sonata") end, function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf") end),
@@ -434,8 +435,12 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
 --Register widget
  vicious.register(mygmail, vicious.widgets.gmoil, 
   ' <span color="#FFA963" font="Visitor TT2 BRK 10">${count}</span>', 260)
- mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
- mygmailimg:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
+ --mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
+   mygmailimg = awful.widget.launcher({
+    image = beautiful.widget_mail,
+    command = browser .. " gmail.com"
+  })
+ --mygmailimg:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
 
 -- CPU widget
  cpuicon = wibox.widget.imagebox()
@@ -484,13 +489,17 @@ vicious.register(weatherwidget, vicious.widgets.weather,
                 --'UMMS': the Minsk ICAO code.
 
 --Volume widget
-volicon = wibox.widget.imagebox()
-volicon:set_image(beautiful.widget_vol_hi)
-volicon:buttons(awful.util.table.join(
-  awful.button({ }, 4, function () awful.util.spawn_with_shell(vol_up) end),
-  awful.button({ }, 5, function () awful.util.spawn_with_shell(vol_down) end),
-  awful.button({ }, 1, function () awful.util.spawn_with_shell(vol_mute) end)
-  ))
+  volicon = awful.widget.launcher({
+    image = beautiful.widget_vol_hi,
+    command = vol_mute
+  })
+-- volicon = wibox.widget.imagebox()
+-- volicon:set_image(beautiful.widget_vol_hi)
+-- volicon:buttons(awful.util.table.join(
+--   awful.button({ }, 4, function () awful.util.spawn_with_shell(vol_up) end),
+--   awful.button({ }, 5, function () awful.util.spawn_with_shell(vol_down) end),
+--   awful.button({ }, 1, function () awful.util.spawn_with_shell(vol_mute) end)
+--   ))
 volumewidget = wibox.widget.textbox()
 volumewidget:buttons(awful.util.table.join(
   awful.button({ }, 4, function () awful.util.spawn_with_shell(vol_up) end),
@@ -722,7 +731,6 @@ for s = 1, screen.count() do
     --right_layout:add(spr)
     right_layout:add(mygmail)
     right_layout:add(spr)
-    right_layout:add(spr)
     right_layout:add(mpdicon)
     right_layout:add(musicwidget.widget)
     right_layout:add(volicon)
@@ -904,14 +912,11 @@ globalkeys = awful.util.table.join(
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
-    awful.key({ alt, }, "F4",      function (c) c:kill() end),
+    awful.key({ alt, }, "F4",      function (c) c:kill() end, function () if client.focus then 
+      mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end end),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-    awful.key({ alt,           }, "Escape", function (c) c.minimized = true 
-      if (client.focus) then 
-      mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) 
-      else mouse.coords({x=683, y=384}) 
-      end end)
+    awful.key({ alt,           }, "Escape", function (c) c.minimized = true end)
 )
 
 -- Bind all key numbers to tags.
@@ -991,7 +996,7 @@ awful.rules.rules = {
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Haguichi", "Covergloobus", "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Obshutdown", "Org.gnome.Weather.Application", "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, instance = {"plugin-container"} },
+            { rule_any = { class = { "Eog", "Obshutdown", "Org.gnome.Weather.Application", "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, instance = {"plugin-container"} },
       properties = { floating = true } },
             { rule_any = { class = { "Haguichi", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", "subl", "Atril", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
@@ -1021,6 +1026,7 @@ client.connect_signal("manage", function (c, startup)
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
+          awful.placement.under_mouse(c)
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
         end
@@ -1159,22 +1165,24 @@ end)
 
 client.connect_signal("focus", function(c)
                                 c.border_color = beautiful.border_focus
-              mywibox[mouse.screen]:set_bg(check_())
-              mywibox_w[mouse.screen]:set_bg(check_())
+                                mywibox[mouse.screen]:set_bg(check_())
+                                mywibox_w[mouse.screen]:set_bg(check_())
                            end)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
+                                mywibox[mouse.screen]:set_bg("#12121244")
+                                mywibox_w[mouse.screen]:set_bg("#12121244")
+                             end)
+client.connect_signal("unmanage", function()
                                 if not client.focus then
-                                  mywibox[mouse.screen]:set_bg("#12121244")
-                                  mywibox_w[mouse.screen]:set_bg("#12121244")
+                                mywibox[mouse.screen]:set_bg("#12121244")
+                                mywibox_w[mouse.screen]:set_bg("#12121244")
                                 end
                              end)
 
-client.connect_signal("unmanage", function()
-                                if(not client.focus) then mouse.coords({x=683, y=384}) end 
-                             end)
-
 client.connect_signal("manage", function(c)
+                mywibox[mouse.screen]:set_bg(check_())
+              mywibox_w[mouse.screen]:set_bg(check_())
                                 if(mouse.object_under_pointer() == client.focus) then return
                                   else mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) end
 end)
