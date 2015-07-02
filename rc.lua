@@ -58,7 +58,7 @@ active_theme = themes .. "/dark_grey"
 beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-iface = "enp4s0"
+iface = "wlp3s0"
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc -T Terminal"
@@ -521,8 +521,7 @@ end, 1, "Master")
 
 -- Net widget
 netwidget = wibox.widget.textbox()
-neticon = wibox.widget.imagebox()
-neticon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("systemctl restart wpa_supplicant@" ..  " systemd-networkd") end)))
+neticon = my_launcher({ image = beautiful.widget_net_no, command = "systemctl restart wpa_supplicant@wlp3s0 systemd-networkd" })
 netwidget:buttons(awful.util.table.join(
 awful.button({ }, 1, function () awful.util.spawn("wpa_gui") end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
@@ -530,14 +529,17 @@ awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") en
 vicious.register(netwidget, vicious.widgets.wifi, 
   function (widget, args)
       link = args['{link}']
-      if link > 65 then
-        neticon:set_image(beautiful.widget_net_hi)
-      elseif link > 30 and link <= 65 then
-        neticon:set_image(beautiful.widget_net_mid)
-      elseif link > 0 and link <= 30 then
-        neticon:set_image(beautiful.widget_net_low)
+      if iface == "enp4s0" then neticon:set_image(beautiful.widget_net_wired)
       else
-        neticon:set_image(beautiful.widget_net_no)
+        if link > 65 then neticon:set_image(beautiful.widget_net_hi)
+          neticon:set_image(beautiful.widget_net_hi)
+        elseif link > 30 and link <= 65 then
+          neticon:set_image(beautiful.widget_net_mid)
+      elseif link > 0 and link <= 30 then
+          neticon:set_image(beautiful.widget_net_low)
+        else
+          neticon:set_image(beautiful.widget_net_no)
+        end
       end
       return '<span font="fixed 7" color="#aeaeae">' .. args['{ssid}'] .. '</span>'
       --end
@@ -556,8 +558,8 @@ vicious.register(snetwidget, vicious.widgets.net,'<span font="mintsstrong 7" col
 -- Separators
 face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')
 face:buttons(awful.util.table.join(
-awful.button({ }, 1, function () awful.util.spawn_with_shell(scripts .. "/change_config.sh") end, awesome.restart),
-awful.button({ }, 3, function(c)
+awful.button({ }, 3, function () awful.util.spawn_with_shell(scripts .. "/change_config.sh") end, awesome.restart),
+awful.button({ }, 1, function(c)
   local f = io.popen("fortune -s") 
   local quote = f:read("*all") 
   f:close()
@@ -573,11 +575,11 @@ face:connect_signal("mouse::leave", function(c)
 hide_smth()
 end)
 
-bral = wibox.widget.textbox('<span color="#aeaeae">[ </span>')
-brar = wibox.widget.textbox('<span color="#aeaeae"> ]</span>')
+bral = wibox.widget.textbox('<span color="#aeaeae"> </span>')
+brar = wibox.widget.textbox('<span color="#aeaeae">> </span>')
 spr = wibox.widget.textbox(' ')
-sepl = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> tasks: </span>')
-sepr = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> :systray </span>')
+sepl = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> tasks > </span>')
+sepr = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> > systray </span>')
 arrl = wibox.widget.imagebox()
 arrl:set_image(beautiful.arrl)
 yf = wibox.widget.imagebox()              
@@ -708,7 +710,7 @@ for s = 1, screen.count() do
     left_layout:add(mypromptbox[s])
     local left_w = wibox.layout.fixed.horizontal()
     left_w:add(sepl)
-    left_w:add(bral)
+    --left_w:add(bral)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
@@ -734,7 +736,7 @@ for s = 1, screen.count() do
     right_layout:add(volumewidget)
     right_layout:add(spr)
     right_layout:add(kbdwidget)
-        right_layout:add(spr)
+    right_layout:add(spr)
     right_layout:add(tempicon)
     right_layout:add(weatherwidget) 
     right_layout:add(spr)
@@ -742,18 +744,17 @@ for s = 1, screen.count() do
     right_layout:add(batwidget)
     --right_layout:add(clockicon)
     right_layout:add(mytextclock)
+    local tray_layout = wibox.layout.fixed.horizontal()
     local right_w = wibox.layout.fixed.horizontal()
-    right_w:add(brar)
+    --right_w:add(brar)
     right_w:add(spr)
     right_w:add(face)
     right_w:add(spr)
     right_w:add(bral)
     if s == 1 then right_w:add(wibox.widget.systray()) end
-    right_w:add(brar)
+    --right_w:add(brar)
     right_w:add(sepr)
     right_w:add(spr)
-
-
     -- Now bring it all together (with the tasklist in the middle)
     local layout = wibox.layout.align.horizontal()
     layout:set_left(left_layout)
@@ -762,6 +763,7 @@ for s = 1, screen.count() do
     layout_w:set_left(left_w)
     layout_w:set_middle(mytasklist[s])
     layout_w:set_right(right_w)
+    layout_w:set_expand(outside)
 
     mywibox[s]:set_widget(layout)
     mywibox_w[s]:set_widget(layout_w)
@@ -909,8 +911,7 @@ globalkeys = awful.util.table.join(
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
     awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
-    awful.key({ alt, }, "F4",      function (c) c:kill() end, function () if client.focus then 
-      mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end end),
+    awful.key({ alt, }, "F4",      function (c) c:kill() end),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     awful.key({ alt,           }, "Escape", function (c) c.minimized = true end)
@@ -983,11 +984,11 @@ awful.rules.rules = {
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Atril",  "Atom" } },
+            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
             { rule_any = { class = { "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
-            { rule_any = { class = { "Steam" ,".exe", ".EXE", "dota_linux", ".tmp" } },
+            { rule_any = { class = { "Steam" ,".exe", ".EXE", "dota_linux", ".tmp", ".TMP" } },
       properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi" } },
       properties = { tag = tags[1][2] }, },
@@ -995,12 +996,14 @@ awful.rules.rules = {
       properties = { tag = tags[1][8] } },
             { rule_any = { class = { "Eog", "Obshutdown", "Org.gnome.Weather.Application", "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, instance = {"plugin-container"} },
       properties = { floating = true } },
-            { rule_any = { class = { "Haguichi", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", "subl", "Atril", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
+            { rule_any = { class = { "Haguichi", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", "subl", "Evince", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", "Samowar", "Virt-manager", "Eiskaltdcpp", "Deadbeef", "VirtualBox", "Skype" } },
       properties = { switchtotag = true } },
             { rule_any = { class = { "Obshutdown", "Covergloobus", "Firefox", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
             { rule_any = { class = { "Obshutdown", "Polkit-gnome-authentication-agent-1", "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },
+            { rule_any = { class = { "Obshutdown" } },
+      properties = { sticky = true } },
 
 }
 -- }}}

@@ -80,7 +80,7 @@ function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foo
    hide_smth()
    --naughty.destroy(noti)
    noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
-   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 0.9 }
+   , bg = baackground or "#121212", fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 1 }
  end
 
  function hide_smth()
@@ -509,8 +509,8 @@ vicious.register(snetwidget, vicious.widgets.net,'<span font="Fixed 14" backgrou
 -- Separators
 face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')
 face:buttons(awful.util.table.join(
-awful.button({ }, 1, function () awful.util.spawn_with_shell(scripts .. "/change_config.sh") end, awesome.restart),
-awful.button({ }, 3, function(c)
+awful.button({ }, 3, function () awful.util.spawn_with_shell(scripts .. "/change_config.sh") end, awesome.restart),
+awful.button({ }, 1, function(c)
   local f = io.popen("fortune -s") 
   local quote = f:read("*all") 
   f:close()
@@ -530,8 +530,8 @@ end)
 bral = wibox.widget.textbox('<span color="#949494">[ </span>')
 brar = wibox.widget.textbox('<span color="#949494"> ]</span>')
 spr = wibox.widget.textbox(' ')
-sepl = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 10"> tasks: </span>')
-sepr = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 10"> :systray </span>')
+sepl = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 10"> tasks > </span>')
+sepr = wibox.widget.textbox('<span color="#949494" font="Visitor TT2 BRK 10"> > systray </span>')
 arrl_dl_vol = wibox.widget.imagebox()
 arrl_ld_vol = wibox.widget.imagebox()
 arrl_ld_vol:set_image(beautiful.arrl_ld_vol)
@@ -678,7 +678,7 @@ for s = 1, screen.count() do
     left_layout:add(mypromptbox[s])
     local left_w = wibox.layout.fixed.horizontal()
     left_w:add(sepl)
-    left_w:add(bral)
+    --left_w:add(bral)
 
     -- Widgets that are aligned to the right
     local right_layout = wibox.layout.fixed.horizontal()
@@ -719,13 +719,13 @@ for s = 1, screen.count() do
     right_layout:add(spr)
     right_layout:add(mylayoutbox[s])
     local right_w = wibox.layout.fixed.horizontal()
-    right_w:add(brar)
+    --right_w:add(brar)
     right_w:add(spr)
     right_w:add(face)
     right_w:add(spr)
-    right_w:add(bral)
+    --right_w:add(bral)
     if s == 1 then right_w:add(wibox.widget.systray()) end
-    right_w:add(brar)
+    --right_w:add(brar)
     right_w:add(sepr)
     right_w:add(spr)
 
@@ -987,6 +987,7 @@ client.connect_signal("manage", function (c, startup)
 
         -- Put windows in a smart way, only if they does not set an initial position.
         if not c.size_hints.user_position and not c.size_hints.program_position then
+            awful.placement.under_mouse(c)
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
         end

@@ -103,6 +103,7 @@ theme.widget_net_hi                            = themedir .. "/icons/net_hi_x16.
 theme.widget_net_mid                            = themedir .. "/icons/net_mid_x16.png"
 theme.widget_net_low                            = themedir .. "/icons/net_low_x16.png"
 theme.widget_net_no                            = themedir .. "/icons/net_no_x16.png"
+theme.widget_net_wired                            = themedir .. "/icons/net_wired_x16.png"
 theme.widget_hdd                            = themedir .. "/icons/hdd.png"
 theme.widget_music                          = themedir .. "/icons/note_x16.png"
 theme.widget_music_on                       = themedir .. "/icons/note_on_x16.png"
