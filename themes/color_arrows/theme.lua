@@ -66,7 +66,8 @@ theme.menu_width                    = "170"
 theme.bg_systray					= "#12121222"
 theme.systray_icon_spacing			= "4"
 
-
+theme.widget_weather                             = themedir .. "/icons/dish.png"
+theme.widget_clock                             = themedir .. "/icons/clock.png"
 theme.menu_submenu_icon             = themedir .. "/icons/submenu.png"
 theme.taglist_squares_sel           = themedir .. "/icons/square_sel.png"
 theme.taglist_squares_unsel         = themedir .. "/icons/square_unsel.png"

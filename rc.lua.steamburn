@@ -207,8 +207,8 @@ volumewidget = lain.widgets.alsa({
     end
 })
 
--- Weather
-yawn = lain.widgets.yawn(123456)
+-- -- Weather
+-- yawn = lain.widgets.yawn(123456)
 
 -- Separators
 first = wibox.widget.textbox(markup.font("Tamsyn 4", " "))

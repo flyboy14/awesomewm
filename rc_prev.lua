@@ -3,6 +3,8 @@ local gears = require("gears")
 local awful = require("awful")
 awful.rules = require("awful.rules")
 awful.remote = require("awful.remote")
+my_launcher = require("launcher_my")
+my_launcher_n = require("launcher_my_nocommand")
 require("awful.autofocus")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
@@ -12,7 +14,16 @@ naughty = require("naughty")
 keychains = require("keychains")
 eminent = require("eminent")
 xdg_menu = require("archmenu")
-orglendar = require("orglendar_colorarrows")
+local lain      = require("lain")
+
+-- {{{ wibox 
+
+markup = lain.util.markup
+blue   = beautiful.fg_focus
+red    = "#EB8F8F"
+green  = "#8FEB8F"
+
+-- }}}
 
 --os.setlocale(os.getenv("LANG"))
 
@@ -119,7 +130,7 @@ end
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
 function check_for_terminal (command)
    if command:sub(1,1) == ":" then
-      command = terminal .. ' -hold -e "' .. command:sub(2) .. '"'
+      command = terminal .. ' -e "' .. command:sub(2) .. '"'
    end
    awful.util.spawn(command)
 end
@@ -408,40 +419,56 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  vicious.register(cpuwidget, vicious.widgets.cpu, '<span background="#84D0D0" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#005656">CPU <span color="#393E4A">$1<span font="Visitor TT2 BRK 10">%</span> </span></span></span>', 3)
 
 -- Weather widget
-tempicon = wibox.widget.imagebox()
-tempicon:set_image(beautiful.widget_temp)
-tempicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
-   tempicon:connect_signal("mouse::enter", function()
-                                                 show_smth(nil, weather_t, nil, 0, "#C2C2A4", "#36362E", nil, nil)
-                                              end)
-   tempicon:connect_signal("mouse::leave", function(c)
-                                                 hide_smth()
-                                              end)
-weatherwidget = wibox.widget.textbox()
-weatherwidget:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
-   weatherwidget:connect_signal("mouse::enter", function()
-                                                 show_smth(nil, weather_t, nil, 0, "#C2C2A4", "#36362E", nil, nil)
-                                              end)
-   weatherwidget:connect_signal("mouse::leave", function()
-                                                 hide_smth()
-                                              end)
+-- tempicon = wibox.widget.imagebox()
+-- tempicon:set_image(beautiful.widget_temp)
+-- tempicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
+--    tempicon:connect_signal("mouse::enter", function()
+--                                                  show_smth(nil, weather_t, nil, 0, "#C2C2A4", "#36362E", nil, nil)
+--                                               end)
+--    tempicon:connect_signal("mouse::leave", function(c)
+--                                                  hide_smth()
+--                                               end)
+-- weatherwidget = wibox.widget.textbox()
+-- weatherwidget:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn("gnome-weather") end)))
+--    weatherwidget:connect_signal("mouse::enter", function()
+--                                                  show_smth(nil, weather_t, nil, 0, "#C2C2A4", "#36362E", nil, nil)
+--                                               end)
+--    weatherwidget:connect_signal("mouse::leave", function()
+--                                                  hide_smth()
+--                                               end)
 
-vicious.register(weatherwidget, vicious.widgets.weather,
-                function (widget, args)                   
-                    weather_t = "City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%"
-                    if args["{tempc}"] == "N/A" then
-                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 10" color="#23282C">:( </span></span>'
-                    elseif args["{tempc}"] <= 0 then
-                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#056C74">' .. args["{tempc}"] .. 'C </span></span>'
-                    elseif args["{tempc}"] <= 10 then
-                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#747405">+' .. args["{tempc}"] .. 'C </span></span>'
-                    elseif args["{tempc}"] <= 30 then
-                      return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#A26709">+' .. args["{tempc}"] .. 'C </span></span>'
-                    end
-                end, 600, "UMMS")
-                --'600': check every 10 minutes.
-                --'UMMS': the Minsk ICAO code.
-
+-- vicious.register(weatherwidget, vicious.widgets.weather,
+--                 function (widget, args)                   
+--                     weather_t = "City: " .. args["{city}"] .."\nWind: " .. args["{windkmh}"] .. "km/h " .. args["{wind}"] .. "\nSky: " .. args["{sky}"] .. "\nHumidity: " .. args["{humid}"] .. "%"
+--                     if args["{tempc}"] == "N/A" then
+--                       return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="Visitor TT2 BRK 10" color="#23282C">:( </span></span>'
+--                     elseif args["{tempc}"] <= 0 then
+--                       return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#056C74">' .. args["{tempc}"] .. 'C </span></span>'
+--                     elseif args["{tempc}"] <= 10 then
+--                       return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#747405">+' .. args["{tempc}"] .. 'C </span></span>'
+--                     elseif args["{tempc}"] <= 30 then
+--                       return '<span background="#C2C2A4" font="Fixed 14"> <span rise="1600" font="mintsstrong 7" color="#A26709">+' .. args["{tempc}"] .. 'C </span></span>'
+--                     end
+--                 end, 600, "UMMS")
+--                 --'600': check every 10 minutes.
+--                 --'UMMS': the Minsk ICAO code.
+myweather = lain.widgets.weather_colorarrows({
+    city_id = 625144, -- placeholder
+    settings = function()
+        local descr = weather_now["weather"][1]["description"]:lower()
+        local units = math.floor(weather_now["main"]["temp"])
+        local unitscolor = "#aeaeae"
+        if units <= 0 then unitscolor = "#69E0CC"
+        elseif units <= 17 then unitscolor = "#E4E876"
+        elseif units <= 30 then unitscolor = "#E09620"
+        elseif units > 30 then unitscolor = "#E05721" units = "fuck, it\'s " .. units end
+        widget:set_markup(markup(unitscolor, "<span font='Fixed 14' background='#C2C2A4'> <span rise='1600' font='Visitor TT2 BRK 10'><span color='#9e9e9e'>" .. descr .. "</span> " .. units .. "°C</span></span>"))
+    end
+})
+  weathericon = my_launcher_n({
+    image = beautiful.widget_weather,
+    command = myweather.update
+  })
 -- Volume widget
 volicon = wibox.widget.imagebox()
 volicon:set_image(beautiful.widget_vol_hi)
@@ -585,10 +612,14 @@ gf:buttons(awful.util.table.join(awful.button(
 ))   
 
 -- Create a textclock widget
-mytextclock = awful.widget.textclock("<span background='#444444' font='Fixed 14'> <span rise='1600' color='#bebebe' font='mintsstrong 7'>%I%M%p </span></span>")
- orglendar.files = { home .. "/Documents/Notes/work.org",    -- Specify here all files you want to be parsed, separated by comma.
-                     home .. "/Documents/Notes/home.org" }
-orglendar.register(mytextclock)
+
+clockicon = wibox.widget.imagebox()
+clockicon:set_image(beautiful.widget_clock)
+ mytextclock = awful.widget.textclock("<span font='Fixed 14' background='#444444'> <span rise='1600' font='mintsstrong 7' color='#aeaeae'>%I%M%p </span></span>")
+
+-- Calendar
+lain.widgets.calendar_colorarrows:attach(mytextclock, { font_size = 9 })
+lain.widgets.calendar_colorarrows:attach(clockicon, { font_size = 9 })
 
 -- Create a wibox for each screen and add it
 mywibox = { }
@@ -708,12 +739,13 @@ for s = 1, screen.count() do
     right_layout:add(arrl_dl_lang)
     right_layout:add(kbdwidget)
     right_layout:add(arrl_dl_bat)
-        right_layout:add(tempicon)
-    right_layout:add(weatherwidget)
+    right_layout:add(weathericon)
+    right_layout:add(myweather)
     right_layout:add(arrl_dl_net)
     right_layout:add(baticon)
     right_layout:add(batwidget)
     right_layout:add(arrl_dl_temp)
+    right_layout:add(clockicon)
     right_layout:add(mytextclock)
     right_layout:add(arrl_dl_clock)
     right_layout:add(spr)

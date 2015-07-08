@@ -38,6 +38,24 @@ do
 end
 -- }}}
 
+function check_()
+local tag = awful.tag.selected() 
+local val = "12121244"
+             local finished = false
+             local c=tag:clients()
+             for i=1, #c do
+                if (c[i]:geometry()['y'] <= 18 and not c[i].minimized and finished == false) then 
+                val = "#121212"
+                finished = true
+                break
+                else
+              val = "#12121244"
+              finished = false
+                end
+              end
+              return val
+end
+
 -- {{{ Autostart applications
 function run_once(cmd)
   findme = cmd
