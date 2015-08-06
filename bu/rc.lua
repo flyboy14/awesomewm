@@ -103,7 +103,7 @@ local val = "12121244"
              local finished = false
              local c=tag:clients()
              for i=1, #c do
-                if (c[i]:geometry()['y'] <= 18 and not c[i].minimized and finished == false) then 
+                if (c[i]:geometry()['y']+c[i]:geometry()['height'] >= 750 and not c[i].minimized and finished == false) then 
                 val = "#121212"
                 finished = true
                 break

@@ -853,7 +853,7 @@ function awesompd:show_notification(hint_title, hint_text, hint_image, timeout)
                                         , icon       = hint_image
                                         , icon_size  = self.album_cover_size
                                         , opacity = 1
-                                        , bg = check_()
+                                        , bg = check_wibox()
                                         , border_color = "#000000"
                                      })
 end

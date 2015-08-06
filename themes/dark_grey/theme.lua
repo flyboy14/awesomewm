@@ -64,7 +64,7 @@ theme.taglist_fg_focus              = "#dcdcdc" --#dcdcdc"
 theme.taglist_bg_focus              = "#12121233"
 theme.menu_height                   = "24"
 theme.menu_width                    = "170"
-theme.bg_systray					= "#121212"
+theme.bg_systray					= "#12121233"
 theme.systray_icon_spacing			= "4"
 
 theme.menu_submenu_icon             = themedir .. "/icons/sub.png"

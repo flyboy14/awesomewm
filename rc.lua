@@ -13,7 +13,8 @@ naughty = require("naughty")
 keychains = require("keychains")
 eminent = require("eminent")
 xdg_menu = require("archmenu")
-local lain      = require("lain")
+local lain = require("lain")
+local scratch = require("scratch")
 
 -- {{{ wibox 
 
@@ -21,6 +22,119 @@ markup = lain.util.markup
 blue   = beautiful.fg_focus
 red    = "#EB8F8F"
 green  = "#8FEB8F"
+
+altTabbing = false
+altTabIndex = 1
+altTabHistory = {}
+clientOpacities = {}
+
+function altTabSetOpacities(restore)
+   for i,c in pairs(altTabHistory) do
+      if not restore and i ~= altTabIndex then
+         c.opacity = 0.5
+      else
+         c.opacity = clientOpacities[i]
+      end
+   end
+end
+
+
+function myAltTab()
+
+   -- First check if the user is already alttabbing, in which case the history
+   -- should NOT be updated. If the user has just pressed alt-tab, generate a new 
+   -- history-table
+
+   if not altTabbing then -- generate history-table
+
+      -- Clear Tables
+      for i in pairs(altTabHistory) do altTabHistory[i] = nil end
+      for i in pairs(clientOpacities) do clientOpacities[i] = nil end
+
+      -- Get focus history for current tag
+      local s = mouse.screen;
+      local idx = 0
+      local c = awful.client.focus.history.get(s, idx)
+
+      while c do
+         table.insert(altTabHistory, c)
+         table.insert(clientOpacities, c.opacity)
+
+         idx = idx + 1
+         c = awful.client.focus.history.get(s, idx)
+      end
+
+      -- Minimized clients will not appear in the focus history
+      -- Find them by cycling through all clients, and adding them to the list
+      -- if not already there.
+      -- This will preserve the history AND enable you to focus on minimized clients
+
+      local t = awful.tag.selected(s)
+      local all = client.get(s)
+
+      for i = 1, #all do
+         local c = all[i]
+         local ctags = c:tags();
+
+         -- check if the client is on the current tag
+         local isCurrentTag = false
+         for j = 1, #ctags do
+            if t == ctags[j] then
+               isCurrentTag = true
+               break
+            end
+         end
+
+         if isCurrentTag then
+            -- check if client is already in the history
+            -- if not, add it
+            local addToHistory = true
+            for k = 1, #altTabHistory do
+               if altTabHistory[k] == c then
+                  addToHistory = false
+                  break
+               end
+            end
+
+            if addToHistory then
+               table.insert(altTabHistory, c)
+               table.insert(clientOpacities, c.opacity)
+            end
+         end
+      end
+end
+      -- reset current index and flag
+      altTabIndex = 1
+      altTabbing = true
+
+      -- Now that we have collected all windows, we should run a keygrabber
+      -- as long as the user is alt-tabbing:
+      keygrabber.run(
+         function (mod, key, event)  
+            -- Stop alt-tabbing when the alt-key is released
+            if key == "Alt_L" and event == "release" then
+               altTabbing = false
+               altTabSetOpacities(true)
+               c = altTabHistory[altTabIndex]
+               client.focus = c                  
+               c:raise()   
+               return false -- stop keygrabber
+            end
+
+            -- Move to next client on each Tab-press
+            if key == "Tab" and event == "press" then
+               myAltTab()
+               return true -- keep going
+            end
+
+            return true -- keep going
+         end
+      )
+
+   end -- if not altTabbing
+
+   -- at this point, the user is alt-tabbing, so we should raise
+
 
 -- }}}
 
@@ -72,7 +186,7 @@ myinterface = "wlp3s0"
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc -T Terminal"
-browser = "firefox"
+browser = "palemoon"
 editor = "subl"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
@@ -96,20 +210,27 @@ tagico = tagimage_other
 -- Default modkey.
 modkey = "Mod4"
 alt = "Mod1"
+function check_mouse()
+    if mouse.object_under_pointer() == client.focus then return false end
+      if mouse.coords()["y"] >= 750 or mouse.coords()["y"] <= 18 then return false
+    else return true end
+  end
 -- }}}
-function check_()
+function check_wibox()
 local tag = awful.tag.selected() 
 local val = "12121244"
              local finished = false
              local c=tag:clients()
              for i=1, #c do
-                if (c[i]:geometry()['y'] <= 18 and not c[i].minimized and finished == false) then 
-                val = "#121212"
-                finished = true
-                break
+              if not c[i].minimized and finished == false then
+                if (c[i]:geometry()['y'] <= 18 or c[i]:geometry()['y']+c[i]:geometry()['height'] >= 750) then 
+                  val = "#121212"
+                  finished = true
+                  break
                 else
-              val = "#12121244"
-              finished = false
+                  val = "#12121244"
+                  finished = false
+                end
                 end
               end
               return val
@@ -118,7 +239,7 @@ end
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
    hide_smth()
    noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
-   , bg = baackground or check_(), fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 1, border_color = "#000000" }
+   , bg = baackground or check_wibox(), fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 1, border_color = "#000000" }
  end
 
  function hide_smth()
@@ -143,8 +264,8 @@ autorunApps =
    run_once("urxvtd", "urxvtd -o -f -q"),
    run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
-   run_once("cutegram"),
-   "systemctl --user restart hidcur",
+   --run_once("cutegram"),
+   --"systemctl --user restart hidcur",
    run_once("unagi"),
    --"xcowsay 'Moo, brother, moo.'"
 }
@@ -178,8 +299,8 @@ function clean_for_completion (command, cur_pos, ncomp, shell)
 end
 -- }}}
 
--- {{{ Wallpaper
-local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file | sed 's/'file='//g'") 
+-- {{{ get wallpaper from nitrogen config file
+local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file= | sed 's/'file='//g'") 
 wpaper = f:read()
 f:close()  
 if wpaper == nil then
@@ -231,13 +352,7 @@ mmyawesomemenu = {
    { " quit", "pkill --signal SIGKILL awesome", iconsdir .. "/media-no.svg" }
 }
 
-mybordermenu = {
-  {"  Borderlands II RUS", "optirun " .. home .. "/Borderlands2/Borderlands2 -language=rus", iconsdir .. "/border_ru.png"},
-  {"  Borderlands II ENG", " optirun ".. home .. "/Borderlands2/Borderlands2", iconsdir .. "/border_en.png"},
-}
-
 mygamesmenu = {
-   { "Borderlans II", mybordermenu },      
    { "  Torchlight II", "optirun wine " .. home .. "/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
    { "  Godus", scripts .. "/godus.sh", "/home/master-p/WINE/wineZ/drive_c/Program Files/Godus/generated_images/Win32_Icon_32x32_0.ico" },
    { "  Path of Exile", scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
@@ -402,7 +517,7 @@ function (widget, args)
     -- critical
   elseif (args[2] <= 7 and batstate() == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
-    --awful.util.spawn("systemctl suspend")
+    awful.util.spawn("systemctl suspend")
   elseif (batstate() == 'Discharging' and args[2] <= 10) then
     show_smth("⚡ Внимание! ⚡", "Очень  мало энергии", iconsdir .. "/battery-red.svg", 1, nil, nil, nil, nil )
   elseif (args[2] <= 15) then
@@ -444,7 +559,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
  vicious.register(mygmail, vicious.widgets.gmoil, 
   ' <span color="#FFA963" font="Visitor TT2 BRK 10">${count}</span>', 260)
  --mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
-   mygmailimg = my_launcher({ image = beautiful.widget_mail, command = browser .. " inbox.google.com" })
+   mygmailimg = my_launcher({ image = beautiful.widget_mail, command = browser .. " mail.google.com" })
  --mygmailimg:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
 
 -- CPU widget
@@ -544,7 +659,11 @@ end, 1, "Master")
 netwidget = wibox.widget.textbox()
 neticon = my_launcher({ image = beautiful.widget_net_no, command = "systemctl restart wpa_supplicant@wlp3s0 systemd-networkd" })
 netwidget:buttons(awful.util.table.join(
-awful.button({ }, 1, function () awful.util.spawn("wpa_gui") end),
+awful.button({ }, 1, function ()      
+    local matcher = function (c)                   
+     return awful.rules.match(c, {class = 'wpa_gui'}) 
+   end                                                      
+   awful.client.run_or_raise("wpa_gui", matcher) end),
 awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill wpa_gui") end)
 ))
 
@@ -852,7 +971,6 @@ globalkeys = awful.util.table.join(
              for i=1, #tag:clients() do
                 tag:clients()[i].minimized=false end
              awful.client.focus.byidx(1) if client.focus then client.focus:raise() 
-             mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
              end end),
 
     -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
@@ -925,29 +1043,24 @@ globalkeys = awful.util.table.join(
      return awful.rules.match(c, {class = 'URxvt'}) 
    end                                                      
    awful.client.run_or_raise(terminal, matcher)
-   if client.focus then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
  end),
      awful.key({ "Control" }, "l", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = editor}) 
    end                                                      
    awful.client.run_or_raise(editor, matcher)
-   if client.focus then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, 
-    y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
- end),
+  end),
      awful.key({ "Control", "Shift" }, "l", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = editor}) 
    end                                                      
    awful.client.run_or_raise('gksudo ' .. editor, matcher)
-   if client.focus then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
  end),
      awful.key({ modkey }, "b", function ()
      local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'Firefox'}) 
+     return awful.rules.match(c, {class = 'Pale moon'}) 
    end                                                      
-   awful.client.run_or_raise('firefox', matcher)
-   if client.focus then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) end
+   awful.client.run_or_raise(browser, matcher)
  end),
 
     -- Prompt
@@ -1049,20 +1162,20 @@ awful.rules.rules = {
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Steam" ,".exe", ".EXE", "dota_linux", ".tmp", ".TMP" } },
       properties = { tag = tags[1][7] }, },
-            { rule_any = { class = { "Firefox", "Vivaldi" } },
+            { rule_any = { class = { "Firefox", "Vivaldi", "Navigator", "Pale moon" } },
       properties = { tag = tags[1][2] }, },
             { rule_any = { class = { "Haguichi", "Covergloobus", "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Obshutdown", "Org.gnome.Weather.Application", "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, instance = {"plugin-container"} },
+            { rule_any = { class = { "Download", "Obshutdown", "Org.gnome.Weather.Application", "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, instance = {"plugin-container"} },
       properties = { floating = true } },
-            { rule_any = { class = { "Haguichi", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", "subl", "Evince", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", "Samowar", "Eiskaltdcpp", "Deadbeef", } },
+            { rule_any = { class = { "Obshutdown", "Haguichi", "Pale moon", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", "subl", "Evince", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", "Samowar", "Eiskaltdcpp", "Deadbeef", } },
       properties = { switchtotag = true } },
-            { rule_any = { class = { "Obshutdown", "Covergloobus", "Firefox", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
+            { rule_any = { class = { "Obshutdown", "Covergloobus", "Firefox", "Pale moon", "Navigator", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
             { rule_any = { class = { "Obshutdown", "Polkit-gnome-authentication-agent-1", "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
       properties = { ontop = true } },
             { rule_any = { class = { "Obshutdown" } },
-      properties = { sticky = true } },
+      properties = { sticky = true, fullscreen = true } },
 
 }
 -- }}}
@@ -1135,7 +1248,42 @@ client.connect_signal("manage", function (c, startup)
 
         awful.titlebar(c):set_widget(layout)
     end
+        -- mywibox[mouse.screen]:set_bg(check_wibox())
+        -- mywibox_w[mouse.screen]:set_bg(check_wibox())
+        -- if(mouse.object_under_pointer() == client.focus) then return
+        -- else mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) end
 end)
+
+client.connect_signal("focus", function(c)
+                                c.border_color = beautiful.border_focus
+                                mywibox[mouse.screen]:set_bg(check_wibox())
+                                mywibox_w[mouse.screen]:set_bg(check_wibox())
+                                --c:raise()
+                                --awesome.emit_signal("refresh")
+                           end)
+client.connect_signal("unfocus", function(c)
+                                c.border_color = beautiful.border_normal
+                                mywibox[mouse.screen]:set_bg("#12121244")
+                                mywibox_w[mouse.screen]:set_bg("#12121244")
+                                --awesome.emit_signal("refresh")
+                             end)
+client.connect_signal("unmanage", function()
+                                if not client.focus then
+                                mywibox[mouse.screen]:set_bg("#12121244")
+                                mywibox_w[mouse.screen]:set_bg("#12121244")
+                                --awesome.emit_signal("refresh")
+                                end
+                             end)
+client.connect_signal("property::move", function() 
+                                  mywibox[mouse.screen]:set_bg(check_wibox())
+                                mywibox_w[mouse.screen]:set_bg(check_wibox())
+  end)
+
+client.connect_signal("request::activate", function(c) 
+                                  mywibox[mouse.screen]:set_bg(check_wibox())
+                                mywibox_w[mouse.screen]:set_bg(check_wibox())
+                                if check_mouse() then mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) end
+  end)
 
 --mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
 --mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
@@ -1220,29 +1368,18 @@ end)
 -- awful.util.spawn = function (s)
 --   oldspawn(s, false)
 -- end
-
-
-client.connect_signal("focus", function(c)
-                                c.border_color = beautiful.border_focus
-                                mywibox[mouse.screen]:set_bg(check_())
-                                mywibox_w[mouse.screen]:set_bg(check_())
-                           end)
-client.connect_signal("unfocus", function(c)
-                                c.border_color = beautiful.border_normal
-                                mywibox[mouse.screen]:set_bg("#12121244")
-                                mywibox_w[mouse.screen]:set_bg("#12121244")
-                             end)
-client.connect_signal("unmanage", function()
-                                if not client.focus then
-                                mywibox[mouse.screen]:set_bg("#12121244")
-                                mywibox_w[mouse.screen]:set_bg("#12121244")
-                                end
-                             end)
-
-client.connect_signal("manage", function(c)
-                mywibox[mouse.screen]:set_bg(check_())
-              mywibox_w[mouse.screen]:set_bg(check_())
-                                if(mouse.object_under_pointer() == client.focus) then return
-                                  else mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) end
-end)
 -- }}}
+
+-- Open todo when mouse hits right screen edge.
+-- local function todopad()
+--     --scratch.drop("urxvtc", "center", "right", .20, 800, "true", 1)
+--     awful.util.spawn("urxvtc")
+-- end
+
+-- todo_timer = timer({timeout = 1})
+-- todo_timer:connect_signal("timeout", function()
+--     if mouse.coords()["y"] >= 1360 then
+--         todopad()
+--     end
+-- end)
+-- todo_timer:start()
