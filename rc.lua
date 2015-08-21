@@ -23,119 +23,6 @@ blue   = beautiful.fg_focus
 red    = "#EB8F8F"
 green  = "#8FEB8F"
 
-altTabbing = false
-altTabIndex = 1
-altTabHistory = {}
-clientOpacities = {}
-
-function altTabSetOpacities(restore)
-   for i,c in pairs(altTabHistory) do
-      if not restore and i ~= altTabIndex then
-         c.opacity = 0.5
-      else
-         c.opacity = clientOpacities[i]
-      end
-   end
-end
-
-
-function myAltTab()
-
-   -- First check if the user is already alttabbing, in which case the history
-   -- should NOT be updated. If the user has just pressed alt-tab, generate a new 
-   -- history-table
-
-   if not altTabbing then -- generate history-table
-
-      -- Clear Tables
-      for i in pairs(altTabHistory) do altTabHistory[i] = nil end
-      for i in pairs(clientOpacities) do clientOpacities[i] = nil end
-
-      -- Get focus history for current tag
-      local s = mouse.screen;
-      local idx = 0
-      local c = awful.client.focus.history.get(s, idx)
-
-      while c do
-         table.insert(altTabHistory, c)
-         table.insert(clientOpacities, c.opacity)
-
-         idx = idx + 1
-         c = awful.client.focus.history.get(s, idx)
-      end
-
-      -- Minimized clients will not appear in the focus history
-      -- Find them by cycling through all clients, and adding them to the list
-      -- if not already there.
-      -- This will preserve the history AND enable you to focus on minimized clients
-
-      local t = awful.tag.selected(s)
-      local all = client.get(s)
-
-      for i = 1, #all do
-         local c = all[i]
-         local ctags = c:tags();
-
-         -- check if the client is on the current tag
-         local isCurrentTag = false
-         for j = 1, #ctags do
-            if t == ctags[j] then
-               isCurrentTag = true
-               break
-            end
-         end
-
-         if isCurrentTag then
-            -- check if client is already in the history
-            -- if not, add it
-            local addToHistory = true
-            for k = 1, #altTabHistory do
-               if altTabHistory[k] == c then
-                  addToHistory = false
-                  break
-               end
-            end
-
-            if addToHistory then
-               table.insert(altTabHistory, c)
-               table.insert(clientOpacities, c.opacity)
-            end
-         end
-      end
-end
-      -- reset current index and flag
-      altTabIndex = 1
-      altTabbing = true
-
-      -- Now that we have collected all windows, we should run a keygrabber
-      -- as long as the user is alt-tabbing:
-      keygrabber.run(
-         function (mod, key, event)  
-            -- Stop alt-tabbing when the alt-key is released
-            if key == "Alt_L" and event == "release" then
-               altTabbing = false
-               altTabSetOpacities(true)
-               c = altTabHistory[altTabIndex]
-               client.focus = c                  
-               c:raise()   
-               return false -- stop keygrabber
-            end
-
-            -- Move to next client on each Tab-press
-            if key == "Tab" and event == "press" then
-               myAltTab()
-               return true -- keep going
-            end
-
-            return true -- keep going
-         end
-      )
-
-   end -- if not altTabbing
-
-   -- at this point, the user is alt-tabbing, so we should raise
-
-
 -- }}}
 
 -- {{{ Localization
@@ -336,7 +223,7 @@ local layouts =
  theme.taglist_font                  = "Fixed 14"
  tags = {
    names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
-   layout = { layouts[2], layouts[5], layouts[2], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
+   layout = { layouts[2], layouts[2], layouts[2], layouts[4], layouts[1], layouts[1], layouts[1], layouts[1] }
  }
 
  for s = 1, screen.count() do
@@ -358,11 +245,8 @@ mygamesmenu = {
    { "  Path of Exile", scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
    { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
    { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },
-   { "  WORMS Revolution", scripts .. "/worms.sh", iconsdir .. "/worms.png" },
    { "  Xonotic", home .. "/Xonotic/xonotic-linux64-sdl -basedir " .. home .. "/Xonotic/", iconsdir .. "/xonotic_icon.svg" },
    { "  Kingdoms of Amalur", scripts .. "/KoA.sh", iconsdir .. "/koa.png" },
-   { "  The Cave", "optirun " .. home .. "/TheCave/run_game.sh &", iconsdir .. "/the_cave.png" },
-   { "  Left for Dead 2", "optirun steam steam://rungameid/550", "/home/master-p/.steam/steam/SteamApps/common/Left 4 Dead 2/left4dead2.ico" },
    { "  Dota 2", "optirun steam steam://rungameid/570", iconsdir .. "/dota2.png" },
    { "  Battle.net", scripts .. "/Battlenet.sh", iconsdir .. "/Badge_battlenet.png" },
    { "  Elegy for a Dead World", scripts .. "/Elegy.sh", iconsdir .. "/Elegy.ico" },
@@ -758,34 +642,18 @@ arrl:set_image(beautiful.arrl)
 yf = wibox.widget.imagebox()              
 yf:set_image(beautiful.yf)
 yf:buttons(awful.util.table.join(
-  awful.button({ }, 1, function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'URxvt'}) 
-   end                                                      
-   awful.client.run_or_raise(terminal, matcher)
+  awful.button({ }, 1, function () awful.util.spawn(terminal)
  end)))
 bf = wibox.widget.imagebox()
 bf:set_image(beautiful.bf)
 bf:buttons(awful.util.table.join(
-  awful.button({ }, 1, function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'URxvt'}) 
-   end                                                      
-   awful.client.run_or_raise(terminal, matcher)
- end)
-  ))   
+  awful.button({ }, 1, function () awful.util.spawn(terminal)
+ end)))
 gf = wibox.widget.imagebox()
 gf:set_image(beautiful.gf)
-gf:buttons(awful.util.table.join(awful.button(
-  { }, 1, function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'URxvt'}) 
-   end                                                      
-   awful.client.run_or_raise(terminal, matcher)
- end)
-))   
-
-
+gf:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () awful.util.spawn(terminal)
+ end)))
 -- Create a textclock widget
 clockicon = wibox.widget.imagebox()
 clockicon:set_image(beautiful.widget_clock)
@@ -972,11 +840,17 @@ globalkeys = awful.util.table.join(
                 tag:clients()[i].minimized=false end
              awful.client.focus.byidx(1) if client.focus then client.focus:raise() 
              end end),
+    awful.key({ modkey }, "Tab", function()
+             local tag = awful.tag.selected()
+             awful.client.focus.byidx(1) if client.focus then client.focus:raise() 
+             end end),
 
     -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "q",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "e",  awful.tag.viewnext       ),
+    awful.key({ modkey,           }, "h",   awful.tag.viewprev       ),
+    awful.key({ modkey,           }, "l",  awful.tag.viewnext       ),
     awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
 
     awful.key({ modkey,           }, "j",
@@ -1010,8 +884,8 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("obshutdown") end),
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("obshutdown") end),
-    awful.key({ "Control", modkey        }, "Tab", function () awful.util.spawn("gksudo pcmanfm") end),
-    awful.key({ modkey,           }, "Tab", function () awful.util.spawn("pcmanfm") end),
+    awful.key({ "Control", modkey        }, "p", function () awful.util.spawn("gksudo pcmanfm") end),
+    awful.key({ modkey }, "p", function () awful.util.spawn("pcmanfm") end),
     --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
     awful.key({ alt }, "F1", function () awful.util.spawn_with_shell(translate_o_r) end),
     awful.key({ modkey }, "F1", function () awful.util.spawn_with_shell(translate_r_e) end),
@@ -1044,18 +918,18 @@ globalkeys = awful.util.table.join(
    end                                                      
    awful.client.run_or_raise(terminal, matcher)
  end),
-     awful.key({ "Control" }, "l", function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = editor}) 
-   end                                                      
-   awful.client.run_or_raise(editor, matcher)
-  end),
-     awful.key({ "Control", "Shift" }, "l", function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = editor}) 
-   end                                                      
-   awful.client.run_or_raise('gksudo ' .. editor, matcher)
- end),
+  --    awful.key({ "Control" }, "l", function ()
+  --    local matcher = function (c)                   
+  --    return awful.rules.match(c, {class = editor}) 
+  --  end                                                      
+  --  awful.client.run_or_raise(editor, matcher)
+  -- end),
+  --    awful.key({ "Control", "Shift" }, "l", function ()
+  --    local matcher = function (c)                   
+  --    return awful.rules.match(c, {class = editor}) 
+  --  end                                                      
+ --   awful.client.run_or_raise('gksudo ' .. editor, matcher)
+ -- end),
      awful.key({ modkey }, "b", function ()
      local matcher = function (c)                   
      return awful.rules.match(c, {class = 'Pale moon'}) 
@@ -1156,23 +1030,23 @@ awful.rules.rules = {
       properties = { tag = tags[1][5] } },
             { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
       properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Evince",  "Atom" } },
+            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "sublime_text", "Evince",  "Atom" } },
       properties = { tag = tags[1][3] } },
-            { rule_any = { class = { "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
+            { rule_any = { class = { "Ninja-ide", "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
       properties = { tag = tags[1][4] } },
             { rule_any = { class = { "Steam" ,".exe", ".EXE", "dota_linux", ".tmp", ".TMP" } },
       properties = { tag = tags[1][7] }, },
             { rule_any = { class = { "Firefox", "Vivaldi", "Navigator", "Pale moon" } },
       properties = { tag = tags[1][2] }, },
-            { rule_any = { class = { "Haguichi", "Covergloobus", "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
+            { rule_any = { class = { "Haguichi", "Covergloobus", "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin", "Transmission" } },
       properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Download", "Obshutdown", "Org.gnome.Weather.Application", "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, instance = {"plugin-container"} },
+            { rule_any = { class = { "Download", "Obshutdown", "Org.gnome.Weather.Application", "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Gajim", "Skype" }, instance = {"plugin-container"} },
       properties = { floating = true } },
-            { rule_any = { class = { "Obshutdown", "Haguichi", "Pale moon", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", "subl", "Evince", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", "Samowar", "Eiskaltdcpp", "Deadbeef", } },
+            { rule_any = { class = { "Obshutdown", "Haguichi", "Pale moon", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", "sublime_text", "Evince", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", "Samowar", "Eiskaltdcpp", "Deadbeef", } },
       properties = { switchtotag = true } },
-            { rule_any = { class = { "Obshutdown", "Covergloobus", "Firefox", "Pale moon", "Navigator", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
+            { rule_any = { class = { "Obshutdown", "Covergloobus", "Firefox", "Navigator", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
       properties = { border_width = 0 } },
-            { rule_any = { class = { "Obshutdown", "Polkit-gnome-authentication-agent-1", "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
+            { rule_any = { class = { "Obshutdown", "Polkit-gnome-authentication-agent-1", "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype", "Gajim" } },
       properties = { ontop = true } },
             { rule_any = { class = { "Obshutdown" } },
       properties = { sticky = true, fullscreen = true } },
@@ -1254,10 +1128,23 @@ client.connect_signal("manage", function (c, startup)
         -- else mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) end
 end)
 
+function check_for_only_client()
+  count = 0
+  tag = awful.tag.selected()
+  for i=1, #tag:clients() do
+    if not tag:clients()[i].minimized then count = count+1 end 
+  end
+  if count == 1 then return true
+    else return false 
+  end
+end 
+
 client.connect_signal("focus", function(c)
                                 c.border_color = beautiful.border_focus
                                 mywibox[mouse.screen]:set_bg(check_wibox())
                                 mywibox_w[mouse.screen]:set_bg(check_wibox())
+                                if check_wibox() == "#121212" and check_for_only_client() then c.border_width = 0 
+                                  else c.border_width = 1 end
                                 --c:raise()
                                 --awesome.emit_signal("refresh")
                            end)
@@ -1321,6 +1208,18 @@ client.connect_signal("request::activate", function(c)
             end,
             info    =   "- emu8086"
         },
+        n   =   {
+            func    =   function()
+                awful.util.spawn("ninja-ide")
+            end,
+            info    =   "- Ninja IDE"
+        },
+        p   =   {
+            func    =   function()
+                awful.util.spawn("pycharm")
+            end,
+            info    =   "- PyCharm"
+        },
     })
   keychains.add({ modkey }, "v", "Virtual machines: ", iconsdir .. "/screen-lightblue.png",{
         d   =   {
@@ -1371,15 +1270,15 @@ client.connect_signal("request::activate", function(c)
 -- }}}
 
 -- Open todo when mouse hits right screen edge.
--- local function todopad()
---     --scratch.drop("urxvtc", "center", "right", .20, 800, "true", 1)
---     awful.util.spawn("urxvtc")
--- end
+local function todopad()
+    --scratch.drop("urxvtc", "center", "right", .20, 800, "true", 1)
+    
+end
 
 -- todo_timer = timer({timeout = 1})
 -- todo_timer:connect_signal("timeout", function()
---     if mouse.coords()["y"] >= 1360 then
---         todopad()
---     end
+-- if mouse.coords()["y"] >= 1360 then
+--         awful.util.spawn("urxvtc")
+--      end
 -- end)
 -- todo_timer:start()
