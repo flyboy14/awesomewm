@@ -398,7 +398,7 @@ mymainmenu = awful.menu({ items = {
                                     { "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox.svg" },
                                     { "  Расписание", "libreoffice " .. home .. "/temp/raspis.xlsx", iconsdir .. "/key-p.svg" },
                                     { "Приложения", xdgmenu },
-                                    { "Игры", mygamesmenu },
+                                    --{ "Игры", mygamesmenu },
                                     { "  Обои", "nitrogen", iconsdir .. "/greylink-dc.png" }
                                   }
 })
@@ -1547,7 +1547,7 @@ client.connect_signal("property::geometry",
   function(c)
     mywibox[mouse.screen]:set_bg(check_wibox())
     mywibox_w[mouse.screen]:set_bg(check_wibox())
-    if check_for_only_client() and not awful.client.property.get(c, "floating") then 
+    if check_wibox() == "#121212" and check_for_only_client() and not awful.client.property.get(c, "floating") then 
       c.border_width = 0  -- for only unminimized non-floating client on tag
     else 
       c.border_width = 1 
