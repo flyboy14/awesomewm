@@ -106,27 +106,27 @@ tagico = tagimage_other
 modkey = "Mod4"
 alt = "Mod1"
 
-function check_mouse()
+function mouse_on_wibox()
   if mouse.object_under_pointer() == client.focus then 
     return false 
   end
 
   if mouse.coords()["y"] >= 750 or mouse.coords()["y"] <= 18 then 
-    return false
+    return true
   else 
-    return true 
+    return false 
   end
 end
 -- }}}
-function check_wibox()
-  local tag = awful.tag.selected() 
-  local val = "12121244"
+function wibox_color()
+  local tag = awful.tag.selected()
+  local val = "#12121244"
   local finished = false
   local c = tag:clients()
   for i=1, #c do
     if not c[i].minimized and finished == false then
-      if (c[i]:geometry()['y'] <= 18 or c[i]:geometry()['y']+c[i]:geometry()['height'] >= 750) then 
-        val = "#121212"
+      if (c[i]:geometry()['y'] <= 17 or c[i]:geometry()['height'] >= 730) then 
+        val = beautiful.bg_normal
         finished = true
         break
       else
@@ -134,14 +134,33 @@ function check_wibox()
         finished = false
       end
     end
-  return val
   end
+  return val
+end
+
+function is_fullscreen()
+  local val = false
+  local tag = awful.tag.selected()
+  local c = tag:clients()
+  for i=1, #c do
+    if not c[i].minimized and finished == false then
+      if (c[i]:geometry()['y'] <= 17 and c[i]:geometry()['height'] >= 730) then 
+        val = true
+        finished = true
+        break
+      else
+        val = false
+        finished = false
+      end
+    end
+  end
+  return val
 end
 
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
   hide_smth()
   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
-  , bg = baackground or check_wibox(), fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 1, border_color = "#000000" }
+  , bg = baackground or wibox_color(), fg = fooreground or "#dedede", font = foont or beautiful.font, position = poosition or "top_right", opacity = 1, border_color = "#000000" }
 end
 
 function hide_smth()
@@ -977,8 +996,8 @@ for s = 1, screen.count() do
   --mytasklist[s].set_bg(beautiful.bg_tasklist)
   -- Create the wibox
   
-  mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = "#121212" })
-  mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = "#121212" })    
+  mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = beautiful.bg_normal })
+  mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = beautiful.bg_normal })    
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
@@ -1470,8 +1489,8 @@ client.connect_signal("manage",
 
       awful.titlebar(c):set_widget(layout)
     end
-    -- mywibox[mouse.screen]:set_bg(check_wibox())
-    -- mywibox_w[mouse.screen]:set_bg(check_wibox())
+    -- mywibox[mouse.screen]:set_bg(wibox_color())
+    -- mywibox_w[mouse.screen]:set_bg(wibox_color())
     -- if(mouse.object_under_pointer() == client.focus) then return
     -- else mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) end
   end
@@ -1493,31 +1512,15 @@ function check_for_only_client()
   end
 end 
 
-function check_wibox()
-  local tag = awful.tag.selected()
-  local val = "#12121244"
-  local finished = false
-  local c = tag:clients()
-  for i=1, #c do
-    if not c[i].minimized and finished == false then
-      if (c[i]:geometry()['y'] <= 18 or c[i]:geometry()['y']+c[i]:geometry()['height'] >= 749) then 
-        val = "#121212"
-        finished = true
-        break
-      else
-        val = "#12121244"
-        finished = false
-      end
-    end
-  end
-  return val
-end
-
 client.connect_signal("focus", 
   function(c)
-    c.border_color = beautiful.border_focus
     --c:raise()
     --awesome.emit_signal("refresh")
+    if wibox_color() == beautiful.bg_normal and check_for_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
+      c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
+    else 
+    c.border_color = beautiful.border_focus
+    end
   end
 )
 client.connect_signal("unfocus", 
@@ -1529,61 +1532,61 @@ client.connect_signal("unfocus",
 
 client.connect_signal("request::activate", 
   function(c) 
-    mywibox[mouse.screen]:set_bg(check_wibox())
-    mywibox_w[mouse.screen]:set_bg(check_wibox())
-    if check_mouse() then 
+    local val = wibox_color()
+    mywibox[mouse.screen]:set_bg(val)
+    mywibox_w[mouse.screen]:set_bg(val)
+    --if not mouse_on_wibox() then 
       mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) 
-    end
-    
-    if check_wibox() == "#121212" and check_for_only_client() and not awful.client.property.get(c, "floating") then 
-      c.border_width = 0  -- for only unminimized non-floating client on tag
-    else 
-      c.border_width = 1 
-    end
+    --end
   end
 )
 
 client.connect_signal("property::geometry", 
   function(c)
-    mywibox[mouse.screen]:set_bg(check_wibox())
-    mywibox_w[mouse.screen]:set_bg(check_wibox())
-    if check_wibox() == "#121212" and check_for_only_client() and not awful.client.property.get(c, "floating") then 
-      c.border_width = 0  -- for only unminimized non-floating client on tag
-    else 
-      c.border_width = 1 
-    end
+    local val = wibox_color()
+    mywibox[mouse.screen]:set_bg(val)
+    mywibox_w[mouse.screen]:set_bg(val)
+    -- if val == beautiful.bg_normal and check_for_only_client() and not awful.client.property.get(c, "floating") then 
+    --   c.border_width = 0  -- for only unminimized non-floating client on tag
+    -- else 
+    --   c.border_width = 1 
+    -- end
   end
 )
 client.connect_signal("property::floating", 
   function(c)
-    mywibox[mouse.screen]:set_bg(check_wibox())
-    mywibox_w[mouse.screen]:set_bg(check_wibox())
-    if check_wibox() == "#121212" and check_for_only_client() and not awful.client.property.get(c, "floating") then 
-      c.border_width = 0  -- for only unminimized non-floating client on tag
-    else 
-      c.border_width = 1 
-    end
+    local val = wibox_color()
+    mywibox[mouse.screen]:set_bg(val)
+    mywibox_w[mouse.screen]:set_bg(val)
+    -- if val == beautiful.bg_normal and check_for_only_client() and not is_fullscreen() then 
+    --   c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
+    -- else 
+    --   c.border_color = beautiful.bg_focus 
+    --end
   end
 )
 
 client.connect_signal("property::minimized", 
-  function(c)
-    mywibox[mouse.screen]:set_bg(check_wibox())
-    mywibox_w[mouse.screen]:set_bg(check_wibox())
+  function()
+    val = wibox_color()
+    mywibox[mouse.screen]:set_bg(val)
+    mywibox_w[mouse.screen]:set_bg(val)
   end
 )
 
 client.connect_signal("unmanage", 
-  function(c)
-    mywibox[mouse.screen]:set_bg(check_wibox())
-    mywibox_w[mouse.screen]:set_bg(check_wibox())
+  function()
+    val = wibox_color()
+    mywibox[mouse.screen]:set_bg(val)
+    mywibox_w[mouse.screen]:set_bg(val)
   end
 )
 
 screen.connect_signal("tag::history::update", 
   function()
-    mywibox[mouse.screen]:set_bg(check_wibox())
-    mywibox_w[mouse.screen]:set_bg(check_wibox())
+    val = wibox_color()
+    mywibox[mouse.screen]:set_bg(val)
+    mywibox_w[mouse.screen]:set_bg(val)
   end
 )
 
