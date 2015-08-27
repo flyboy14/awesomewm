@@ -120,17 +120,17 @@ end
 -- }}}
 function wibox_color()
   local tag = awful.tag.selected()
-  local val = "#12121244"
+  local val = "#1c1c1c44"
   local finished = false
   local c = tag:clients()
   for i=1, #c do
     if not c[i].minimized and finished == false then
-      if (c[i]:geometry()['y'] <= 17 or c[i]:geometry()['height'] >= 730) then 
+      if (c[i]:geometry()['y'] <= 17 or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then 
         val = beautiful.bg_normal
         finished = true
         break
       else
-        val = "#12121244"
+        val = "#1c1c1c44"
         finished = false
       end
     end
@@ -417,7 +417,7 @@ mymainmenu = awful.menu({ items = {
                                     { "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox.svg" },
                                     { "  Расписание", "libreoffice " .. home .. "/temp/raspis.xlsx", iconsdir .. "/key-p.svg" },
                                     { "Приложения", xdgmenu },
-                                    --{ "Игры", mygamesmenu },
+                                    { "Игры", mygamesmenu },
                                     { "  Обои", "nitrogen", iconsdir .. "/greylink-dc.png" }
                                   }
 })
@@ -996,8 +996,8 @@ for s = 1, screen.count() do
   --mytasklist[s].set_bg(beautiful.bg_tasklist)
   -- Create the wibox
   
-  mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = beautiful.bg_normal })
-  mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = beautiful.bg_normal })    
+  mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = "#1c1c1c44" })
+  mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = "#1c1c1c44" })    
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
@@ -1282,7 +1282,8 @@ clientkeys = awful.util.table.join(
   awful.key({ alt,              }, "F4",      function (c) c:kill() end),
   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
   awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
-  awful.key({ alt,              }, "Escape", function (c) c.minimized = true end)
+  awful.key({ alt,              }, "Escape", function (c) c.minimized = true end),
+  awful.key({ modkey,           }, "Escape", function (c) c.minimized = true end)
 )
 
 -- Bind all key numbers to tags.
@@ -1391,7 +1392,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][8] } 
   },
   { 
-    rule_any = { class = { "Sonata", "Download", "Obshutdown", "Org.gnome.Weather.Application", "Haguichi", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Gajim", "Skype" }, instance = {"plugin-container"} },
+    rule_any = { class = { "Sonata", "Download", "Obshutdown", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Gajim", "Skype" }, instance = {"plugin-container"} },
     properties = { floating = true } 
   },
   { 
@@ -1399,7 +1400,7 @@ awful.rules.rules = {
     properties = { switchtotag = true } 
   },
   { 
-    rule_any = { class = { "Obshutdown", "Covergloobus", "Firefox", "Navigator", "Vivaldi", ".exe", "dota_linux", "Gimp", "rawstudio", "Lightworks" } },
+    rule_any = { class = { "Obshutdown", "Covergloobus", "dota_linux" } },
     properties = { border_width = 0 } 
   },
   { 
@@ -1496,12 +1497,12 @@ client.connect_signal("manage",
   end
 )
 
-function check_for_only_client()
+function is_only_client()
   local count = 0
   local tag = awful.tag.selected()
-  for i=1, #tag:clients() do
+  for i = 1, #tag:clients() do
     if not tag:clients()[i].minimized 
-      then count = count+1 
+      then count = count + 1
     end 
   end
   
@@ -1516,10 +1517,10 @@ client.connect_signal("focus",
   function(c)
     --c:raise()
     --awesome.emit_signal("refresh")
-    if wibox_color() == beautiful.bg_normal and check_for_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
+    if wibox_color() == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
       c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
     else 
-    c.border_color = beautiful.border_focus
+    c.border_color = beautiful.border_focus 
     end
   end
 )
@@ -1546,11 +1547,13 @@ client.connect_signal("property::geometry",
     local val = wibox_color()
     mywibox[mouse.screen]:set_bg(val)
     mywibox_w[mouse.screen]:set_bg(val)
-    -- if val == beautiful.bg_normal and check_for_only_client() and not awful.client.property.get(c, "floating") then 
-    --   c.border_width = 0  -- for only unminimized non-floating client on tag
-    -- else 
-    --   c.border_width = 1 
-    -- end
+     if val == beautiful.bg_normal and is_only_client() and not awful.client.property.get(c, "floating") then 
+       c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
+     else 
+      if is_only_client() then
+        c.border_color = beautiful.border_focus
+      end
+     end
   end
 )
 client.connect_signal("property::floating", 
@@ -1558,11 +1561,11 @@ client.connect_signal("property::floating",
     local val = wibox_color()
     mywibox[mouse.screen]:set_bg(val)
     mywibox_w[mouse.screen]:set_bg(val)
-    -- if val == beautiful.bg_normal and check_for_only_client() and not is_fullscreen() then 
-    --   c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
-    -- else 
-    --   c.border_color = beautiful.bg_focus 
-    --end
+    --  if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
+    --    c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
+    --  else 
+    --    c.border_color = beautiful.border_focus 
+    -- end
   end
 )
 
