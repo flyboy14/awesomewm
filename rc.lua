@@ -120,7 +120,7 @@ end
 -- }}}
 function wibox_color()
   local tag = awful.tag.selected()
-  local val = "#1c1c1c44"
+  local val = beautiful.mycolor .. "44"
   local finished = false
   local c = tag:clients()
   for i=1, #c do
@@ -130,7 +130,7 @@ function wibox_color()
         finished = true
         break
       else
-        val = "#1c1c1c44"
+        val = beautiful.mycolor .. "44"
         finished = false
       end
     end
@@ -144,7 +144,7 @@ function is_fullscreen()
   local c = tag:clients()
   for i=1, #c do
     if not c[i].minimized and finished == false then
-      if (c[i]:geometry()['y'] <= 17 and c[i]:geometry()['height'] >= 730) then 
+      if (c[i]:geometry()['y'] <= 17 and c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then 
         val = true
         finished = true
         break
@@ -415,9 +415,9 @@ mymainmenu = awful.menu({ items = {
                                     { "  KeePassX", "keepassx", iconsdir .. "/keepassx.svg"},
                                     { "  DoubleCommander", "doublecmd", iconsdir .. "/doublecmd.svg"},
                                     { "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox.svg" },
-                                    { "  Расписание", "libreoffice " .. home .. "/temp/raspis.xlsx", iconsdir .. "/key-p.svg" },
+                                    { "  Расписание", "libreoffice " .. home .. "/Documents/lera.xlsx", iconsdir .. "/key-p.svg" },
                                     { "Приложения", xdgmenu },
-                                    { "Игры", mygamesmenu },
+                                    --{ "Игры", mygamesmenu },
                                     { "  Обои", "nitrogen", iconsdir .. "/greylink-dc.png" }
                                   }
 })
@@ -996,8 +996,8 @@ for s = 1, screen.count() do
   --mytasklist[s].set_bg(beautiful.bg_tasklist)
   -- Create the wibox
   
-  mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = "#1c1c1c44" })
-  mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = "#1c1c1c44" })    
+  mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = beautiful.mycolor .. "44" })
+  mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = beautiful.mycolor .. "44" })    
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
@@ -1113,6 +1113,7 @@ globalkeys = awful.util.table.join(
       awful.client.focus.byidx(1) 
       if client.focus then 
         client.focus:raise() 
+        mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) 
       end 
     end
   ),
@@ -1122,6 +1123,7 @@ globalkeys = awful.util.table.join(
       awful.client.focus.byidx(1) 
       if client.focus then 
         client.focus:raise() 
+        mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) 
       end 
     end
   ),
@@ -1155,12 +1157,14 @@ globalkeys = awful.util.table.join(
     -- Layout manipulation
   awful.key({ modkey, "Shift"   }, "j", 
     function () 
+      c = client.focus
       awful.client.swap.byidx(1) 
       mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) 
     end
   ),
   awful.key({ modkey, "Shift"   }, "k", 
     function () 
+      c = client.focus
       awful.client.swap.byidx( -1)
       mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) 
     end
@@ -1185,7 +1189,14 @@ globalkeys = awful.util.table.join(
       awful.util.spawn_with_shell("systemctl suspend") 
     end
   ),
-  awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("obshutdown") end),
+  awful.key({            }, "XF86PowerOff",  
+    function () 
+      for i = 1, #awful.tag.selected():clients() do
+        awful.tag.selected():clients()[i].ontop = false 
+      end
+      awful.util.spawn_with_shell("obshutdown") 
+    end
+  ),
   awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("obshutdown") end),
   awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
   awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
@@ -1280,6 +1291,7 @@ clientkeys = awful.util.table.join(
   awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
   awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
   awful.key({ alt,              }, "F4",      function (c) c:kill() end),
+  awful.key({ modkey,           }, "F4",      function (c) c:kill() end),
   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
   awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
   awful.key({ alt,              }, "Escape", function (c) c.minimized = true end),
@@ -1518,15 +1530,17 @@ client.connect_signal("focus",
     --c:raise()
     --awesome.emit_signal("refresh")
     if wibox_color() == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
-      c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
+      c.border_color = beautiful.border_normal  -- for only unminimized non-floating client on tag
     else 
-    c.border_color = beautiful.border_focus 
+      c.border_color = beautiful.border_focus 
     end
+    c.opacity = 1
   end
 )
 client.connect_signal("unfocus", 
   function(c)
     c.border_color = beautiful.border_normal
+    c.opacity = 1
     --awesome.emit_signal("refresh")
   end
 )
@@ -1537,7 +1551,7 @@ client.connect_signal("request::activate",
     mywibox[mouse.screen]:set_bg(val)
     mywibox_w[mouse.screen]:set_bg(val)
     --if not mouse_on_wibox() then 
-      mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) 
+      --mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) 
     --end
   end
 )
@@ -1547,7 +1561,7 @@ client.connect_signal("property::geometry",
     local val = wibox_color()
     mywibox[mouse.screen]:set_bg(val)
     mywibox_w[mouse.screen]:set_bg(val)
-     if val == beautiful.bg_normal and is_only_client() and not awful.client.property.get(c, "floating") then 
+     if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
        c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
      else 
       if is_only_client() then
@@ -1561,11 +1575,11 @@ client.connect_signal("property::floating",
     local val = wibox_color()
     mywibox[mouse.screen]:set_bg(val)
     mywibox_w[mouse.screen]:set_bg(val)
-    --  if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
-    --    c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
-    --  else 
-    --    c.border_color = beautiful.border_focus 
-    -- end
+      if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
+        c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
+      else 
+        c.border_color = beautiful.border_focus 
+     end
   end
 )
 

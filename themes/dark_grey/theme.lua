@@ -42,29 +42,30 @@ else
   theme.wallpaper = wallpaper4
 end
 --}}}
+theme.mycolor						= "#31363b"
 theme.font                          = "Fixed 8"--"Fixed 9"
 theme.taglist_font                  = "Visitor TT2 BRK 10"--"envypn 9"
 theme.fg_normal                     = "#9e9e9e"
 theme.fg_focus                      = "#85ACFB"--"#FFF9A4"
-theme.bg_normal                     = "#1c1c1c"
-theme.menu_bg_normal                = "#1c1c1c88"
-theme.tasklist_bg_normal            = "#1c1c1c00"
-theme.tasklist_bg_focus            	= "#1c1c1c55"
-theme.bg_focus                      = "#1c1c1caa"
+theme.bg_normal                     = theme.mycolor
+theme.menu_bg_normal                = theme.mycolor .."88"
+theme.tasklist_bg_normal            = theme.mycolor .. "00"
+theme.tasklist_bg_focus            	= theme.mycolor .. "55"
+theme.bg_focus                      = theme.mycolor.. "aa"
 theme.fg_urgent                     = "#CC9393"
 theme.bg_urgent                     = "#2A1F1E88"
 theme.border_width                  = "1"
 theme.menu_border_width           	= "5"
-theme.menu_border_color           	= "[5]#1c1c1c"
-theme.border_normal                 = "#1c1c1c"
+theme.menu_border_color           	= "[5]" .. theme.mycolor
+theme.border_normal                 = theme.mycolor
 theme.border_focus                  = "#85ACFB"--"#DCD87B"
 theme.titlebar_bg_focus             = "#292929aa"
 
 theme.taglist_fg_focus              = "#dcdcdc" --#dcdcdc"
-theme.taglist_bg_focus              = "#1c1c1c33"
+theme.taglist_bg_focus              = theme.mycolor .. "44"
 theme.menu_height                   = "24"
 theme.menu_width                    = "170"
-theme.bg_systray					= "#1c1c1c33"
+theme.bg_systray					= theme.mycolor .. "44"
 theme.systray_icon_spacing			= "4"
 
 theme.menu_submenu_icon             = themedir .. "/icons/sub.png"

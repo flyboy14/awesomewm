@@ -216,7 +216,7 @@ function awesompd:create()
    instance.font = "Monospace"
    instance.font_color = beautiful.fg_normal
    instance.font_color_dark = beautiful.fg_normal
-   instance.background = "#1c1c1c"
+   instance.background = "#31363B"
    instance.scrolling = true
    instance.output_size = 30
    instance.update_interval = 10
@@ -502,7 +502,7 @@ function awesompd:command_show_menu()
          table.insert(new_menu, { "Сервера", self:menu_servers() }) 
          self.main_menu = awful.menu({ items = new_menu, theme = { width = 300 },
       properties = { border_width = 5,
-                     border_color = "[5]#1c1c1c"} }) 
+                     border_color = "[5]#31363B"} }) 
          self.recreate_menu = false 
       end 
       self.main_menu:toggle() 

@@ -10,6 +10,7 @@
 local pairs     =   pairs
 local type      =   type
 local awful     =   require("awful")
+local beautiful    = require("beautiful")
 local root      =   root
 local naughty   =   require("naughty")
 local capi      =   { timer = timer }
@@ -28,6 +29,26 @@ local grabber
 
 -- the timer object of timeout
 local timer_timeout
+
+function wibox_color()
+  local tag = awful.tag.selected()
+  local val = "#1c1c1c44"
+  local finished = false
+  local c = tag:clients()
+  for i=1, #c do
+    if not c[i].minimized and finished == false then
+      if (c[i]:geometry()['y'] <= 17 or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then 
+        val = beautiful.bg_normal
+        finished = true
+        break
+      else
+        val = "#1c1c1c44"
+        finished = false
+      end
+    end
+  end
+  return val
+end
 
 ---
 -- Parameters for function 'init'.
@@ -235,7 +256,9 @@ function activite(which)
                 title   = keychain[which].title,
                 text    = get_info(which),
                 icon    = keychain[which].icon,
-                timeout = 0
+                timeout = 0,
+                bg = wibox_color(),
+                fg = "#bebebe"
             }, options["notify"]
         ))
     end
