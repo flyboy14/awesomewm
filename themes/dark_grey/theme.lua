@@ -87,7 +87,7 @@ theme.layout_spiral                 = themedir .. "/icons/spiral_x16.png"
 theme.layout_dwindle                = themedir .. "/icons/dwindle.png"
 theme.layout_max                    = themedir .. "/icons/max_x16.png"
 theme.layout_fullscreen             = themedir .. "/icons/fullscreen.png"
-theme.layout_magnifier              = themedir .. "/icons/magnifier.png"
+theme.layout_magnifier              = themedir .. "/icons/magnifier_x16.png"
 theme.layout_floating               = themedir .. "/icons/floating_x16.png"
 
 theme.widget_ac                             = themedir .. "/icons/ac_x16.png"

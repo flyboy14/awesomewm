@@ -77,11 +77,12 @@ active_theme = themes .. "/dark_grey"
 beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
+wireless_name = "123213213"
 myinterface = "wlp3s0"
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc -T Terminal"
-browser = "palemoon"
+browser = "chromium"
 editor = "subl"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
@@ -191,7 +192,7 @@ autorunApps =
    run_once("urxvtd", "urxvtd -o -f -q"),
    run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
-   --run_once("cutegram"),
+   --run_once("steam"),
    --"systemctl --user restart hidcur",
    run_once("unagi"),
    --"xcowsay 'Moo, brother, moo.'"
@@ -202,6 +203,12 @@ if autorun then
    for app = 1, #autorunApps do
       awful.util.spawn_with_shell(autorunApps[app], false)
    end
+   naughty.notify({text = wireless_name})
+   if wireless_name == "UNET.BY" then
+    naughty.notify({text = "ololo"})
+      run_once("steam")
+      run_once("pidgin")
+    end
 end
 
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
@@ -261,7 +268,7 @@ local layouts =
     --awful.layout.suit.spiral.dwindle,         -- 9
     awful.layout.suit.max,                    -- 10
     awful.layout.suit.max.fullscreen,         -- 11
-    --awful.layout.suit.magnifier               -- 12
+    awful.layout.suit.magnifier               -- 12
 }
 -- }}}
 
@@ -269,7 +276,7 @@ local layouts =
 theme.taglist_font = "Fixed 14"
 tags = {
     names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
-    layout = { layouts[2], layouts[2], layouts[2], layouts[4], layouts[5], layouts[1], layouts[1], layouts[1] }
+    layout = { layouts[2], layouts[7], layouts[2], layouts[4], layouts[5], layouts[1], layouts[1], layouts[1] }
 }
 
 for s = 1, screen.count() do
@@ -795,8 +802,8 @@ vicious.register(
         neticon:set_image(beautiful.widget_net_no)
       end 
     end
-
-    return '<span font="fixed 7" color="#aeaeae">' .. args['{ssid}'] .. '</span>'
+    wireless_name = args['{ssid}']
+    return '<span font="fixed 7" color="#aeaeae">' .. wireless_name .. '</span>'
   end,
   2, 
   myinterface
@@ -1104,7 +1111,7 @@ globalkeys = awful.util.table.join(
   awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) end, 
       function () awful.util.spawn_with_shell(sc_a) end),
   awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end),
-  awful.key({ alt }, "Tab", 
+  awful.key({ modkey }, "Tab", 
     function()
       local tag = awful.tag.selected()
       for i=1, #tag:clients() do
@@ -1117,7 +1124,7 @@ globalkeys = awful.util.table.join(
       end 
     end
   ),
-  awful.key({ modkey }, "Tab", 
+  awful.key({ alt }, "Tab", 
     function()
       local tag = awful.tag.selected()
       awful.client.focus.byidx(1) 
@@ -1173,7 +1180,7 @@ globalkeys = awful.util.table.join(
   awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
   awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
 
-  awful.key({ "Control" }, "F8", 
+  awful.key({  }, "F8", 
     function ()
       mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
       mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
@@ -1218,8 +1225,8 @@ globalkeys = awful.util.table.join(
   awful.key({modkey}, "Left", function () awful.util.spawn_with_shell(volpa_down) end),
   awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(vol_mute) end),
   awful.key({ modkey }, "Control","m", function () awful.util.spawn_with_shell(vol_mute) end),
-  awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
-  awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),
+  --awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
+  --awful.key({ modkey,           }, beautiful.mycolor,     function () awful.tag.incmwfact(-0.05)    end),
   awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
   awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
   awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
@@ -1368,7 +1375,8 @@ awful.rules.rules = {
       focus = awful.client.focus.filter,
       keys = clientkeys,
       buttons = clientbuttons,
-      size_hints_honor = false 
+      size_hints_honor = false,
+      switchtotag = true
     } 
   },
   { 
@@ -1384,7 +1392,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][1] } 
   },
   { 
-    rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "sublime_text", "Evince",  "Atom" } },
+    rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "sublime_text", "Evince", "DjView",  "Atom" } },
     properties = { tag = tags[1][3] } 
   },
   { 
@@ -1392,11 +1400,11 @@ awful.rules.rules = {
     properties = { tag = tags[1][4] } 
   },
   { 
-    rule_any = { class = { "Steam" ,".exe", ".EXE", "dota_linux", ".tmp", ".TMP" } },
+    rule_any = { class = { "Steam" ,".exe", ".EXE", "dota2", ".tmp", ".TMP", "Baumalein", "teeworlds" } },
     properties = { tag = tags[1][7] }, 
   },
   { 
-    rule_any = { class = { "Firefox", "Vivaldi", "Navigator", "Pale moon" } },
+    rule_any = { class = { "Firefox", "Chromium", "Vivaldi", "Navigator", "Pale moon" } },
     properties = { tag = tags[1][2] }, 
   },
   { 
@@ -1408,8 +1416,8 @@ awful.rules.rules = {
     properties = { floating = true } 
   },
   { 
-    rule_any = { class = { "Obshutdown", "Haguichi", "Pale moon", "Gvim", "Polkit-gnome-authentication-agent-1", "SpiderOak", "Doublecmd", "Cutegram", "Telegram", "Cheese", "Kamerka", "Firefox", "Vivaldi" ,".exe", "Zenity", "Atom", "sublime_text", "Evince", "Libre", "libreoffice-writer", "jetbrains-clion", "Pcmanfm", "Sonata", "Vlc", "Samowar", "Eiskaltdcpp", "Deadbeef", } },
-    properties = { switchtotag = true } 
+    rule_any = { class = { "Skype", "Steam" } },
+    properties = { switchtotag = false } 
   },
   { 
     rule_any = { class = { "Obshutdown", "Covergloobus", "dota_linux" } },
@@ -1429,6 +1437,23 @@ awful.rules.rules = {
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
+
+function is_only_client()
+  local count = 0
+  local tag = awful.tag.selected()
+  for i = 1, #tag:clients() do
+    if not tag:clients()[i].minimized 
+      then count = count + 1
+    end 
+  end
+  
+  if count == 1 then 
+    return true
+  else 
+    return false 
+  end
+end 
+
 client.connect_signal("manage", 
   function (c, startup)
   -- Enable sloppy focus
@@ -1502,28 +1527,15 @@ client.connect_signal("manage",
 
       awful.titlebar(c):set_widget(layout)
     end
+      if wibox_color() == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
+        c.border_color = beautiful.border_normal  -- for only unminimized non-floating client on tag
+      end
     -- mywibox[mouse.screen]:set_bg(wibox_color())
     -- mywibox_w[mouse.screen]:set_bg(wibox_color())
     -- if(mouse.object_under_pointer() == client.focus) then return
     -- else mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2}) end
   end
 )
-
-function is_only_client()
-  local count = 0
-  local tag = awful.tag.selected()
-  for i = 1, #tag:clients() do
-    if not tag:clients()[i].minimized 
-      then count = count + 1
-    end 
-  end
-  
-  if count == 1 then 
-    return true
-  else 
-    return false 
-  end
-end 
 
 client.connect_signal("focus", 
   function(c)
