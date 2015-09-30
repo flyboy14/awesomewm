@@ -25,31 +25,30 @@ local function worker(format, warg)
     }
 
     -- Get mixer control contents
-    local f = io.popen("amixer -M -c 0 get " .. warg)
-    local mixer = f:read("*all")
+    local f = io.popen("pamixer --get-volume")
+    local pulsevol = f:read("*all")
     f:close()
-    local f1 = io.popen("pamixer --get-volume")
-    local pulsevol = f1:read("*all")
-    f1:close()
 
     -- Capture mixer control state:          [5%] ... ... [on]
-    local volu, mute = string.match(mixer, "([%d]+)%%.*%[([%l]*)")
+    local f1 = io.popen("pamixer --get-mute")
+    local mute = f1:read()
+    f1:close()
     local volpa = string.match(pulsevol, "([%d]+)")
     -- Handle mixers without data
-    if volu == nil then
-       return {0, mixer_state["off"], volpa}
+    if volpa == nil then
+       return {0, mixer_state["off"]}
     end
 
     -- Handle mixers without mute
-    if mute == "" and volu == "0"
+    if mute == "true" and volpa == "0"
     -- Handle mixers that are muted
-    or mute == "off" then
+    or mute == "true" then
        mute = mixer_state["off"]
     else
        mute = mixer_state["on"]
     end
 
-    return {tonumber(volu), mute, volpa}
+    return {tonumber(volpa), mute}
 end
 -- }}}
 
