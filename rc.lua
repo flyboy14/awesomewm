@@ -78,7 +78,7 @@ beautiful.init(active_theme .. "/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 wireless_name = ""
-myinterface = "enp0s20u2"
+myinterface = ""
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
 terminal = "urxvtc -T Terminal"
@@ -192,7 +192,7 @@ autorunApps =
    run_once("urxvtd", "urxvtd -o -f -q"),
    run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
-   --run_once("steam"),
+   --run_once("pidgin"),
    --"systemctl --user restart hidcur",
    run_once("compton", "compton -b --shadow-blue 0.05 --sw-opti --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow"),
    --"xcowsay 'Moo, brother, moo.'"
@@ -203,10 +203,6 @@ if autorun then
    for app = 1, #autorunApps do
       awful.util.spawn_with_shell(autorunApps[app], false)
    end
-   if wireless_name == "UNET.BY" then
-      run_once("steam")
-      run_once("pidgin")
-    end
 end
 
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
@@ -236,19 +232,18 @@ end
 -- }}}
 
 -- {{{ get wallpaper from nitrogen config file
--- local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file= | sed 's/'file='//g'") 
--- wpaper = f:read()
--- f:close()  
+local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file= | sed 's/'file='//g'") 
+wpaper = f:read()
+f:close()  
 
--- if wpaper == nil then
---   if beautiful.wallpaper then
---     wpaper = beautiful.wallpaper
---   end
--- end
-wpaper = home .. "/Pictures/Wallpapers/the-big-lebowski-4fdb8da06b12b.jpg"
+if wpaper == nil then
+  if beautiful.wallpaper then
+    wpaper = beautiful.wallpaper
+  end
+end
 
 for s = 1, screen.count() do
-  gears.wallpaper.maximized(wpaper, s, true)
+  gears.wallpaper.maximized(wpaper, s, false)
   --gears.wallpaper.maximized(wpaper,s,true)
 end
 -- }}}
@@ -291,21 +286,11 @@ mmyawesomemenu = {
     { " quit", "pkill --signal SIGKILL awesome", iconsdir .. "/media-no.svg" }
 }
 
-mygamesmenu = {
-    { "  Torchlight II", "optirun wine " .. home .. "/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
-    { "  Godus", scripts .. "/godus.sh", "/home/master-p/WINE/wineZ/drive_c/Program Files/Godus/generated_images/Win32_Icon_32x32_0.ico" },
-    { "  Path of Exile", scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
-    { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
-    { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },
-    { "  Xonotic", home .. "/Xonotic/xonotic-linux64-sdl -basedir " .. home .. "/Xonotic/", iconsdir .. "/xonotic_icon.svg" },
-    { "  Kingdoms of Amalur", scripts .. "/KoA.sh", iconsdir .. "/koa.png" },
-    { "  Dota 2", "optirun steam steam://rungameid/570", iconsdir .. "/dota2.png" },
-    { "  Battle.net", scripts .. "/Battlenet.sh", iconsdir .. "/Badge_battlenet.png" },
-    { "  Elegy for a Dead World", scripts .. "/Elegy.sh", iconsdir .. "/Elegy.ico" },
-    { "  Iesabel", "Iesabel/Iesabel/Iesabel.x86_64", iconsdir .. "/Iesabel-Logo.jpg" },
-    { "  Anomaly Warzone", "/home/master-p/AnomalyWarzoneEarth/AnomalyWarzoneEarth", iconsdir .. "/icon.png" },
-    { "  Diablo II LoD", "wine " .. home .. "/WINE/wineZ/drive_c/Games/D2/Game.exe", iconsdir .. "/icone.ICO" },
-    { "  teeworlds", "teeworlds", iconsdir .. "/redbopp.png" },
+myvirtualmenu = {
+  { " vboxdrv", "gksu modprobe vboxdrv" },
+  { " makakka_xp", "virtualbox --startvm makakka_xp" },
+  { " Debian 8", "virtualbox --startvm debian8" },
+  { " CentOS 7", "virtualbox --startvm centos7" }
 }
 
 myworkspacemenu = {
@@ -421,7 +406,7 @@ mymainmenu = awful.menu({ items = {
                                     --{ "  KeePassX", "keepassx", iconsdir .. "/keepassx.svg"},
                                     --{ "  DoubleCommander", "doublecmd", iconsdir .. "/doublecmd.svg"},
                                     --{ "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox.svg" },
-                                    --{ "  Расписание", "libreoffice " .. home .. "/Documents/lera.xlsx", iconsdir .. "/key-p.svg" },
+                                    { "Песочница", myvirtualmenu },
                                     { "Приложения", xdgmenu },
                                     --{ "Игры", mygamesmenu },
                                     { "  Обои", "nitrogen", iconsdir .. "/greylink-dc.png" }
@@ -588,12 +573,12 @@ dbus.connect_signal("ru.gentoo.kbdd",
 -- vicious.register(
 --   mygmail, 
 --   vicious.widgets.gmoil, 
---   ' <span color="#FFA963" font="Visitor TT2 BRK 10">${count}</span>', 
+--   '<span color="#FFA963" font="Visitor TT2 BRK 10"> +${count}</span>', 
 --   260
 -- )
  mygmailimg = my_launcher({ 
    image = beautiful.widget_mail, 
-   command = browser .. " mail.google.com" 
+   command = browser .. " mail.google.com/mail/u/1" 
  })
 
 -- CPU widget
@@ -682,94 +667,94 @@ vicious.register(
 
 -- Net widget
 
--- netwidget = wibox.widget.textbox()
--- neticon = my_launcher({ image = beautiful.widget_net_no, command = "systemctl restart wpa_supplicant@wlp3s0 systemd-networkd" })
--- netwidget:buttons(awful.util.table.join(
---   awful.button({ }, 1, 
---     function ()      
---       local matcher = 
---       function (c)                   
---         return awful.rules.match(c, {class = 'wpa_gui'}) 
---       end                                                      
+netwidget = wibox.widget.textbox()
+neticon = my_launcher({ image = beautiful.widget_net_no, command = "systemctl restart systemd-networkd wpa_supplicant@wlp3s0" })
+netwidget:buttons(awful.util.table.join(
+  awful.button({ }, 1, 
+    function ()      
+      local matcher = 
+      function (c)                   
+        return awful.rules.match(c, {class = 'wpa_gui'}) 
+      end                                                      
     
---     awful.client.run_or_raise("wpa_gui", matcher) 
---     end
---   ),
+    awful.client.run_or_raise("wpa_gui", matcher) 
+    end
+  ),
 
---   awful.button({ }, 3, 
---     function () 
---       awful.util.spawn_with_shell("pkill wpa_gui") 
---     end
---   )
--- ))
+  awful.button({ }, 3, 
+    function () 
+      awful.util.spawn_with_shell("pkill wpa_gui") 
+    end
+  )
+))
 
 
---netdowninfo = wibox.widget.textbox()
--- netdowninfo:buttons(awful.util.table.join(
---   awful.button({ }, 1, 
---     function () 
---       awful.util.spawn("wpa_gui")
---     end
---   ),
---   awful.button({ }, 3, 
---     function () 
---       awful.util.spawn_with_shell("pkill wpa_gui") 
---     end
---   )
--- ))
+netdowninfo = wibox.widget.textbox()
+netdowninfo:buttons(awful.util.table.join(
+  awful.button({ }, 1, 
+    function () 
+      awful.util.spawn("wpa_gui")
+    end
+  ),
+  awful.button({ }, 3, 
+    function () 
+      awful.util.spawn_with_shell("pkill wpa_gui") 
+    end
+  )
+))
 
--- netupinfo = lain.widgets.net({
---   settings = 
---   function()
---     myinterface = iface
---     if iface ~= "network off" and string.match(myweather._layout.text, "N/A") then
---       myweather.update()
---       netwidget.update()
---     end
+netupinfo = lain.widgets.net({
+  settings = 
+  function()
+    myinterface = iface
+    -- if iface ~= "network off" and string.match(myweather._layout.text, "N/A") then
+    --   myweather.update()
+    --   netwidget.update()
+    -- end
       
---     widget:set_markup(markup("#7ac82e", "<span font='Visitor TT2 BRK 10'>" .. net_now.received .. " </span>"))
---     netdowninfo:set_markup(markup("#46A8C3", "<span font='Visitor TT2 BRK 10'>" .. net_now.sent .. " </span>"))
---   end
--- })
+    widget:set_markup(markup("#7ac82e", "<span font='Visitor TT2 BRK 10'>" .. net_now.received .. " </span>"))
+    netdowninfo:set_markup(markup("#46A8C3", "<span font='Visitor TT2 BRK 10'>" .. net_now.sent .. " </span>"))
+  end
+})
 
--- netupinfo:buttons(awful.util.table.join(
---   awful.button({ }, 1, 
---     function () 
---       awful.util.spawn("wpa_gui")
---     end
---   ),
---   awful.button({ }, 3, 
---     function () 
---       awful.util.spawn_with_shell("pkill wpa_gui") 
---     end
---   )
--- ))
+netupinfo:buttons(awful.util.table.join(
+  awful.button({ }, 1, 
+    function () 
+      awful.util.spawn("wpa_gui")
+    end
+  ),
+  awful.button({ }, 3, 
+    function () 
+      awful.util.spawn_with_shell("pkill wpa_gui") 
+    end
+  )
+))
 
--- vicious.register(
---   netwidget, 
---   vicious.widgets.wifi, 
---   function (widget, args)
---     link = args['{link}']
-    
---     if myinterface == "enp4s0" or myinterface == "enp0s20u2" then 
---       neticon:set_image(beautiful.widget_net_wired)
---     else
---       if link > 65 then
---         neticon:set_image(beautiful.widget_net_hi)
---       elseif link > 30 and link <= 65 then
---         neticon:set_image(beautiful.widget_net_mid)
---       elseif link > 0 and link <= 30 then
---         neticon:set_image(beautiful.widget_net_low)
---       else
---         neticon:set_image(beautiful.widget_net_no)
---       end 
---     end
---     wireless_name = args['{ssid}']
---     return '<span font="fixed 7" color="#aeaeae">' .. wireless_name .. '</span>'
---   end,
---   2, 
---   myinterface
--- )
+vicious.register(
+  netwidget, 
+  vicious.widgets.wifi, 
+  function (widget, args)
+    link = args['{link}']
+    if myinterface:find("enp") then  -- wired interfaces
+      neticon:set_image(beautiful.widget_net_wired)
+    elseif myinterface:find("wl") then
+      -- naughty.notify({text = link})
+      -- if link > 65 then
+         neticon:set_image(beautiful.widget_net_hi)
+      -- elseif link > 30 and link <= 65 then
+      --   neticon:set_image(beautiful.widget_net_mid)
+      -- elseif link > 0 and link <= 30 then
+      --   neticon:set_image(beautiful.widget_net_low)
+      -- end
+    else
+        neticon:set_image(beautiful.widget_net_no)
+    end
+    wireless_name = args['{ssid}']
+    return '<span font="fixed 7" color="#aeaeae">' .. wireless_name .. '</span>'
+  end,
+  2, 
+  myinterface
+)
 
 
 -- Separators
@@ -867,7 +852,7 @@ gf:buttons(awful.util.table.join(
 -- Create a textclock widget
 clockicon = wibox.widget.imagebox()
 clockicon:set_image(beautiful.widget_clock)
-mytextclock = awful.widget.textclock("<span font='Visitor TT2 BRK 10' color='#aeaeae'>%I%M</span>")
+mytextclock = awful.widget.textclock("<span font='Visitor TT2 BRK 10' color='#aeaeae'>%I%M </span>")
 
 -- Calendar
 lain.widgets.calendar:attach(mytextclock, { font_size = 9 })
@@ -968,9 +953,9 @@ for s = 1, screen.count() do
   left_layout:add(spr)
   left_layout:add(mytaglist[s])
   left_layout:add(arrl)
-        left_layout:add(mygmailimg)
-    left_layout:add(spr)
-  --right_layout:add(mygmail)
+  left_layout:add(mygmailimg)
+  --left_layout:add(mygmail)
+  left_layout:add(spr)
   left_layout:add(mypromptbox[s])
 
   local left_w = wibox.layout.fixed.horizontal()
@@ -987,12 +972,12 @@ for s = 1, screen.count() do
   right_layout:add(cpuwidget)
   right_layout:add(memicon)
   right_layout:add(memwidget)
-  -- right_layout:add(neticon)
-  -- right_layout:add(netwidget)
-  -- right_layout:add(spr)
-  -- right_layout:add(netupinfo)
-  -- right_layout:add(arrows)
-  -- right_layout:add(netdowninfo)
+   right_layout:add(neticon)
+   right_layout:add(netwidget)
+   right_layout:add(spr)
+   right_layout:add(netupinfo)
+   right_layout:add(arrows)
+   right_layout:add(netdowninfo)
   right_layout:add(spr)
   right_layout:add(mpdicon)
   right_layout:add(musicwidget.widget)
@@ -1009,7 +994,6 @@ for s = 1, screen.count() do
   right_layout:add(batwidget)
   right_layout:add(clockicon)
   right_layout:add(mytextclock)
-  right_layout:add(spr)
   local tray_layout = wibox.layout.fixed.horizontal()
   local right_w = wibox.layout.fixed.horizontal()
   --right_w:add(brar)
@@ -1136,12 +1120,12 @@ globalkeys = awful.util.table.join(
   awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
   awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
 
-  awful.key({  }, "F8", 
-    function ()
-      mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-      mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
-    end
-  ),
+  -- awful.key({  }, "F8", 
+  --   function ()
+  --     mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+  --     mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
+  --   end
+  -- ),
 
     -- Standard program
   awful.key({ }, "XF86Sleep", 
@@ -1202,18 +1186,7 @@ globalkeys = awful.util.table.join(
       awful.client.run_or_raise(terminal, matcher)
     end
   ),
-  --    awful.key({ "Control" }, "l", function ()
-  --    local matcher = function (c)                   
-  --    return awful.rules.match(c, {class = editor}) 
-  --  end                                                      
-  --  awful.client.run_or_raise(editor, matcher)
-  -- end),
-  --    awful.key({ "Control", "Shift" }, "l", function ()
-  --    local matcher = function (c)                   
-  --    return awful.rules.match(c, {class = editor}) 
-  --  end                                                      
- --   awful.client.run_or_raise('gksudo ' .. editor, matcher)
- -- end),
+
   awful.key({ modkey }, "b", 
     function ()
       local matcher = 
@@ -1352,7 +1325,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][3] } 
   },
   { 
-    rule_any = { class = { "Ninja-ide", "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
+    rule_any = { class = { "Audacity", "Ninja-ide", "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
     properties = { tag = tags[1][4] } 
   },
   { 
@@ -1380,7 +1353,7 @@ awful.rules.rules = {
     properties = { border_width = 0 } 
   },
   { 
-    rule_any = { class = { "Obshutdown", "Polkit-gnome-authentication-agent-1", "URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin" } },
+    rule_any = { class = { "Nitrogen", "Obshutdown", "Polkit-gnome-authentication-agent-1", "URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin" } },
     properties = { ontop = true } 
   },
   {
@@ -1494,7 +1467,7 @@ client.connect_signal("manage",
 
 client.connect_signal("focus", 
   function(c)
-    c:raise()
+    --c:raise()
     -- if wibox_color() == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then 
     --   c.border_color = beautiful.border_normal  -- for only unminimized non-floating client on tag
     -- else 

@@ -1,5 +1,7 @@
  local menubeceed89e397495003f6ff5a4d895d66 = {
+     {"Audacity", "env UBUNTU_MENUPROXY=0 audacity ", "/usr/share/icons/hicolor/16x16/apps/audacity.png" },
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
+     {"Rosegarden", "rosegarden ", "/usr/share/icons/hicolor/32x32/apps/rosegarden.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
      {"Медиаплеер VLC", "/usr/bin/vlc --started-from-file ", "/usr/share/icons/hicolor/16x16/apps/vlc.png" },
      {"Регулятор громкости PulseAudio", "pavucontrol", "/usr/share/icons/gnome/16x16/apps/multimedia-volume-control.png" },
@@ -25,6 +27,7 @@
      {"SpiderOakONE", "SpiderOakONE", "/usr/share/pixmaps/SpiderOakONE.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
+     {"VMware Horizon Client", "vmware-view", "///usr/share/pixmap/vmware-view.png" },
      {"wpa_gui", "wpa_gui", "/usr/share/pixmaps/wpa_gui.svg" },
      {"Клиент обмена мгновенными сообщениями Pidgin", "pidgin", "/usr/share/icons/hicolor/16x16/apps/pidgin.png" },
      {"Навигатор Avahi по серверам SSH", "/usr/bin/bssh", "/usr/share/icons/gnome/16x16/devices/network-wired.png" },
@@ -33,6 +36,7 @@
 
  local menud26c1170c5110a4264a8a8a89ec20529 = {
      {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
+     {"Математический инструмент Genius", "gnome-genius ", "/usr/share/icons/hicolor/16x16/apps/gnome-genius.png" },
  }
 
  local menu8caf0567988f6898bf53e8c848c6f7bc = {
@@ -56,6 +60,9 @@
 
  local menu13155df48f218a078bb8bdc9649e5b20 = {
      {"GParted", "/usr/bin/gparted_polkit ", "/usr/share/icons/hicolor/16x16/apps/gparted.png" },
+     {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
+     {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
+     {"VMware Horizon Client", "vmware-view", "///usr/share/pixmap/vmware-view.png" },
      {"urxvt", "urxvt", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"urxvt (client)", "urxvtc", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"urxvt (tabbed)", "urxvt-tabbed", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
@@ -64,11 +71,12 @@
  }
 
  local menu91af6ed4e0be6a48ab48ec8b6e768568 = {
-     {"LilyTerm", "lilyterm", "/usr/share/pixmaps/lilyterm.png" },
+     {"Caffeine-ng", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
      {"SpiderOakONE", "SpiderOakONE", "/usr/share/pixmaps/SpiderOakONE.png" },
      {"Sublime Text", "subl ", "/usr/share/icons/hicolor/16x16/apps/sublime-text.png" },
      {"compton", "compton", "/usr/share/icons/hicolor/48x48/apps/compton.png" },
+     {"Математический инструмент Genius", "gnome-genius ", "/usr/share/icons/hicolor/16x16/apps/gnome-genius.png" },
      {"Менеджер архивов", "file-roller ", "/usr/share/icons/hicolor/16x16/apps/file-roller.png" },
  }
 

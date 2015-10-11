@@ -250,16 +250,19 @@ if not data or parse_on_show then
 orglendar.parse_agenda()
 end
 local save_offset = offset
-orglendar.hide()
+orglendar.hide()border
 offset = save_offset + inc_offset
 local char_width = char_width or calculate_char_width()
 local header, cal_text = create_calendar()
-calendar = naughty.notify({ title = header,
-bg = check_(),
-text = cal_text,
-timeout = 0, hover_timeout = 0.5,
-screen = mouse.screen,
-border_color = "#000000"
+calendar = naughty.notify({ 
+	title = header,
+	bg = check_(),
+	text = cal_text,
+	timeout = 0, 
+	hover_timeout = 0.5,
+	screen = mouse.screen,
+	border_width = 0,
+	border_color = "#000000",
 })
 -- todo = naughty.notify({ title = "TO-DO list",
 -- text = create_todo(),
