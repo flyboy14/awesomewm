@@ -596,8 +596,14 @@ vicious.register(
 
 -- Weather widget
 
+weathericon = my_launcher_n({
+  image = beautiful.widget_weather,
+  command = awesome.restart
+})
+
 myweather = lain.widgets.weather({
   city_id = 625144, -- placeholder
+  lang = "ru",
   settings = 
     function()
       local descr = weather_now["weather"][1]["description"]:lower()
@@ -614,14 +620,9 @@ myweather = lain.widgets.weather({
       end
       widget:set_markup(markup(
         unitscolor, 
-        "<span font='Visitor TT2 BRK 10'><span color='#9e9e9e'>" .. descr .. "</span> " .. units .. "°C</span>"
+        "<span font='Fixed 8'><span color='#9e9e9e'>" .. descr .. "</span> <span font='Visitor TT2 BRK 10'>" .. units .. "°C</span></span>"
       ))
     end
-})
-
-weathericon = my_launcher_n({
-  image = beautiful.widget_weather,
-  command = myweather.update
 })
 
 
