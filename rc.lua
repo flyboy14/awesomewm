@@ -74,7 +74,7 @@ sc_a = scripts .. "/screenshot-area.sh"
 sc_w = scripts .. "/screenshot-wind.sh"
 sc_r = scripts .. "/screenshot-root.sh"
 sc_r5 = "sleep 5s && " .. scripts .. "/screenshot-root.sh"
-volpa_mute = scripts .. "/vol_pa_color.sh mute"
+vol_mute = scripts .. "/vol_pa_color.sh mute"
 vol_up = scripts .. "/vol_pa_color.sh up"
 vol_down = scripts .. "/vol_pa_color.sh down"
 bri_up = scripts .. "/bright_color.sh up"
@@ -510,13 +510,10 @@ myweather = lain.widgets.weather_colorarrows({
     command = myweather.update
   })
 -- Volume widget
-volicon = wibox.widget.imagebox()
-volicon:set_image(beautiful.widget_vol_hi)
-volicon:buttons(awful.util.table.join(
-  awful.button({ }, 4, function () awful.util.spawn_with_shell(vol_up) end),
-  awful.button({ }, 5, function () awful.util.spawn_with_shell(vol_down) end),
-  awful.button({ }, 1, function () awful.util.spawn_with_shell(vol_mute) end)
-  ))
+volicon = my_launcher({
+  image = beautiful.widget_vol_hi,
+  command = vol_mute
+})
 volumewidget = wibox.widget.textbox()
 volumewidget:buttons(awful.util.table.join(
   awful.button({ }, 4, function () awful.util.spawn_with_shell(vol_up) end),

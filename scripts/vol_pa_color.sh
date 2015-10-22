@@ -31,37 +31,37 @@ if [[ "$STATE" == "true" ]]; then
 else
 if [[ $VOLUME == "0" ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_0_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client  
-elif [[ $VOLUME -lt 9 ]]; then
+elif [[ $VOLUME -lt 11 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_5_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 14 ]]; then
+elif [[ $VOLUME -lt 16 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_10_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 19 ]]; then
+elif [[ $VOLUME -lt 21 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_15_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 24 ]]; then
+elif [[ $VOLUME -lt 26 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_21_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 29 ]]; then
+elif [[ $VOLUME -lt 31 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_27_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 34 ]]; then
+elif [[ $VOLUME -lt 36 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_32_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 39 ]]; then
+elif [[ $VOLUME -lt 41 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_38_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 44 ]]; then
+elif [[ $VOLUME -lt 46 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_44_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 49 ]]; then
+elif [[ $VOLUME -lt 51 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_51_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client    
-elif [[ $VOLUME -lt 54 ]]; then
+elif [[ $VOLUME -lt 56 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_56_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 59 ]]; then
+elif [[ $VOLUME -lt 61 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_62_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 64 ]]; then
+elif [[ $VOLUME -lt 66 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_68_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 69 ]]; then
+elif [[ $VOLUME -lt 76 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_75_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 74 ]]; then
+elif [[ $VOLUME -lt 81 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_83_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 79 ]]; then
+elif [[ $VOLUME -lt 86 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_88_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
-elif [[ $VOLUME -lt 84 ]]; then
+elif [[ $VOLUME -lt 96 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_94_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
 elif [[ $VOLUME -lt 101 ]]; then
   echo 'show_smth(nil, nil, "'$HOME/.config/awesome/themes/color_arrows/icons/vol_100_x16.png'", 2, "#E2AE7C", nil, nil, nil)' | awesome-client 
