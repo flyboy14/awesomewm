@@ -43,27 +43,28 @@ else
 end
 --}}}
 theme.font                          = "Fixed 8"--"Fixed 9"
+theme.mycolor						= "#383C4A"
 theme.taglist_font                  = "Visitor TT2 BRK 12"--"envypn 9"
 theme.fg_normal                     = "#949494"
-theme.fg_focus                      = "#3399FF"--"#FFF9A4"
-theme.bg_normal                     = "#121212"
-theme.bg_focus                      = "#121212"
+theme.fg_focus                      = "#7D96C8"--"#FFF9A4"
+theme.bg_normal                     = theme.mycolor
+theme.bg_focus                      = theme.mycolor
 theme.fg_urgent                     = "#CC9393"
 theme.bg_urgent                     = "#2A1F1E"
-theme.border_normal                 = "#121212"
-theme.border_width                  = "1"
-theme.menu_border_width           	= "5"
-theme.menu_border_color             = "[5]#121212"
+theme.border_normal                 = theme.mycolor
+theme.border_width                  = "0"
+theme.menu_border_width           	= "0"
+theme.menu_border_color             = "[5]" .. theme.mycolor
 theme.border_focus                  = "#3399FF"--"#DCD87B"
 theme.titlebar_bg_focus             = "#292929"
 theme.tooltip_fg_color				= "#cecece"
 theme.tooltip_bg_color 				= "#6F766E"
 
 theme.taglist_fg_focus              = "#dcdcdc" --#dcdcdc"
-theme.taglist_bg_focus              = "#121212"
+theme.taglist_bg_focus              = theme.mycolor
 theme.menu_height                   = "24"
 theme.menu_width                    = "170"
-theme.bg_systray					= "#12121222"
+theme.bg_systray					= theme.mycolor .. "22"
 theme.systray_icon_spacing			= "4"
 
 theme.widget_weather                             = themedir .. "/icons/dish.png"
@@ -118,6 +119,7 @@ theme.widget_net_hi                            = themedir .. "/icons/net_hi_x16.
 theme.widget_net_mid                            = themedir .. "/icons/net_med_x16.png"
 theme.widget_net_low                            = themedir .. "/icons/net_low_x16.png"
 theme.widget_net_no                            = themedir .. "/icons/net_no_x16.png"
+theme.widget_net_wired                            = themedir .. "/icons/net_wired_x16.png"
 theme.widget_hdd                            = themedir .. "/icons/hdd.png"
 theme.widget_music                          = themedir .. "/icons/note_x16.png"
 theme.widget_music_on                       = themedir .. "/icons/note_on_x16.png"
