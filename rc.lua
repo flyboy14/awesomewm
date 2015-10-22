@@ -195,70 +195,138 @@ local layouts =
 
 -- {{{ Menu
 -- Create a laucher widget and a main menu
-myawesomemenu = {
-   { " edit", editor .. " " .. awesome.conffile, iconsdir .. "/clipboard.svg" },
-   { " restart", awesome.restart, iconsdir .. "/media-circling-arrow.svg" },
-   { " quit", "pkill --signal SIGKILL awesome", iconsdir .. "/media-no-36.svg" }
+mmyawesomemenu = {
+    { " edit", editor .. " " .. awesome.conffile, iconsdir .. "/clipboard.svg" },
+    { " restart", awesome.restart, iconsdir .. "/media-circling-arrow.svg" },
+    { " quit", "pkill --signal SIGKILL awesome", iconsdir .. "/media-no.svg" }
 }
 
-mybordermenu = {
-  {"  Borderlands II RUS", "optirun " .. home .. "/Borderlands2/Borderlands2 -language=rus", iconsdir .. "/border_ru.png"},
-  {"  Borderlands II ENG", " optirun ".. home .. "/Borderlands2/Borderlands2", iconsdir .. "/border_en.png"},
+myvirtualmenu = {
+  { " vboxdrv", "gksu modprobe vboxdrv" },
+  { " makakka_xp", "virtualbox --startvm makakka_xp" },
+  { " Debian 8", "virtualbox --startvm debian8" },
+  { " CentOS 7", "virtualbox --startvm centos7" }
 }
-
-mygamesmenu = {
-   { "Borderlans II", mybordermenu },      
-   { "  Torchlight II", "optirun wine " .. home .. "/WINE/wineZ/drive_c/R.G.\\ Catalyst/Torchlight\\ II/Torchlight2.exe", "/home/master-p/WINE/wineZ/drive_c/R.G. Catalyst/Torchlight II/game.ico" },
-   { "  Godus", scripts .. "/godus.sh", "/home/master-p/WINE/wineZ/drive_c/Program Files/Godus/generated_images/Win32_Icon_32x32_0.ico" },
-   { "  Path of Exile", scripts .. "/poe.sh", "/home/master-p/Downloads/cyberman.png" },   
-   { "  Вечное лето", home .. "/Desktop/Everlasting Summer.desktop", iconsdir .. "/icon.icns" },
-   { "  Besiege", home .. "/Besiege_v0.01_Linux/Besiege.x86_64", iconsdir .. "/besiege.png" },
-   { "  WORMS Revolution", scripts .. "/worms.sh", iconsdir .. "/worms.png" },
-   { "  Xonotic", home .. "/Xonotic/xonotic-linux64-sdl -basedir " .. home .. "/Xonotic/", iconsdir .. "/xonotic_icon.svg" },
-   { "  Kingdoms of Amalur", scripts .. "/KoA.sh", iconsdir .. "/koa.png" },
-   { "  The Cave", "optirun " .. home .. "/TheCave/run_game.sh &", iconsdir .. "/the_cave.png" },
-   { "  Left for Dead 2", "optirun steam steam://rungameid/550", "/home/master-p/.steam/steam/SteamApps/common/Left 4 Dead 2/left4dead2.ico" },
-   { "  Dota 2", "optirun steam steam://rungameid/570", iconsdir .. "/dota2.png" },
-   { "  Battle.net", scripts .. "/Battlenet.sh", iconsdir .. "/Badge_battlenet.png" },
-   { "  Elegy for a Dead World", scripts .. "/Elegy.sh", iconsdir .. "/Elegy.ico" },
-   { "  Iesabel", "Iesabel/Iesabel/Iesabel.x86_64", iconsdir .. "/Iesabel-Logo.jpg" },
-   { "  Anomaly Warzone", "/home/master-p/AnomalyWarzoneEarth/AnomalyWarzoneEarth", iconsdir .. "/icon.png" },
-   { "  Diablo II LoD", "wine " .. home .. "/WINE/wineZ/drive_c/Games/D2/Game.exe", iconsdir .. "/icone.ICO" },
-   { "  teeworlds", "teeworlds", iconsdir .. "/redbopp.png" },
-
-   }
 
 myworkspacemenu = {
-                                    { "Home", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[1] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Browse", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[2] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Doc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[3] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "IDE", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[4] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Media", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[5] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Virtual", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[6] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Wine", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[7] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                    { "Etc", function () if client.focus then local tag = awful.tag.gettags(client.focus.screen)[8] if tag then awful.client.movetotag(tag) awful.tag.viewonly(tag) end end end },
-                                       }
-
+    { "Home", 
+    function () 
+      if client.focus then 
+        local tag = awful.tag.gettags(client.focus.screen)[1] 
+        if tag then 
+          awful.client.movetotag(tag) awful.tag.viewonly(tag) 
+        end 
+      end 
+    end 
+    },
+    { "Browse", 
+    function () 
+      if client.focus then 
+        local tag = awful.tag.gettags(client.focus.screen)[2] 
+        if tag then 
+          awful.client.movetotag(tag) awful.tag.viewonly(tag) 
+        end 
+      end 
+    end 
+    },
+    { "Doc", 
+    function () 
+      if client.focus then 
+        local tag = awful.tag.gettags(client.focus.screen)[3] 
+        if tag then 
+          awful.client.movetotag(tag) awful.tag.viewonly(tag) 
+        end 
+      end 
+    end 
+    },
+    { "IDE", 
+    function () 
+      if client.focus then 
+        local tag = awful.tag.gettags(client.focus.screen)[4] 
+        if tag then 
+          awful.client.movetotag(tag) awful.tag.viewonly(tag) 
+        end 
+      end 
+    end 
+    },
+    { "Media", 
+    function () 
+      if client.focus then 
+        local tag = awful.tag.gettags(client.focus.screen)[5] 
+        if tag then 
+          awful.client.movetotag(tag) awful.tag.viewonly(tag) 
+        end 
+      end 
+    end 
+    },
+    { "Virtual", 
+    function () 
+      if client.focus then 
+        local tag = awful.tag.gettags(client.focus.screen)[6] 
+        if tag then 
+          awful.client.movetotag(tag) awful.tag.viewonly(tag) 
+        end 
+      end 
+    end 
+    },
+    { "Wine", 
+    function () 
+      if client.focus then 
+        local tag = awful.tag.gettags(client.focus.screen)[7] 
+        if tag then 
+          awful.client.movetotag(tag) awful.tag.viewonly(tag) 
+        end 
+      end 
+    end 
+    },
+    { "Etc", 
+    function () 
+      if client.focus then 
+        local tag = awful.tag.gettags(client.focus.screen)[8] 
+        if tag then 
+          awful.client.movetotag(tag) 
+          awful.tag.viewonly(tag) 
+        end 
+      end 
+    end 
+    },
+}
 mytaskmenu = awful.menu({ items = {
                                     { "Отправить на тэг:", myworkspacemenu },
-                                    { "  На весь экран", function () client.focus.fullscreen = not client.focus.fullscreen end, iconsdir .. "/display.svg" },
-                                    { "  Свернуть", function () client.focus.minimized = true if (client.focus) then mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/3, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) else mouse.coords({x=683, y=384}) end end,  iconsdir .. "/view-restore.svg"},
-                                    { "  Закрыть", function() client.focus:kill() end, iconsdir .. "/media-no.svg" },
+                                    { "  На весь экран", 
+                                      function () 
+                                        client.focus.fullscreen = not client.focus.fullscreen 
+                                      end, 
+                                      iconsdir .. "/display.svg" 
+                                    },
+                                    { "  Свернуть", 
+                                      function () 
+                                        client.focus.minimized = true 
+                                        if client.focus then 
+                                          mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/3, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2}) 
+                                        end 
+                                      end,  
+                                      iconsdir .. "/view-restore.svg"
+                                    },
+                                    { "  Закрыть", 
+                                      function() 
+                                        client.focus:kill() 
+                                      end, iconsdir .. "/media-no.svg" 
+                                    },
                                   }
-                        })
+})
 
 mymainmenu = awful.menu({ items = {
-                                    { "  Samowar (beta)", "samowar", iconsdir .. "/musical-note-stripped.svg" },
-                                    { "  KeePassX", "keepassx", iconsdir .. "/keepassx.svg"},
-                                    { "  DoubleCommander", "doublecmd", iconsdir .. "/doublecmd.svg"},
-                                    { "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox.svg" },
-                                    { "  Расписание", "libreoffice " .. home .. "/temp/raspis.xlsx", iconsdir .. "/key-p.svg" },
-                                    -- { "Песочница", myvirtualmenu },
+                                    --{ "  Samowar (beta)", "samowar", iconsdir .. "/musical-note-stripped.svg" },
+                                    --{ "  KeePassX", "keepassx", iconsdir .. "/keepassx.svg"},
+                                    --{ "  DoubleCommander", "doublecmd", iconsdir .. "/doublecmd.svg"},
+                                    --{ "  Файлообменник", "wine " .. home.. "/WINE/wineZ/drive_c/fayloobmennik.net.exe", iconsdir .. "/mailbox.svg" },
+                                    { "Песочница", myvirtualmenu },
                                     { "Приложения", xdgmenu },
-                                    { "Игры", mygamesmenu },
+                                    --{ "Игры", mygamesmenu },
                                     { "  Обои", "nitrogen", iconsdir .. "/greylink-dc.png" }
                                   }
-                        })
+})
 
 mylauncher = awful.widget.launcher({ image = iconsdir .. "/tv_icon.gif",
   	menu = mymainmenu})
@@ -306,11 +374,19 @@ mpdwidget = wibox.widget.textbox()
 mpdicon = wibox.widget.imagebox()
 mpdicon:set_image(beautiful.widget_music)
 mpdicon:buttons(awful.util.table.join(
-awful.button({ }, 1, function () run_when("mpd", "sonata") end, function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf") end),
-awful.button({ }, 2, function () awful.util.spawn_with_shell("sonata") end),
-awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill mpd|pkill sonata") end),
-awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5")end),
-awful.button({ }, 5, function () awful.util.spawn_with_shell("mpc volume -5")end)))
+  awful.button({ }, 1, 
+    function ()
+      scratch.drop("urxvtc -e vimpc", "center", "center", .95, .95, "true", 1)
+    --run_when_once("mpd", "vimpc","urxvtc -geometry 150x25 -e vimpc") 
+    end, 
+    function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf") 
+    end
+  ),
+  awful.button({ }, 2, function () awful.util.spawn_with_shell("urxvtc -geometry 150x40 -e vimpc") end),
+  awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill mpd") end),
+  awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5") end),
+  awful.button({ }, 5, function () awful.util.spawn_with_shell("mpc volume -5") end)
+))
 
 vicious.register(mpdwidget, vicious.widgets.mpd,
 function(widget, args)
@@ -417,6 +493,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
 
 myweather = lain.widgets.weather_colorarrows({
     city_id = 625144, -- placeholder
+    lang = "ru",
     settings = function()
         local descr = weather_now["weather"][1]["description"]:lower()
         local units = math.floor(weather_now["main"]["temp"])
@@ -425,7 +502,7 @@ myweather = lain.widgets.weather_colorarrows({
         elseif units <= 17 then unitscolor = "#E4E876"
         elseif units <= 30 then unitscolor = "#E09620"
         elseif units > 30 then unitscolor = "#E05721" units = "fuck, it\'s " .. units end
-        widget:set_markup(markup(unitscolor, "<span font='Fixed 14' background='#C2C2A4'> <span rise='1600' font='Visitor TT2 BRK 10'><span color='#5e5e5e'>" .. descr .. "</span> " .. units .. "°C </span></span>"))
+        widget:set_markup(markup(unitscolor, "<span font='Fixed 14' background='#C2C2A4'> <span rise='1600' font='Clean 9'><span color='#5e5e5e'>" .. descr .. "</span> <span font='Visitor TT2 BRK 10'>" .. units .. "°C </span></span></span>"))
     end
 })
   weathericon = my_launcher_n({
@@ -887,6 +964,8 @@ globalkeys = awful.util.table.join(
     end),
 
     -- Standard program
+    awful.key({      modkey      }, "v", function () scratch.drop("urxvtc -e vimpc", "center", "center", .95, .95, "true", 1) end),
+    awful.key({      modkey      }, "i", function () scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1) end),
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to poweroff?' &&systemctl poweroff") end),
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to reboot?' &&systemctl reboot") end),
@@ -943,14 +1022,14 @@ globalkeys = awful.util.table.join(
  end),
     -- Prompt
     awful.key({ alt,           }, "F2",
-              function () awful.prompt.run({ prompt=">> " },
+              function () awful.prompt.run({ prompt=">_ " },
                                            mypromptbox[mouse.screen].widget,
                                            check_for_terminal,
                                            clean_for_completion,
                                            awful.util.getdir("cache") .. "/history") end),
     awful.key({ modkey }, "F2",
               function ()
-                  awful.prompt.run({ prompt = "> " },
+                  awful.prompt.run({ prompt = ">> " },
                   mypromptbox[mouse.screen].widget,
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
