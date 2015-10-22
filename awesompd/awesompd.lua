@@ -226,7 +226,7 @@ function awesompd:create()
    instance.jamendo_format = awesompd.FORMAT_MP3
    instance.show_album_cover = true
    instance.album_cover_size = 50
-   instance.browser = "firefox"
+   instance.browser = "chromium"
    instance.bg_noti = beautiful.border_normal
    
 -- Widget configuration
@@ -500,9 +500,11 @@ function awesompd:command_show_menu()
                          { "Jamendo", jamendo_menu } }
          end 
          table.insert(new_menu, { "Сервера", self:menu_servers() }) 
-         self.main_menu = awful.menu({ items = new_menu, theme = { width = 300 },
+         self.main_menu = awful.menu({ items = new_menu, theme = { width = 150 },
       properties = { border_width = 5,
-                     border_color = "[5]#31363B"} }) 
+                     border_color = "[5]#31363B",
+                     opacity = 1 }
+                      }) 
          self.recreate_menu = false 
       end 
       self.main_menu:toggle() 

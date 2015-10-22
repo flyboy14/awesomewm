@@ -1,14 +1,13 @@
  local menubeceed89e397495003f6ff5a4d895d66 = {
      {"Audacity", "env UBUNTU_MENUPROXY=0 audacity ", "/usr/share/icons/hicolor/16x16/apps/audacity.png" },
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
-     {"Rosegarden", "rosegarden ", "/usr/share/icons/hicolor/32x32/apps/rosegarden.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
      {"Медиаплеер VLC", "/usr/bin/vlc --started-from-file ", "/usr/share/icons/hicolor/16x16/apps/vlc.png" },
      {"Регулятор громкости PulseAudio", "pavucontrol", "/usr/share/icons/gnome/16x16/apps/multimedia-volume-control.png" },
  }
 
  local menu9a1dcda9efe2bfc3963e75f98cc1ffd5 = {
-     {"DjView4", "djview4 ", "/usr/share/icons/hicolor/32x32/mimetypes/djvulibre-djview4.png" },
+     {"FontForge", "fontforge ", "/usr/share/icons/hicolor/16x16/apps/fontforge.png" },
      {"Inkscape", "inkscape ", "/usr/share/icons/hicolor/16x16/apps/inkscape.png" },
      {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
      {"mtPaint", "mtpaint ", "/usr/share/pixmaps/mtpaint.png" },
@@ -22,10 +21,12 @@
 
  local menu25385e702800d748c19cf6ea4f5811ec = {
      {"Chromium", "chromium ", "/usr/share/icons/hicolor/16x16/apps/chromium.png" },
+     {"Claws Mail", "claws-mail ", "/usr/share/icons/hicolor/48x48/apps/claws-mail.png" },
      {"EiskaltDC++ Gtk", "eiskaltdcpp-gtk ", "/usr/share/icons/hicolor/16x16/apps/eiskaltdcpp.png" },
      {"EiskaltDC++ Qt", "eiskaltdcpp-qt ", "/usr/share/icons/hicolor/16x16/apps/eiskaltdcpp.png" },
      {"SpiderOakONE", "SpiderOakONE", "/usr/share/pixmaps/SpiderOakONE.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
+     {"TeamSpeak 3", "teamspeak3"},
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
      {"VMware Horizon Client", "vmware-view", "///usr/share/pixmap/vmware-view.png" },
      {"wpa_gui", "wpa_gui", "/usr/share/pixmaps/wpa_gui.svg" },
