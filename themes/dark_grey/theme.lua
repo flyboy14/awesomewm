@@ -1,10 +1,3 @@
---[[
-                                   
-     Dremora Awesome WM config 2.0 
-     github.com/copycat-killer     
-                                   
---]]
-
 local awful = require("awful")
 awful.util = require("awful.util")
 
@@ -43,6 +36,7 @@ else
 end
 --}}}
 theme.mycolor						= "#383C4A"
+theme.systray                       = "#192732"
 theme.font                          = "Fixed 8"--"Fixed 9"
 theme.taglist_font                  = "Visitor TT2 BRK 10"--"envypn 9"
 theme.fg_normal                     = "#9e9e9e"
@@ -65,7 +59,7 @@ theme.taglist_fg_focus              = "#dcdcdc" --#dcdcdc"
 theme.taglist_bg_focus              = theme.mycolor .. "00"
 theme.menu_height                   = "24"
 theme.menu_width                    = "170"
-theme.bg_systray					= theme.mycolor --.. "44"--"#192732"
+theme.bg_systray					= theme.systray --.. "44"--"#192732"
 theme.systray_icon_spacing			= "4"
 
 theme.menu_submenu_icon             = themedir .. "/icons/sub.png"
@@ -120,7 +114,7 @@ theme.widget_bg                             = themedir .. "/icons/widget_bg.png"
 
 theme.tasklist_floating                     = ""
 theme.tasklist_maximized_horizontal         = ""
-theme.tasklist_maximized_vertical           = "" 
+theme.tasklist_maximized_vertical           = ""
 
 -- lain related
 theme.useless_gap_width             = 0

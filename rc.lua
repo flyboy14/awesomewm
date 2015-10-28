@@ -289,8 +289,6 @@ mmyawesomemenu = {
 myvirtualmenu = {
   { " vboxdrv", "gksu modprobe vboxdrv" },
   { " makakka_xp", "virtualbox --startvm makakka_xp" },
-  { " Debian 8", "virtualbox --startvm debian8" },
-  { " CentOS 7", "virtualbox --startvm centos7" }
 }
 
 myworkspacemenu = {
@@ -1124,7 +1122,7 @@ globalkeys = awful.util.table.join(
   -- ),
   awful.key({      modkey      }, "v", function () scratch.drop("urxvtc -e vimpc", "center", "center", .95, .95, "true", 1) end),
   awful.key({      modkey      }, "i", function () scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1) end),
-  awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("obshutdown") end),
+  awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("reboot") end),
   awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
   awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
   --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
@@ -1323,7 +1321,7 @@ awful.rules.rules = {
     properties = { floating = true }
   },
   {
-    rule_any = { class = { "Skype", "Steam" } },
+    rule_any = { class = { "Skype", "Steam", "VIrtualBox" } },
     properties = { switchtotag = false }
   },
   {
@@ -1467,7 +1465,7 @@ client.connect_signal("request::activate",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#3C3E41"
+      beautiful.bg_systray = "#192732"
     end
     --if not mouse_on_wibox() then
       --mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2})
@@ -1483,7 +1481,7 @@ client.connect_signal("property::geometry",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#3C3E41"
+      beautiful.bg_systray = "#192732"
     end
      -- if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then
      --   c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
@@ -1502,7 +1500,7 @@ client.connect_signal("property::floating",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#3C3E41"
+      beautiful.bg_systray = "#192732"
     end
      --  if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then
      --    c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
@@ -1520,7 +1518,7 @@ client.connect_signal("property::minimized",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#3C3E41"
+      beautiful.bg_systray = "#192732"
     end
   end
 )
@@ -1533,7 +1531,7 @@ client.connect_signal("unmanage",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#3C3E41"
+      beautiful.bg_systray = "#192732"
     end
   end
 )
@@ -1546,7 +1544,7 @@ screen.connect_signal("tag::history::update",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#3C3E41"
+      beautiful.bg_systray = "#192732"
     end
   end
 )
@@ -1559,17 +1557,3 @@ screen.connect_signal("tag::history::update",
 --   oldspawn(s, false)
 -- end
 -- }}}
-
--- Open todo when mouse hits right screen edge.
--- local function todopad()
-    --scratch.drop("urxvtc", "center", "right", .20, 800, "true", 1)
-
--- end
-
--- todo_timer = timer({timeout = 1})
--- todo_timer:connect_signal("timeout", function()
--- if mouse.coords()["y"] >= 1360 then
---         awful.util.spawn("urxvtc")
---      end
--- end)
--- todo_timer:start()
