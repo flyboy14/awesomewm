@@ -36,8 +36,8 @@ else
 end
 --}}}
 theme.mycolor						= "#383C4A"
-theme.systray                       = "#192732"
-theme.font                          = "Fixed 8"--"Fixed 9"
+theme.systray                       = "#1D1F1E"
+theme.font                          = "Fixed 8"--"Fixed 8"
 theme.taglist_font                  = "Visitor TT2 BRK 10"--"envypn 9"
 theme.fg_normal                     = "#9e9e9e"
 theme.fg_focus                      = "#7D96C8"--"#FFF9A4"
@@ -59,7 +59,7 @@ theme.taglist_fg_focus              = "#dcdcdc" --#dcdcdc"
 theme.taglist_bg_focus              = theme.mycolor .. "00"
 theme.menu_height                   = "24"
 theme.menu_width                    = "170"
-theme.bg_systray					= theme.systray --.. "44"--"#192732"
+theme.bg_systray					= "#34454E" --.. "44"--"#192732"
 theme.systray_icon_spacing			= "4"
 
 theme.menu_submenu_icon             = themedir .. "/icons/sub.png"

@@ -9,7 +9,6 @@ beautiful = require("beautiful")
 vicious = require("vicious")
 awesompd = require("awesompd/awesompd")
 naughty = require("naughty")
---keychains = require("keychains")
 eminent = require("eminent")
 xdg_menu = require("archmenu")
 lain = require("lain")
@@ -84,25 +83,39 @@ myinterface = ""
 wpaper = beautiful.wallpaper
 font_main = "Fixed 13"
 terminal = "urxvtc -T Terminal"
-browser = "chromium-continuous-bin"
-editor = "atom"
+browser = "palemoon"
+editor = "subl3"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
+--musicplr = "mpd ~/.mpd/mpd.conf"
 sc_a = scripts .. "/screenshot-area.sh"
-sc_w = scripts .. "/screenshot-wind.sh"
 sc_r = scripts .. "/screenshot-root.sh"
+sc_c = scripts .. "/screenshot-clipboard.sh"
 sc_r5 = "sleep 5s && " .. scripts .. "/screenshot-root.sh"
+toggle_touchpad = "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')"
 vol_up = scripts .. "/vol_pa_dark.sh up"
 vol_down = scripts .. "/vol_pa_dark.sh down"
 vol_mute = scripts .. "/vol_pa_dark.sh mute"
-bri_up = scripts .. "/bright_dark.sh up"
-bri_down = scripts .. "/bright_dark.sh down"
+bri_up = scripts .. "/bright_dark.sh"
+bri_down = scripts .. "/bright_dark.sh"
 translate_e_r = scripts .. "/translate.sh en ru"
 translate_r_e = scripts .. "/translate.sh ru en"
 tagimage_current = iconsdir .. "/media-record-green.svg"
 tagimage_other = iconsdir .. "/media-record.svg"
 tagico = tagimage_other
 -- Default modkey.
+
+function set_cursor_in_middle_of_focused_client()
+  if client.focus then
+    client.focus:raise()
+    mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
+  end
+end
+
+function record_screen()
+  awful.util.spawn_with_shell(scripts .. "/record_screen.sh")
+end
+
 modkey = "Mod4"
 alt = "Mod1"
 
@@ -189,12 +202,15 @@ autorun = true
 autorunApps =
 {
    home .. "/.config/autostart/autostart.sh",
+   --run_once("skype"),
    run_once("urxvtd", "urxvtd -o -f -q"),
-   run_once("pcmanfm", "pcmanfm -d"),
+   run_once("caffeine"),
+   run_once("parcellite"),
+   --run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
-   --run_once("pidgin"),
+   run_once("slock"),
    "systemctl --user restart hidcur",
-   run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --sw-opti --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow"),
+   run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --config ~/.config/compton.conf"),
    --"xcowsay 'Moo, brother, moo.'"
 }
 
@@ -207,27 +223,40 @@ end
 
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
 
-function check_for_terminal (command)
-  if command:sub(1,1) == ":" then
-    command = terminal .. ' -e "' .. command:sub(2) .. '"'
-  end
-  awful.util.spawn_with_shell(command)
+function uzbl_run (command)
+    if command == "" then
+        command = "uzbl-tabbed"
+    elseif command:sub(1,1) == ":" then
+        command = "uzbl-tabbed http://" .. command:sub(2)
+    else
+        local f = io.popen('echo ' .. command .. '|sed -e "s_ _+_g"')
+        local text = f:read("*all")
+        f:close()
+        command = "uzbl-tabbed https://duckduckgo.com/?q=" .. text
+    end
+    awful.util.spawn(command)
 end
 
+function check_for_terminal (command)
+   if command:sub(1,1) == ":" then
+      command = terminal .. ' -e "' .. command:sub(2) .. '"'
+   end
+   awful.util.spawn(command)
+end
 
 function clean_for_completion (command, cur_pos, ncomp, shell)
-  local term = false
-  if command:sub(1,1) == ":" then
-    term = true
-    command = command:sub(2)
-    cur_pos = cur_pos - 1
-  end
-  command, cur_pos =  awful.completion.shell(command, cur_pos,ncomp,shell)
-  if term == true then
-    command = ':' .. command
-    cur_pos = cur_pos + 1
-  end
-  return command, cur_pos
+   local term = false
+   if command:sub(1,1) == ":" then
+      term = true
+      command = command:sub(2)
+      cur_pos = cur_pos - 1
+   end
+   command, cur_pos =  awful.completion.shell(command, cur_pos,ncomp,shell)
+   if term == true then
+      command = ':' .. command
+      cur_pos = cur_pos + 1
+   end
+   return command, cur_pos
 end
 -- }}}
 
@@ -243,7 +272,7 @@ if wpaper == nil then
 end
 
 for s = 1, screen.count() do
-  gears.wallpaper.maximized(wpaper, s, false)
+  gears.wallpaper.centered(wpaper, s, false)
   --gears.wallpaper.maximized(wpaper,s,true)
 end
 -- }}}
@@ -287,8 +316,8 @@ mmyawesomemenu = {
 }
 
 myvirtualmenu = {
-  { " vboxdrv", "gksu modprobe vboxdrv" },
-  { " makakka_xp", "virtualbox --startvm makakka_xp" },
+  { "vboxdrv", "gksu modprobe vboxdrv", "/home/pchyolki/.config/awesome/icons/comicdee/driver.svg" },
+  { "makakka_xp", "virtualbox --startvm makakka_xp", "/home/pchyolki/.config/awesome/icons/comicdee/cuteball-windows.png" },
 }
 
 myworkspacemenu = {
@@ -375,23 +404,27 @@ myworkspacemenu = {
     },
 }
 mytaskmenu = awful.menu({ items = {
-                                    { "Отправить на тэг:", myworkspacemenu },
-                                    { "  На весь экран",
+                                    { "Send to tag:", myworkspacemenu },
+                                    { "  Toggle fullscreen",
                                       function ()
                                         client.focus.fullscreen = not client.focus.fullscreen
                                       end,
                                       iconsdir .. "/display.svg"
                                     },
-                                    { "  Свернуть",
+                                    { "  Toggle ontop",
+                                      function ()
+                                        client.focus.ontop = not client.focus.ontop 
+                                        set_cursor_in_middle_of_focused_client()
+                                      end,
+                                      iconsdir .. "/ontop.svg"
+                                    },
+                                    { "  Minimize",
                                       function ()
                                         client.focus.minimized = true
-                                        if client.focus then
-                                          mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/3, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
-                                        end
                                       end,
                                       iconsdir .. "/view-restore.svg"
                                     },
-                                    { "  Закрыть",
+                                    { "  Close",
                                       function()
                                         client.focus:kill()
                                       end, iconsdir .. "/media-no.svg"
@@ -400,9 +433,10 @@ mytaskmenu = awful.menu({ items = {
 })
 
 mymainmenu = awful.menu({ items = {
-                                    { "Песочница", myvirtualmenu },
-                                    { "Приложения", xdgmenu },
-                                    { "  Обои", "nitrogen", iconsdir .. "/greylink-dc.png" }
+                                    { "Sandbox", myvirtualmenu },
+                                    { "Apps", xdgmenu },
+                                    --{ "Worker", "worker" },
+                                    { " Wallpaper", "nitrogen", iconsdir .. "/greylink-dc.png" }
                                   }
 })
 
@@ -457,8 +491,12 @@ mpdicon = wibox.widget.imagebox()
 mpdicon:set_image(beautiful.arrl)
 mpdicon:buttons(awful.util.table.join(
   awful.button({ }, 1,
-    function ()
-      awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf")
+      function ()
+        local matcher =
+        function (c)
+          return awful.rules.match(c, {class = 'mpd'})
+        end
+        awful.client.run_or_raise(musicplr, matcher)
     end
   ),
   awful.button({ }, 2, function () awful.util.spawn_with_shell("urxvtc -geometry 150x40 -e vimpc") end),
@@ -505,7 +543,7 @@ function (widget, args)
     baticon:set_image(beautiful.widget_battery_empty)
     awful.util.spawn("systemctl suspend")
   elseif (batstate() == 'Discharging' and args[2] <= 10) then
-    show_smth("⚡ Внимание! ⚡", "Очень  мало энергии", iconsdir .. "/battery-red.svg", 1, nil, nil, nil, nil )
+    show_smth("⚡ Caution! ⚡", "Battery energy entered critical state!", iconsdir .. "/battery-red.svg", 1, nil, nil, nil, nil )
   elseif (args[2] <= 15) then
     baticon:set_image(beautiful.widget_battery_empty)
   elseif (args[2] <= 25) then
@@ -518,9 +556,9 @@ function (widget, args)
   end
 
   if (batstate() == 'Discharging') then
-    return '<span color="#e54c62" font="Clean 9" rise="-1000">↓ <span font="Visitor TT2 BRK 10">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
+    return '<span color="#e54c62" font="Clean 9" rise="-1000">↓ <span rise="400" font="Visitor TT2 BRK 10">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
   elseif (batstate() == 'Charging' and args[2] ~= 100) then
-    return '<span font="Clean 9" color="#7AC82E" rise="-1000">↑ <span font="Visitor TT2 BRK 10">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
+    return '<span font="Clean 9" color="#7AC82E" rise="-1000">↑ <span rise="400" font="Visitor TT2 BRK 10">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
   else
     return '<span color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="Visitor TT2 BRK 10">full<span color="#aeaeae">p' .. args[2] ..' </span></span></span>' end
 end, 3, 'BAT0')
@@ -577,7 +615,7 @@ weathericon = my_launcher_n({
 
 myweather = lain.widgets.weather({
   city_id = 625144, -- placeholder
-  lang = "ru",
+  lang = "en",
   settings =
     function()
       local descr = weather_now["weather"][1]["description"]:lower()
@@ -594,7 +632,7 @@ myweather = lain.widgets.weather({
       end
       widget:set_markup(markup(
         unitscolor,
-        "<span font='Clean 9'><span color='#9e9e9e'>" .. descr .. "</span> <span font='Visitor TT2 BRK 10'>" .. units .. "°C</span></span>"
+        "<span font='Visitor TT2 BRK 10'><span color='#9e9e9e'>" .. descr .. "</span> " .. units .. "°C</span>"
       ))
     end
 })
@@ -1022,11 +1060,10 @@ root.buttons(awful.util.table.join(
 
 globalkeys = awful.util.table.join(
   awful.key({            }, "Print", function () awful.util.spawn_with_shell(sc_r) end),
+  awful.key({ modkey }, "Print", function () awful.util.spawn_with_shell(sc_c) end),
   awful.key({ "Control", }, "Print", function () show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil ) end,
     function () awful.util.spawn_with_shell(sc_r5) end),
-  awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) end,
-      function () awful.util.spawn_with_shell(sc_a) end),
-  awful.key({ modkey,  }, "Print", function () awful.util.spawn_with_shell(sc_w) end),
+  awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) end, function () awful.util.spawn_with_shell(sc_a) end),
   awful.key({ modkey }, "Tab",
     function()
       local tag = awful.tag.selected()
@@ -1034,46 +1071,34 @@ globalkeys = awful.util.table.join(
         tag:clients()[i].minimized=false
       end
       awful.client.focus.byidx(1)
-      if client.focus then
-        client.focus:raise()
-        mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
-      end
+      set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({ alt }, "Tab",
     function()
       local tag = awful.tag.selected()
       awful.client.focus.byidx(1)
-      if client.focus then
-        client.focus:raise()
-        mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
-      end
+      set_cursor_in_middle_of_focused_client()
     end
   ),
   -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
   -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
   awful.key({ modkey,           }, "q",   awful.tag.viewprev       ),
   awful.key({ modkey,           }, "e",  awful.tag.viewnext       ),
-  awful.key({ modkey,           }, "h",   awful.tag.viewprev       ),
-  awful.key({ modkey,           }, "l",  awful.tag.viewnext       ),
+  --awful.key({ modkey,           }, "h",   awful.tag.viewprev       ),
+  --awful.key({ modkey,           }, "l",  awful.tag.viewnext       ),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
 
   awful.key({ modkey,           }, "j",
     function ()
       awful.client.focus.byidx( 1)
-      if client.focus then
-        client.focus:raise()
-        mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
-      end
+      set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({ modkey,           }, "k",
     function ()
       awful.client.focus.byidx(-1)
-      if client.focus then
-        client.focus:raise()
-        mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
-      end
+      set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -1082,34 +1107,41 @@ globalkeys = awful.util.table.join(
     function ()
       c = client.focus
       awful.client.swap.byidx(1)
-      mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2})
-    end
+      set_cursor_in_middle_of_focused_client()
+      end
   ),
   awful.key({ modkey, "Shift"   }, "k",
     function ()
       c = client.focus
       awful.client.swap.byidx( -1)
-      mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2})
+      set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
   awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
   awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
 
-  -- awful.key({  }, "F8",
-  --   function ()
-  --     mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
-  --     mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
-  --   end
-  -- ),
+
+
 
     -- Standard program
   awful.key({ }, "XF86Sleep",
     function ()
       show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil)
+  end,
+    function ()
+      awful.util.spawn_with_shell("slock")
+  end),
+    -- function ()
+    --   awful.util.spawn_with_shell("systemctl suspend")
+    -- end),
+
+  awful.key({ }, "XF86TouchpadToggle",
+    function ()
+      awful.util.spawn_with_shell(toggle_touchpad)
     end,
     function ()
-      awful.util.spawn_with_shell("systemctl suspend")
+      show_smth(nil, "Touchpad control toggled!", iconsdir .. "/important.svg", 1, nil, nil, nil, nil)
     end
   ),
   -- awful.key({            }, "XF86PowerOff",
@@ -1122,12 +1154,17 @@ globalkeys = awful.util.table.join(
   -- ),
   awful.key({      modkey      }, "v", function () scratch.drop("urxvtc -e vimpc", "center", "center", .95, .95, "true", 1) end),
   awful.key({      modkey      }, "i", function () scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1) end),
+  awful.key({      modkey, "Control"      }, "i", function () awful.util.spawn("pkill wpa_gui") end),
   awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("reboot") end),
-  awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
-  awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
+  --awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
+  --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
+  awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo worker") end),
+  
+  awful.key({ "Control", modkey        }, "l", function () awful.util.spawn("gksudo subl3") end),
   --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
   awful.key({ alt }, "F1", function () awful.util.spawn_with_shell(translate_e_r) end),
   awful.key({ modkey }, "F1", function () awful.util.spawn_with_shell(translate_r_e) end),
+  awful.key({ modkey, "Control" }, "Escape", function () awful.util.spawn_with_shell("slock") end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
 
   -- backlight control
@@ -1136,7 +1173,7 @@ globalkeys = awful.util.table.join(
   awful.key({            }, "XF86MonBrightnessDown",  function () awful.util.spawn_with_shell(bri_down) end),
 
   -- Volume control
-
+  awful.key({}, "XF86AudioMute", function () awful.util.spawn_with_shell(vol_mute) end),
   awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell(vol_up) end),
   awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell(vol_down) end),
   awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(vol_mute) end),
@@ -1145,8 +1182,8 @@ globalkeys = awful.util.table.join(
   --awful.key({ modkey,           }, beautiful.mycolor,     function () awful.tag.incmwfact(-0.05)    end),
   awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
   awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
-  awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
-  awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
+  --awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
+  --awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
   awful.key({ modkey,           }, "space", function () awful.layout.inc(1, s, layouts) end),
   awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(-1, s, layouts) end),
 
@@ -1160,6 +1197,7 @@ globalkeys = awful.util.table.join(
         return awful.rules.match(c, {class = 'URxvt'})
       end
       awful.client.run_or_raise(terminal, matcher)
+      set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -1167,12 +1205,44 @@ globalkeys = awful.util.table.join(
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'chromium'})
+        return awful.rules.match(c, {class = 'Pale moon'})
       end
       awful.client.run_or_raise(browser, matcher)
+      set_cursor_in_middle_of_focused_client()
     end
   ),
-
+  
+  awful.key({ modkey }, "s",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = 'Skype'})
+      end
+      awful.client.run_or_raise("skype", matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
+  
+  awful.key({ modkey }, "l",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = editor})
+      end
+      awful.client.run_or_raise(editor, matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
+    awful.key({ modkey }, "`",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = "Worker"})
+      end
+      awful.client.run_or_raise("worker", matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
     -- Prompt
 
   awful.key({ alt, }, "F2",
@@ -1188,8 +1258,18 @@ globalkeys = awful.util.table.join(
   ),
   awful.key({ modkey }, "F2",
     function ()
-      awful.prompt.run(
-        { prompt = ">> " },
+        awful.prompt.run(
+            {prompt="uzbl > "},
+            mypromptbox[mouse.screen].widget,
+            uzbl_run,
+            clean_for_completion,
+            awful.util.getdir("cache") .. "/history_uzbl"
+        )
+    end
+  ),
+  awful.key({ "Control" }, "F2",
+    function ()
+      awful.prompt.run({ prompt = ">> " },
         mypromptbox[mouse.screen].widget,
         awful.util.eval, nil,
         awful.util.getdir("cache") .. "/history_eval"
@@ -1289,15 +1369,15 @@ awful.rules.rules = {
     properties = { tag = tags[1][6] }
   },
   {
-    rule_any = { class = { "Sonata", "Vlc", "Samowar", "Deadbeef" } },
+    rule_any = { class = { "Kodi", "Sonata", "Vlc", "Samowar", "Deadbeef" } },
     properties = { tag = tags[1][5] }
   },
   {
-    rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
+    rule_any = { class = { "Pcmanfm", "Worker", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
     properties = { tag = tags[1][1] }
   },
   {
-    rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "sublime_text", "Evince", "DjView",  "Atom" } },
+    rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "Subl3", "Evince", "DjView",  "Atom" } },
     properties = { tag = tags[1][3] }
   },
   {
@@ -1317,7 +1397,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][8] }
   },
   {
-    rule_any = { class = { "Download", "Obshutdown", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "Pidgin", "URxvt", "Skype" }, instance = {"plugin-container"} },
+    rule_any = { class = { "File-roller", "Worker", "Download", "Obshutdown", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "Pidgin", "URxvt", "Skype" }, instance = {"plugin-container"} },
     properties = { floating = true }
   },
   {
@@ -1329,12 +1409,16 @@ awful.rules.rules = {
     properties = { border_width = 0 }
   },
   {
-    rule_any = { class = { "Nitrogen", "Obshutdown", "Polkit-gnome-authentication-agent-1", "URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin" } },
+    rule_any = { class = { "Putty", "slock", "Skype", "Nitrogen", "Obshutdown", "Polkit-gnome-authentication-agent-1", "URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin" } },
     properties = { ontop = true }
   },
   {
-    rule_any = { class = { "Obshutdown" } },
-    properties = { sticky = true, fullscreen = true }
+    rule_any = { class = { "Kodi", "Obshutdown" } },
+    properties = { fullscreen = true }
+  },
+  {
+    rule_any = { class = { "slock", "Obshutdown" } },
+    properties = { sticky = true }
   },
 
 }
@@ -1465,7 +1549,7 @@ client.connect_signal("request::activate",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#192732"
+      beautiful.bg_systray = beautiful.systray
     end
     --if not mouse_on_wibox() then
       --mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2})
@@ -1481,7 +1565,7 @@ client.connect_signal("property::geometry",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#192732"
+      beautiful.bg_systray = beautiful.systray
     end
      -- if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then
      --   c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
@@ -1500,7 +1584,7 @@ client.connect_signal("property::floating",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#192732"
+      beautiful.bg_systray = beautiful.systray
     end
      --  if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then
      --    c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
@@ -1518,7 +1602,7 @@ client.connect_signal("property::minimized",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#192732"
+      beautiful.bg_systray = beautiful.systray
     end
   end
 )
@@ -1531,7 +1615,7 @@ client.connect_signal("unmanage",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#192732"
+      beautiful.bg_systray = beautiful.systray
     end
   end
 )
@@ -1544,7 +1628,7 @@ screen.connect_signal("tag::history::update",
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
     else
-      beautiful.bg_systray = "#192732"
+      beautiful.bg_systray = beautiful.systray
     end
   end
 )
