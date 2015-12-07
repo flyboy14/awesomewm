@@ -80,10 +80,11 @@ beautiful.init(active_theme .. "/theme.lua")
 -- This is used later as the default terminal and editor to run.
 wireless_name = ""
 myinterface = ""
+inet_on = false
 wpaper = beautiful.wallpaper
 font_main = "Fixed 13"
 terminal = "urxvtc -T Terminal"
-browser = "palemoon"
+browser = "chromium-continuous-bin"
 editor = "subl3"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
@@ -197,29 +198,20 @@ function run_when_once(why, why2, what)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " && pgrep -u $USER -x " .. why2 .. " || (" .. what .. ")")
 end
 
-
-autorun = true
-autorunApps =
-{
-   home .. "/.config/autostart/autostart.sh",
-   --run_once("skype"),
-   run_once("urxvtd", "urxvtd -o -f -q"),
-   run_once("caffeine"),
-   run_once("parcellite"),
-   --run_once("pcmanfm", "pcmanfm -d"),
-   run_once("kbdd"),
-   run_once("slock"),
-   "systemctl --user restart hidcur",
-   run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --config ~/.config/compton.conf"),
-   --"xcowsay 'Moo, brother, moo.'"
-}
-
-
-if autorun then
-   for app = 1, #autorunApps do
-      awful.util.spawn_with_shell(autorunApps[app], false)
-   end
-end
+  awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
+  run_once("kbdd", "slock") -- only if kbdd wont start e.g. first launch after login
+  run_once("urxvtd", "urxvtd -o -f -q")
+  run_once("caffeine")
+  run_once("parcellite")
+  if inet_on then
+    run_once("skype")
+  end
+  run_once("kbdd")
+  --run_once("slock"),
+  awful.util.spawn_with_shell("systemctl --user restart hidcur")
+  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --config ~/.config/compton.conf")
+  --"xcowsay 'Moo, brother, moo.'"
+-- }}}
 
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
 
@@ -272,8 +264,8 @@ if wpaper == nil then
 end
 
 for s = 1, screen.count() do
-  gears.wallpaper.centered(wpaper, s, false)
-  --gears.wallpaper.maximized(wpaper,s,true)
+  --gears.wallpaper.centered(wpaper, s, false)
+  gears.wallpaper.maximized(wpaper,s,false)
 end
 -- }}}
 
@@ -312,7 +304,7 @@ end
 mmyawesomemenu = {
     { " edit", editor .. " " .. awesome.conffile, iconsdir .. "/clipboard.svg" },
     { " restart", awesome.restart, iconsdir .. "/media-circling-arrow.svg" },
-    { " quit", "pkill --signal SIGKILL awesome", iconsdir .. "/media-no.svg" }
+    { " quit", "pkill -9 awesome", iconsdir .. "/media-no.svg" }
 }
 
 myvirtualmenu = {
@@ -405,18 +397,18 @@ myworkspacemenu = {
 }
 mytaskmenu = awful.menu({ items = {
                                     { "Send to tag:", myworkspacemenu },
+                                    { "  Toggle ontop",
+                                      function ()
+                                        client.focus.ontop = not client.focus.ontop 
+                                        --set_cursor_in_middle_of_focused_client()
+                                      end,
+                                      iconsdir .. "/ontop.svg"
+                                    },
                                     { "  Toggle fullscreen",
                                       function ()
                                         client.focus.fullscreen = not client.focus.fullscreen
                                       end,
                                       iconsdir .. "/display.svg"
-                                    },
-                                    { "  Toggle ontop",
-                                      function ()
-                                        client.focus.ontop = not client.focus.ontop 
-                                        set_cursor_in_middle_of_focused_client()
-                                      end,
-                                      iconsdir .. "/ontop.svg"
                                     },
                                     { "  Minimize",
                                       function ()
@@ -500,7 +492,7 @@ mpdicon:buttons(awful.util.table.join(
     end
   ),
   awful.button({ }, 2, function () awful.util.spawn_with_shell("urxvtc -geometry 150x40 -e vimpc") end),
-  awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill mpd") end),
+  awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill -9 mpd") end),
   awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5") end),
   awful.button({ }, 5, function () awful.util.spawn_with_shell("mpc volume -5") end)
 ))
@@ -608,10 +600,7 @@ vicious.register(
 
 -- Weather widget
 
-weathericon = my_launcher_n({
-  image = beautiful.widget_weather,
-  command = awesome.restart
-})
+
 
 myweather = lain.widgets.weather({
   city_id = 625144, -- placeholder
@@ -637,6 +626,10 @@ myweather = lain.widgets.weather({
     end
 })
 
+weathericon = my_launcher_n({
+  image = beautiful.widget_weather,
+  command = myweather.update
+})
 
 --Volume widget
 
@@ -691,7 +684,7 @@ netwidget:buttons(awful.util.table.join(
 
   awful.button({ }, 3,
     function ()
-      awful.util.spawn_with_shell("pkill wpa_gui")
+      awful.util.spawn_with_shell("pkill -9 wpa_gui")
     end
   )
 ))
@@ -706,7 +699,7 @@ netdowninfo:buttons(awful.util.table.join(
   ),
   awful.button({ }, 3,
     function ()
-      awful.util.spawn_with_shell("pkill wpa_gui")
+      awful.util.spawn_with_shell("pkill -9 wpa_gui")
     end
   )
 ))
@@ -716,8 +709,6 @@ netupinfo = lain.widgets.net({
   function()
     myinterface = iface
     -- if iface ~= "network off" and string.match(myweather._layout.text, "N/A") then
-    --   myweather.update()
-    --   netwidget.update()
     -- end
 
     widget:set_markup(markup("#7ac82e", "<span font='Visitor TT2 BRK 10'>" .. net_now.received .. " </span>"))
@@ -733,7 +724,7 @@ netupinfo:buttons(awful.util.table.join(
   ),
   awful.button({ }, 3,
     function ()
-      awful.util.spawn_with_shell("pkill wpa_gui")
+      awful.util.spawn_with_shell("pkill -9 wpa_gui")
     end
   )
 ))
@@ -745,6 +736,7 @@ vicious.register(
     link = args['{link}']
     if myinterface:find("enp") then  -- wired interfaces
       neticon:set_image(beautiful.widget_net_wired)
+      inet_on = true
     elseif myinterface:find("wl") then
       -- naughty.notify({text = link})
       -- if link > 65 then
@@ -754,10 +746,14 @@ vicious.register(
       -- elseif link > 0 and link <= 30 then
       --   neticon:set_image(beautiful.widget_net_low)
       -- end
+      inet_on = true
     else
         neticon:set_image(beautiful.widget_net_no)
+        inet_on = false
     end
     wireless_name = args['{ssid}']
+    myweather.forecast_update()
+    myweather.update()
     return '<span font="Clean 8" color="#aeaeae">' .. wireless_name .. '</span>'
   end,
   2,
@@ -816,7 +812,7 @@ arrows:buttons(awful.util.table.join(
   ),
   awful.button({ }, 3,
     function ()
-      awful.util.spawn_with_shell("pkill wpa_gui")
+      awful.util.spawn_with_shell("pkill -9 wpa_gui")
     end
   )
 ))
@@ -1014,6 +1010,7 @@ for s = 1, screen.count() do
   right_w:add(spr)
   right_w:add(bral)
   if s == 1 then right_w:add(wibox.widget.systray()) end
+  beautiful.bg_systray = beautiful.systray
   --right_w:add(brar)
   right_w:add(sepr)
   right_w:add(spr)
@@ -1144,23 +1141,21 @@ globalkeys = awful.util.table.join(
       show_smth(nil, "Touchpad control toggled!", iconsdir .. "/important.svg", 1, nil, nil, nil, nil)
     end
   ),
-  -- awful.key({            }, "XF86PowerOff",
-  --   function ()
-  --     for i = 1, #awful.tag.selected():clients() do
-  --       awful.tag.selected():clients()[i].ontop = false
-  --     end
-  --     awful.util.spawn_with_shell("obshutdown")
-  --   end
-  -- ),
+  awful.key({            }, "XF86PowerOff",
+    function ()
+      for i = 1, #awful.tag.selected():clients() do
+        awful.tag.selected():clients()[i].ontop = false
+      end
+      awful.util.spawn_with_shell("oblogout")
+    end
+  ),
   awful.key({      modkey      }, "v", function () scratch.drop("urxvtc -e vimpc", "center", "center", .95, .95, "true", 1) end),
   awful.key({      modkey      }, "i", function () scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1) end),
-  awful.key({      modkey, "Control"      }, "i", function () awful.util.spawn("pkill wpa_gui") end),
-  awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("reboot") end),
+  awful.key({      modkey, "Control"      }, "i", function () awful.util.spawn("pkill -9 wpa_gui") end),
+  awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("oblogout") end),
   --awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
   --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
   awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo worker") end),
-  
-  awful.key({ "Control", modkey        }, "l", function () awful.util.spawn("gksudo subl3") end),
   --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
   awful.key({ alt }, "F1", function () awful.util.spawn_with_shell(translate_e_r) end),
   awful.key({ modkey }, "F1", function () awful.util.spawn_with_shell(translate_r_e) end),
@@ -1205,7 +1200,7 @@ globalkeys = awful.util.table.join(
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'Pale moon'})
+        return awful.rules.match(c, {class = '/usr/bin/chromium-continuous-bin'})
       end
       awful.client.run_or_raise(browser, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -1227,7 +1222,7 @@ globalkeys = awful.util.table.join(
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = editor})
+        return awful.rules.match(c, {class = 'Subl3'})
       end
       awful.client.run_or_raise(editor, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -1287,6 +1282,7 @@ clientkeys = awful.util.table.join(
   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
   awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
   awful.key({ alt,              }, "Escape", function (c) c.minimized = true end),
+  awful.key({ alt,              }, "z", function (c) c.minimized = true end),
   awful.key({ modkey,           }, "Escape", function (c) c.minimized = true end)
 )
 
@@ -1377,7 +1373,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][1] }
   },
   {
-    rule_any = { class = { "Pdfeditor", "Libre", "libreoffice-writer", "Subl3", "Evince", "DjView",  "Atom" } },
+    rule_any = { class = { "Pdfeditor", "Wps", "Wpp", "Et", "Libre", "libreoffice-writer", "Subl3", "Evince", "DjView",  "Atom" } },
     properties = { tag = tags[1][3] }
   },
   {
@@ -1397,7 +1393,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][8] }
   },
   {
-    rule_any = { class = { "File-roller", "Worker", "Download", "Obshutdown", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "Pidgin", "URxvt", "Skype" }, instance = {"plugin-container"} },
+    rule_any = { class = { "File-roller", "Worker", "Download", "Oblogout", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "Pidgin", "URxvt", "Skype" }, instance = {"plugin-container"} },
     properties = { floating = true }
   },
   {
@@ -1405,19 +1401,19 @@ awful.rules.rules = {
     properties = { switchtotag = false }
   },
   {
-    rule_any = { class = { "Obshutdown", "Covergloobus", "dota_linux" } },
+    rule_any = { class = { "Oblogout", "Covergloobus", "dota_linux" } },
     properties = { border_width = 0 }
   },
   {
-    rule_any = { class = { "Putty", "slock", "Skype", "Nitrogen", "Obshutdown", "Polkit-gnome-authentication-agent-1", "URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin" } },
+    rule_any = { class = { "Oblogout", "Putty", "slock", "Skype", "Nitrogen", "Polkit-gnome-authentication-agent-1", "URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin" } },
     properties = { ontop = true }
   },
   {
-    rule_any = { class = { "Kodi", "Obshutdown" } },
+    rule_any = { class = { "Kodi", "Oblogout" } },
     properties = { fullscreen = true }
   },
   {
-    rule_any = { class = { "slock", "Obshutdown" } },
+    rule_any = { class = { "slock", "Oblogout" } },
     properties = { sticky = true }
   },
 

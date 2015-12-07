@@ -4,14 +4,12 @@
      {"Genius Math Tool", "gnome-genius ", "/usr/share/icons/hicolor/16x16/apps/gnome-genius.png" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
      {"SpiderOakONE", "SpiderOakONE", "/usr/share/pixmaps/SpiderOakONE.png" },
-     {"Sublime Text", "subl ", "/usr/share/icons/hicolor/16x16/apps/sublime-text.png" },
      {"Worker", "worker", "/usr/share/pixmaps/WorkerIcon48.xpm" },
      {"compton", "compton", "/usr/share/icons/hicolor/48x48/apps/compton.png" },
  }
 
  local menude7a22a0c94aa64ba2449e520aa20c99 = {
      {"Genius Math Tool", "gnome-genius ", "/usr/share/icons/hicolor/16x16/apps/gnome-genius.png" },
-     {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
  }
 
  local menu251bd8143891238ecedc306508e29017 = {
@@ -19,9 +17,10 @@
  }
 
  local menud334dfcea59127bedfcdbe0a3ee7f494 = {
+     {"Color picker", "gcolor3"},
+     {"Document Viewer", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
      {"Image Viewer", "eog ", "/usr/share/icons/hicolor/16x16/apps/eog.png" },
      {"Inkscape", "inkscape ", "/usr/share/icons/hicolor/16x16/apps/inkscape.png" },
-     {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
      {"mtPaint", "mtpaint ", "/usr/share/pixmaps/mtpaint.png" },
  }
 
@@ -39,6 +38,7 @@
      {"SpiderOakONE", "SpiderOakONE", "/usr/share/pixmaps/SpiderOakONE.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
      {"TeamSpeak 3", "teamspeak3"},
+     {"Tor-Browser (ru)", "/usr/bin/tor-browser-ru", "///usr/share/pixmaps/tor-browser-ru.png" },
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
      {"Unified Remote", "xdg-open http://localhost:9510/web", "/usr/share/icons/hicolor/48x48/apps/urserver.png" },
      {"VMware Horizon Client", "vmware-view", "///usr/share/pixmap/vmware-view.png" },
@@ -47,27 +47,31 @@
  }
 
  local menudf814135652a5a308fea15bff37ea284 = {
-     {"LibreOffice", "libreoffice ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-startcenter.png" },
-     {"LibreOffice Base", "libreoffice --base ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-base.png" },
-     {"LibreOffice Calc", "libreoffice --calc ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-calc.png" },
-     {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
-     {"LibreOffice Impress", "libreoffice --impress ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-impress.png" },
-     {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
-     {"LibreOffice Writer", "libreoffice --writer ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-writer.png" },
+     {"Document Viewer", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
+     {"WPS Presentation", "/usr/bin/wpp ", "/usr/share/icons/hicolor/48x48/apps/wps-office-wppmain.png" },
+     {"WPS Spreadsheets", "/usr/bin/et ", "/usr/share/icons/hicolor/48x48/apps/wps-office-etmain.png" },
+     {"WPS Writer", "/usr/bin/wps ", "/usr/share/icons/hicolor/48x48/apps/wps-office-wpsmain.png" },
  }
 
  local menue6f43c40ab1c07cd29e4e83e4ef6bf85 = {
      {"CMake", "cmake-gui ", "/usr/share/icons/hicolor/32x32/apps/CMakeSetup.png" },
+     {"OpenJDK 1.7.0 Monitoring & Management Console", "_BINDIR_/jconsole"},
      {"OpenJDK 1.7.0 Policy Tool", "_BINDIR_/policytool"},
+     {"Qt Assistant", "/usr/lib/qt/bin/assistant", "/usr/share/icons/hicolor/32x32/apps/assistant.png" },
+     {"Qt Designer", "/usr/lib/qt/bin/designer", "/usr/share/icons/hicolor/128x128/apps/QtProject-designer.png" },
+     {"Qt Linguist", "/usr/lib/qt/bin/linguist", "/usr/share/icons/hicolor/16x16/apps/linguist.png" },
+     {"Qt QDbusViewer ", "/usr/lib/qt/bin/qdbusviewer", "/usr/share/icons/hicolor/32x32/apps/qdbusviewer.png" },
      {"Qt4 Assistant ", "assistant-qt4", "/usr/share/icons/hicolor/32x32/apps/assistant-qt4.png" },
      {"Qt4 Designer", "designer-qt4", "/usr/share/icons/hicolor/128x128/apps/designer-qt4.png" },
      {"Qt4 Linguist ", "linguist-qt4", "/usr/share/icons/hicolor/16x16/apps/linguist-qt4.png" },
      {"Qt4 QDbusViewer ", "qdbusviewer-qt4", "/usr/share/icons/hicolor/32x32/apps/qdbusviewer-qt4.png" },
+     {"Sublime Text 3 Dev", "subl3 "},
  }
 
  local menu52dd1c847264a75f400961bfb4d1c849 = {
      {"Audacity", "env UBUNTU_MENUPROXY=0 audacity ", "/usr/share/icons/hicolor/16x16/apps/audacity.png" },
      {"Kodi Media Center", "kodi", "/usr/share/icons/hicolor/16x16/apps/kodi.png" },
+     {"OpenShot Video Editor", "openshot ", "/usr/share/pixmaps/openshot.svg" },
      {"PulseAudio Volume Control", "pavucontrol", "/usr/share/icons/gnome/16x16/apps/multimedia-volume-control.png" },
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
@@ -81,8 +85,8 @@
      {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
      {"Shredder Duplicate Finder", "rmlint --gui"},
-     {"UNetbootin", "/usr/bin/unetbootin_polkit", "/usr/share/icons/hicolor/16x16/apps/unetbootin.png" },
      {"VMware Horizon Client", "vmware-view", "///usr/share/pixmap/vmware-view.png" },
+     {"Virtual Machine Manager", "virt-manager", "/usr/share/icons/hicolor/16x16/apps/virt-manager.png" },
      {"urxvt", "urxvt", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"urxvt (client)", "urxvtc", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },
      {"urxvt (tabbed)", "urxvt-tabbed", "/usr/share/icons/gnome/16x16/apps/utilities-terminal.png" },

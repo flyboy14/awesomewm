@@ -33,10 +33,11 @@ elseif awful.util.file_readable(wallpaper3) then
   theme.wallpaper = wallpaper3
 else
   theme.wallpaper = wallpaper4
+ 
 end
 --}}}
 theme.mycolor						= "#383C4A"
-theme.systray                       = "#1D1F1E"
+theme.systray                       = "#592D42"
 theme.font                          = "Fixed 8"--"Fixed 8"
 theme.taglist_font                  = "Visitor TT2 BRK 10"--"envypn 9"
 theme.fg_normal                     = "#9e9e9e"
