@@ -995,7 +995,6 @@ for s = 1, screen.count() do
   right_layout:add(weathericon)
   right_layout:add(myweather)
   right_layout:add(spr)
-  --right_layout:add(weatherwidget)
   right_layout:add(spr)
   right_layout:add(baticon)
   right_layout:add(batwidget)
