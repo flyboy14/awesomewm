@@ -104,6 +104,7 @@ translate_r_e = scripts .. "/translate.sh ru en"
 tagimage_current = iconsdir .. "/media-record-green.svg"
 tagimage_other = iconsdir .. "/media-record.svg"
 tagico = tagimage_other
+
 -- Default modkey.
 
 function set_cursor_in_middle_of_focused_client()
@@ -197,21 +198,6 @@ end
 function run_when_once(why, why2, what)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " && pgrep -u $USER -x " .. why2 .. " || (" .. what .. ")")
 end
-
-  awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
-  run_once("kbdd", "slock") -- only if kbdd wont start e.g. first launch after login
-  run_once("urxvtd", "urxvtd -o -f -q")
-  run_once("caffeine")
-  run_once("parcellite")
-  if inet_on then
-    run_once("skype")
-  end
-  run_once("kbdd")
-  --run_once("slock"),
-  awful.util.spawn_with_shell("systemctl --user restart hidcur")
-  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --config ~/.config/compton.conf")
-  --"xcowsay 'Moo, brother, moo.'"
--- }}}
 
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
 
@@ -708,9 +694,6 @@ netupinfo = lain.widgets.net({
   settings =
   function()
     myinterface = iface
-    -- if iface ~= "network off" and string.match(myweather._layout.text, "N/A") then
-    -- end
-
     widget:set_markup(markup("#7ac82e", "<span font='Visitor TT2 BRK 10'>" .. net_now.received .. " </span>"))
     netdowninfo:set_markup(markup("#46A8C3", "<span font='Visitor TT2 BRK 10'>" .. net_now.sent .. " </span>"))
   end
@@ -862,6 +845,21 @@ mytextclock = awful.widget.textclock("<span font='Visitor TT2 BRK 10' color='#ae
 -- Calendar
 lain.widgets.calendar:attach(mytextclock, { font_size = 9 })
 lain.widgets.calendar:attach(clockicon, { font_size = 9 })
+
+--- {{{ Autorun apps
+  awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
+  run_once("kbdd", "slock") -- run slock only if kbdd wont start e.g. first launch after login
+  run_once("urxvtd", "urxvtd -o -f -q")
+  run_once("caffeine")
+  run_once("parcellite")
+  if inet_on then
+    run_once("skype")
+  end
+  run_once("kbdd")
+  awful.util.spawn_with_shell("systemctl --user restart hidcur")
+  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --config ~/.config/compton.conf")
+  --"xcowsay 'Moo, brother, moo.'"
+-- }}}
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -1628,6 +1626,12 @@ screen.connect_signal("tag::history::update",
   end
 )
 
+-- function read_wallpaper_color()
+--   local f = io.popen(scripts .. "/getcolor2.py 1310 767")
+--   beautiful.systray = f:read()
+--   f:close()
+--   naughty.notify({text=beautiful.systray})
+-- end
 --mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
 --mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
 

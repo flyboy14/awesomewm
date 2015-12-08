@@ -37,7 +37,7 @@ else
 end
 --}}}
 theme.mycolor						= "#383C4A"
-theme.systray                       = "#592D42"
+theme.systray                       = "#101215"
 theme.font                          = "Fixed 8"--"Fixed 8"
 theme.taglist_font                  = "Visitor TT2 BRK 10"--"envypn 9"
 theme.fg_normal                     = "#9e9e9e"
