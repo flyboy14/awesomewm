@@ -83,8 +83,8 @@ myinterface = ""
 inet_on = false
 wpaper = beautiful.wallpaper
 font_main = "Fixed 13"
-terminal = "urxvtc -T Terminal"
-browser = "chromium-continuous-bin"
+terminal = "terminology"
+browser = "firefox-gtk3"
 editor = "subl3"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
@@ -477,7 +477,7 @@ mpdicon:buttons(awful.util.table.join(
         awful.client.run_or_raise(musicplr, matcher)
     end
   ),
-  awful.button({ }, 2, function () awful.util.spawn_with_shell("urxvtc -geometry 150x40 -e vimpc") end),
+  awful.button({ }, 2, function () awful.util.spawn_with_shell("terminology -e vimpc") end),
   awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill -9 mpd") end),
   awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5") end),
   awful.button({ }, 5, function () awful.util.spawn_with_shell("mpc volume -5") end)
@@ -847,17 +847,17 @@ lain.widgets.calendar:attach(mytextclock, { font_size = 9 })
 lain.widgets.calendar:attach(clockicon, { font_size = 9 })
 
 --- {{{ Autorun apps
-  awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
+  --awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
   run_once("kbdd", "slock") -- run slock only if kbdd wont start e.g. first launch after login
-  run_once("urxvtd", "urxvtd -o -f -q")
+  --run_once("urxvtd", "urxvtd -o -f -q")
   run_once("caffeine")
   run_once("parcellite")
   if inet_on then
     run_once("skype")
   end
   run_once("kbdd")
-  awful.util.spawn_with_shell("systemctl --user restart hidcur")
-  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --config ~/.config/compton.conf")
+  --awful.util.spawn_with_shell("systemctl --user restart hidcur")
+  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow") ----config ~/.config/compton.conf")
   --"xcowsay 'Moo, brother, moo.'"
 -- }}}
 
@@ -1146,7 +1146,7 @@ globalkeys = awful.util.table.join(
       awful.util.spawn_with_shell("oblogout")
     end
   ),
-  awful.key({      modkey      }, "v", function () scratch.drop("urxvtc -e vimpc", "center", "center", .95, .95, "true", 1) end),
+  awful.key({      modkey      }, "v", function () scratch.drop("terminology -e vimpc", "center", "center", .95, .95, "true", 1) end),
   awful.key({      modkey      }, "i", function () scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1) end),
   awful.key({      modkey, "Control"      }, "i", function () awful.util.spawn("pkill -9 wpa_gui") end),
   awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("oblogout") end),
@@ -1169,7 +1169,7 @@ globalkeys = awful.util.table.join(
   awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn_with_shell(vol_up) end),
   awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell(vol_down) end),
   awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(vol_mute) end),
-  awful.key({ modkey }, "Control","m", function () awful.util.spawn_with_shell(vol_mute) end),
+  --awful.key({ modkey }, "Control","m", function () awful.util.spawn_with_shell(vol_mute) end),
   --awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
   --awful.key({ modkey,           }, beautiful.mycolor,     function () awful.tag.incmwfact(-0.05)    end),
   awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
@@ -1186,7 +1186,7 @@ globalkeys = awful.util.table.join(
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'URxvt'})
+        return awful.rules.match(c, {class = 'terminology'})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -1197,7 +1197,7 @@ globalkeys = awful.util.table.join(
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = '/usr/bin/chromium-continuous-bin'})
+        return awful.rules.match(c, {class = 'Firefox'})
       end
       awful.client.run_or_raise(browser, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -1390,7 +1390,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][8] }
   },
   {
-    rule_any = { class = { "File-roller", "Worker", "Download", "Oblogout", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "Pidgin", "URxvt", "Skype" }, instance = {"plugin-container"} },
+    rule_any = { class = { "File-roller", "Worker", "Download", "Oblogout", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "Pidgin", "terminology", "URxvt", "Skype" }, instance = {"plugin-container"} },
     properties = { floating = true }
   },
   {
@@ -1402,7 +1402,7 @@ awful.rules.rules = {
     properties = { border_width = 0 }
   },
   {
-    rule_any = { class = { "Oblogout", "Putty", "slock", "Skype", "Nitrogen", "Polkit-gnome-authentication-agent-1", "URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin" } },
+    rule_any = { class = { "Oblogout", "Putty", "slock", "Skype", "Nitrogen", "Polkit-gnome-authentication-agent-1", "terminology","URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin" } },
     properties = { ontop = true }
   },
   {
