@@ -121,6 +121,12 @@ end
 modkey = "Mod4"
 alt = "Mod1"
 
+function color_systray()
+  local f = io.popen(scripts .. "/getcolor2.py 1310 760")
+  beautiful.systray = f:read("*all")
+  f:close()
+end
+
 function mouse_on_wibox()
   if mouse.object_under_pointer() == client.focus then
     return false
@@ -477,7 +483,7 @@ mpdicon:buttons(awful.util.table.join(
         awful.client.run_or_raise(musicplr, matcher)
     end
   ),
-  awful.button({ }, 2, function () awful.util.spawn_with_shell("terminology -e vimpc") end),
+  awful.button({ }, 2, function () awful.util.spawn_with_shell("sonata") end),
   awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill -9 mpd") end),
   awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5") end),
   awful.button({ }, 5, function () awful.util.spawn_with_shell("mpc volume -5") end)
@@ -591,6 +597,7 @@ vicious.register(
 myweather = lain.widgets.weather({
   city_id = 625144, -- placeholder
   lang = "en",
+  appid = "1830df4055002d2fac6351616ee174d9",
   settings =
     function()
       local descr = weather_now["weather"][1]["description"]:lower()
@@ -761,6 +768,7 @@ face:buttons(awful.util.table.join(
       local quote = f:read("*all")
       f:close()
       show_smth("Wisdom spider", quote, nil, 0, nil, nil, "Clean 9", "bottom_right")
+      color_systray()
     end
   )
 ))
@@ -847,7 +855,7 @@ lain.widgets.calendar:attach(mytextclock, { font_size = 9 })
 lain.widgets.calendar:attach(clockicon, { font_size = 9 })
 
 --- {{{ Autorun apps
-  --awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
+  awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
   run_once("kbdd", "slock") -- run slock only if kbdd wont start e.g. first launch after login
   --run_once("urxvtd", "urxvtd -o -f -q")
   run_once("caffeine")
@@ -856,8 +864,8 @@ lain.widgets.calendar:attach(clockicon, { font_size = 9 })
     run_once("skype")
   end
   run_once("kbdd")
-  --awful.util.spawn_with_shell("systemctl --user restart hidcur")
-  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow") ----config ~/.config/compton.conf")
+  awful.util.spawn_with_shell("systemctl --user restart hidcur")
+  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --mark-ovredir-focused --config ~/.config/compton.conf")
   --"xcowsay 'Moo, brother, moo.'"
 -- }}}
 
@@ -1082,6 +1090,7 @@ globalkeys = awful.util.table.join(
   --awful.key({ modkey,           }, "h",   awful.tag.viewprev       ),
   --awful.key({ modkey,           }, "l",  awful.tag.viewnext       ),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
+  awful.key({ "Control",           }, "F8",  function() mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible end       ),
 
   awful.key({ modkey,           }, "j",
     function ()
@@ -1146,7 +1155,7 @@ globalkeys = awful.util.table.join(
       awful.util.spawn_with_shell("oblogout")
     end
   ),
-  awful.key({      modkey      }, "v", function () scratch.drop("terminology -e vimpc", "center", "center", .95, .95, "true", 1) end),
+  awful.key({      modkey      }, "v", function() awful.util.spawn("sonata") end),
   awful.key({      modkey      }, "i", function () scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1) end),
   awful.key({      modkey, "Control"      }, "i", function () awful.util.spawn("pkill -9 wpa_gui") end),
   awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("oblogout") end),
@@ -1183,6 +1192,17 @@ globalkeys = awful.util.table.join(
 --run or raise clients
 
   awful.key({ modkey, }, "Return",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = 'terminology'})
+      end
+      awful.client.run_or_raise(terminal, matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
+
+  awful.key({ modkey, }, "KP_Enter",
     function ()
       local matcher =
       function (c)
@@ -1520,7 +1540,16 @@ client.connect_signal("manage",
 
 client.connect_signal("focus",
   function(c)
-    --c:raise()
+    local tag = awful.tag.selected()
+    local ok = 0
+    for i = 1, #tag:clients() do
+      if awful.layout.get(c.screen) == awful.layout.suit.floating or awful.client.property.get(tag:clients()[i], "floating") or awful.client.property.get(tag:clients()[i], "minimized") then
+        ok = 1
+      end
+    end
+    if ok then 
+      c:raise()
+    end
     -- if wibox_color() == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then
     --   c.border_color = beautiful.border_normal  -- for only unminimized non-floating client on tag
     -- else
@@ -1632,8 +1661,8 @@ screen.connect_signal("tag::history::update",
 --   f:close()
 --   naughty.notify({text=beautiful.systray})
 -- end
---mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
---mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
+-- mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
+-- mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
 
 -- local oldspawn = awful.util.spawn
 -- awful.util.spawn = function (s)
