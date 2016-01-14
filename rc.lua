@@ -667,36 +667,10 @@ vicious.register(
 -- Net widget
 
 netwidget = wibox.widget.textbox()
-neticon = my_launcher({ image = beautiful.widget_net_no, command = "systemctl restart systemd-networkd wpa_supplicant@wlp3s0" })
-netwidget:buttons(awful.util.table.join(
-  awful.button({ }, 1,
-    function ()
-      scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
-    end
-  ),
-
-  awful.button({ }, 3,
-    function ()
-      awful.util.spawn_with_shell("pkill -9 wpa_gui")
-    end
-  )
-))
+neticon = my_launcher({ image = beautiful.widget_net_no, command = "systemctl restart NetworkManager" })
 
 
 netdowninfo = wibox.widget.textbox()
-netdowninfo:buttons(awful.util.table.join(
-  awful.button({ }, 1,
-    function ()
-      scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
-    end
-  ),
-  awful.button({ }, 3,
-    function ()
-      awful.util.spawn_with_shell("pkill -9 wpa_gui")
-    end
-  )
-))
-
 netupinfo = lain.widgets.net({
   settings =
   function()
@@ -705,19 +679,6 @@ netupinfo = lain.widgets.net({
     netdowninfo:set_markup(markup("#46A8C3", "<span font='Visitor TT2 BRK 10'>" .. net_now.sent .. " </span>"))
   end
 })
-
-netupinfo:buttons(awful.util.table.join(
-  awful.button({ }, 1,
-    function ()
-      scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
-    end
-  ),
-  awful.button({ }, 3,
-    function ()
-      awful.util.spawn_with_shell("pkill -9 wpa_gui")
-    end
-  )
-))
 
 vicious.register(
   netwidget,
@@ -744,7 +705,7 @@ vicious.register(
     wireless_name = args['{ssid}']
     myweather.forecast_update()
     myweather.update()
-    return '<span font="Clean 8" color="#aeaeae">' .. wireless_name .. '</span>'
+    return '<span font="Clean 8" color="#aeaeae"> ' .. wireless_name .. '</span>'
   end,
   2,
   myinterface
@@ -795,20 +756,6 @@ brar = wibox.widget.textbox('<span color="#aeaeae">> </span>')
 spr = wibox.widget.textbox(' ')
 arrows = wibox.widget.textbox('<span font="Clean 9" color="#aeaeae">' .. '↓↑ ' .. '</span>')
 
-arrows:buttons(awful.util.table.join(
-  awful.button({ }, 1,
-    function ()
-      scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
-    end
-  ),
-  awful.button({ }, 3,
-    function ()
-      awful.util.spawn_with_shell("pkill -9 wpa_gui")
-    end
-  )
-))
-
-
 sepl = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> tasks ></span>')
 sepr = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> > systray </span>')
 arrl = wibox.widget.imagebox()
@@ -857,7 +804,7 @@ lain.widgets.calendar:attach(clockicon, { font_size = 9 })
 --- {{{ Autorun apps
   awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
   run_once("kbdd", "slock") -- run slock only if kbdd wont start e.g. first launch after login
-  --run_once("urxvtd", "urxvtd -o -f -q")
+  run_once("nm-applet")
   run_once("caffeine")
   run_once("parcellite")
   if inet_on then
@@ -1015,8 +962,7 @@ for s = 1, screen.count() do
   right_w:add(spr)
   right_w:add(bral)
   if s == 1 then right_w:add(wibox.widget.systray()) end
-  beautiful.bg_systray = beautiful.systray
-  --right_w:add(brar)
+    --right_w:add(brar)
   right_w:add(sepr)
   right_w:add(spr)
   -- Now bring it all together (with the tasklist in the middle)
@@ -1033,7 +979,6 @@ for s = 1, screen.count() do
   mywibox_w[s]:set_widget(layout_w)
 end
 -- }}}
-
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
   awful.button({ }, 1,
@@ -1156,8 +1101,6 @@ globalkeys = awful.util.table.join(
     end
   ),
   awful.key({      modkey      }, "v", function() awful.util.spawn("sonata") end),
-  awful.key({      modkey      }, "i", function () scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1) end),
-  awful.key({      modkey, "Control"      }, "i", function () awful.util.spawn("pkill -9 wpa_gui") end),
   awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("oblogout") end),
   --awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
   --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
