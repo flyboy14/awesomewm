@@ -123,7 +123,7 @@ alt = "Mod1"
 
 function color_systray()
   local f = io.popen(scripts .. "/getcolor2.py 1310 760")
-  beautiful.systray = f:read("*all")
+  beautiful.systray = f:read()
   f:close()
 end
 
@@ -283,7 +283,7 @@ local layouts =
 theme.taglist_font = font_main
 tags = {
     names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
-    layout = { layouts[2], layouts[1], layouts[2], layouts[4], layouts[5], layouts[1], layouts[1], layouts[1] }
+    layout = { layouts[2], layouts[2], layouts[2], layouts[4], layouts[5], layouts[1], layouts[1], layouts[1] }
 }
 
 for s = 1, screen.count() do
@@ -1300,6 +1300,7 @@ clientkeys = awful.util.table.join(
   awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
   awful.key({ alt,              }, "Escape", function (c) c.minimized = true end),
   awful.key({ alt,              }, "z", function (c) c.minimized = true end),
+  awful.key({ modkey,              }, "z", function (c) c.minimized = true end),
   awful.key({ modkey,           }, "Escape", function (c) c.minimized = true end)
 )
 
@@ -1543,11 +1544,11 @@ client.connect_signal("focus",
     local tag = awful.tag.selected()
     local ok = 0
     for i = 1, #tag:clients() do
-      if awful.layout.get(c.screen) == awful.layout.suit.floating or awful.client.property.get(tag:clients()[i], "floating") or awful.client.property.get(tag:clients()[i], "minimized") then
+      if (awful.layout.get(c.screen) == awful.layout.suit.floating or awful.client.property.get(tag:clients()[i], "floating")) and tag:clients()[i].minimized == false then
         ok = 1
       end
     end
-    if ok then 
+    if ok == 0 then 
       c:raise()
     end
     -- if wibox_color() == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then
