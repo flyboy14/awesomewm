@@ -803,12 +803,13 @@ lain.widgets.calendar:attach(clockicon, { font_size = 9 })
 
 --- {{{ Autorun apps
   awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
-  run_once("kbdd", "slock") -- run slock only if kbdd wont start e.g. first launch after login
+  run_once("kbdd", "slock") -- run slock only if kbdd didn't start e.g. first launch after login
   run_once("nm-applet")
   run_once("caffeine")
   run_once("parcellite")
   if inet_on then
     run_once("skype")
+    run_once("dropbox")
   end
   run_once("kbdd")
   awful.util.spawn_with_shell("systemctl --user restart hidcur")
