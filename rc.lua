@@ -122,7 +122,7 @@ modkey = "Mod4"
 alt = "Mod1"
 
 function color_systray()
-  local f = io.popen(scripts .. "/getcolor2.py 1310 748")
+  local f = io.popen(scripts .. "/getcolor2.py 1305 760")
   beautiful.systray = f:read()
   f:close()
 end
@@ -603,7 +603,9 @@ myweather = lain.widgets.weather({
       local descr = weather_now["weather"][1]["description"]:lower()
       local units = math.floor(weather_now["main"]["temp"])
       local unitscolor = "#aeaeae"
-      if units <= 0 then
+      if units < -12 then
+        unitscolor = "#46A8C3" units = "fuck, it\'s " .. units
+      elseif units <= 0 then
         unitscolor = "#69E0CC"
       elseif units <= 17 then
         unitscolor = "#E4E876"
@@ -1488,7 +1490,7 @@ client.connect_signal("focus",
     local tag = awful.tag.selected()
     local ok = 0
     for i = 1, #tag:clients() do
-      if (awful.layout.get(c.screen) == awful.layout.suit.floating or awful.client.property.get(tag:clients()[i], "floating")) and tag:clients()[i].minimized == false then
+      if (awful.layout.get(c.screen) == awful.layout.suit.floating or awful.client.property.get(tag:clients()[i], "floating") or tag:clients()[i].type == dialog or tag:clients()[i].floating) and tag:clients()[i].minimized == false then
         ok = 1
       end
     end
