@@ -122,7 +122,7 @@ modkey = "Mod4"
 alt = "Mod1"
 
 function color_systray()
-  local f = io.popen(scripts .. "/getcolor2.py 1310 760")
+  local f = io.popen(scripts .. "/getcolor2.py 1310 748")
   beautiful.systray = f:read()
   f:close()
 end
