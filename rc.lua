@@ -122,7 +122,7 @@ modkey = "Mod4"
 alt = "Mod1"
 
 function color_systray()
-  local f = io.popen(scripts .. "/getcolor2.py 1305 760")
+  local f = io.popen(scripts .. "/getcolor2.py 1306 760")
   beautiful.systray = f:read()
   f:close()
 end
@@ -207,19 +207,6 @@ end
 
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
 
-function uzbl_run (command)
-    if command == "" then
-        command = "uzbl-tabbed"
-    elseif command:sub(1,1) == ":" then
-        command = "uzbl-tabbed http://" .. command:sub(2)
-    else
-        local f = io.popen('echo ' .. command .. '|sed -e "s_ _+_g"')
-        local text = f:read("*all")
-        f:close()
-        command = "uzbl-tabbed https://duckduckgo.com/?q=" .. text
-    end
-    awful.util.spawn(command)
-end
 
 function check_for_terminal (command)
    if command:sub(1,1) == ":" then
@@ -547,21 +534,55 @@ function (widget, args)
     return '<span color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="Visitor TT2 BRK 10">full<span color="#aeaeae">p' .. args[2] ..' </span></span></span>' end
 end, 3, 'BAT0')
 
--- Keyboard layout widget
+--
+-- {{{ Variable definitions
+kbd_dbus_sw_cmd = "qdbus ru.gentoo.KbddService /ru/gentoo/KbddService  ru.gentoo.kbdd.set_layout "
+-- kbd_dbus_sw_cmd = "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.set_layout uint32:"
+kbd_dbus_prev_cmd = "qdbus ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.prev_layout"
+-- kbd_dbus_prev_cmd = "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.prev_layout"
+kbd_dbus_next_cmd = "qdbus ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"
+-- kbd_dbus_next_cmd = "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"
+kbd_img_path = "/usr/share/icons/kbflags/"
+-- }}}
+
+-- {{{ Keyboard layout widgets
+--- Create the menu
+kbdmenu =awful.menu({ items = {  
+  { "English", kbd_dbus_sw_cmd .. "0" },
+  { "Русский", kbd_dbus_sw_cmd .. "1" }
+  }
+})
+
+-- Create simple text widget
 kbdwidget = wibox.widget.textbox()
-kbdcolb = "<span font='Visitor TT2 BRK 10' color='#aeaeae'>"
-kbdcole = "</span>"
-kbdwidget:set_markup(kbdcolb .. "en-us" .. kbdcole)
+-- kbdwidget.border_width = 1
+-- kbdwidget.border_color = beautiful.fg_normal
+kbdwidget.align="center"
+kbdwidget:set_markup("<span font='Visitor TT2 BRK 10' color='#aeaeae'>en-us</span>")
+--kbdwidget.bg_image = image (kbd_img_path .. "us.png")
+kbdwidget.bg_align = "center"
+--kbdwidget.bg_resize = true
+--awful.widget.layout.margins[kbdwidget] = { left = 0, right = 10 }
+kbdwidget:buttons(awful.util.table.join(
+  awful.button({ }, 1, function() os.execute(kbd_dbus_prev_cmd) end),
+  awful.button({ }, 2, function() os.execute(kbd_dbus_next_cmd) end),
+  awful.button({ }, 3, function() kbdmenu:toggle () end)
+))
+-- }}}
+
+-- {{{ Signals
 dbus.request_name("session", "ru.gentoo.kbdd")
 dbus.add_match("session", "interface='ru.gentoo.kbdd',member='layoutChanged'")
-dbus.connect_signal("ru.gentoo.kbdd",
-  function(...)
-    local data = {...}
-    local layout = data[2]
-    lts = {[0] = "en-us", [1] = "ru-ru"}
-    kbdwidget:set_markup (kbdcolb..""..lts[layout]..""..kbdcole)
-  end
-)
+dbus.connect_signal("ru.gentoo.kbdd", function(...)
+  local data = {...}
+  local layout = data[2]
+  lts = {[0] = "en-us", [1] = "ru-ru"}
+  --lts_img = {[0] = kbd_img_path .. "us.png", [1] = kbd_img_path .. "ru.png", [2] = kbd_img_path .. "il.png", [3] = kbd_img_path .. "de.png" }
+  kbdwidget:set_markup("<span font='Visitor TT2 BRK 10' color='#aeaeae'>"..lts[layout].."</span>")
+  --kbdwidget.bg_image = image(lts_img[layout])
+  end)
+-- }}}
+--
 
 -- Mail widget
 
@@ -1216,17 +1237,6 @@ globalkeys = awful.util.table.join(
   ),
   awful.key({ modkey }, "F2",
     function ()
-        awful.prompt.run(
-            {prompt="uzbl > "},
-            mypromptbox[mouse.screen].widget,
-            uzbl_run,
-            clean_for_completion,
-            awful.util.getdir("cache") .. "/history_uzbl"
-        )
-    end
-  ),
-  awful.key({ "Control" }, "F2",
-    function ()
       awful.prompt.run({ prompt = ">> " },
         mypromptbox[mouse.screen].widget,
         awful.util.eval, nil,
@@ -1345,7 +1355,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][4] }
   },
   {
-    rule_any = { class = { "Steam" ,".exe", ".EXE", "dota2", ".tmp", ".TMP", "Baumalein", "teeworlds" } },
+    rule_any = { class = { "Wine", "Steam" ,".exe", ".EXE", "dota2", ".tmp", ".TMP", "Baumalein", "teeworlds" } },
     properties = { tag = tags[1][7] },
   },
   {
@@ -1357,11 +1367,11 @@ awful.rules.rules = {
     properties = { tag = tags[1][8] }
   },
   {
-    rule_any = { class = { "File-roller", "Worker", "Download", "Oblogout", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "Pidgin", "terminology", "URxvt", "Skype" }, instance = {"plugin-container"} },
+    rule_any = { class = { "Putty", "File-roller", "Worker", "Download", "Oblogout", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "Pidgin", "terminology", "URxvt", "Skype", "Skype-Electron" }, instance = {"plugin-container"} },
     properties = { floating = true }
   },
   {
-    rule_any = { class = { "Skype", "Steam", "VIrtualBox" } },
+    rule_any = { class = { "Skype", "Steam", "VIrtualBox", "Skype-Electron" } },
     properties = { switchtotag = false }
   },
   {
@@ -1369,7 +1379,7 @@ awful.rules.rules = {
     properties = { border_width = 0 }
   },
   {
-    rule_any = { class = { "Oblogout", "Putty", "slock", "Skype", "Nitrogen", "Polkit-gnome-authentication-agent-1", "terminology","URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin" } },
+    rule_any = { class = { "Oblogout", "Putty", "slock", "Skype", "Nitrogen", "Polkit-gnome-authentication-agent-1", "terminology","URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin", "Skype-Electron" } },
     properties = { ontop = true }
   },
   {

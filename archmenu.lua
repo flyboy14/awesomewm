@@ -2,6 +2,7 @@
      {"Archive Manager", "file-roller ", "/usr/share/icons/hicolor/16x16/apps/file-roller.png" },
      {"Caffeine-ng", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
      {"Elementary Test", "elementary_test", "/usr/share/icons/elementary.png" },
+     {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
      {"SpiderOakONE", "SpiderOakONE", "/usr/share/pixmaps/SpiderOakONE.png" },
      {"Worker", "worker", "/usr/share/pixmaps/WorkerIcon48.xpm" },
@@ -22,6 +23,7 @@
  }
 
  local menu251bd8143891238ecedc306508e29017 = {
+     {"Emilia Pinball", "pinball"},
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
  }
 
@@ -35,11 +37,17 @@
  local menuc8205c7636e728d448c2774e6a4a944b = {
      {"Avahi SSH Server Browser", "/usr/bin/bssh"},
      {"Avahi VNC Server Browser", "/usr/bin/bvnc"},
+     {"Dropbox", "dropbox", "/usr/share/pixmaps/dropbox.png" },
+     {"Firefox", "firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
      {"Firefox-GTK", "firefox-gtk3 ", "/usr/share/icons/hicolor/16x16/apps/firefox-gtk3.png" },
      {"Google Chrome", "/usr/bin/google-chrome-stable ", "/usr/share/icons/hicolor/16x16/apps/google-chrome.png" },
+     {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
+     {"Remmina", "/usr/bin/remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
      {"Skype", "skype ", "/usr/share/icons/hicolor/16x16/apps/skype.png" },
      {"SpiderOakONE", "SpiderOakONE", "/usr/share/pixmaps/SpiderOakONE.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
+     {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
+     {"Viber", "viber", "/usr/share/icons/hicolor/16x16/apps/viber.png" },
      {"Zenmap", "zenmap ", "///usr/share/zenmap/pixmaps/zenmap.png" },
      {"Zenmap (as root)", "/usr/share/zenmap/su-to-zenmap.sh ", "///usr/share/zenmap/pixmaps/zenmap.png" },
      {"wpa_gui", "wpa_gui", "/usr/share/pixmaps/wpa_gui.svg" },
@@ -75,7 +83,6 @@
 
  local menuee69799670a33f75d45c57d1d1cd0ab3 = {
      {"Avahi Zeroconf Browser", "/usr/bin/avahi-discover"},
-     {"File Manager PCManFM", "pcmanfm "},
      {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
      {"Terminology", "terminology", "/usr/share/icons/terminology.png" },
