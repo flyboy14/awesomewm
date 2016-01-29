@@ -9,7 +9,7 @@ beautiful = require("beautiful")
 vicious = require("vicious")
 awesompd = require("awesompd/awesompd")
 naughty = require("naughty")
-eminent = require("eminent")
+--eminent = require("eminent")
 xdg_menu = require("archmenu")
 lain = require("lain")
 scratch = require("scratch")
@@ -917,7 +917,8 @@ for s = 1, screen.count() do
     awful.button({ }, 3, function () awful.layout.inc(-1, s, layouts) end)
   ))
   -- Create a taglist widget
-  mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+  --mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+  mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.noempty, mytaglist.buttons)
 
   -- Create a tasklist widget
   mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
@@ -1331,6 +1332,8 @@ awful.rules.rules = {
       keys = clientkeys,
       buttons = clientbuttons,
       size_hints_honor = false,
+      maximized_vertical   = false,
+      maximized_horizontal = false,
       switchtotag = true
     }
   },
@@ -1348,7 +1351,7 @@ awful.rules.rules = {
   },
   {
     rule_any = { class = { "Pdfeditor", "Wps", "Wpp", "Et", "Libre", "libreoffice-writer", "Subl3", "Evince", "DjView",  "Atom" } },
-    properties = { tag = tags[1][3] }
+    properties = { tag = tags[1][3], dockable = false, urgent = false, fixed = false }
   },
   {
     rule_any = { class = { "Audacity", "Ninja-ide", "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
