@@ -9,7 +9,7 @@ beautiful = require("beautiful")
 vicious = require("vicious")
 awesompd = require("awesompd/awesompd")
 naughty = require("naughty")
---eminent = require("eminent")
+eminent = require("eminent")
 xdg_menu = require("archmenu")
 lain = require("lain")
 scratch = require("scratch")
@@ -84,7 +84,7 @@ inet_on = false
 wpaper = beautiful.wallpaper
 font_main = "Fixed 13"
 terminal = "terminology"
-browser = "firefox-gtk3"
+browser = "google-chrome-stable"
 editor = "subl3"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
@@ -1185,7 +1185,7 @@ globalkeys = awful.util.table.join(
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'Firefox'})
+        return awful.rules.match(c, {class = 'google-chrome'})
       end
       awful.client.run_or_raise(browser, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -1354,7 +1354,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][3], dockable = false, urgent = false, fixed = false }
   },
   {
-    rule_any = { class = { "Audacity", "Ninja-ide", "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
+    rule_any = { class = { "GitKraken", "Audacity", "Ninja-ide", "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
     properties = { tag = tags[1][4] }
   },
   {
@@ -1362,7 +1362,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][7] },
   },
   {
-    rule_any = { class = { "Firefox", "chromium", "Vivaldi", "Navigator", "Pale moon" } },
+    rule_any = { class = { "google-chrome-stable", "chromium", "Vivaldi", "Navigator", "Pale moon" } },
     properties = { tag = tags[1][2] },
   },
   {
