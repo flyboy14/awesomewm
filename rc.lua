@@ -622,7 +622,7 @@ myweather = lain.widgets.weather({
   settings =
     function()
       local descr = weather_now["weather"][1]["description"]:lower()
-      local units = math.floor(weather_now["main"]["temp"])
+      local units = math.floor(weather_now["main"]["temp"])-273
       local unitscolor = "#aeaeae"
       if units < -12 then
         unitscolor = "#46A8C3" units = "fuck, it\'s " .. units

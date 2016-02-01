@@ -31,7 +31,7 @@ local function worker(args)
     local current_call          = "curl -s 'http://api.openweathermap.org/data/2.5/weather?id=%s&units=%s&lang=%s&appid=%s'"
     local forecast_call         = "curl -s 'http://api.openweathermap.org/data/2.5/forecast/daily?id=%s&units=%s&lang=%s&cnt=%s&appid=%s'"
     local city_id               = args.city_id or 0 -- placeholder
-    local units                 = args.units or "metric"
+    local units                 = args.units or ""
     local lang                  = args.lang or "en"
     local appid                 = args.appid or "1830df4055002d2fac6351616ee174d9"
     local cnt                   = args.cnt or 7
@@ -87,8 +87,8 @@ local function worker(args)
                     day = string.gsub(f:read("a"), "\n", "")
                     f:close()
 
-                    tmin = math.floor(weather_now["list"][i]["temp"]["min"])
-                    tmax = math.floor(weather_now["list"][i]["temp"]["max"])
+                    tmin = math.floor(weather_now["list"][i]["temp"]["min"])-273
+                    tmax = math.floor(weather_now["list"][i]["temp"]["max"])-273
                     desc = weather_now["list"][i]["weather"][1]["description"]
 
                     weather.notification_text = weather.notification_text ..
