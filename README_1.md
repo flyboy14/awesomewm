@@ -24,7 +24,7 @@ Template has 4 triggers. Each of them alerts if return code of any operation dif
 
  * checks return codes of creating test profile request, creating asossiated interaction request, deleting test profile request, deleting interaction request and stores it in /tmp/profile_create_rc.info /tmp/interaction_create_rc.info /tmp/profile_delete_rc.info and /tmp/interaction_delete_rc.info e.g.
 
-**script takes approximately 10-15 seconds to finish**
+ **script takes approximately 10-15 seconds to finish**
 
 2. imagination_profile_create_rc
 
