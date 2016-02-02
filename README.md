@@ -14,7 +14,7 @@ Tested with latest awesome-git
 
 # Features
 
-* Two fully customized themes (color_arrows and dark_grey)
+* Two fully customized themes (color_arrows and dark_grey). Color arrows may be a bit outdated, cause I use only dark_grey for a while.
 
 * various vicious/lain widgets
 

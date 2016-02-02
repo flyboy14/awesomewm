@@ -65,9 +65,9 @@ wireless_name = ""
 myinterface = ""
 wpaper = beautiful.wallpaper
 font_main = "Fixed 14"
-terminal = "urxvtc"
-browser = "chromium-continuous-bin"
-editor = "subl"
+terminal = "terminology"
+browser = "google-chrome-stable"
+editor = "subl3"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
 sc_a = scripts .. "/screenshot-area.sh"
@@ -96,28 +96,38 @@ function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foo
    naughty.destroy(noti)
  end
 
+ function set_cursor_in_middle_of_focused_client()
+  if client.focus then
+    client.focus:raise()
+    mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
+  end
+end
+
 -- }}}
 -- Autorun programs
 
 function run_once(why, what)
-  if what == nil then what = why end
+  if what == nil then
+    what = why
+  end
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " || (" .. what .. ")")
 end
+
 function run_when(why, what)
-  if what == nil then what = why end
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " && (" .. what .. ")")
+end
+
+function run_when_once(why, why2, what)
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " && pgrep -u $USER -x " .. why2 .. " || (" .. what .. ")")
 end
 
 autorun = true
 autorunApps =
 {
    home .. "/.config/autostart/autostart.sh",
-   run_once("urxvtd", "urxvtd -o -f -q"),
-   run_once("pcmanfm", "pcmanfm -d"),
    run_once("kbdd"),
-   --run_once("pidgin"),
    "systemctl --user restart hidcur",
-   run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --sw-opti --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow"),
+   run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --mark-ovredir-focused --config ~/.config/compton.conf"),
    --"xcowsay 'Moo, brother, moo.'"
 }
 if autorun then
@@ -151,10 +161,12 @@ end
 -- }}}
 
 -- {{{ Wallpaper
+
 --local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file | sed 's/'file='//g'") 
 --local wpaper = f:read()
 --f:close()  
 --if wpaper == nil then
+
 if beautiful.wallpaper then
 for s = 1, screen.count() do
   gears.wallpaper.maximized(wpaper, s, false)
@@ -185,7 +197,7 @@ local layouts =
  theme.taglist_font                  = font_main
  tags = {
    names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "… " },
-   layout = { layouts[2], layouts[5], layouts[4], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
+   layout = { layouts[1], layouts[5], layouts[4], layouts[4], layouts[3], layouts[1], layouts[1], layouts[1] }
  }
 
  for s = 1, screen.count() do
@@ -202,10 +214,10 @@ mmyawesomemenu = {
 }
 
 myvirtualmenu = {
-  { " vboxdrv", "gksu modprobe vboxdrv" },
-  { " makakka_xp", "virtualbox --startvm makakka_xp" },
-  { " Debian 8", "virtualbox --startvm debian8" },
-  { " CentOS 7", "virtualbox --startvm centos7" }
+  { " vboxdrv", "gksu modprobe vboxdrv" }--,
+  -- { " makakka_xp", "virtualbox --startvm makakka_xp" },
+  -- { " Debian 8", "virtualbox --startvm debian8" },
+  -- { " CentOS 7", "virtualbox --startvm centos7" }
 }
 
 myworkspacemenu = {
@@ -376,13 +388,13 @@ mpdicon:set_image(beautiful.widget_music)
 mpdicon:buttons(awful.util.table.join(
   awful.button({ }, 1, 
     function ()
-      scratch.drop("urxvtc -e vimpc", "center", "center", .95, .95, "true", 1)
-    --run_when_once("mpd", "vimpc","urxvtc -geometry 150x25 -e vimpc") 
+      scratch.drop("terminology -e vimpc", "center", "center", .95, .95, "true", 1)
+    --run_when_once("mpd", "vimpc","terminology -geometry 150x25 -e vimpc") 
     end, 
     function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf") 
     end
   ),
-  awful.button({ }, 2, function () awful.util.spawn_with_shell("urxvtc -geometry 150x40 -e vimpc") end),
+  awful.button({ }, 2, function () awful.util.spawn_with_shell("terminology -geometry 150x40 -e vimpc") end),
   awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill mpd") end),
   awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5") end),
   awful.button({ }, 5, function () awful.util.spawn_with_shell("mpc volume -5") end)
@@ -703,7 +715,7 @@ yf:set_image(beautiful.yf)
 yf:buttons(awful.util.table.join(
   awful.button({ }, 1, function ()
      local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'URxvt'}) 
+     return awful.rules.match(c, {class = 'Terminology'}) 
    end                                                      
    awful.client.run_or_raise(terminal, matcher)
  end)))
@@ -712,7 +724,7 @@ bf:set_image(beautiful.bf)
 bf:buttons(awful.util.table.join(
   awful.button({ }, 1, function ()
      local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'URxvt'}) 
+     return awful.rules.match(c, {class = 'Terminology'}) 
    end                                                      
    awful.client.run_or_raise(terminal, matcher)
  end)
@@ -722,7 +734,7 @@ gf:set_image(beautiful.gf)
 gf:buttons(awful.util.table.join(awful.button(
   { }, 1, function ()
      local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'URxvt'}) 
+     return awful.rules.match(c, {class = 'Terminology'}) 
    end                                                      
    awful.client.run_or_raise(terminal, matcher)
  end)
@@ -966,7 +978,7 @@ globalkeys = awful.util.table.join(
     end),
 
     -- Standard program
-    awful.key({      modkey      }, "v", function () scratch.drop("urxvtc -e vimpc", "center", "center", .95, .95, "true", 1) end),
+    awful.key({      modkey      }, "v", function () scratch.drop("terminology -e vimpc", "center", "center", .95, .95, "true", 1) end),
     awful.key({      modkey      }, "i", function () scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1) end),
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to poweroff?' &&systemctl poweroff") end),
@@ -998,44 +1010,94 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
     --run or raise clients
-     awful.key({ modkey, }, "Return", function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'URxvt'}) 
-   end                                                      
-   awful.client.run_or_raise(terminal, matcher)
- end),
-     awful.key({ "Control" }, "l", function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = editor }) 
-   end                                                      
-   awful.client.run_or_raise(editor, matcher)
- end),
-     awful.key({ "Control", "Shift" }, "l", function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = editor }) 
-   end                                                      
-   awful.client.run_or_raise('gksudo ' .. editor, matcher)
- end),
-     awful.key({ modkey }, "b", function ()
-     local matcher = function (c)                   
-     return awful.rules.match(c, {class = 'chromium'}) 
-   end                                                      
-   awful.client.run_or_raise(browser, matcher)
- end),
+--run or raise clients
+
+  awful.key({ modkey, }, "Return",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = 'terminology'})
+      end
+      awful.client.run_or_raise(terminal, matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
+
+  awful.key({ modkey, }, "KP_Enter",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = 'terminology'})
+      end
+      awful.client.run_or_raise(terminal, matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
+
+  awful.key({ modkey }, "b",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = 'google-chrome'})
+      end
+      awful.client.run_or_raise(browser, matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
+  
+  awful.key({ modkey }, "s",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = 'Skype'})
+      end
+      awful.client.run_or_raise("skype", matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
+  
+  awful.key({ modkey }, "l",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = 'Subl3'})
+      end
+      awful.client.run_or_raise(editor, matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
+    awful.key({ modkey }, "`",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = "Worker"})
+      end
+      awful.client.run_or_raise("worker", matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
     -- Prompt
-    awful.key({ alt,           }, "F2",
-              function () awful.prompt.run({ prompt=">_ " },
-                                           mypromptbox[mouse.screen].widget,
-                                           check_for_terminal,
-                                           clean_for_completion,
-                                           awful.util.getdir("cache") .. "/history") end),
-    awful.key({ modkey }, "F2",
-              function ()
-                  awful.prompt.run({ prompt = ">> " },
-                  mypromptbox[mouse.screen].widget,
-                  awful.util.eval, nil,
-                  awful.util.getdir("cache") .. "/history_eval")
-              end)
+
+  awful.key({ alt, }, "F2",
+    function ()
+      awful.prompt.run(
+        {prompt=">_ "},
+        mypromptbox[mouse.screen].widget,
+        check_for_terminal,
+        clean_for_completion,
+        awful.util.getdir("cache") .. "/history"
+      )
+    end
+  ),
+  awful.key({ modkey }, "F2",
+    function ()
+      awful.prompt.run({ prompt = ">> " },
+        mypromptbox[mouse.screen].widget,
+        awful.util.eval, nil,
+        awful.util.getdir("cache") .. "/history_eval"
+      )
+    end
+  )
 ) -- end
 
 clientkeys = awful.util.table.join(
@@ -1101,41 +1163,77 @@ root.keys(globalkeys)
 
 -- {{{ Rules
 awful.rules.rules = {
-    -- All clients will match this rule.
-            { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = awful.client.focus.filter,
-                     keys = clientkeys,
-                     buttons = clientbuttons,
-                     size_hints_honor = false,
-                     switchtotag = true } },
-            { rule_any = { class = { "Virt-manager", "Remmina", "VirtualBox" } },
-      properties = { tag = tags[1][6] } },
-            { rule_any = { class = { "Sonata", "Vlc", "Samowar", "Deadbeef" } },
-      properties = { tag = tags[1][5] } },
-            { rule_any = { class = { "Doublecmd", "Pcmanfm", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
-      properties = { tag = tags[1][1] } },
-            { rule_any = { class = { "Gvim", "Pdfeditor", "Libre", "libreoffice-writer", "subl", "Atril",  "Atom" } },
-      properties = { tag = tags[1][3] } },
-            { rule_any = { class = { "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "Qtcreator", "jetbrains-studio", "draftsight"} },
-      properties = { tag = tags[1][4] } },
-            { rule_any = { class = { "Steam" ,".exe", "dota_linux" } },
-      properties = { tag = tags[1][7] }, },
-            { rule_any = { class = { "chromium", "Firefox", "Vivaldi" } },
-      properties = { tag = tags[1][2] }, },
-            { rule_any = { class = { "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin" } },
-      properties = { tag = tags[1][8] } },
-            { rule_any = { class = { "Zenity", "Doublecmd", "Nitrogen", "Samowar", "Wpa_gui", "Pavucontrol", "Lxappearance", "URxvt", "Pidgin", "Skype" }, },
-      properties = { floating = true } },
-            { rule_any = { class = { "Steam", "Skype" } },
-      properties = { switchtotag = false } },
-            { rule_any = { class = { "Firefox", "Vivaldi", "Wine", "dota_linux", "gimp", "rawstudio", "Lightworks" } },
-      properties = { border_width = 0 } },
-            { rule_any = { class = { "Zenity", "URxvt", "pavucontrol", "Wpa_gui", "Lxappearance", "Skype" } },
-      properties = { ontop = true } },
-            { rule = { instance = "plugin-container" },
-  properties = { floating = true } },
+  -- All clients will match this rule.
+  {
+    rule = { },
+    properties = {
+      border_width = beautiful.border_width,
+      border_color = beautiful.border_normal,
+      focus = awful.client.focus.filter,
+      keys = clientkeys,
+      buttons = clientbuttons,
+      size_hints_honor = false,
+      maximized_vertical   = false,
+      maximized_horizontal = false,
+      switchtotag = true
+    }
+  },
+  {
+    rule_any = { class = { "Virt-manager", "Remmina", "VirtualBox" } },
+    properties = { tag = tags[1][6] }
+  },
+  {
+    rule_any = { class = { "Kodi", "Sonata", "Vlc", "Samowar", "Deadbeef" } },
+    properties = { tag = tags[1][5] }
+  },
+  {
+    rule_any = { class = { "Pcmanfm", "Worker", "Dolphin", "Nautilus", "Nemo", "Thunar" } },
+    properties = { tag = tags[1][1] }
+  },
+  {
+    rule_any = { class = { "Pdfeditor", "Wps", "Wpp", "Et", "Libre", "libreoffice-writer", "Subl3", "Evince", "DjView",  "Atom" } },
+    properties = { tag = tags[1][3], dockable = false, urgent = false, fixed = false }
+  },
+  {
+    rule_any = { class = { "GitKraken", "Audacity", "Ninja-ide", "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
+    properties = { tag = tags[1][4] }
+  },
+  {
+    rule_any = { class = { "Wine", "Steam" ,".exe", ".EXE", "dota2", ".tmp", ".TMP", "Baumalein", "teeworlds" } },
+    properties = { tag = tags[1][7] },
+  },
+  {
+    rule_any = { class = { "firefox", "google-chrome", "chromium", "Vivaldi", "Navigator", "Pale moon" } },
+    properties = { tag = tags[1][2] },
+  },
+  {
+    rule_any = { class = { "Haguichi", "Covergloobus", "Eiskaltdcpp", "Viber", "TeamSpeak", "Cutegram", "Telegram", "Cheese", "Kamerka", "Pidgin", "Transmission" } },
+    properties = { tag = tags[1][8] }
+  },
+  {
+    rule_any = { class = { "Putty", "File-roller", "Worker", "Download", "Oblogout", "Org.gnome.Weather.Application", "Covergloobus", "Zenity", "Doublecmd", "Nitrogen", "Wpa_gui", "Pavucontrol", "Lxappearance", "Pidgin", "terminology", "URxvt", "Skype", "Skype-Electron" }, instance = {"plugin-container"} },
+    properties = { floating = true }
+  },
+  {
+    rule_any = { class = { "Skype", "Steam", "VIrtualBox", "Skype-Electron" } },
+    properties = { switchtotag = false }
+  },
+  {
+    rule_any = { class = { "Oblogout", "Covergloobus", "dota_linux" } },
+    properties = { border_width = 0 }
+  },
+  {
+    rule_any = { class = { "Oblogout", "Putty", "slock", "Skype", "Nitrogen", "Polkit-gnome-authentication-agent-1", "terminology","URxvt", "Zenity", "pavucontrol", "Wpa_gui", "Lxappearance", "Pidgin", "Skype-Electron" } },
+    properties = { ontop = true }
+  },
+  {
+    rule_any = { class = { "Kodi", "Oblogout" } },
+    properties = { fullscreen = true }
+  },
+  {
+    rule_any = { class = { "slock", "Oblogout" } },
+    properties = { sticky = true }
+  },
 
 }
 -- }}}
@@ -1223,9 +1321,27 @@ function under_pointer()
     end
 end
 
-client.connect_signal("focus", function(c)
-                                c.border_color = beautiful.border_focus
-                           end)
+client.connect_signal("focus", 
+  function(c)
+    c.border_color = beautiful.border_focus
+  end,
+  function(c)
+  local tag = awful.tag.selected()
+  local ok = 0
+  for i = 1, #tag:clients() do
+    if (awful.layout.get(c.screen) == awful.layout.suit.floating or awful.client.property.get(tag:clients()[i], "floating") or tag:clients()[i].type == dialog or tag:clients()[i].floating) and tag:clients()[i].minimized == false then
+      ok = 1
+    end
+  end
+  if ok == 0 then 
+    c:raise()
+  end
+    -- if wibox_color() == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then
+    --   c.border_color = beautiful.border_normal  -- for only unminimized non-floating client on tag
+    -- else
+    --   c.border_color = beautiful.border_focus
+    -- end
+  end)
 client.connect_signal("unfocus", function(c)
                                 c.border_color = beautiful.border_normal
                              end)
