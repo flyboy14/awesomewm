@@ -14,7 +14,7 @@ naughty = require("naughty")
 eminent = require("eminent")
 xdg_menu = require("archmenu")
 local lain      = require("lain")
-scratch = require("scratch")
+-- scratch = require("scratch")
 
 -- {{{ wibox 
 
@@ -121,20 +121,21 @@ function run_when_once(why, why2, what)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " && pgrep -u $USER -x " .. why2 .. " || (" .. what .. ")")
 end
 
-autorun = true
-autorunApps =
-{
-   home .. "/.config/autostart/autostart.sh",
-   run_once("kbdd"),
-   "systemctl --user restart hidcur",
-   run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --mark-ovredir-focused --config ~/.config/compton.conf"),
-   --"xcowsay 'Moo, brother, moo.'"
-}
-if autorun then
-   for app = 1, #autorunApps do
-      awful.util.spawn_with_shell(autorunApps[app])
-   end
-end
+--- {{{ Autorun apps
+  awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
+  run_once("kbdd", "slock") -- run slock only if kbdd didn't start e.g. first launch after login
+  run_once("nm-applet")
+  run_once("caffeine")
+  run_once("parcellite")
+  if inet_on then
+    run_once("skype")
+    run_once("dropbox")
+  end
+  run_once("kbdd")
+  awful.util.spawn_with_shell("systemctl --user restart hidcur")
+  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 4 -t -6 -l -6 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --mark-ovredir-focused --config ~/.config/compton.conf")
+  --"xcowsay 'Moo, brother, moo.'"
+-- }}}
 
 -- {{{ functions to help launch run commands in a terminal using ":" keyword
 function check_for_terminal (command)
@@ -388,7 +389,8 @@ mpdicon:set_image(beautiful.widget_music)
 mpdicon:buttons(awful.util.table.join(
   awful.button({ }, 1, 
     function ()
-      scratch.drop("terminology -e vimpc", "center", "center", .95, .95, "true", 1)
+    	--awful.util.spawn("sonata")
+      --scratch.drop("terminology -e vimpc", "center", "center", .95, .95, "true", 1)
     --run_when_once("mpd", "vimpc","terminology -geometry 150x25 -e vimpc") 
     end, 
     function () awful.util.spawn_with_shell("mpd " .. home .. "/.mpd/mpd.conf") 
@@ -571,13 +573,13 @@ neticon = my_launcher({ image = beautiful.widget_net_no, command = "systemctl re
 netwidget:buttons(awful.util.table.join(
   awful.button({ }, 1, 
     function ()      
-      scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
+      --scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
     end
   ),
 
   awful.button({ }, 3, 
     function () 
-      awful.util.spawn_with_shell("pkill wpa_gui") 
+      --awful.util.spawn_with_shell("pkill wpa_gui") 
     end
   )
 ))
@@ -614,7 +616,7 @@ netupinfo = lain.widgets.net_colorarrows({
 netupinfo:buttons(awful.util.table.join(
   awful.button({ }, 1, 
     function ()      
-      scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
+      --scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
     end
   ),
   awful.button({ }, 3, 
@@ -677,7 +679,7 @@ arrows = wibox.widget.textbox('<span font="Fixed 14" background="#6F766E"> <span
 arrows:buttons(awful.util.table.join(
   awful.button({ }, 1, 
     function ()      
-      scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
+      --scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1)
     end
   ),
   awful.button({ }, 3, 
@@ -978,8 +980,8 @@ globalkeys = awful.util.table.join(
     end),
 
     -- Standard program
-    awful.key({      modkey      }, "v", function () scratch.drop("terminology -e vimpc", "center", "center", .95, .95, "true", 1) end),
-    awful.key({      modkey      }, "i", function () scratch.drop("wpa_gui", "center", "center", .40, .50, "true", 1) end),
+    awful.key({      modkey      }, "v", function () awful.util.spawn("sonata") end),
+    awful.key({      modkey      }, "i", function () awful.util.spawn("sonata") end),
     awful.key({ }, "XF86Sleep", function () show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil) end, function () awful.util.spawn_with_shell("systemctl suspend") end),
     awful.key({            }, "XF86PowerOff",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to poweroff?' &&systemctl poweroff") end),
     awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Are you sure you want to reboot?' &&systemctl reboot") end),

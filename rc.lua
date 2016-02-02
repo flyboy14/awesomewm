@@ -12,7 +12,7 @@ naughty = require("naughty")
 eminent = require("eminent")
 xdg_menu = require("archmenu")
 lain = require("lain")
-scratch = require("scratch")
+--scratch = require("scratch")
 require("awful.autofocus")
 
 -- {{{ wibox
