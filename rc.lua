@@ -1362,7 +1362,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][7] },
   },
   {
-    rule_any = { class = { "google-chrome-stable", "chromium", "Vivaldi", "Navigator", "Pale moon" } },
+    rule_any = { class = { "firefox", "google-chrome", "chromium", "Vivaldi", "Navigator", "Pale moon" } },
     properties = { tag = tags[1][2] },
   },
   {
@@ -1615,12 +1615,6 @@ screen.connect_signal("tag::history::update",
   end
 )
 
--- function read_wallpaper_color()
---   local f = io.popen(scripts .. "/getcolor2.py 1310 767")
---   beautiful.systray = f:read()
---   f:close()
---   naughty.notify({text=beautiful.systray})
--- end
 -- mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible
 -- mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible
 
