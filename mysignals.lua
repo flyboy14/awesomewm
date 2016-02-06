@@ -1,3 +1,6 @@
+require("mywiboxes")
+gears = require("gears")
+awful = require("awful")
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
 
@@ -88,7 +91,7 @@ client.connect_signal("focus",
     local tag = awful.tag.selected()
     local ok = 0
     for i = 1, #tag:clients() do
-      if (awful.layout.get(c.screen) == awful.layout.suit.floating or awful.client.property.get(tag:clients()[i], "floating") or tag:clients()[i].type == dialog or tag:clients()[i].floating) and tag:clients()[i].minimized == false then
+      if ((awful.layout.get(c.screen) == awful.layout.suit.floating or awful.client.property.get(tag:clients()[i], "floating") or tag:clients()[i].type == dialog or tag:clients()[i].floating)) and tag:clients()[i].minimized == false then
         ok = 1
       end
     end
@@ -115,8 +118,10 @@ client.connect_signal("request::activate",
     mywibox_w[mouse.screen]:set_bg(val)
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
+      restore_colors()
     else
       beautiful.bg_systray = beautiful.systray
+      revert_colors()
     end
     --if not mouse_on_wibox() then
       --mouse.coords({x=c:geometry()['x']+c:geometry()['width']/2, y=c:geometry()['y']+c:geometry()['height']/2})
@@ -131,8 +136,10 @@ client.connect_signal("property::geometry",
     mywibox_w[mouse.screen]:set_bg(val)
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
+      restore_colors()
     else
       beautiful.bg_systray = beautiful.systray
+      revert_colors()
     end
      -- if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then
      --   c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
@@ -150,8 +157,10 @@ client.connect_signal("property::floating",
     mywibox_w[mouse.screen]:set_bg(val)
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
+      restore_colors()
     else
       beautiful.bg_systray = beautiful.systray
+      revert_colors()
     end
      --  if val == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then
      --    c.border_color = beautiful.bg_normal  -- for only unminimized non-floating client on tag
@@ -168,8 +177,10 @@ client.connect_signal("property::minimized",
     mywibox_w[mouse.screen]:set_bg(val)
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
+      restore_colors()
     else
       beautiful.bg_systray = beautiful.systray
+      revert_colors()
     end
   end
 )
@@ -181,8 +192,10 @@ client.connect_signal("unmanage",
     mywibox_w[mouse.screen]:set_bg(val)
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
+      restore_colors()
     else
       beautiful.bg_systray = beautiful.systray
+      revert_colors()
     end
   end
 )
@@ -194,8 +207,10 @@ screen.connect_signal("tag::history::update",
     mywibox_w[mouse.screen]:set_bg(val)
     if val == beautiful.mycolor then
       beautiful.bg_systray = beautiful.mycolor
+      restore_colors()
     else
       beautiful.bg_systray = beautiful.systray
+      revert_colors()
     end
   end
 )

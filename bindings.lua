@@ -243,7 +243,15 @@ globalkeys = awful.util.table.join(
 
 
 clientkeys = awful.util.table.join(
-  awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
+  awful.key({ modkey,           }, "f",      
+    function (c) 
+      c.fullscreen = not c.fullscreen 
+      if awful.rules.match(c, {class = 'terminology'}) or awful.rules.match(c, {class = 'Skype'}) then
+        if c.fullscreen == false then
+          c.ontop = true
+        end
+      end
+    end),
   awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
   awful.key({ alt,              }, "F4",      function (c) c:kill() end),
   awful.key({ modkey,           }, "F4",      function (c) c:kill() end),

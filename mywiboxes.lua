@@ -1,3 +1,4 @@
+require("functions")
 -- Create a wibox for each screen and add it
 mywibox = {}
 mywibox_w = {}
@@ -111,7 +112,7 @@ for s = 1, screen.count() do
   right_layout:add(yf)
   right_layout:add(spr)
   right_layout:add(spr)
-  right_layout:add(cpuicon)
+  right_layout:add(cpuicon)  
   right_layout:add(cpuwidget)
   right_layout:add(memicon)
   right_layout:add(memwidget)
@@ -130,7 +131,6 @@ for s = 1, screen.count() do
   right_layout:add(spr)
   right_layout:add(weathericon)
   right_layout:add(myweather)
-  right_layout:add(spr)
   right_layout:add(spr)
   right_layout:add(baticon)
   right_layout:add(batwidget)

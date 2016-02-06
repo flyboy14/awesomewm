@@ -95,7 +95,7 @@ local function worker(args)
             local min = math.floor((time_rat - hrs) * 60)
             if min < 0 then min = 0 elseif min > 59 then min = 59 end
 
-            bat_now.time = string.format("%02d:%02d", hrs, min)
+            bat_now.time = string.format("%02d%02d", hrs, min)
 
             bat_now.perc = first_line(bstr .. "/capacity")
 

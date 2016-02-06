@@ -1,12 +1,27 @@
 -- {{{ Variable definitions
 
--- Useful Paths
-
 -- {{{ wibox
 markup = lain.util.markup
-blue   = beautiful.fg_focus
-red    = "#EB8F8F"
-green  = "#8FEB8F"
+yellow = "#FFF6B6"
+strongyellow = "#E4E876"
+orange = "#EBB06F"
+strongorange = "#E09620"
+hellorange = "#E05721"
+red = "#FF9BA1"
+strongred = "#e54c62"
+blue = "#9EF7FF"
+strongblue = "#46a8c3"
+green = "#9BFFA6"
+stronggreen = "#7AC82E"
+grey = "#aeaeae"
+white = "#fefefe"
+
+yellow_color = yellow
+orange_color = orange
+red_color = strongred
+blue_color = strongblue
+green_color = stronggreen
+grey_color = strongblue
 -- }}}
 
 modkey = "Mod4"
@@ -20,7 +35,6 @@ active_theme = themes .. "/dark_grey"
 -- Themes define colours, icons, and wallpapers
 beautiful.init(active_theme .. "/theme.lua")
 
--- This is used later as the default terminal and editor to run.
 wireless_name = ""
 myinterface = ""
 inet_on = false
@@ -29,6 +43,7 @@ font_main = "Fixed 13"
 terminal = "terminology"
 browser = "google-chrome-stable"
 editor = "subl3"
+video = "optirun vlc"
 editor_cmd = terminal .. " -e " .. editor
 musicplr = "mpd " .. home .. "/.mpd/mpd.conf"
 --musicplr = "mpd ~/.mpd/mpd.conf"
@@ -72,3 +87,7 @@ tags = {
     names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
     layout = { layouts[1], layouts[2], layouts[2], layouts[4], layouts[5], layouts[1], layouts[1], layouts[1] }
 }
+
+for s = 1, screen.count() do
+  tags[s] = awful.tag(tags.names, s, tags.layout)
+end

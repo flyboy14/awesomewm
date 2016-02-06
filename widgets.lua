@@ -1,66 +1,72 @@
 -- Memory widget
-memwidget = wibox.widget.textbox()
+--memwidget = wibox.widget.textbox()
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
-vicious.register(memwidget, vicious.widgets.mem, "<span font='Visitor TT2 BRK 10' color='#aeaeae'>$2MB/$3MB  </span>", 3)
+-- vicious.register(memwidget, vicious.widgets.mem, "<span font='Visitor TT2 BRK 10' color='#aeaeae'>$2MB/$3MB  </span>", 3)
+
+memwidget = lain.widgets.mem({
+  timeout = 3,
+  settings = 
+    function()
+      local color = grey
+      local mem = math.floor(mem_now.used)
+      if mem < 1000 then color = green_color 
+      elseif mem < 4000 then color = yellow_color
+      elseif mem < 6000 then color = orange_color
+      else color = red_color
+      end
+      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='Visitor TT2 BRK 10'>RAM </span><span font='Visitor TT2 BRK 10'>"..mem.."MB </span>"))
+    end
+})
 
 -- Battery widget
+
+
+
 baticon = wibox.widget.imagebox()
 baticon:set_image(beautiful.widget_battery)
-
-function batstate()
-  local batstate = nil
-  local file = io.open("/sys/class/power_supply/BAT0/status", "r")
-
-  if (file == nil) then
-    return "Cable plugged"
-  end
-
-  batstate = file:read("*line")
-  file:close()
-
-  if (batstate == 'Discharging' or batstate == 'Charging') then
-    return batstate
-  else
-    return "Fully charged"
-  end
-end
-
-batwidget = wibox.widget.textbox()
-batwidget:buttons(awful.util.table.join(
-awful.button({ }, 4, function () awful.util.spawn_with_shell(bri_up)end),
-awful.button({ }, 5, function () awful.util.spawn_with_shell(bri_down) end)))
-
-vicious.register(batwidget, vicious.widgets.bat,
-function (widget, args)
--- plugged
-  if (batstate() == 'Cable plugged') then
-    baticon:set_image(beautiful.widget_ac)
-    return '<span font="Visitor TT2 BRK 10" color="#46A8C3">AC </span>'
-    -- critical
-  elseif (args[2] <= 7 and batstate() == 'Discharging') then
+batwidget = lain.widgets.bat({
+  timeout = 3,
+  notify = "on",
+  settings = 
+    function()
+      local color = grey
+      local perc = math.floor(bat_now.perc)
+      local time = bat_now.time
+      local status = bat_now.status
+      local time_color = green_color
+      --if (batstate() == 'Cable plugged') then
+--     baticon:set_image(beautiful.widget_ac)
+--     return '<span font="Visitor TT2 BRK 10" color="#46A8C3">AC </span>'
+--     -- critical
+  if (perc <= 7 and state == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
     awful.util.spawn("systemctl suspend")
-  elseif (batstate() == 'Discharging' and args[2] <= 10) then
+  elseif (state == 'Discharging' and perc <= 10) then
     show_smth("⚡ Caution! ⚡", "Battery energy entered critical state!", iconsdir .. "/battery-red.svg", 1, nil, nil, nil, nil )
-  elseif (args[2] <= 15) then
+  elseif (perc <= 15) then
     baticon:set_image(beautiful.widget_battery_empty)
-  elseif (args[2] <= 25) then
+  elseif (perc <= 25) then
     baticon:set_image(beautiful.widget_battery_very_low)
-  elseif (args[2] <= 45) then
+  elseif (perc <= 45) then
     baticon:set_image(beautiful.widget_battery_low)
-  elseif (args[2] <= 89) then
+  elseif (perc <= 89) then
     baticon:set_image(beautiful.widget_battery_mid)
-  elseif (args[2] >= 90) then baticon:set_image(beautiful.widget_battery_high)
+  elseif (perc >= 90) then baticon:set_image(beautiful.widget_battery_high)
   end
-
-  if (batstate() == 'Discharging') then
-    return '<span color="#e54c62" font="Clean 9" rise="-1000">↓ <span rise="400" font="Visitor TT2 BRK 10">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
-  elseif (batstate() == 'Charging' and args[2] ~= 100) then
-    return '<span font="Clean 9" color="#7AC82E" rise="-1000">↑ <span rise="400" font="Visitor TT2 BRK 10">' .. args[3] .. '<span color="#aeaeae">p' .. args[2] ..' </span></span></span>'
-  else
-    return '<span color="#46A8C3" font="Fixed 9">⚡ <span rise="1000" font="Visitor TT2 BRK 10">full<span color="#aeaeae">p' .. args[2] ..' </span></span></span>' end
-end, 3, 'BAT0')
+      if status == "Discharging" then
+        time_color = red_color
+        time = '<span font="Clean 9" rise="-1000" color="'..time_color..'">↓ <span rise="400" font="Visitor TT2 BRK 10">'..time..'</span></span>'
+      elseif status == "Charging" and perc ~= 100 then
+        time_color = green_color
+        time = '<span font="Clean 9" rise="-1000" color="'..time_color..'">↑ <span rise="400" font="Visitor TT2 BRK 10">'..time..'</span></span>'
+      else
+        time_color = blue_color
+        time = '<span font="Clean 9" rise="-1000" color="'..time_color..'">⚡ <span rise="400" font="Visitor TT2 BRK 10">'..time..'</span></span>'
+      end
+      widget:set_markup(markup(color, time..'<span font="Visitor TT2 BRK 10">p'..perc..' </span>'))
+    end
+})
 
 --
 -- {{{ Variable definitions
@@ -130,14 +136,20 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
 
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.widget_cpu)
-cpuwidget = wibox.widget.textbox()
-
-vicious.register(
-  cpuwidget,
-  vicious.widgets.cpu,
-  '<span font="Visitor TT2 BRK 10" color="#46A8C3">CPU <span color="#aeaeae">$1<span font="Visitor TT2 BRK 10">%  </span></span></span>',
-  3
-)
+cpuwidget = lain.widgets.cpu({
+  timeout = 3,
+  settings = 
+    function()
+      local color = "#dedede"
+      local cpu = math.floor(cpu_now.usage)
+      if cpu < 20 then color = green_color
+      elseif cpu < 55 then color = yellow_color
+      elseif cpu < 75 then color = orange_color
+      else color = red_color
+      end
+      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='Visitor TT2 BRK 10'>CPU </span><span font='Visitor TT2 BRK 10'>"..cpu.."% </span>"))
+    end
+})
 
 -- Weather widget
 
@@ -153,15 +165,15 @@ myweather = lain.widgets.weather({
       local units = math.floor(weather_now["main"]["temp"])-273
       local unitscolor = "#aeaeae"
       if units < -12 then
-        unitscolor = "#46A8C3" units = "fuck, it\'s " .. units
+        unitscolor = strongblue units = "fuck, it\'s " .. units
       elseif units <= 0 then
-        unitscolor = "#69E0CC"
+        unitscolor = blue
       elseif units <= 17 then
-        unitscolor = "#E4E876"
+        unitscolor = strongyellow
       elseif units <= 30 then
-        unitscolor = "#E09620"
+        unitscolor = strongorange
       elseif units > 30 then
-        unitscolor = "#E05721" units = "fuck, it\'s " .. units
+        unitscolor = hellorange units = "fuck, it\'s " .. units
       end
       widget:set_markup(markup(
         unitscolor,
@@ -192,23 +204,28 @@ vicious.register(
   volumewidget,
   vicious.widgets.volume,
   function (widget, args)
+    local volcolor = grey
     if (args[2] ~= "♩" ) then
       if (args[1] == 0) then
         volicon:set_image(beautiful.widget_vol_no)
+        volcolor = red_color
       elseif (args[1] <= 35) then
         volicon:set_image(beautiful.widget_vol_low)
+        volcolor = orange_color
       elseif (args[1] <= 70) then
         volicon:set_image(beautiful.widget_vol_med)
+        volcolor = yellow_color
       else
         volicon:set_image(beautiful.widget_vol_hi)
+        volcolor = green_color
       end
 
     else
       volicon:set_image(beautiful.widget_vol_mute)
-    return '<span font="Visitor TT2 BRK 10" color="#aeaeae">p' .. args[1] .. '<span color="#e54c62">m  </span></span>'
+    return '<span font="Visitor TT2 BRK 10" color="'..volcolor..'">p' .. args[1] .. '<span color="'..red_color..'">m  </span></span>'
     --return '<span font="Visitor TT2 BRK 10" color="#e54c62">muted<span font="Visitor TT2 BRK 10" color="#aeaeae">'.. args[3] ..'</span><span color="#aeaeae">%</span></span>'
     end
-    return '<span font="Visitor TT2 BRK 10" color="#aeaeae">p' .. args[1] .. '  </span>'
+    return '<span font="Visitor TT2 BRK 10" color="'..volcolor..'">p' .. args[1] .. '  </span>'
       --return '<span font="Visitor TT2 BRK 10" color="#aeaeae">' .. args[3] ..'<span font="Visitor TT2 BRK 10">%</span></span>'
   end,
   1,
@@ -226,8 +243,8 @@ netupinfo = lain.widgets.net({
   settings =
   function()
     myinterface = iface
-    widget:set_markup(markup("#7ac82e", "<span font='Visitor TT2 BRK 10'>" .. net_now.received .. " </span>"))
-    netdowninfo:set_markup(markup("#46A8C3", "<span font='Visitor TT2 BRK 10'>" .. net_now.sent .. " </span>"))
+    widget:set_markup(markup(green_color, "<span font='Visitor TT2 BRK 10'>" .. net_now.received .. " </span>"))
+    netdowninfo:set_markup(markup(blue_color, "<span font='Visitor TT2 BRK 10'>" .. net_now.sent .. " </span>"))
   end
 })
 
@@ -264,7 +281,7 @@ vicious.register(
 
 
 -- Separators
-face = wibox.widget.textbox('<span color="#e54c62" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')
+face = wibox.widget.textbox('<span color="'..red_color..'" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')
 
 face:buttons(awful.util.table.join(
   awful.button({ }, 3,
@@ -385,22 +402,5 @@ musicwidget:register_buttons({
   { "", "XF86AudioStop", musicwidget:command_stop() },
 })
 
--- Music widget
-mpdicon = wibox.widget.imagebox()
-
-mpdicon:set_image(beautiful.arrl)
-mpdicon:buttons(awful.util.table.join(
-  awful.button({ }, 1,
-      function ()
-        local matcher =
-        function (c)
-          return awful.rules.match(c, {class = 'mpd'})
-        end
-        awful.client.run_or_raise(musicplr, matcher)
-    end
-  ),
-  awful.button({ }, 2, function () awful.util.spawn_with_shell("sonata") end),
-  awful.button({ }, 3, function () awful.util.spawn_with_shell("pkill -9 mpd") end),
-  awful.button({ }, 4, function () awful.util.spawn_with_shell("mpc volume +5") end),
-  awful.button({ }, 5, function () awful.util.spawn_with_shell("mpc volume -5") end)
-))
+-- Music icon
+mpdicon = my_launcher({ image = beautiful.arrl, command = musicplr })

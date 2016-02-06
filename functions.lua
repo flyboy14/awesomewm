@@ -42,6 +42,25 @@ function mouse_on_wibox()
     return false
   end
 end
+
+function restore_colors()
+        green_color = green
+        blue_color = blue
+        red_color = red
+        yellow_color = yellow
+        orange_color = orange
+        grey_color = grey
+end
+
+function revert_colors()
+        green_color = stronggreen
+        blue_color = strongblue
+        red_color = strongred
+        yellow_color = grey
+        orange_color = grey
+        grey_color = strongblue
+end
+
 -- }}}
 function wibox_color()
   local tag = awful.tag.selected()
@@ -51,8 +70,8 @@ function wibox_color()
   for i=1, #c do
     if not c[i].minimized and finished == false then
       if (c[i]:geometry()['y'] <= 17 or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then
-        val = beautiful.bg_normal
         finished = true
+        val = beautiful.mycolor
         break
       else
         val = beautiful.mycolor .. "44"
@@ -80,6 +99,14 @@ function is_fullscreen()
     end
   end
   return val
+end
+
+function bool_to_str(boole)
+  if boole then
+    return "true"
+  else
+    return "false"
+  end
 end
 
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
