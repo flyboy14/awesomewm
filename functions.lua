@@ -109,6 +109,17 @@ function bool_to_str(boole)
   end
 end
 
+function touchpad_toggle()
+  local f = io.popen('synclient -l | grep TouchpadOff | sed "s_ __g"|cut -d= -f2')
+  local state = f:read()
+  f:close()
+  if state == "1" then
+    awful.util.spawn_with_shell("synclient TouchpadOff=0")
+  else
+    awful.util.spawn_with_shell("synclient TouchpadOff=1")
+  end
+end
+
 function show_smth(tiitle, teext, icoon, timeeout, baackground, fooreground, foont, poosition)
   hide_smth()
   noti = naughty.notify{title = tiitle or nil, text = teext or nil, icon = icoon or "", timeout = timeeout or 5
@@ -143,7 +154,7 @@ function check_for_terminal (command)
    if command:sub(1,1) == ":" then
       command = terminal .. ' -e "' .. command:sub(2) .. '"'
    end
-   awful.util.spawn(command)
+   awful.util.spawn_with_shell("source ~/.zshrc &&" .. command .. " &2>/dev/null")
 end
 
 function clean_for_completion (command, cur_pos, ncomp, shell)
@@ -164,7 +175,7 @@ end
 
 -- {{{ get wallpaper from nitrogen config file
 function set_wallpaper ()
-  local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file= | sed 's/'file='//g'")
+  local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file= | sed 's_'file='__g'")
   wpaper = f:read()
   f:close()
 

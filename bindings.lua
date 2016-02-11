@@ -103,9 +103,9 @@ globalkeys = awful.util.table.join(
     --   awful.util.spawn_with_shell("systemctl suspend")
     -- end),
 
-  awful.key({ }, "XF86TouchpadToggle",
-    function ()
-      awful.util.spawn_with_shell(toggle_touchpad)
+  awful.key({ modkey, "Control"}, "t",
+    function()
+      touchpad_toggle()
     end,
     function ()
       show_smth(nil, "Touchpad control toggled!", iconsdir .. "/important.svg", 1, nil, nil, nil, nil)

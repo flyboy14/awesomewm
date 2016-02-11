@@ -62,7 +62,7 @@ batwidget = lain.widgets.bat({
         time = '<span font="Clean 9" rise="-1000" color="'..time_color..'">↑ <span rise="400" font="Visitor TT2 BRK 10">'..time..'</span></span>'
       else
         time_color = blue_color
-        time = '<span font="Clean 9" rise="-1000" color="'..time_color..'">⚡ <span rise="400" font="Visitor TT2 BRK 10">'..time..'</span></span>'
+        time = '<span font="Clean 9" rise="-1000" color="'..time_color..'">⚡ <span rise="400" font="Visitor TT2 BRK 10">full</span></span>'
       end
       widget:set_markup(markup(color, time..'<span font="Visitor TT2 BRK 10">p'..perc..' </span>'))
     end

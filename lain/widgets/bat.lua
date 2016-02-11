@@ -37,7 +37,7 @@ local function worker(args)
         text = "Plug the cable!",
         timeout = 15,
         fg = "#202020",
-        bg = "#CDCDCD"
+        bg = "#FF9BA1"
     }
 
     bat_notification_critical_preset = {
