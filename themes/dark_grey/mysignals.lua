@@ -1,4 +1,4 @@
-require("mywiboxes")
+require("themes/dark_grey/mywiboxes")
 gears = require("gears")
 awful = require("awful")
 -- {{{ Signals

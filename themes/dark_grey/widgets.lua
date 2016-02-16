@@ -151,6 +151,25 @@ cpuwidget = lain.widgets.cpu({
     end
 })
 
+-- Temp widget
+
+tempicon = wibox.widget.imagebox()
+tempicon:set_image(beautiful.widget_temp)
+tempwidget = lain.widgets.temp({
+  timeout = 5,
+  settings = 
+    function()
+      local color = "#dedede"
+      local temp = math.floor(coretemp_now)
+      if temp < 50 then color = green_color
+      elseif temp < 65 then color = yellow_color
+      elseif temp < 75 then color = orange_color
+      else color = red_color
+      end
+      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='Visitor TT2 BRK 10'></span><span font='Visitor TT2 BRK 10'>"..temp.."°C </span>"))
+    end
+})
+
 -- Weather widget
 
 

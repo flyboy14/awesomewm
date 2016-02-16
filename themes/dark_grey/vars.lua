@@ -85,7 +85,7 @@ local layouts =
 theme.taglist_font = font_main
 tags = {
     names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
-    layout = { layouts[1], layouts[2], layouts[2], layouts[4], layouts[5], layouts[1], layouts[1], layouts[1] }
+    layout = { layouts[1], layouts[2], layouts[2], layouts[4], layouts[7], layouts[1], layouts[1], layouts[1] }
 }
 
 for s = 1, screen.count() do

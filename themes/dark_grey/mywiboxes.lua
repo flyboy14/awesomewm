@@ -1,4 +1,4 @@
-require("functions")
+require("themes/dark_grey/functions")
 -- Create a wibox for each screen and add it
 mywibox = {}
 mywibox_w = {}
@@ -114,6 +114,8 @@ for s = 1, screen.count() do
   right_layout:add(spr)
   right_layout:add(cpuicon)  
   right_layout:add(cpuwidget)
+  right_layout:add(tempicon)
+  right_layout:add(tempwidget)
   right_layout:add(memicon)
   right_layout:add(memwidget)
   right_layout:add(neticon)
@@ -132,6 +134,7 @@ for s = 1, screen.count() do
   right_layout:add(weathericon)
   right_layout:add(myweather)
   right_layout:add(spr)
+
   right_layout:add(baticon)
   right_layout:add(batwidget)
   right_layout:add(clockicon)

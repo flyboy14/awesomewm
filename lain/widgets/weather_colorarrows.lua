@@ -117,7 +117,7 @@ local function worker(args)
                 widget = weather.widget
                 settings()
             else
-                weather.widget._layout.text = " N/A " -- tries to avoid textbox bugs
+                --weather.widget._layout.text = " N/A " -- tries to avoid textbox bugs
                 weather.icon:set_image(icons_path .. "na.png")
             end
         end)
