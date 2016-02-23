@@ -187,8 +187,8 @@ function set_wallpaper ()
 
   for s = 1, screen.count() do
     --gears.wallpaper.centered(wpaper, s, false)
-    gears.wallpaper.fit(wpaper,s,false)
-    --gears.wallpaper.maximized(wpaper,s,false)
+    --gears.wallpaper.fit(wpaper,s,false)
+    gears.wallpaper.maximized(wpaper,s,false)
   end
 end
 -- }}}

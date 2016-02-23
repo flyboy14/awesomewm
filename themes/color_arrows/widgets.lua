@@ -132,26 +132,81 @@ function (widget, args)
    else 
     return '<span background="' .. batterycolor_back .. '" font="Fixed 14" color="#6CC0C0"> <span rise="1200" font="Clean 9">⚡ <span font="Visitor TT2 BRK 10" rise="1600">full<span color="' .. batterycolor_front ..'">p' .. args[2] ..' </span></span></span></span>' end
 end, 1, 'BAT0')
--- Keyboard layout widget
+
+-- {{{ Keyboard layout widgets
+
+-- {{{ Variable definitions
+kbd_dbus_sw_cmd = "qdbus ru.gentoo.KbddService /ru/gentoo/KbddService  ru.gentoo.kbdd.set_layout "
+-- kbd_dbus_sw_cmd = "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.set_layout uint32:"
+kbd_dbus_prev_cmd = "qdbus ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.prev_layout"
+-- kbd_dbus_prev_cmd = "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.prev_layout"
+kbd_dbus_next_cmd = "qdbus ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"
+-- kbd_dbus_next_cmd = "dbus-send --dest=ru.gentoo.KbddService /ru/gentoo/KbddService ru.gentoo.kbdd.next_layout"
+kbd_img_path = "/usr/share/icons/kbflags/"
+-- }}}
+
+--- Create the menu
+kbdmenu = awful.menu({ items = {  
+  { "English", kbd_dbus_sw_cmd .. "0" },
+  { "Русский", kbd_dbus_sw_cmd .. "1" }
+  }, theme = { width = 100, bg_normal=keyboardcolor_back, bg_focus=keyboardcolor_back, fg_normal=keyboardcolor_front, fg_focus="#D8F8E7" }
+})
+
+-- Create simple text widget
 kbdwidget = wibox.widget.textbox()
-kbdcolb = "<span font='Fixed 14' background='" .. keyboardcolor_back .. "'> <span rise='1600' font='Visitor TT2 BRK 10' color='" .. keyboardcolor_front .. "'>"
-kbdcole = "</span></span>"
-kbdwidget.border_width = 0
-kbdwidget.border_color = beautiful.fg_normal
-kbdwidget:set_markup(kbdcolb .. "en-us " .. kbdcole)
+-- kbdwidget.border_width = 1
+-- kbdwidget.border_color = beautiful.fg_normal
+kbdwidget.align="center"
+kbdwidget:set_markup("<span font='Fixed 14' background='" .. keyboardcolor_back .. "'> <span rise='1600' font='Visitor TT2 BRK 10' color='" .. keyboardcolor_front .. "'>en-us </span></span>")
+--kbdwidget.bg_image = image (kbd_img_path .. "us.png")
+kbdwidget.bg_align = "center"
+--kbdwidget.bg_resize = true
+--awful.widget.layout.margins[kbdwidget] = { left = 0, right = 10 }
+kbdwidget:buttons(awful.util.table.join(
+  awful.button({ }, 1, function() os.execute(kbd_dbus_prev_cmd) end),
+  awful.button({ }, 2, function() os.execute(kbd_dbus_next_cmd) end),
+  awful.button({ }, 3, function() kbdmenu:toggle () end)
+))
+-- }}}
+
+-- {{{ Signals
 dbus.request_name("session", "ru.gentoo.kbdd")
 dbus.add_match("session", "interface='ru.gentoo.kbdd',member='layoutChanged'")
 dbus.connect_signal("ru.gentoo.kbdd", function(...)
-    local data = {...}
-    local layout = data[2]
-    lts = {[0] = "en-us ", [1] = "ru-ru "}
-    kbdwidget:set_markup (kbdcolb..""..lts[layout]..""..kbdcole)
-    end
-)
+  local data = {...}
+  local layout = data[2]
+  lts = {[0] = "en-us", [1] = "ru-ru"}
+  --lts_img = {[0] = kbd_img_path .. "us.png", [1] = kbd_img_path .. "ru.png", [2] = kbd_img_path .. "il.png", [3] = kbd_img_path .. "de.png" }
+  kbdwidget:set_markup("<span font='Fixed 14' background='" .. keyboardcolor_back .. "'> <span rise='1600' font='Visitor TT2 BRK 10' color='" .. keyboardcolor_front .. "'>"..lts[layout].." </span></span>")
+  --kbdwidget.bg_image = image(lts_img[layout])
+  end)
+
+
+
+
+-- kbdwidget = wibox.widget.textbox()
+-- kbdcolb = "<span font='Fixed 14' background='" .. keyboardcolor_back .. "'> <span rise='1600' font='Visitor TT2 BRK 10' color='" .. keyboardcolor_front .. "'>"
+-- kbdcole = "</span></span>"
+-- kbdwidget.border_width = 0
+-- kbdwidget.border_color = beautiful.fg_normal
+-- kbdwidget:set_markup(kbdcolb .. "en-us " .. kbdcole)
+-- dbus.request_name("session", "ru.gentoo.kbdd")
+-- dbus.add_match("session", "interface='ru.gentoo.kbdd',member='layoutChanged'")
+-- dbus.connect_signal("ru.gentoo.kbdd", function(...)
+--     local data = {...}
+--     local layout = data[2]
+--     lts = {[0] = "en-us ", [1] = "ru-ru "}
+--     kbdwidget:set_markup (kbdcolb..""..lts[layout]..""..kbdcole)
+--     end
+-- )
 
 -- Mail widget
- mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
- mygmailimg:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
+ mygmailimg = my_launcher({
+   image = beautiful.widget_mail,
+   command = browser .. " mail.google.com/mail/u/1/h mail.google.com/mail/u/0/h"
+ })
+ -- mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
+ -- mygmailimg:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(browser .. " gmail.com") end)))
 
 -- CPU widget
  cpuicon = wibox.widget.imagebox()

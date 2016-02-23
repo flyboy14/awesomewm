@@ -2,9 +2,12 @@
      {"Archive Manager", "file-roller ", "/usr/share/icons/hicolor/16x16/apps/file-roller.png" },
      {"Caffeine-ng", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
      {"Elementary Test", "elementary_test", "/usr/share/icons/elementary.png" },
+     {"GitKraken", "\"gitkraken\"", "/usr/share/pixmaps/gitkraken.png" },
+     {"Google Drive", "xdg-open \"Google Drive\"", "///opt/thefanclub/grive-tools/GoogleDrive.png" },
+     {"Google Drive Indicator", "/opt/thefanclub/grive-tools/grive-indicator ", "///opt/thefanclub/grive-tools/GoogleDrive.png" },
+     {"Grive Setup", "xterm -e /bin/bash /opt/thefanclub/grive-tools/grive-setup", "///opt/thefanclub/grive-tools/grive.png" },
      {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
-     {"SpiderOakONE", "SpiderOakONE", "/usr/share/pixmaps/SpiderOakONE.png" },
      {"Worker", "worker", "/usr/share/pixmaps/WorkerIcon48.xpm" },
      {"compton", "compton", "/usr/share/icons/hicolor/48x48/apps/compton.png" },
  }
@@ -23,8 +26,11 @@
  }
 
  local menu251bd8143891238ecedc306508e29017 = {
+     {"Cult of the Wind", "steam steam://rungameid/293840", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
+     {"Dota 2", "steam steam://rungameid/570"},
      {"Emilia Pinball", "pinball"},
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
+     {"Teeworlds", "steam steam://rungameid/380840", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
  }
 
  local menud334dfcea59127bedfcdbe0a3ee7f494 = {
@@ -40,14 +46,18 @@
      {"Dropbox", "dropbox", "/usr/share/pixmaps/dropbox.png" },
      {"Firefox", "firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
      {"Firefox-GTK", "firefox-gtk3 ", "/usr/share/icons/hicolor/16x16/apps/firefox-gtk3.png" },
+     {"GitKraken", "\"gitkraken\"", "/usr/share/pixmaps/gitkraken.png" },
      {"Google Chrome", "/usr/bin/google-chrome-stable ", "/usr/share/icons/hicolor/16x16/apps/google-chrome.png" },
      {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
      {"Remmina", "/usr/bin/remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
+     {"Skype", "/opt/skype_unofficial_client/skype ", "///opt/skype_unofficial_client/skype.png" },
      {"Skype", "skype ", "/usr/share/icons/hicolor/16x16/apps/skype.png" },
-     {"SpiderOakONE", "SpiderOakONE", "/usr/share/pixmaps/SpiderOakONE.png" },
+     {"Skype-Electron", "skype-electron ", "/usr/share/icons/hicolor/128x128/apps/skype-electron.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
+     {"TeamViewer 11", "/opt/teamviewer/tv_bin/script/teamviewer", "///opt/teamviewer/tv_bin/desktop/teamviewer.png" },
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
      {"Viber", "viber", "/usr/share/icons/hicolor/16x16/apps/viber.png" },
+     {"Vivaldi (beta)", "/usr/bin/vivaldi ", "/usr/share/icons/hicolor/16x16/apps/vivaldi.png" },
      {"Zenmap", "zenmap ", "///usr/share/zenmap/pixmaps/zenmap.png" },
      {"Zenmap (as root)", "/usr/share/zenmap/su-to-zenmap.sh ", "///usr/share/zenmap/pixmaps/zenmap.png" },
      {"wpa_gui", "wpa_gui", "/usr/share/pixmaps/wpa_gui.svg" },
@@ -55,6 +65,9 @@
 
  local menudf814135652a5a308fea15bff37ea284 = {
      {"Document Viewer", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
+     {"PlanMaker 2016", "/usr/bin/planmaker16 ", "/usr/share/icons/hicolor/16x16/apps/smoffice2016-planmaker.png" },
+     {"Presentations 2016", "/usr/bin/presentations16 ", "/usr/share/icons/hicolor/16x16/apps/smoffice2016-presentations.png" },
+     {"TextMaker 2016", "/usr/bin/textmaker16 ", "/usr/share/icons/hicolor/16x16/apps/smoffice2016-textmaker.png" },
      {"WPS Presentation", "/usr/bin/wpp ", "/usr/share/icons/hicolor/48x48/apps/wps-office-wppmain.png" },
      {"WPS Spreadsheets", "/usr/bin/et ", "/usr/share/icons/hicolor/48x48/apps/wps-office-etmain.png" },
      {"WPS Writer", "/usr/bin/wps ", "/usr/share/icons/hicolor/48x48/apps/wps-office-wpsmain.png" },
@@ -63,10 +76,7 @@
  local menue6f43c40ab1c07cd29e4e83e4ef6bf85 = {
      {"CMake", "cmake-gui ", "/usr/share/icons/hicolor/32x32/apps/CMakeSetup.png" },
      {"Elementary Test", "elementary_test", "/usr/share/icons/elementary.png" },
-     {"Qt Assistant", "/usr/lib/qt/bin/assistant", "/usr/share/icons/hicolor/32x32/apps/assistant.png" },
-     {"Qt Designer", "/usr/lib/qt/bin/designer", "/usr/share/icons/hicolor/128x128/apps/QtProject-designer.png" },
-     {"Qt Linguist", "/usr/lib/qt/bin/linguist", "/usr/share/icons/hicolor/16x16/apps/linguist.png" },
-     {"Qt QDbusViewer ", "/usr/lib/qt/bin/qdbusviewer", "/usr/share/icons/hicolor/32x32/apps/qdbusviewer.png" },
+     {"GitKraken", "\"gitkraken\"", "/usr/share/pixmaps/gitkraken.png" },
      {"Qt4 Assistant ", "assistant-qt4", "/usr/share/icons/hicolor/32x32/apps/assistant-qt4.png" },
      {"Qt4 Designer", "designer-qt4", "/usr/share/icons/hicolor/128x128/apps/designer-qt4.png" },
      {"Qt4 Linguist ", "linguist-qt4", "/usr/share/icons/hicolor/16x16/apps/linguist-qt4.png" },
@@ -75,6 +85,8 @@
  }
 
  local menu52dd1c847264a75f400961bfb4d1c849 = {
+     {"Kamerka", "kamerka", "/usr/share/pixmaps/kamerka.png" },
+     {"Kodi Media Center", "kodi", "/usr/share/icons/hicolor/16x16/apps/kodi.png" },
      {"PulseAudio Volume Control", "pavucontrol"},
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
@@ -83,9 +95,11 @@
 
  local menuee69799670a33f75d45c57d1d1cd0ab3 = {
      {"Avahi Zeroconf Browser", "/usr/bin/avahi-discover"},
+     {"GParted", "/usr/bin/gparted_polkit ", "/usr/share/icons/hicolor/16x16/apps/gparted.png" },
      {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
      {"Terminology", "terminology", "/usr/share/icons/terminology.png" },
+     {"WinUSB", "winusbgui", "/usr/share/pixmaps/winusbgui-icon.png" },
  }
 
 xdgmenu = {

@@ -228,15 +228,24 @@ vicious.register(
       if (args[1] == 0) then
         volicon:set_image(beautiful.widget_vol_no)
         volcolor = red_color
-      elseif (args[1] <= 35) then
-        volicon:set_image(beautiful.widget_vol_low)
+      elseif (args[1] <= 10) then
+        volicon:set_image(beautiful.widget_vol_med)
         volcolor = orange_color
-      elseif (args[1] <= 70) then
+      elseif (args[1] <= 20) then
         volicon:set_image(beautiful.widget_vol_med)
         volcolor = yellow_color
+      elseif (args[1] <= 45) then
+        volicon:set_image(beautiful.widget_vol_low)
+        volcolor = green_color
+      elseif (args[1] <= 60) then
+        volicon:set_image(beautiful.widget_vol_low)
+        volcolor = yellow_color
+      elseif (args[1] <= 85) then
+        volicon:set_image(beautiful.widget_vol_med)
+        volcolor = orange_color
       else
         volicon:set_image(beautiful.widget_vol_hi)
-        volcolor = green_color
+        volcolor = red_color
       end
 
     else

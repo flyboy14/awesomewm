@@ -314,4 +314,6 @@ end
 clientbuttons = awful.util.table.join(
   awful.button({         }, 1, function (c) client.focus = c; c:raise() end),
   awful.button({ modkey  }, 1, awful.mouse.client.move),
+  awful.button({ modkey  }, 4, function (c) client.focus = c; c.opacity = c.opacity+0.05 end),
+  awful.button({ modkey  }, 5, function (c) client.focus = c; c.opacity = c.opacity-0.05 end),
   awful.button({ alt     }, 1, awful.mouse.client.resize))
