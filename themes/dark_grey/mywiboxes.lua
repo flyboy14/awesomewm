@@ -1,4 +1,5 @@
 require("themes/dark_grey/functions")
+local shifty = require("shifty")
 -- Create a wibox for each screen and add it
 mywibox = {}
 mywibox_w = {}
@@ -78,7 +79,7 @@ for s = 1, screen.count() do
   -- Create a taglist widget
   --mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
   mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.noempty, mytaglist.buttons)
-
+  shifty.taglist = mytaglist
   -- Create a tasklist widget
   mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
   --mytasklist[s].set_bg(beautiful.bg_tasklist)
@@ -165,3 +166,6 @@ for s = 1, screen.count() do
   mywibox_w[s]:set_widget(layout_w)
 end
 -- }}}
+
+shifty.taglist = mytaglist
+shifty.init()

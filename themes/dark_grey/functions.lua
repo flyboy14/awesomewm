@@ -65,8 +65,9 @@ end
 function wibox_color()
   local tag = awful.tag.selected()
   local val = beautiful.mycolor .. "44"
+  if not tag then return val end
   local finished = false
-  local c = tag:clients()
+  local c = tag:clients() or 0
   for i=1, #c do
     if not c[i].minimized and finished == false then
       if (c[i]:geometry()['y'] <= 17 or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then
@@ -154,7 +155,7 @@ function check_for_terminal (command)
    if command:sub(1,1) == ":" then
       command = terminal .. ' -e "' .. command:sub(2) .. '"'
    end
-   awful.util.spawn_with_shell("source ~/.zshrc &&" .. command .. " &2>/dev/null")
+   awful.util.spawn_with_shell(command .. " &2>/dev/null")
 end
 
 function clean_for_completion (command, cur_pos, ncomp, shell)

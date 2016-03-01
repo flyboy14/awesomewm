@@ -32,7 +32,7 @@ awful.rules.rules = {
     properties = { tag = tags[1][3], dockable = false, urgent = false, fixed = false }
   },
   {
-    rule_any = { class = { "GitKraken", "Audacity", "Ninja-ide", "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
+    rule_any = { class = { "GitKraken", "Rawstudio" "Audacity", "Ninja-ide", "Inkscape" ,"Gimp", "QtCreator", "SpiderOak", "Shotcut" ,"Openshot", "DraftSight", "jetbrains-clion" ,"Eclipse", "jetbrains-studio", "draftsight"} },
     properties = { tag = tags[1][4] }
   },
   {

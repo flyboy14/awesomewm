@@ -1,3 +1,4 @@
+local shifty = require("shifty")
 -- {{{ Variable definitions
 
 -- {{{ wibox
@@ -5,10 +6,10 @@ markup = lain.util.markup
 yellow = "#FFF6B6"
 strongyellow = "#E4E876"
 orange = "#EBB06F"
-strongorange = "#E09620"
+strongorange = "#E09620"    
 hellorange = "#E05721"
 red = "#FF9BA1"
-strongred = "#e54c62"
+strongred = "#e54c62"   
 blue = "#9EF7FF"
 strongblue = "#46a8c3"
 green = "#9BFFA6"
@@ -82,12 +83,12 @@ local layouts =
 -- }}}
 
  -- {{{ Tags ₪
-theme.taglist_font = font_main
-tags = {
-    names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
-    layout = { layouts[1], layouts[2], layouts[2], layouts[4], layouts[7], layouts[1], layouts[1], layouts[1] }
-}
-
-for s = 1, screen.count() do
-  tags[s] = awful.tag(tags.names, s, tags.layout)
-end
+-- theme.taglist_font = font_main
+-- tags = {
+--     names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
+--     layout = { layouts[1], layouts[2], layouts[2], layouts[4], layouts[7], layouts[1], layouts[1], layouts[1] }
+-- }
+tags = shifty.config.tags
+-- for s = 1, screen.count() do
+--   tags[s] = awful.tag(tags.names, s, tags.layout)
+-- end
