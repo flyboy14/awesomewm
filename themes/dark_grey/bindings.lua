@@ -48,10 +48,23 @@ globalkeys = awful.util.table.join(
       set_cursor_in_middle_of_focused_client()
     end
   ),
-  -- awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-  -- awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
-  awful.key({ modkey,           }, "q",   awful.tag.viewprev       ),
-  awful.key({ modkey,           }, "e",  awful.tag.viewnext       ),
+  --awful.key({ modkey,           }, "n",   function () awful.tag.viewonly(shifty.getpos(8)) end       ),
+  --awful.key({ modkey,           }, "d",  function () shifty.del() end       ),
+  --awful.key({ modkey,           }, "q",   function() 
+      --awful.tag.viewprev()
+    --end),
+  -- awful.key({ modkey,           }, "e",   function() 
+  --     awful.tag.viewnext()
+  --   end),
+  awful.key({modkey}, "q", awful.tag.viewprev),
+  awful.key({modkey}, "e", awful.tag.viewnext),
+  awful.key({modkey}, "t", function () awful.tag.viewonly(shifty.getpos(8)) end),
+  awful.key({modkey, "Control"},
+            "t",
+            function() shifty.add({ nopopup = true }) end
+            ),
+awful.key({modkey}, "r", shifty.rename),
+awful.key({modkey}, "w", shifty.del),
   --awful.key({ modkey,           }, "h",   awful.tag.viewprev       ),
   --awful.key({ modkey,           }, "l",  awful.tag.viewnext       ),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),

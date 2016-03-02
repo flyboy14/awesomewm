@@ -64,31 +64,12 @@ tagimage_current = iconsdir .. "/media-record-green.svg"
 tagimage_other = iconsdir .. "/media-record.svg"
 tagico = tagimage_other
 
--- Table of layouts to cover with awful.layout.inc, order matters.
-local layouts =
-{
-    awful.layout.suit.floating,               -- 1
-    awful.layout.suit.tile,                   -- 2
-    awful.layout.suit.tile.left,              -- 3
-    --awful.layout.suit.tile.bottom,            -- 4
-    --awful.layout.suit.tile.top,               -- 5
-    --awful.layout.suit.fair,                   -- 6
-    --awful.layout.suit.fair.horizontal,        -- 7
-    awful.layout.suit.spiral,                 -- 8
-    --awful.layout.suit.spiral.dwindle,         -- 9
-    awful.layout.suit.max,                    -- 10
-    awful.layout.suit.max.fullscreen,         -- 11
-    awful.layout.suit.magnifier               -- 12
-}
--- }}}
-
  -- {{{ Tags ₪
 -- theme.taglist_font = font_main
 -- tags = {
 --     names  = { "⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ " },
 --     layout = { layouts[1], layouts[2], layouts[2], layouts[4], layouts[7], layouts[1], layouts[1], layouts[1] }
 -- }
-tags = shifty.config.tags
 -- for s = 1, screen.count() do
 --   tags[s] = awful.tag(tags.names, s, tags.layout)
 -- end

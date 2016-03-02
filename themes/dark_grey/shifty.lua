@@ -1,59 +1,75 @@
-local shifty = require("shifty")
+shifty = require("shifty")
 require("themes/dark_grey/bindings")
+-- Table of layouts to cover with awful.layout.inc, order matters.
+layouts =
+{
+    awful.layout.suit.floating,               -- 1
+    awful.layout.suit.tile,                   -- 2
+    awful.layout.suit.tile.left,              -- 3
+    awful.layout.suit.tile.bottom,            -- 4
+    --awful.layout.suit.tile.top,               -- 5
+    --awful.layout.suit.fair,                   -- 6
+    --awful.layout.suit.fair.horizontal,        -- 7
+    awful.layout.suit.spiral,                 -- 8
+    --awful.layout.suit.spiral.dwindle,         -- 9
+    awful.layout.suit.max,                    -- 10
+    awful.layout.suit.max.fullscreen,         -- 11
+    awful.layout.suit.magnifier               -- 12
+}
+shifty.config.layouts = layouts
+-- }}}
 -- Shifty configured tags.
 --"⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ "
 shifty.config.tags = {  
     home = {
-        layout    = awful.layout.suit.float,
+        layout    = layouts[1],
         mwfact    = 0.60,
         exclusive = true,    
         position  = 1,
-        --init      = true,
         screen    = 1,
-        slave     = true,
-        persist = "true",
-        leave_kills = "true"
+        leave_kills = true,
     },
     ide = {
-        layout    = awful.layout.suit.tile,
+        layout    = layouts[3],
         mwfact    = 0.60,
         exclusive = true,    
         position  = 4,
         --init      = true,
         screen    = 1,
+        leave_kills = true,
         slave     = true,
     },
     web = {
-        layout      = awful.layout.suit.tile.bottom,
+        layout      = layouts[4],
         mwfact      = 0.65,
         exclusive   = true,
         max_clients = 3,
         position    = 2,
+        leave_kills = true,
         --spawn       = browser,
     },
     media = {
-        layout    = awful.layout.suit.float,
+        layout    = layouts[1],
         exclusive = false,
         position  = 5,
-        nopopup = true
+        leave_kills = true,
     },
     editor = {
-        layout   = awful.layout.suit.tile,
+        layout   = layouts[3],
         position = 3,
         exclusive = true,
+        leave_kills = true,
     },
     wine = {
-        layout   = awful.layout.suit.float,
+        layout   = layouts[1],
         position = 6,
-        nopopup = true
+        nopopup = true,
+        leave_kills = true,
     },
     virtual = {
-        layout   = awful.layout.suit.float,
+        layout   = layouts[1],
         position = 7,
-    },
-    im = {
-
-        --leave_kills = "true"
+        leave_kills = true,
     },
 }
 
@@ -80,10 +96,9 @@ shifty.config.apps = {
             "Dolphin", 
             "Nautilus", 
             "Nemo", 
-            "Thunar"
+            "Thunar",
         },
         tag = "home",
-        slave = true,
     },
     {
         match = {
@@ -223,15 +238,7 @@ shifty.config.apps = {
     },
     {
         match = {""},
-        buttons = awful.util.table.join(
-            awful.button({}, 1, function (c) client.focus = c; c:raise() end),
-            awful.button({modkey}, 1, function(c)
-                client.focus = c
-                c:raise()
-                awful.mouse.client.move(c)
-                end),
-            awful.button({alt}, 1, awful.mouse.client.resize)
-            )
+         buttons = clientbuttons
     },
 }
 

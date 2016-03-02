@@ -9,6 +9,7 @@
      {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
      {"Worker", "worker", "/usr/share/pixmaps/WorkerIcon48.xpm" },
+     {"XCA", "xca ", "/usr/share/pixmaps/xca-32x32.xpm" },
      {"compton", "compton", "/usr/share/icons/hicolor/48x48/apps/compton.png" },
  }
 
@@ -27,6 +28,7 @@
 
  local menu251bd8143891238ecedc306508e29017 = {
      {"Cult of the Wind", "steam steam://rungameid/293840", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
+     {"DOOM III", "/usr/bin/doom3", "///usr/share/pixmaps/doom3.png" },
      {"Dota 2", "steam steam://rungameid/570"},
      {"Emilia Pinball", "pinball"},
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
@@ -37,6 +39,7 @@
      {"Color picker", "gcolor3"},
      {"Document Viewer", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
      {"Image Viewer", "eog ", "/usr/share/icons/hicolor/16x16/apps/eog.png" },
+     {"Rawstudio", "env LIBOVERLAY_SCROLLBAR=0 rawstudio ", "/usr/share/icons/rawstudio.png" },
      {"mtPaint", "mtpaint ", "/usr/share/pixmaps/mtpaint.png" },
  }
 
@@ -65,9 +68,6 @@
 
  local menudf814135652a5a308fea15bff37ea284 = {
      {"Document Viewer", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
-     {"PlanMaker 2016", "/usr/bin/planmaker16 ", "/usr/share/icons/hicolor/16x16/apps/smoffice2016-planmaker.png" },
-     {"Presentations 2016", "/usr/bin/presentations16 ", "/usr/share/icons/hicolor/16x16/apps/smoffice2016-presentations.png" },
-     {"TextMaker 2016", "/usr/bin/textmaker16 ", "/usr/share/icons/hicolor/16x16/apps/smoffice2016-textmaker.png" },
      {"WPS Presentation", "/usr/bin/wpp ", "/usr/share/icons/hicolor/48x48/apps/wps-office-wppmain.png" },
      {"WPS Spreadsheets", "/usr/bin/et ", "/usr/share/icons/hicolor/48x48/apps/wps-office-etmain.png" },
      {"WPS Writer", "/usr/bin/wps ", "/usr/share/icons/hicolor/48x48/apps/wps-office-wpsmain.png" },
@@ -77,6 +77,10 @@
      {"CMake", "cmake-gui ", "/usr/share/icons/hicolor/32x32/apps/CMakeSetup.png" },
      {"Elementary Test", "elementary_test", "/usr/share/icons/elementary.png" },
      {"GitKraken", "\"gitkraken\"", "/usr/share/pixmaps/gitkraken.png" },
+     {"Qt Assistant", "/usr/lib/qt/bin/assistant", "/usr/share/icons/hicolor/32x32/apps/assistant.png" },
+     {"Qt Designer", "/usr/lib/qt/bin/designer", "/usr/share/icons/hicolor/128x128/apps/QtProject-designer.png" },
+     {"Qt Linguist", "/usr/lib/qt/bin/linguist", "/usr/share/icons/hicolor/16x16/apps/linguist.png" },
+     {"Qt QDbusViewer ", "/usr/lib/qt/bin/qdbusviewer", "/usr/share/icons/hicolor/32x32/apps/qdbusviewer.png" },
      {"Qt4 Assistant ", "assistant-qt4", "/usr/share/icons/hicolor/32x32/apps/assistant-qt4.png" },
      {"Qt4 Designer", "designer-qt4", "/usr/share/icons/hicolor/128x128/apps/designer-qt4.png" },
      {"Qt4 Linguist ", "linguist-qt4", "/usr/share/icons/hicolor/16x16/apps/linguist-qt4.png" },
@@ -86,7 +90,7 @@
 
  local menu52dd1c847264a75f400961bfb4d1c849 = {
      {"Kamerka", "kamerka", "/usr/share/pixmaps/kamerka.png" },
-     {"Kodi Media Center", "kodi", "/usr/share/icons/hicolor/16x16/apps/kodi.png" },
+     {"Kodi media center", "kodi", "/usr/share/icons/hicolor/16x16/apps/kodi.png" },
      {"PulseAudio Volume Control", "pavucontrol"},
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
