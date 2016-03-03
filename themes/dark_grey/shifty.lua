@@ -7,14 +7,11 @@ layouts =
     awful.layout.suit.tile,                   -- 2
     awful.layout.suit.tile.left,              -- 3
     awful.layout.suit.tile.bottom,            -- 4
-    --awful.layout.suit.tile.top,               -- 5
-    --awful.layout.suit.fair,                   -- 6
-    --awful.layout.suit.fair.horizontal,        -- 7
-    awful.layout.suit.spiral,                 -- 8
-    --awful.layout.suit.spiral.dwindle,         -- 9
-    awful.layout.suit.max,                    -- 10
-    awful.layout.suit.max.fullscreen,         -- 11
-    awful.layout.suit.magnifier               -- 12
+    awful.layout.suit.tile.top,               -- 5
+    awful.layout.suit.spiral,                 -- 6
+    awful.layout.suit.max,                    -- 7
+    awful.layout.suit.max.fullscreen,         -- 8    
+    awful.layout.suit.magnifier,              -- 9
 }
 shifty.config.layouts = layouts
 -- }}}
@@ -27,7 +24,7 @@ shifty.config.tags = {
         exclusive = true,    
         position  = 1,
         screen    = 1,
-        leave_kills = true,
+        --leave_kills = true,
     },
     ide = {
         layout    = layouts[3],
@@ -40,22 +37,22 @@ shifty.config.tags = {
         slave     = true,
     },
     web = {
-        layout      = layouts[4],
+        layout      = layouts[3],
         mwfact      = 0.65,
         exclusive   = true,
-        max_clients = 3,
+        max_clients = 2,
         position    = 2,
         leave_kills = true,
         --spawn       = browser,
     },
     media = {
-        layout    = layouts[1],
+        layout    = layouts[8],
         exclusive = false,
         position  = 5,
         leave_kills = true,
     },
     editor = {
-        layout   = layouts[3],
+        layout   = layouts[6],
         position = 3,
         exclusive = true,
         leave_kills = true,
@@ -88,6 +85,8 @@ shifty.config.apps = {
             "Pale moon"
         },
         tag = "web",
+        maximized_vertical   = false,
+        maximized_horizontal = false,
     },
     {
         match = {
@@ -99,6 +98,8 @@ shifty.config.apps = {
             "Thunar",
         },
         tag = "home",
+        maximized_vertical   = false,
+        maximized_horizontal = false,
     },
     {
         match = {
@@ -114,6 +115,8 @@ shifty.config.apps = {
             "Atom"
         },
         tag = "editor",
+        maximized_vertical   = false,
+        maximized_horizontal = false,
     },
     {
         match = {
@@ -134,6 +137,8 @@ shifty.config.apps = {
             "draftsight"
         },
         tag = "ide",
+        maximized_vertical   = false,
+        maximized_horizontal = false,
     },
     {
         match = {
@@ -142,6 +147,8 @@ shifty.config.apps = {
             "Sonata",
         },
         tag = "media",
+        maximized_vertical   = false,
+        maximized_horizontal = false,
     },
     {
         match = {
@@ -165,6 +172,8 @@ shifty.config.apps = {
             "plugin-container"
         },
         float = true,
+        maximized_vertical   = false,
+        maximized_horizontal = false,
     },
     {
         match = {
@@ -179,6 +188,8 @@ shifty.config.apps = {
             "teeworlds"
         },
         tag = "wine",
+        maximized_vertical   = false,
+        maximized_horizontal = false,
     },
     {
         match = {
@@ -188,6 +199,8 @@ shifty.config.apps = {
             "rdesktop*"
         },
         tag = "virtual",
+        maximized_vertical   = false,
+        maximized_horizontal = false,
     },
     {
         match = {
@@ -251,7 +264,7 @@ shifty.config.apps = {
 --  * run : function to exec when shifty creates a new tag
 --  * all other parameters (e.g. layout, mwfact) follow awesome's tag API
 shifty.config.defaults = {
-    layout = awful.layout.suit.float,
+    layout = layouts[6],
     ncol = 1,
     mwfact = 0.60,
     floatBars = true,

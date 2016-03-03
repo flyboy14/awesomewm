@@ -58,9 +58,9 @@ globalkeys = awful.util.table.join(
   --   end),
   awful.key({modkey}, "q", awful.tag.viewprev),
   awful.key({modkey}, "e", awful.tag.viewnext),
-  awful.key({modkey}, "t", function () awful.tag.viewonly(shifty.getpos(8)) end),
+  awful.key({modkey}, "n", function () awful.tag.viewonly(shifty.getpos(8)) end),
   awful.key({modkey, "Control"},
-            "t",
+            "n",
             function() shifty.add({ nopopup = true }) end
             ),
 awful.key({modkey}, "r", shifty.rename),
@@ -127,8 +127,10 @@ awful.key({modkey}, "w", shifty.del),
   ),
   awful.key({            }, "XF86PowerOff",
     function ()
-      for i = 1, #awful.tag.selected():clients() do
-        awful.tag.selected():clients()[i].ontop = false
+      if not awful.tag.selected() == nil then
+        for i = 1, #awful.tag.selected():clients() do
+          awful.tag.selected():clients()[i].ontop = false
+        end
       end
       awful.util.spawn_with_shell("oblogout")
     end
