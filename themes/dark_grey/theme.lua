@@ -20,10 +20,9 @@ if not awful.util.file_readable(themes .. themename .. "/theme.lua") then
 end
 themedir      = themes .. themename
 
-wallpaper2    = themedir .. "/wee.jpg"
-wallpaper3    = themedir .. "/zenburn-background1.png"
+wallpaper2    = themedir .. "/wallpapers/wee.jpg"
+wallpaper3    = themedir .. "/wallpapers/zenburn-background1.png"
 wallpaper4    = sharedthemes .. "/default/background.png"
-wpscript      = home .. "/.wallpaper"
 
 if awful.util.file_readable(wallpaper2) then
   theme.wallpaper = wallpaper2
@@ -33,7 +32,7 @@ elseif awful.util.file_readable(wallpaper3) then
   theme.wallpaper = wallpaper3
 else
   theme.wallpaper = wallpaper4
- 
+
 end
 --}}}
 theme.mycolor						= "#383C4A"
