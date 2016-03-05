@@ -8,9 +8,12 @@ Tested with latest awesome-git
 * fortune-mod
 * curl
 * wget
-* kbdd
+* python2, python2-pillow (sripts)
+* kbdd(keyboard layout)
 * lua5.3
-* nitrogen (optional)
+* pulseaudio,pamixer (widgets and bindings)
+* nitrogen (wallpaper,optional)
+* oblogout (shutdown dialog,optional)
 
 # Features
 
@@ -22,11 +25,13 @@ Tested with latest awesome-git
 
 * calendar extension
 
+* shifty/eminent dynamic tagging library
+
 * awesompd extension (with some fixes)
 
 * some nice icons from numix-icon-theme (and some others)
 
-* wisdom spider, quoting fortune
+* wisdom spider quoting fortunes
 
 * other yummies
 
