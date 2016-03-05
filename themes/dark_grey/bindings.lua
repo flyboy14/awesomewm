@@ -64,7 +64,7 @@ globalkeys = awful.util.table.join(
             function() shifty.add({ nopopup = true }) end
             ),
 awful.key({modkey}, "r", shifty.rename),
-awful.key({modkey}, "w", shifty.del),
+awful.key({modkey}, "d", shifty.del),
   --awful.key({ modkey,           }, "h",   awful.tag.viewprev       ),
   --awful.key({ modkey,           }, "l",  awful.tag.viewnext       ),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),

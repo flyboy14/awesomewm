@@ -85,8 +85,6 @@ shifty.config.apps = {
             "Pale moon"
         },
         tag = "web",
-        maximized_vertical   = false,
-        maximized_horizontal = false,
     },
     {
         match = {
@@ -98,8 +96,6 @@ shifty.config.apps = {
             "Thunar",
         },
         tag = "home",
-        maximized_vertical   = false,
-        maximized_horizontal = false,
     },
     {
         match = {
@@ -115,8 +111,6 @@ shifty.config.apps = {
             "Atom"
         },
         tag = "editor",
-        maximized_vertical   = false,
-        maximized_horizontal = false,
     },
     {
         match = {
@@ -137,8 +131,6 @@ shifty.config.apps = {
             "draftsight"
         },
         tag = "ide",
-        maximized_vertical   = false,
-        maximized_horizontal = false,
     },
     {
         match = {
@@ -147,8 +139,6 @@ shifty.config.apps = {
             "Sonata",
         },
         tag = "media",
-        maximized_vertical   = false,
-        maximized_horizontal = false,
     },
     {
         match = {
@@ -172,8 +162,15 @@ shifty.config.apps = {
             "plugin-container"
         },
         float = true,
-        maximized_vertical   = false,
-        maximized_horizontal = false,
+    },
+    {
+        match = {
+            "VirtualBox*", 
+            "Virt-manager", 
+            "Remmina", 
+            "rdesktop*",
+        },
+        tag = "virtual"
     },
     {
         match = {
@@ -188,19 +185,6 @@ shifty.config.apps = {
             "teeworlds"
         },
         tag = "wine",
-        maximized_vertical   = false,
-        maximized_horizontal = false,
-    },
-    {
-        match = {
-            "VirtualBox*", 
-            "Virt-manager", 
-            "Remmina", 
-            "rdesktop*"
-        },
-        tag = "virtual",
-        maximized_vertical   = false,
-        maximized_horizontal = false,
     },
     {
         match = {
@@ -251,7 +235,9 @@ shifty.config.apps = {
     },
     {
         match = {""},
-         buttons = clientbuttons
+        buttons = clientbuttons,
+        maximized_vertical   = false,
+        maximized_horizontal = false,
     },
 }
 

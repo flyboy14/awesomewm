@@ -24,6 +24,7 @@ require("themes/dark_grey/mywiboxes")
 require("themes/dark_grey/myrules")
 require("themes/dark_grey/mysignals")
 
+
 -- {{{ Localization
 os.setlocale(os.getenv("LANG"))
 -- }}}
