@@ -1,4 +1,4 @@
-local shifty = require("shifty")
+--local shifty = require("shifty")
  
 --{{{ Rules
 -- awful.rules.rules = {

@@ -21,7 +21,7 @@ require("themes/dark_grey/shifty")
 require("themes/dark_grey/menus")
 require("themes/dark_grey/widgets")
 require("themes/dark_grey/mywiboxes")
-require("themes/dark_grey/myrules")
+--require("themes/dark_grey/myrules")
 require("themes/dark_grey/mysignals")
 
 

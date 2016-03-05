@@ -40,7 +40,6 @@ shifty.config.tags = {
         layout      = layouts[3],
         mwfact      = 0.65,
         exclusive   = true,
-        max_clients = 2,
         position    = 2,
         leave_kills = true,
         --spawn       = browser,
@@ -78,10 +77,10 @@ shifty.config.apps = {
             "Navigator",
             "Vimperator",
             "Gran Paradiso",
-            "firefox", 
+            "firefox",
+            "vivaldi*",
             "google*", 
             "chromium", 
-            "Vivaldi", 
             "Pale moon"
         },
         tag = "web",
@@ -210,9 +209,10 @@ shifty.config.apps = {
             "Skype*", 
             "telegram*", 
             "Pidgin", 
+            "Nitrogen"
         },
         --layout  = awful.layout.suit.magnifier,
-        persist = "true",
+        leave_kills = "true",
         rel_index = 1
     },
     {
@@ -226,7 +226,7 @@ shifty.config.apps = {
         match = {
             terminal,
             "Putty",
-            "Gcolor*"
+            "Gcolor*",
         },
         honorsizehints = false,
         float = true,

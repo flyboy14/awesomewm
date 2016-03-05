@@ -39,8 +39,9 @@ Tested with latest awesome-git
 
 * First backup your ~/.config/awesome folder as ~/.config/awesome.bak, then replace it with my config cloning this repo into ~/.config/awesome
 
-* Edit local variables and keybindings in rc.lua and rc_prev.lua
+* Edit local variables and keybindings in themes/_theme-name_/{vars, bindings}.lua
+  * Custom rules for windows placing and behavior can be set in theme/_theme-name_/{shifty,myrules}.lua
 
-* If issue any problems, feel free to report it on github or contact me at https://vk.com/iq137724845 !
+* If issue any problems, feel free to report it on github or contact me at https://vk.com/iq137724845
 
 * Have fun!
