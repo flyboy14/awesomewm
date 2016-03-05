@@ -37,10 +37,10 @@ Tested with latest awesome-git
 
 # Usage
 
-* First backup your ~/.config/awesome folder, then git clone this repo into ~/.config folder
+* First backup your ~/.config/awesome folder as ~/.config/awesome.bak, then replace it with my config cloning this repo into ~/.config/awesome
 
 * Edit local variables and keybindings in rc.lua and rc_prev.lua
 
-* If issue any problems, feel free to report it on github!
+* If issue any problems, feel free to report it on github or contact me at https://vk.com/iq137724845 !
 
 * Have fun!
