@@ -1,8 +1,8 @@
 --[[
-                                   
-     Dremora Awesome WM config 2.0 
-     github.com/copycat-killer     
-                                   
+
+     Dremora Awesome WM config 2.0
+     github.com/copycat-killer
+
 --]]
 
 local awful = require("awful")
@@ -21,7 +21,7 @@ sharedicons   = shared .. "/icons"
 sharedthemes  = shared .. "/themes"
 themes        = config .. "/themes"
 themename     = "/color_arrows"
-walldir	      = themes .. "/color_arrows"
+walldir	      = themes .. "/color_arrows/wallpapers"
 if not awful.util.file_readable(themes .. themename .. "/theme.lua") then
        themes = sharedthemes
 end
@@ -30,7 +30,6 @@ themedir      = themes .. themename
 wallpaper2    = walldir .. "/wallpaper-2552963.jpg"
 wallpaper3    = sharedthemes .. "/zenburn/zenburn-background1.png"
 wallpaper4    = sharedthemes .. "/default/background.png"
-wpscript      = home .. "/.wallpaper"
 
 if awful.util.file_readable(wallpaper2) then
   theme.wallpaper = wallpaper2
@@ -133,7 +132,7 @@ theme.widget_mail_notify                    = themedir .. "/icons/mail_notify.pn
 
 theme.tasklist_floating                     = ""
 theme.tasklist_maximized_horizontal         = ""
-theme.tasklist_maximized_vertical           = "" 
+theme.tasklist_maximized_vertical           = ""
 
 -- lain related
 theme.useless_gap_width             = 0
