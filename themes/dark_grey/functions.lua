@@ -165,7 +165,7 @@ function clean_for_completion (command, cur_pos, ncomp, shell)
       command = command:sub(2)
       cur_pos = cur_pos - 1
    end
-   command, cur_pos =  awful.completion.shell(command, cur_pos,ncomp,shell)
+   command, cur_pos = awful.completion.shell(command, cur_pos,ncomp,"zsh")
    if term == true then
       command = ':' .. command
       cur_pos = cur_pos + 1
@@ -188,8 +188,8 @@ function set_wallpaper ()
 
   for s = 1, screen.count() do
     --gears.wallpaper.centered(wpaper, s, false)
-    gears.wallpaper.fit(wpaper,s,false)
-    --gears.wallpaper.maximized(wpaper,s,false)
+    --gears.wallpaper.fit(wpaper,s,false)
+    gears.wallpaper.maximized(wpaper,s,false)
   end
 end
 -- }}}

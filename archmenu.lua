@@ -50,12 +50,10 @@
      {"Firefox", "firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
      {"Firefox-GTK", "firefox-gtk3 ", "/usr/share/icons/hicolor/16x16/apps/firefox-gtk3.png" },
      {"GitKraken", "\"gitkraken\"", "/usr/share/pixmaps/gitkraken.png" },
-     {"Google Chrome", "/usr/bin/google-chrome-stable ", "/usr/share/icons/hicolor/16x16/apps/google-chrome.png" },
      {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
+     {"Opera beta", "opera-beta ", "/usr/share/icons/hicolor/16x16/apps/opera-beta.png" },
      {"Remmina", "/usr/bin/remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
-     {"Skype", "/opt/skype_unofficial_client/skype ", "///opt/skype_unofficial_client/skype.png" },
      {"Skype", "skype ", "/usr/share/icons/hicolor/16x16/apps/skype.png" },
-     {"Skype-Electron", "skype-electron ", "/usr/share/icons/hicolor/128x128/apps/skype-electron.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
      {"TeamViewer 11", "/opt/teamviewer/tv_bin/script/teamviewer", "///opt/teamviewer/tv_bin/desktop/teamviewer.png" },
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
@@ -77,6 +75,8 @@
      {"CMake", "cmake-gui ", "/usr/share/icons/hicolor/32x32/apps/CMakeSetup.png" },
      {"Elementary Test", "elementary_test", "/usr/share/icons/elementary.png" },
      {"GitKraken", "\"gitkraken\"", "/usr/share/pixmaps/gitkraken.png" },
+     {"OpenJDK 1.7.0 Monitoring & Management Console", "_BINDIR_/jconsole"},
+     {"OpenJDK 1.7.0 Policy Tool", "_BINDIR_/policytool"},
      {"Qt Assistant", "/usr/lib/qt/bin/assistant", "/usr/share/icons/hicolor/32x32/apps/assistant.png" },
      {"Qt Designer", "/usr/lib/qt/bin/designer", "/usr/share/icons/hicolor/128x128/apps/QtProject-designer.png" },
      {"Qt Linguist", "/usr/lib/qt/bin/linguist", "/usr/share/icons/hicolor/16x16/apps/linguist.png" },
@@ -99,10 +99,12 @@
 
  local menuee69799670a33f75d45c57d1d1cd0ab3 = {
      {"Avahi Zeroconf Browser", "/usr/bin/avahi-discover"},
+     {"Bulk Rename", "/usr/lib/Thunar/ThunarBulkRename ", "/usr/share/icons/hicolor/16x16/apps/Thunar.png" },
      {"GParted", "/usr/bin/gparted_polkit ", "/usr/share/icons/hicolor/16x16/apps/gparted.png" },
      {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
      {"Terminology", "terminology", "/usr/share/icons/terminology.png" },
+     {"Thunar File Manager", "thunar ", "/usr/share/icons/hicolor/16x16/apps/Thunar.png" },
      {"WinUSB", "winusbgui", "/usr/share/pixmaps/winusbgui-icon.png" },
  }
 

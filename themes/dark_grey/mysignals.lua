@@ -26,57 +26,59 @@ client.connect_signal("manage",
           awful.placement.no_offscreen(c)
       end
     end
+-- {{{ Titlebar
 
-    local titlebars_enabled = false
-    if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
-      --titlebar(c) = awful.titlebar()
-      -- buttons for the titlebar
-      local buttons = awful.util.table.join(
-        awful.button({ }, 1,
-          function()
-            client.focus = c
-            c:raise()
-            awful.mouse.client.move(c)
-          end
-        ),
-        awful.button({ }, 3,
-          function()
-            client.focus = c
-            c:raise()
-            awful.mouse.client.resize(c)
-          end
-        )
-      )
+    -- local titlebars_enabled = false
+    -- if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
+    --   -- buttons for the titlebar
+    --   local buttons = awful.util.table.join(
+    --     awful.button({ }, 1,
+    --       function()
+    --         client.focus = c
+    --         c:raise()
+    --         awful.mouse.client.move(c)
+    --       end
+    --     ),
+    --     awful.button({ }, 3,
+    --       function()
+    --         client.focus = c
+    --         c:raise()
+    --         awful.mouse.client.resize(c)
+    --       end
+    --     )
+    --   )
 
-      -- Widgets that are aligned to the left
+    --   -- Widgets that are aligned to the left
 
-      local left_layout = wibox.layout.fixed.horizontal()
-      left_layout:add(awful.titlebar.widget.iconwidget(c))
-      left_layout:buttons(buttons)
+    --   local left_layout = wibox.layout.fixed.horizontal()
+    --   --left_layout:add(awful.titlebar.widget.iconwidget(c))
+    --   left_layout:buttons(buttons)
 
-      -- Widgets that are aligned to the right
-      local right_layout = wibox.layout.fixed.horizontal()
-      right_layout:add(awful.titlebar.widget.floatingbutton(c))
-      right_layout:add(awful.titlebar.widget.maximizedbutton(c))
-      right_layout:add(awful.titlebar.widget.stickybutton(c))
-      right_layout:add(awful.titlebar.widget.ontopbutton(c))
-      right_layout:add(awful.titlebar.widget.closebutton(c))
+    --   -- Widgets that are aligned to the right
+    --   local right_layout = wibox.layout.fixed.horizontal()
+    --   right_layout:add(awful.titlebar.widget.floatingbutton(c))
+    --   right_layout:add(awful.titlebar.widget.maximizedbutton(c))
+    --   right_layout:add(awful.titlebar.widget.stickybutton(c))
+    --   right_layout:add(awful.titlebar.widget.ontopbutton(c))
+    --   right_layout:add(awful.titlebar.widget.closebutton(c))
 
-      -- The title goes in the middle
-      local middle_layout = wibox.layout.flex.horizontal()
-      local title = awful.titlebar.widget.titlewidget(c)
-      title:set_align("center")
-      middle_layout:add(title)
-      middle_layout:buttons(buttons)
+    --   -- The title goes in the middle
+    --   local middle_layout = wibox.layout.flex.horizontal()
+    --   local title = awful.titlebar.widget.titlewidget(c)
+    --   title:set_align("center")
+    --   middle_layout:add(title)
+    --   middle_layout:buttons(buttons)
 
-      -- Now bring it all together
-      local layout = wibox.layout.align.horizontal()
-      layout:set_left(left_layout)
-      layout:set_right(right_layout)
-      layout:set_middle(middle_layout)
+    --   -- Now bring it all together
+    --   local layout = wibox.layout.align.horizontal()
+    --   layout:set_left(left_layout)
+    --   layout:set_right(right_layout)
+    --   layout:set_middle(middle_layout)
 
-      awful.titlebar(c):set_widget(layout)
-    end
+    --   awful.titlebar(c):set_widget(layout)
+    -- end
+    -- }}}
+    
       -- if wibox_color() == beautiful.bg_normal and is_only_client() and not is_fullscreen() and not awful.client.property.get(c, "floating") then --   c.border_color = beautiful.border_normal  -- for only unminimized non-floating client on tag
       -- end
     -- mywibox[mouse.screen]:set_bg(wibox_color())

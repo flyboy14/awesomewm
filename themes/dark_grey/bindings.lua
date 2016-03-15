@@ -173,7 +173,7 @@ awful.key({modkey}, "d", shifty.del),
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'terminology'})
+        return awful.rules.match(c, {class = 'URxvt'})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -184,7 +184,7 @@ awful.key({modkey}, "d", shifty.del),
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'terminology'})
+        return awful.rules.match(c, {class = 'URxvt'})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -195,7 +195,7 @@ awful.key({modkey}, "d", shifty.del),
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'google-chrome'})
+        return awful.rules.match(c, {class = 'vivaldi'})
       end
       awful.client.run_or_raise(browser, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -238,7 +238,7 @@ awful.key({modkey}, "d", shifty.del),
   awful.key({ alt, }, "F2",
     function ()
       awful.prompt.run(
-        {prompt=">_ "},
+        {prompt="<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'> " .. "> </span>", bg_cursor = "#535d6c", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
         mypromptbox[mouse.screen].widget,
         check_for_terminal,
         clean_for_completion,
@@ -248,13 +248,27 @@ awful.key({modkey}, "d", shifty.del),
   ),
   awful.key({ modkey }, "F2",
     function ()
-      awful.prompt.run({ prompt = ">> " },
+      awful.prompt.run({ prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'>" .. " >> </span>", bg_cursor = "#535d6c", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
         mypromptbox[mouse.screen].widget,
-        awful.util.eval, nil,
+        awful.util.eval, 
+        nil,
         awful.util.getdir("cache") .. "/history_eval"
       )
     end
-  )
+  ),
+  awful.key({ modkey            }, "c", 
+    function ()
+        awful.prompt.run(
+          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> calc </span>: </span>", bg_cursor = "#535d6c", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" }, 
+          mypromptbox[mouse.screen].widget,
+          function (expr)
+              local result = awful.util.eval("return (" .. expr .. ")")
+              naughty.notify({ text = "<span font='Visitor TT2 BRK 13'>" .. expr .. "=" .. result .. "</span>", timeout = 10, border_width = 0, bg = wibox_color(), fg = red_color })
+          end,
+          nil,
+          awful.util.getdir("cache") .. "/calc"
+        )
+    end)
 ) --
 
 
@@ -262,7 +276,7 @@ clientkeys = awful.util.table.join(
   awful.key({ modkey,           }, "f",      
     function (c) 
       c.fullscreen = not c.fullscreen 
-      if awful.rules.match(c, {class = 'terminology'}) or awful.rules.match(c, {class = 'Skype'}) then
+      if awful.rules.match(c, {class = 'URxvt'}) or awful.rules.match(c, {class = 'Skype'}) then
         if c.fullscreen == false then
           c.ontop = true
         end
@@ -270,13 +284,27 @@ clientkeys = awful.util.table.join(
     end),
   awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
   awful.key({ alt,              }, "F4",      function (c) c:kill() end),
-  awful.key({ modkey,           }, "F4",      function (c) c:kill() end),
+  awful.key({ modkey,           }, "F4",      function (c) 
+    local tag = awful.tag.selected()
+    for i=1, #tag:clients() do
+      if not (tag:clients()[i] == c) then
+        tag:clients()[i]:kill()
+      end
+    end
+  end),
   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
   awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
   awful.key({ alt,              }, "Escape", function (c) c.minimized = true end),
   awful.key({ alt,              }, "z", function (c) c.minimized = true end),
   awful.key({ modkey,              }, "z", function (c) c.minimized = true end),
-  awful.key({ modkey,           }, "Escape", function (c) c.minimized = true end)
+  awful.key({ modkey,           }, "Escape", function (c) 
+    local tag = awful.tag.selected()
+    for i=1, #tag:clients() do
+      if not (tag:clients()[i] == c) then
+        tag:clients()[i].minimized=true
+      end
+    end
+  end)
 )
 
 -- Bind all key numbers to tags.

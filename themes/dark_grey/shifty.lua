@@ -92,7 +92,7 @@ shifty.config.apps = {
             "Dolphin", 
             "Nautilus", 
             "Nemo", 
-            "Thunar",
+            "Thunar"
         },
         tag = "home",
     },
@@ -143,6 +143,7 @@ shifty.config.apps = {
         match = {
             "Putty", 
             "File-roller", 
+            "Archive*",
             "Worker", 
             "Download", 
             "Oblogout", 
@@ -157,7 +158,7 @@ shifty.config.apps = {
             "Pidgin", 
             "terminology", 
             "URxvt", 
-            "Skype", 
+            "Skype*", 
             "plugin-container"
         },
         float = true,
@@ -227,8 +228,10 @@ shifty.config.apps = {
             terminal,
             "Putty",
             "Gcolor*",
+            "URxvt*",
+            "File-roller",
+            "Archive*"
         },
-        honorsizehints = false,
         float = true,
         slave = true,
         intrusive = true,
@@ -238,6 +241,7 @@ shifty.config.apps = {
         buttons = clientbuttons,
         maximized_vertical   = false,
         maximized_horizontal = false,
+        honorsizehints = false,
     },
 }
 
@@ -250,7 +254,7 @@ shifty.config.apps = {
 --  * run : function to exec when shifty creates a new tag
 --  * all other parameters (e.g. layout, mwfact) follow awesome's tag API
 shifty.config.defaults = {
-    layout = layouts[6],
+    layout = layouts[2],
     ncol = 1,
     mwfact = 0.60,
     floatBars = true,

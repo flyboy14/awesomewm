@@ -41,8 +41,8 @@ myinterface = ""
 inet_on = false
 wpaper = beautiful.wallpaper
 font_main = "Fixed 13"
-terminal = "terminology"
-browser = "google-chrome-stable"
+terminal = "urxvt"
+browser = "vivaldi"
 editor = "subl3"
 video = "optirun vlc"
 editor_cmd = terminal .. " -e " .. editor
@@ -62,7 +62,7 @@ translate_e_r = scripts .. "/translate.sh en ru"
 translate_r_e = scripts .. "/translate.sh ru en"
 tagimage_current = iconsdir .. "/media-record-green.svg"
 tagimage_other = iconsdir .. "/media-record.svg"
-tagico = tagimage_other
+tagico = tagimage_other                                                        
 
  -- {{{ Tags ₪
 -- theme.taglist_font = font_main

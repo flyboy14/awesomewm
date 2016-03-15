@@ -357,36 +357,9 @@ sepr = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> > 
 arrl = wibox.widget.imagebox()
 arrl:set_image(beautiful.arrl)
 
-yf = wibox.widget.imagebox()
-yf:set_image(beautiful.yf)
-yf:buttons(awful.util.table.join(
-  awful.button({ }, 1,
-    function ()
-      awful.util.spawn(terminal)
-    end
-  )
-))
-
-bf = wibox.widget.imagebox()
-bf:set_image(beautiful.bf)
-bf:buttons(awful.util.table.join(
-  awful.button({ }, 1,
-    function ()
-      awful.util.spawn(terminal)
-    end
-  )
-))
-
-gf = wibox.widget.imagebox()
-gf:set_image(beautiful.gf)
-gf:buttons(awful.util.table.join(
-  awful.button({ }, 1,
-    function ()
-      awful.util.spawn(terminal)
-    end
-  )
-))
-
+yf = my_launcher({ image = beautiful.yf, command = terminal })
+bf = my_launcher({ image = beautiful.bf, command = terminal })
+gf = my_launcher({ image = beautiful.gf, command = terminal })
 
 -- Create a textclock widget
 clockicon = wibox.widget.imagebox()
