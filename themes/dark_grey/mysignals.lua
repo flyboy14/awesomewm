@@ -115,16 +115,16 @@ client.connect_signal("focus",
 
 client.connect_signal("request::activate",
   function(c)
-    -- local val = wibox_color()
-    -- mywibox[mouse.screen]:set_bg(val)
-    -- mywibox_w[mouse.screen]:set_bg(val)
-    -- if val == beautiful.mycolor then
-    --   beautiful.bg_systray = beautiful.mycolor
-    --   restore_colors()
-    -- else
-    --   beautiful.bg_systray = beautiful.systray
-    --   revert_colors()
-    -- end
+    local val = wibox_color()
+    mywibox[mouse.screen]:set_bg(val)
+    mywibox_w[mouse.screen]:set_bg(val)
+    if val == beautiful.mycolor then
+      beautiful.bg_systray = beautiful.mycolor
+      restore_colors()
+    else
+      beautiful.bg_systray = beautiful.systray
+      revert_colors()
+    end
   end
 )
 

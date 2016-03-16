@@ -238,7 +238,7 @@ awful.key({modkey}, "d", shifty.del),
   awful.key({ alt, }, "F2",
     function ()
       awful.prompt.run(
-        {prompt="<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'> " .. "> </span>", bg_cursor = "#535d6c", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+        {prompt="<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'> " .. "> </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
         mypromptbox[mouse.screen].widget,
         check_for_terminal,
         clean_for_completion,
@@ -248,7 +248,7 @@ awful.key({modkey}, "d", shifty.del),
   ),
   awful.key({ modkey }, "F2",
     function ()
-      awful.prompt.run({ prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'>" .. " >> </span>", bg_cursor = "#535d6c", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+      awful.prompt.run({ prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'>" .. " >> </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
         mypromptbox[mouse.screen].widget,
         awful.util.eval, 
         nil,
@@ -259,7 +259,7 @@ awful.key({modkey}, "d", shifty.del),
   awful.key({ modkey            }, "c", 
     function ()
         awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> calc </span>: </span>", bg_cursor = "#535d6c", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" }, 
+          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> calc </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" }, 
           mypromptbox[mouse.screen].widget,
           function (expr)
               local result = awful.util.eval("return (" .. expr .. ")")
@@ -306,54 +306,6 @@ clientkeys = awful.util.table.join(
     end
   end)
 )
-
--- Bind all key numbers to tags.
--- Be careful: we use keycodes to make it works on any keyboard layout.
--- This should map on the top row of your keyboard, usually 1 to 9.
---  for i = 1, 9 do
---   globalkeys = awful.util.table.join(
---     globalkeys,
---     awful.key({ modkey }, "#" .. i + 9,
---       function ()
---         local screen = mouse.screen
---         local tag = awful.tag.gettags(screen)[i]
---         if tag then
---           awful.tag.viewonly(tag)
---         end
---       end
---     ),
---     awful.key({ modkey, "Control" }, "#" .. i + 9,
---       function ()
---         local screen = mouse.screen
---         local tag = awful.tag.gettags(screen)[i]
---         if tag then
---           awful.tag.viewtoggle(tag)
---         end
---       end
---     ),
---     awful.key({ modkey, "Shift" }, "#" .. i + 9,
---       function ()
---         if client.focus then
---           local tag = awful.tag.gettags(client.focus.screen)[i]
---           if tag then
---             awful.client.movetotag(tag)
---             awful.tag.viewonly(tag)
---           end
---         end
---       end
---     ),
---     awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
---       function ()
---         if client.focus then
---           local tag = awful.tag.gettags(client.focus.screen)[i]
---           if tag then
---             awful.client.toggletag(tag)
---           end
---         end
---       end
---     )
---   )
--- end
 
 clientbuttons = awful.util.table.join(
   awful.button({         }, 1, function (c) client.focus = c; c:raise() end),

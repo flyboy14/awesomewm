@@ -37,7 +37,7 @@ shifty.config.tags = {
         slave     = true,
     },
     web = {
-        layout      = layouts[3],
+        layout      = layouts[5],
         mwfact      = 0.65,
         exclusive   = true,
         position    = 2,
@@ -78,7 +78,7 @@ shifty.config.apps = {
             "Vimperator",
             "Gran Paradiso",
             "firefox",
-            "vivaldi*",
+            "vivaldi",
             "google*", 
             "chromium", 
             "Pale moon"
@@ -159,7 +159,8 @@ shifty.config.apps = {
             "terminology", 
             "URxvt", 
             "Skype*", 
-            "plugin-container"
+            "plugin-container",
+            "vivaldi-preview"
         },
         float = true,
     },
@@ -201,6 +202,7 @@ shifty.config.apps = {
             "Wpa_gui", 
             "Lxappearance", 
             "Pidgin", 
+            "vivaldi-preview"
         },
         ontop = true
     },

@@ -117,7 +117,7 @@ function shifty.rename(tag, prefix, no_selectall)
         bg = theme.bg_normal or '#222222'
         fg = theme.fg_urgent or '#ffffff'
     end
-    
+
     local tag_index = tag2index(scr, t)
     -- Access to textbox widget in taglist
     local tb_widget = shifty.taglist[scr].widgets[tag_index].widget.widgets[2].widget
@@ -882,7 +882,7 @@ function shifty.getpos(pos, scr_arg)
 
     -- not existing, not preconfigured
     return shifty.add({position = pos,
-            rename = '',
+            rename = pos .. ':',
             no_selectall = true,
             noswitch = not switch})
 end
