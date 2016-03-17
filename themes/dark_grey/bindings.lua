@@ -57,7 +57,15 @@ globalkeys = awful.util.table.join(
   --     awful.tag.viewnext()
   --   end),
   awful.key({modkey}, "q", awful.tag.viewprev),
+  awful.key({ modkey, "Shift" }, "q",
+                  function ()
+                      shifty.send_prev()
+                  end),
   awful.key({modkey}, "e", awful.tag.viewnext),
+    awful.key({ modkey, "Shift" }, "e",
+                  function ()
+                      shifty.send_next()
+                  end),
   awful.key({modkey}, "n", function () awful.tag.viewonly(shifty.getpos(8)) end),
   awful.key({modkey, "Control"},
             "n",

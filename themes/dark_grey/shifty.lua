@@ -81,6 +81,7 @@ shifty.config.apps = {
             "vivaldi",
             "google*", 
             "chromium", 
+            "opera*",
             "Pale moon"
         },
         tag = "web",
@@ -189,7 +190,6 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Oblogout", 
             "Putty", 
             "slock", 
             "Skype*", 
@@ -202,7 +202,8 @@ shifty.config.apps = {
             "Wpa_gui", 
             "Lxappearance", 
             "Pidgin", 
-            "vivaldi-preview"
+            "vivaldi-preview",
+            "Oblogout", 
         },
         ontop = true
     },

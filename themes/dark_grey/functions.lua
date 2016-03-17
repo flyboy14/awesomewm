@@ -174,6 +174,12 @@ function clean_for_completion (command, cur_pos, ncomp, shell)
 end
 -- }}}
 
+function tag2index(scr, tag)
+    for i, t in ipairs(awful.tag.gettags(scr)) do
+        if t == tag then return i end
+    end
+end
+
 -- {{{ get wallpaper from nitrogen config file
 function set_wallpaper ()
   local f = io.popen("cat " .. home .. "/.config/nitrogen/bg-saved.cfg | grep file= | sed 's_'file='__g'")
