@@ -48,14 +48,6 @@ globalkeys = awful.util.table.join(
       set_cursor_in_middle_of_focused_client()
     end
   ),
-  --awful.key({ modkey,           }, "n",   function () awful.tag.viewonly(shifty.getpos(8)) end       ),
-  --awful.key({ modkey,           }, "d",  function () shifty.del() end       ),
-  --awful.key({ modkey,           }, "q",   function() 
-      --awful.tag.viewprev()
-    --end),
-  -- awful.key({ modkey,           }, "e",   function() 
-  --     awful.tag.viewnext()
-  --   end),
   awful.key({modkey}, "q", awful.tag.viewprev),
   awful.key({ modkey, "Shift" }, "q",
                   function ()
@@ -73,8 +65,6 @@ globalkeys = awful.util.table.join(
             ),
 awful.key({modkey}, "r", shifty.rename),
 awful.key({modkey}, "d", shifty.del),
-  --awful.key({ modkey,           }, "h",   awful.tag.viewprev       ),
-  --awful.key({ modkey,           }, "l",  awful.tag.viewnext       ),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
   awful.key({ "Control",           }, "F8",  function() mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible end       ),
 
@@ -119,7 +109,7 @@ awful.key({modkey}, "d", shifty.del),
       show_smth(nil, "Z-z-z-z-z-z-z", iconsdir .. "/important.svg", 1, nil, nil, nil, nil)
   end,
     function ()
-      awful.util.spawn_with_shell("slock")
+      awful.util.spawn_with_shell(lockscreen)
   end),
     -- function ()
     --   awful.util.spawn_with_shell("systemctl suspend")
@@ -143,15 +133,15 @@ awful.key({modkey}, "d", shifty.del),
       awful.util.spawn_with_shell("oblogout")
     end
   ),
-  awful.key({      modkey      }, "v", function() awful.util.spawn("sonata") end),
+  awful.key({      modkey      }, "v", function() awful.util.spawn(musicplr) end),
   awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("oblogout") end),
   --awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
   --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
-  awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo worker") end),
+  awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo " .. fm) end),
   --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
   awful.key({ alt }, "F1", function () awful.util.spawn_with_shell(translate_e_r) end),
   awful.key({ modkey }, "F1", function () awful.util.spawn_with_shell(translate_r_e) end),
-  awful.key({ modkey, "Control" }, "Escape", function () awful.util.spawn_with_shell("slock") end),
+  awful.key({ modkey, "Control" }, "Escape", function () awful.util.spawn_with_shell(lockscreen) end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
 
   -- backlight control
@@ -237,7 +227,7 @@ awful.key({modkey}, "d", shifty.del),
       function (c)
         return awful.rules.match(c, {class = "Worker"})
       end
-      awful.client.run_or_raise("worker", matcher)
+      awful.client.run_or_raise(fm, matcher)
       set_cursor_in_middle_of_focused_client()
     end
   ),

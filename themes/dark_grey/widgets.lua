@@ -404,4 +404,4 @@ musicwidget:register_buttons({
 })
 
 -- Music icon
-mpdicon = my_launcher({ image = beautiful.arrl, command = musicplr })
+mpdicon = my_launcher({ image = beautiful.arrl, command = music })

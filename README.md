@@ -14,6 +14,7 @@ Tested with latest awesome-git
 * pulseaudio,pamixer (widgets and bindings)
 * nitrogen (wallpaper,optional)
 * oblogout (shutdown dialog,optional)
+* gksu (graphical sudo, optional)
 
 # Features
 
@@ -45,3 +46,61 @@ Tested with latest awesome-git
 * If issue any problems, feel free to report it on github or contact me at https://vk.com/iq137724845
 
 * Have fun!
+
+# Shortcuts cheat-sheet
+
+* Navigation / tag management
+  * modkey + "1..9" : view # tag
+  * Shift + modkey + "1..9" : move client to # tag
+  * modkey + Control + "1..9" : merge current tag with # tag
+  * modkey + "e" : view next active tag
+  * modkey + "q" : view prev active tag
+  * Shift + modkey + "e" : move active client to next active tag
+  * Shift + modkey + "q" : move active client to prev active tag
+  * modkey + "n" : create new tag
+  * modkey + "r" : rename current tag
+  * modkey + "d" : delete current tag (only if it has no clients)
+  * modkey + Space : select next layout for clients on current tag
+  * modkey + Control + Space : select prev layout for client on current tag
+
+* Client controls
+  * modkey + mouse1 : grab and move active client
+  * L_Alt + mouse1 : grab and resize active client
+  * modkey + mouse{4,5} (scroll wheel) : change active client's opacity up/down
+  * L_Alt + Escape : minimize active client
+  * modkey + Escape : minimize all clients except active one
+  * modkey + "f" : toggle active client fullscreen state
+  * modkey + "w" : toggle active client floating state
+  * modkey + "t" : toggle active client ontop state
+  * L_Alt + "F4" : kill active client
+  * modkey + "F4" : kill all clients on current tag except active one
+
+* Prompts
+  * L_Alt + "F2" : command prompt
+  * modkey + "F2" : awesome-client's lua prompt
+  * modkey + "c" : calculator prompt
+
+* Launchers
+  * modkey + "b" : launch browser
+  * modkey + {Enter,KP_Enter} : launch terminal
+  * modkey + "\`" : launch graphical file manager
+  * modkey + Control + "\`" : launch graphical file manager (sudo)
+  * modkey + "s" : launch skype client
+  * modkey + "v" : launch music player client
+  * modkey + "l" : launch graphical text editor
+  * modkey + Control + "l" : launch graphical text editor (sudo)
+  * {XF86PowerOff, XF86Launch1} : launch oblogout client
+  * modkey + Control + Escape : activate lockscreen
+  * XF86Sleep : suspend computer
+  * XF86MonBrightnessUp : run bright up script
+  * XF86monBrightnessDown : run bright down script
+  * XF86AudioMute : mute audio output
+  * XF86AudioRaiseVolume : raise audio volume (no unmute)
+  * XF86AudioLowerVolume : lower audio volume (no unmute)
+  * XF86AudioToggle : toggle play/pause audio state
+  * L_Alt + "F1" : run translate script from EN to RU (translates currently selected text via xsel)
+  * modkey + "F1" : run translate script from RU to EN (translates currently selected text via xsel)
+
+* Awesome controls
+  * modkey + Control + "r" : restart awesome
+  * mouse2 on spider : toggle awesome theme (replaces rc.lua)
