@@ -35,7 +35,7 @@ else
 
 end
 --}}}
-theme.mycolor						= "#383C4A"
+theme.mycolor						= "#1F1F1F"--"#383C4A"
 theme.systray                       = "#101215"
 theme.font                          = "Fixed 8"--"Fixed 8"
 theme.taglist_font                  = "Visitor TT2 BRK 10"--"envypn 9"

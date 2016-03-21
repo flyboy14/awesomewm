@@ -882,7 +882,7 @@ function shifty.getpos(pos, scr_arg)
 
     -- not existing, not preconfigured
     return shifty.add({position = pos,
-            rename = pos .. ':',
+            rename = '',
             no_selectall = true,
             noswitch = not switch})
 end

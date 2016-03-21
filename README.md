@@ -52,21 +52,23 @@ Tested with latest awesome-git
 * Navigation / tag management
   * modkey + "1..9" : view # tag
   * Shift + modkey + "1..9" : move client to # tag
-  * modkey + Control + "1..9" : merge current tag with # tag
+  * modkey + Control + "1..9" : merge active tag with # tag
   * modkey + "e" : view next active tag
   * modkey + "q" : view prev active tag
   * Shift + modkey + "e" : move active client to next active tag
   * Shift + modkey + "q" : move active client to prev active tag
   * modkey + "n" : create new tag
-  * modkey + "r" : rename current tag
-  * modkey + "d" : delete current tag (only if it has no clients)
-  * modkey + Space : select next layout for clients on current tag
-  * modkey + Control + Space : select prev layout for client on current tag
+  * modkey + "r" : rename active tag
+  * modkey + "d" : delete active tag (only if it has no clients)
+  * modkey + Space : select next layout for clients on active tag
+  * modkey + Control + Space : select prev layout for client on active tag
 
 * Client controls
   * modkey + mouse1 : grab and move active client
   * L_Alt + mouse1 : grab and resize active client
   * modkey + mouse{4,5} (scroll wheel) : change active client's opacity up/down
+  * L_Alt + Tab : cycle through unminimized clients on active tag
+  * modkey + Tab : cycle through all clients on active tag
   * L_Alt + Escape : minimize active client
   * modkey + Escape : minimize all clients except active one
   * modkey + "f" : toggle active client fullscreen state

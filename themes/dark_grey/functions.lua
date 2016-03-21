@@ -2,16 +2,12 @@ function is_only_client()
   local count = 0
   local tag = awful.tag.selected()
   for i = 1, #tag:clients() do
-    if not tag:clients()[i].minimized
-      then count = count + 1
+    if not tag:clients()[i].minimized then 
+      count = count + 1
     end
+    if count > 1 or count == 0 then return false end
   end
-
-  if count == 1 then
     return true
-  else
-    return false
-  end
 end
 
 function set_cursor_in_middle_of_focused_client()
@@ -32,10 +28,9 @@ function color_systray()
 end
 
 function mouse_on_wibox()
-  if mouse.object_under_pointer() == client.focus then
-    return false
-  end
-
+  -- if mouse.object_under_pointer() == client.focus then
+  --   return false
+  -- end
   if mouse.coords()["y"] >= 750 or mouse.coords()["y"] <= 18 then
     return true
   else
@@ -44,62 +39,49 @@ function mouse_on_wibox()
 end
 
 function restore_colors()
-        green_color = green
-        blue_color = blue
-        red_color = red
-        yellow_color = yellow
-        orange_color = orange
-        grey_color = grey
+  green_color = green
+  blue_color = blue
+  red_color = red
+  yellow_color = yellow
+  orange_color = orange
+  grey_color = grey
 end
 
 function revert_colors()
-        green_color = stronggreen
-        blue_color = strongblue
-        red_color = strongred
-        yellow_color = grey
-        orange_color = grey
-        grey_color = strongblue
+  green_color = stronggreen
+  blue_color = strongblue
+  red_color = strongred
+  yellow_color = grey
+  orange_color = grey
+  grey_color = strongblue
 end
 
 -- }}}
 function wibox_color()
   local tag = awful.tag.selected()
-  local val = beautiful.mycolor .. "44"
-  if not tag then return val end
-  local finished = false
+  if not tag then return beautiful.mycolor .. "44" end
   local c = tag:clients() or 0
   for i=1, #c do
-    if not c[i].minimized and finished == false then
+    if not c[i].minimized then
       if (c[i]:geometry()['y'] <= 17 or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then
-        finished = true
-        val = beautiful.mycolor
-        break
-      else
-        val = beautiful.mycolor .. "44"
-        finished = false
+        return beautiful.mycolor
       end
     end
   end
-  return val
+  return beautiful.mycolor .. "44"
 end
 
 function is_fullscreen()
-  local val = false
   local tag = awful.tag.selected()
   local c = tag:clients()
   for i=1, #c do
-    if not c[i].minimized and finished == false then
+    if not c[i].minimized then
       if (c[i]:geometry()['y'] <= 17 and c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then
-        val = true
-        finished = true
-        break
-      else
-        val = false
-        finished = false
+        return true
       end
     end
   end
-  return val
+  return false
 end
 
 function bool_to_str(boole)
@@ -173,12 +155,6 @@ function clean_for_completion (command, cur_pos, ncomp, shell)
    return command, cur_pos
 end
 -- }}}
-
-function tag2index(scr, tag)
-    for i, t in ipairs(awful.tag.gettags(scr)) do
-        if t == tag then return i end
-    end
-end
 
 -- {{{ get wallpaper from nitrogen config file
 function set_wallpaper ()

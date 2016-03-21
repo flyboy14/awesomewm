@@ -174,7 +174,7 @@ awful.key({modkey}, "d", shifty.del),
         return awful.rules.match(c, {class = 'URxvt'})
       end
       awful.client.run_or_raise(terminal, matcher)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -185,7 +185,7 @@ awful.key({modkey}, "d", shifty.del),
         return awful.rules.match(c, {class = 'URxvt'})
       end
       awful.client.run_or_raise(terminal, matcher)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -196,7 +196,7 @@ awful.key({modkey}, "d", shifty.del),
         return awful.rules.match(c, {class = 'vivaldi'})
       end
       awful.client.run_or_raise(browser, matcher)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -207,7 +207,7 @@ awful.key({modkey}, "d", shifty.del),
         return awful.rules.match(c, {class = 'Skype'})
       end
       awful.client.run_or_raise("skype", matcher)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -218,7 +218,7 @@ awful.key({modkey}, "d", shifty.del),
         return awful.rules.match(c, {class = 'Subl3'})
       end
       awful.client.run_or_raise(editor, matcher)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
     awful.key({ modkey }, "`",
@@ -228,7 +228,7 @@ awful.key({modkey}, "d", shifty.del),
         return awful.rules.match(c, {class = "Worker"})
       end
       awful.client.run_or_raise(fm, matcher)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
     -- Prompt

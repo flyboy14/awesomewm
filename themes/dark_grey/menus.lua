@@ -9,7 +9,7 @@ mmyawesomemenu = {
 
 myvirtualmenu = {
   { "vboxdrv", "gksu modprobe vboxdrv", "/home/pchyolki/.config/awesome/icons/comicdee/driver.svg" },
-  { "makakka_xp", "virtualbox --startvm makakka_xp", "/home/pchyolki/.config/awesome/icons/comicdee/cuteball-windows.png" },
+  { "win7", "virtualbox --startvm 7", "/home/pchyolki/.config/awesome/icons/comicdee/cuteball-windows.png" },
 }
 
 myworkspacemenu = {
