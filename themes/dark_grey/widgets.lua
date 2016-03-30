@@ -201,9 +201,9 @@ myweather = lain.widgets.weather({
     end
 })
 
-weathericon = my_launcher_n({
+weathericon = my_launcher({
   image = beautiful.widget_weather,
-  command = myweather.update
+  command = "echo 'myweather.update()'|awesome-client"
 })
 
 --Volume widget

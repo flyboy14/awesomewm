@@ -54,7 +54,7 @@ globalkeys = awful.util.table.join(
   --awful.key({ modkey,           }, "h",   awful.tag.viewprev       ),
   --awful.key({ modkey,           }, "l",  awful.tag.viewnext       ),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
-  awful.key({ "Control",           }, "F8",  function() mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible mywibox_w[mouse.screen].visible = not mywibox_w[mouse.screen].visible end       ),
+  awful.key({ "Control",           }, "F8",  function() mywibox[1].visible = not mywibox[1].visible mywibox_w[1].visible = not mywibox_w[1].visible end       ),
 
   awful.key({ modkey,           }, "j",
     function ()
@@ -223,7 +223,7 @@ globalkeys = awful.util.table.join(
     function ()
       awful.prompt.run(
         {prompt=">_ "},
-        mypromptbox[mouse.screen].widget,
+        mypromptbox[1].widget,
         check_for_terminal,
         clean_for_completion,
         awful.util.getdir("cache") .. "/history"
@@ -233,7 +233,7 @@ globalkeys = awful.util.table.join(
   awful.key({ modkey }, "F2",
     function ()
       awful.prompt.run({ prompt = ">> " },
-        mypromptbox[mouse.screen].widget,
+        mypromptbox[1].widget,
         awful.util.eval, nil,
         awful.util.getdir("cache") .. "/history_eval"
       )
@@ -271,7 +271,7 @@ for i = 1, 9 do
     globalkeys,
     awful.key({ modkey }, "#" .. i + 9,
       function ()
-        local screen = mouse.screen
+        local screen = mouse.screen.index
         local tag = awful.tag.gettags(screen)[i]
         if tag then
           awful.tag.viewonly(tag)
@@ -280,7 +280,7 @@ for i = 1, 9 do
     ),
     awful.key({ modkey, "Control" }, "#" .. i + 9,
       function ()
-        local screen = mouse.screen
+        local screen = mouse.screen.index
         local tag = awful.tag.gettags(screen)[i]
         if tag then
           awful.tag.viewtoggle(tag)

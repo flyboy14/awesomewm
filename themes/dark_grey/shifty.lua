@@ -21,7 +21,7 @@ shifty.config.tags = {
     home = {
         layout    = layouts[1],
         mwfact    = 0.60,
-        exclusive = true,    
+        exclusive = false,    
         position  = 1,
         screen    = 1,
         --leave_kills = true,
@@ -39,7 +39,7 @@ shifty.config.tags = {
     web = {
         layout      = layouts[5],
         mwfact      = 0.65,
-        exclusive   = true,
+        exclusive   = false,
         position    = 2,
         leave_kills = true,
         --spawn       = browser,
@@ -53,7 +53,7 @@ shifty.config.tags = {
     editor = {
         layout   = layouts[6],
         position = 3,
-        exclusive = true,
+        exclusive = false,
         leave_kills = true,
     },
     wine = {
@@ -65,7 +65,7 @@ shifty.config.tags = {
     virtual = {
         layout   = layouts[1],
         position = 7,
-        leave_kills = true,
+        --      leave_kills = true,
     },
 }
 
@@ -161,7 +161,7 @@ shifty.config.apps = {
             "URxvt*", 
             "Skype*", 
             "plugin-container",
-            "vivaldi-preview",
+                    
         },
         float = true,
     },
@@ -202,8 +202,8 @@ shifty.config.apps = {
             "Wpa_gui", 
             "Lxappearance", 
             "Pidgin", 
-            "vivaldi-preview",
             "Oblogout", 
+            "Docky"
         },
         ontop = true
     },

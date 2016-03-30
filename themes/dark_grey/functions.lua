@@ -137,7 +137,8 @@ function check_for_terminal (command)
    if command:sub(1,1) == ":" then
       command = terminal .. ' -e "' .. command:sub(2) .. '"'
    end
-   awful.util.spawn_with_shell(command .. " &2>/dev/null")
+   awful.util.spawn_with_shell(command)
+   --mypromptbox[awful.screen.focused()]:spawn_and_handle_error(command, {floating=true})
 end
 
 function clean_for_completion (command, cur_pos, ncomp, shell)
@@ -170,8 +171,8 @@ function set_wallpaper ()
 
   for s = 1, screen.count() do
     --gears.wallpaper.centered(wpaper, s, false)
-    gears.wallpaper.fit(wpaper,s,false)
-    --gears.wallpaper.maximized(wpaper,s,false)
+    --gears.wallpaper.fit(wpaper,s,false)
+    gears.wallpaper.maximized(wpaper,s,false)
   end
 end
 -- }}}

@@ -3,7 +3,6 @@ gears = require("gears")
 awful = require("awful")
 awful.rules = require("awful.rules")
 my_launcher = require("launcher_my")
-my_launcher_n = require("launcher_my_nocommand")
 wibox = require("wibox")
 beautiful = require("beautiful")
 vicious = require("vicious")
@@ -21,7 +20,6 @@ require("themes/dark_grey/shifty")
 require("themes/dark_grey/menus")
 require("themes/dark_grey/widgets")
 require("themes/dark_grey/mywiboxes")
---require("themes/dark_grey/myrules")
 require("themes/dark_grey/mysignals")
 
 
@@ -101,4 +99,4 @@ root.keys(globalkeys)
 --   oldspawn(s, false)
 -- end
 -- }}}
-  
+

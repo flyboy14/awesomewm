@@ -235,9 +235,9 @@ myweather = lain.widgets.weather_colorarrows({
         widget:set_markup(markup(unitscolor, "<span font='Fixed 14' background='" .. weathercolor_back .. "'> <span rise='1600' font='Clean 9'><span color='" .. weathercolor_front .. "'>" .. descr .. " <span font='Visitor TT2 BRK 10'>" .. units .. "°C </span></span></span></span>"))
     end
 })
-  weathericon = my_launcher_n({
+  weathericon = my_launcher({
     image = beautiful.widget_weather,
-    command = myweather.update
+    command = "echo 'myweather.update()'|awesome-client"
   })
 -- Volume widget
 volicon = my_launcher({

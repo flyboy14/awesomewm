@@ -68,7 +68,7 @@ for i = 1, capi.screen.count() do index_cache[i] = {} end
 -- @return table of tag objects or nil
 function name2tags(name, scr)
     local ret = {}
-    local a, b = scr or 1, scr or capi.screen.count()
+    local a, b = 1 or scr, 1 or scr or capi.screen.count()
     for s = a, b do
         for i, t in ipairs(awful.tag.gettags(s)) do
             if name == t.name then
@@ -100,7 +100,7 @@ end
 --@param no_selectall:
 function shifty.rename(tag, prefix, no_selectall)
     local theme = beautiful.get()
-    local t = tag or awful.tag.selected(capi.mouse.screen)
+    local t = tag or awful.tag.selected(capi.mouse.screen.index)
 
     if t == nil then return end
 
@@ -146,7 +146,7 @@ end
 -- maybe this isn't needed here in shifty?
 -- @param idx the tag number to send a client to
 function send(idx)
-    local scr = capi.client.focus.screen or capi.mouse.screen
+    local scr = capi.client.focus.screen or capi.mouse.screen.index
     local sel = awful.tag.selected(scr)
     local sel_idx = tag2index(scr, sel)
     local tags = awful.tag.gettags(scr)
@@ -232,7 +232,7 @@ function set(t, args)
     local scr = args.screen or
     (not awful.tag.getscreen(t) and awful.tag.getscreen(preset)) or
     awful.tag.getscreen(t) or
-    capi.mouse.screen
+    capi.mouse.screen.index
 
     local clientstomove = nil
     if scr > capi.screen.count() then scr = capi.screen.count() end
@@ -422,7 +422,7 @@ end
 --del : delete a tag
 --@param tag : the tag to be deleted [current tag]
 function shifty.del(tag)
-    local scr = (tag and awful.tag.getscreen(tag)) or capi.mouse.screen or 1
+    local scr = (tag and awful.tag.getscreen(tag)) or capi.mouse.screen.index or 1
     local tags = awful.tag.gettags(scr)
     local sel = awful.tag.selected(scr)
     local t = tag or sel
@@ -480,7 +480,7 @@ function match(c, startup)
     local role = c.role
     local name = c.name
     local keys = shifty.config.clientkeys or c:keys() or {}
-    local target_screen = capi.mouse.screen
+    local target_screen = capi.mouse.screen.index
 
     c.border_color = beautiful.border_normal
     c.border_width = beautiful.border_width
@@ -688,7 +688,7 @@ function match(c, startup)
                     tagged) or
                     (#t:clients() > mc))) or
                     intrusive then
-                    if awful.tag.getscreen(t) == mouse.screen then
+                    if awful.tag.getscreen(t) == mouse.screen.index then
                         table.insert(res, t)
                     end
                 end
@@ -823,7 +823,7 @@ function shifty.getpos(pos, scr_arg)
     local v = nil
     local existing = {}
     local selected = nil
-    local scr = scr_arg or capi.mouse.screen or 1
+    local scr = scr_arg or capi.mouse.screen.index or 1
 
     -- search for existing tag assigned to pos
     for i = 1, capi.screen.count() do
@@ -1010,7 +1010,7 @@ function completion(cmd, cur_pos, ncomp, sources, matchers)
             local ret = {}
             for i = 1, capi.screen.count() do
                 local s = awful.util.cycle(capi.screen.count(),
-                                            capi.mouse.screen + i - 1)
+                                            capi.mouse.screen.index + i - 1)
                 local tags = awful.tag.gettags(s)
                 for j, t in pairs(tags) do
                     table.insert(ret, t.name)
