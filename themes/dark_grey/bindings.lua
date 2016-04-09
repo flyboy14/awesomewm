@@ -257,7 +257,7 @@ awful.key({modkey}, "d", shifty.del),
   awful.key({ modkey            }, "c",
     function ()
         awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> calc </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> calculate </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
           mypromptbox[mouse.screen.index].widget,
           function (expr)
               local result = awful.util.eval("return (" .. expr .. ")")
@@ -265,6 +265,30 @@ awful.key({modkey}, "d", shifty.del),
           end,
           nil,
           awful.util.getdir("cache") .. "/calc"
+        )
+    end),
+    awful.key({ modkey            }, "g",
+    function ()
+        awful.prompt.run(
+          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> translate </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          mypromptbox[mouse.screen.index].widget,
+          function (expr)
+              awful.util.spawn_with_shell(translate_e_r .. " " .. expr)
+          end,
+          nil,
+          awful.util.getdir("cache") .. "/gtranslate_en"
+        )
+    end),
+    awful.key({ modkey, "Control"            }, "g",
+    function ()
+        awful.prompt.run(
+          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> translate </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          mypromptbox[mouse.screen.index].widget,
+          function (expr)
+              awful.util.spawn_with_shell(translate_r_e .. " " .. expr)
+          end,
+          nil,
+          awful.util.getdir("cache") .. "/gtranslate_ru"
         )
     end)
 ) --

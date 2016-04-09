@@ -39,21 +39,21 @@ shifty.config.tags = {
     web = {
         layout      = layouts[5],
         mwfact      = 0.65,
-        exclusive   = false,
+        exclusive   = true,
         position    = 2,
         leave_kills = true,
         --spawn       = browser,
     },
     media = {
-        layout    = layouts[8],
-        exclusive = false,
+        layout    = layouts[7],
+        exclusive = true,
         position  = 5,
         leave_kills = true,
     },
     editor = {
         layout   = layouts[6],
         position = 3,
-        exclusive = false,
+        exclusive = true,
         leave_kills = true,
     },
     wine = {
