@@ -19,7 +19,7 @@ shifty.config.layouts = layouts
 --"⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ "
 shifty.config.tags = {  
     home = {
-        layout    = layouts[1],
+        layout    = layouts[2],
         mwfact    = 0.60,
         exclusive = false,    
         position  = 1,
@@ -93,7 +93,8 @@ shifty.config.apps = {
             "Dolphin", 
             "Nautilus", 
             "Nemo", 
-            "Thunar"
+            "Thunar",
+            "Caja"
         },
         tag = "home",
     },
@@ -145,7 +146,6 @@ shifty.config.apps = {
             "Putty", 
             "File-roller", 
             "Archive*",
-            "Worker", 
             "Download", 
             "Oblogout", 
             "Org.gnome.Weather.Application", 
