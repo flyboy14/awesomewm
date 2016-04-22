@@ -270,7 +270,7 @@ awful.key({modkey}, "d", shifty.del),
     awful.key({ modkey            }, "g",
     function ()
         awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> translate </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to RU </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
           mypromptbox[mouse.screen.index].widget,
           function (expr)
               awful.util.spawn_with_shell(translate_e_r .. " " .. expr)
@@ -282,7 +282,7 @@ awful.key({modkey}, "d", shifty.del),
     awful.key({ modkey, "Control"            }, "g",
     function ()
         awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> translate </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to EN </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
           mypromptbox[mouse.screen.index].widget,
           function (expr)
               awful.util.spawn_with_shell(translate_r_e .. " " .. expr)

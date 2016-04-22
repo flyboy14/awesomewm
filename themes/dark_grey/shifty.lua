@@ -78,7 +78,7 @@ shifty.config.apps = {
             "Vimperator",
             "Gran Paradiso",
             "firefox",
-            "vivaldi",
+            "vivaldi*",
             "google*", 
             "chromium", 
             "opera*",
@@ -170,7 +170,7 @@ shifty.config.apps = {
             "VirtualBox*", 
             "Virt-manager", 
             "Remmina", 
-            "rdesktop*",
+            class = { "rdesktop"},
         },
         tag = "virtual"
     },
@@ -203,7 +203,9 @@ shifty.config.apps = {
             "Lxappearance", 
             "Pidgin", 
             "Oblogout", 
-            "Docky"
+            "Docky",
+            name = {"Developer*", "Copy*", "New*"},
+            role = {"pop-up", "GtkFileChooser*"}
         },
         ontop = true
     },
@@ -213,7 +215,8 @@ shifty.config.apps = {
             "Skype*", 
             "telegram*", 
             "Pidgin", 
-            "Nitrogen"
+            "Nitrogen",
+            name = {"*TeamViewer*"}
         },
         --layout  = awful.layout.suit.magnifier,
         leave_kills = "true",
@@ -222,7 +225,8 @@ shifty.config.apps = {
     {
         match = {
             "Oblogout", 
-            "Kodi"
+            "Kodi",
+            class = {"rdesktop*"}
         },
         fullscreen = true
     },
@@ -233,10 +237,12 @@ shifty.config.apps = {
             "Gcolor*",
             "URxvt*",
             "File-roller",
-            "Archive*"
+            "Archive*",
+            name = {"Developer*", "Copy*", "New*", "Worker Configuration"},
+            role = {"pop-up", "GtkFileChooser*"}
         },
         float = true,
-        slave = true,
+        --slave = true,
         intrusive = true,
     },
     {
