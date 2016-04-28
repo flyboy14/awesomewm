@@ -59,7 +59,8 @@ shifty.config.tags = {
     wine = {
         layout   = layouts[1],
         position = 6,
-        nopopup = true,
+        nopopup = false,
+        exclusive = true,  
         leave_kills = true,
     },
     virtual = {
@@ -81,7 +82,7 @@ shifty.config.apps = {
             "vivaldi*",
             "google*", 
             "chromium", 
-            "opera*",
+            "Opera*",
             "Pale moon"
         },
         tag = "web",
@@ -94,7 +95,8 @@ shifty.config.apps = {
             "Nautilus", 
             "Nemo", 
             "Thunar",
-            "Caja"
+            "Caja",
+            name = {"Copy*"}
         },
         tag = "home",
     },
@@ -126,9 +128,8 @@ shifty.config.apps = {
             "Shotcut" ,
             "Openshot", 
             "DraftSight", 
-            "jetbrains-clion" ,
+            class = {"sun-awt-X11*", "jetbrains-*"},
             "Eclipse", 
-            "jetbrains-studio", 
             "draftsight"
         },
         tag = "ide",
@@ -177,16 +178,19 @@ shifty.config.apps = {
     {
         match = {
             "Wine", 
-            "Steam" ,
-            "*.exe", 
-            "*.EXE", 
-            "dota2", 
-            "*.tmp", 
-            "*.TMP", 
+            "Steam",
+            "dota2",
+            class = {".exe", 
+            ".EXE",  
+            ".tmp", 
+            ".TMP", 
+            "._mp",
+            "._MP"},
             "Baumalein", 
             "teeworlds"
         },
         tag = "wine",
+        float = true
     },
     {
         match = {
@@ -216,7 +220,7 @@ shifty.config.apps = {
             "telegram*", 
             "Pidgin", 
             "Nitrogen",
-            name = {"*TeamViewer*"}
+            name = {"TeamViewer"}
         },
         --layout  = awful.layout.suit.magnifier,
         leave_kills = "true",
@@ -226,7 +230,7 @@ shifty.config.apps = {
         match = {
             "Oblogout", 
             "Kodi",
-            class = {"rdesktop*"}
+            class = {"rdesktop*", "Robin"}
         },
         fullscreen = true
     },

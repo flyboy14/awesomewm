@@ -1,4 +1,6 @@
 local shifty = require("shifty")
+local dpi = require("beautiful").xresources.apply_dpi
+require("themes/dark_grey/functions")
 -- {{{ Variable definitions
 
 -- {{{ wibox
@@ -65,6 +67,36 @@ translate_r_e = scripts .. "/translate.sh ru en"
 tagimage_current = iconsdir .. "/media-record-green.svg"
 tagimage_other = iconsdir .. "/media-record.svg"
 tagico = tagimage_other                                                        
+
+naughty.config.presets = {
+    low = {
+        bg = wibox_color() or "#121212",
+        fg = "#dedede",
+        timeout = 5,
+        border_width = 0,
+    },
+    normal = {
+        bg = wibox_color() or "#121212",
+        fg = "#dedede",
+        timeout = 5,
+        border_width = 0,
+    },
+    critical = {
+        bg = "#EE4C4C",
+        fg = "#121212",
+        timeout = 0,
+        border_width = 0,
+    }
+}
+naughty.config.defaults = {
+    preset = naughty.config.presets.normal,
+    text = "",
+    screen = nil,
+    ontop = true,
+    margin = dpi(5),
+    border_width = 0,
+    position = "top_right"
+}
 
  -- {{{ Tags ₪
 -- theme.taglist_font = font_main
