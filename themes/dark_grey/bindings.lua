@@ -66,7 +66,9 @@ globalkeys = awful.util.table.join(
 awful.key({modkey}, "r", shifty.rename),
 awful.key({modkey}, "d", shifty.del),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
-  awful.key({ modkey,           }, "F8",  function() mywibox[mouse.screen.index].visible = not mywibox[mouse.screen.index].visible mywibox_w[mouse.screen.index].visible = not mywibox_w[mouse.screen.index].visible end       ),
+  awful.key({ modkey,           }, "F8",  
+    function() mywibox[mouse.screen.index].visible = not mywibox[mouse.screen.index].visible end       ),
+  awful.key({ modkey,           }, "F9",  function() mywibox_w[mouse.screen.index].visible = not mywibox_w[mouse.screen.index].visible end       ),
 
   awful.key({ modkey,           }, "j",
     function ()
@@ -143,6 +145,7 @@ awful.key({modkey}, "d", shifty.del),
   awful.key({ modkey }, "F1", function () awful.util.spawn_with_shell(translate_r_e) end),
   awful.key({ modkey, "Control" }, "Escape", function () awful.util.spawn_with_shell(lockscreen) end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
+  awful.key({ modkey }, "p", function () client.focus.maximized_vertical = false client.focus.maximized_horizontal = false end),
 
   -- backlight control
 

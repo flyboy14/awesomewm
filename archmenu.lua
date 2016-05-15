@@ -26,6 +26,10 @@
      {"Wiki", "xdg-open https://wiki.archlinux.org", "/usr/share/icons/hicolor/32x32/apps/arch-logo.png" },
  }
 
+ local menude7a22a0c94aa64ba2449e520aa20c99 = {
+     {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
+ }
+
  local menu251bd8143891238ecedc306508e29017 = {
      {"Cult of the Wind", "steam steam://rungameid/293840", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
      {"Dota 2", "steam steam://rungameid/570"},
@@ -42,6 +46,7 @@
      {"Image Viewer", "eog ", "/usr/share/icons/hicolor/16x16/apps/eog.png" },
      {"Inkscape", "inkscape ", "/usr/share/icons/hicolor/16x16/apps/inkscape.png" },
      {"Krita", "krita ", "/usr/share/icons/hicolor/16x16/apps/calligrakrita.png" },
+     {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
      {"Rawstudio", "env LIBOVERLAY_SCROLLBAR=0 rawstudio ", "/usr/share/icons/rawstudio.png" },
      {"mtPaint", "mtpaint ", "/usr/share/pixmaps/mtpaint.png" },
  }
@@ -54,7 +59,6 @@
      {"Firefox", "firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
      {"Firefox-GTK", "firefox-gtk3 ", "/usr/share/icons/hicolor/16x16/apps/firefox-gtk3.png" },
      {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
-     {"Opera beta", "opera-beta ", "/usr/share/icons/hicolor/16x16/apps/opera-beta.png" },
      {"Remmina", "/usr/bin/remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
      {"SSH AskPass", "/usr/bin/ssh-add"},
      {"Skype", "skype ", "/usr/share/icons/hicolor/16x16/apps/skype.png" },
@@ -70,6 +74,13 @@
 
  local menudf814135652a5a308fea15bff37ea284 = {
      {"Document Viewer", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
+     {"LibreOffice", "libreoffice ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-startcenter.png" },
+     {"LibreOffice Base", "libreoffice --base ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-base.png" },
+     {"LibreOffice Calc", "libreoffice --calc ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-calc.png" },
+     {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
+     {"LibreOffice Impress", "libreoffice --impress ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-impress.png" },
+     {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
+     {"LibreOffice Writer", "libreoffice --writer ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-writer.png" },
      {"WPS Presentation", "/usr/bin/wpp ", "/usr/share/icons/hicolor/48x48/apps/wps-office-wppmain.png" },
      {"WPS Spreadsheets", "/usr/bin/et ", "/usr/share/icons/hicolor/48x48/apps/wps-office-etmain.png" },
      {"WPS Writer", "/usr/bin/wps ", "/usr/share/icons/hicolor/48x48/apps/wps-office-wpsmain.png" },
@@ -92,9 +103,7 @@
      {"Qt4 Linguist ", "linguist-qt4", "/usr/share/icons/hicolor/16x16/apps/linguist-qt4.png" },
      {"Qt4 QDbusViewer ", "qdbusviewer-qt4", "/usr/share/icons/hicolor/32x32/apps/qdbusviewer-qt4.png" },
      {"RubyMine", "\"/usr/share/rubymine/bin/rubymine.sh\" "},
-     {"RubyMine Kusunoki EAP", "/usr/bin/rubymine-eap", "/usr/share/pixmaps/rubymine-eap.svg" },
      {"Sublime Text 3 Dev", "subl3 ", "/usr/share/icons/hicolor/16x16/apps/sublime-text.png" },
-     {"WebStorm-EAP", "/usr/bin/jetbrains-webstorm-eap", "/usr/share/pixmaps/webstorm-eap.svg" },
  }
 
  local menu52dd1c847264a75f400961bfb4d1c849 = {
@@ -114,6 +123,7 @@
      {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
      {"KSysGuard", "ksysguard "},
      {"Konsole", "konsole"},
+     {"Manage Printing", "/usr/bin/xdg-open http://localhost:631/", "/usr/share/icons/hicolor/16x16/apps/cups.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
      {"SSH AskPass", "/usr/bin/ssh-add"},
      {"Terminology", "terminology", "/usr/share/icons/terminology.png" },
@@ -125,6 +135,7 @@
 xdgmenu = {
     {"Accessories", menu98edb85b00d9527ad5acebe451b3fae6},
     {"Archlinux", menu78059f1898ed518c6ccd6a6392fa82c1},
+    {"Education", menude7a22a0c94aa64ba2449e520aa20c99},
     {"Games", menu251bd8143891238ecedc306508e29017},
     {"Graphics", menud334dfcea59127bedfcdbe0a3ee7f494},
     {"Internet", menuc8205c7636e728d448c2774e6a4a944b},

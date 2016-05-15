@@ -78,7 +78,7 @@ set_wallpaper()
   end
   run_once("kbdd")
   awful.util.spawn_with_shell("systemctl --user restart hidcur")
-  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 6 -t -8 -l -8 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --mark-ovredir-focused --config ~/.config/compton.conf")
+  run_once("compton", "compton -b --use-ewmh-active-win --sw-opti --shadow-blue 0.05 --inactive-dim 0.25 -cfGz -r 6 -t -8 -l -8 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --mark-ovredir-focused --config ~/.config/compton.conf")
   run_once("urxvtd", "urxvtd -o -f -q")
   --"xcowsay 'Moo, brother, moo.'"
 -- }}}

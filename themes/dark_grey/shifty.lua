@@ -242,7 +242,7 @@ shifty.config.apps = {
             "URxvt*",
             "File-roller",
             "Archive*",
-            name = {"Developer*", "Copy*", "New*", "Worker Configuration"},
+            name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog"},
             role = {"pop-up", "GtkFileChooser*"}
         },
         float = true,
