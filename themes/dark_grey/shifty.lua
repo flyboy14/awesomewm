@@ -24,7 +24,7 @@ shifty.config.tags = {
         exclusive = false,    
         position  = 1,
         screen    = 1,
-        --leave_kills = true,
+        leave_kills = true,
     },
     ide = {
         layout    = layouts[3],
@@ -33,7 +33,6 @@ shifty.config.tags = {
         position  = 4,
         --init      = true,
         screen    = 1,
-        leave_kills = true,
         slave     = true,
     },
     web = {
@@ -48,7 +47,6 @@ shifty.config.tags = {
         layout    = layouts[7],
         exclusive = true,
         position  = 5,
-        leave_kills = true,
     },
     editor = {
         layout   = layouts[6],
@@ -61,11 +59,15 @@ shifty.config.tags = {
         position = 6,
         nopopup = false,
         exclusive = true,  
-        leave_kills = true,
     },
     virtual = {
         layout   = layouts[1],
         position = 7,
+        --      leave_kills = true,
+    },
+    im = {
+        layout   = layouts[1],
+        position = 8,
         --      leave_kills = true,
     },
 }
@@ -148,8 +150,6 @@ shifty.config.apps = {
             "File-roller", 
             "Archive*",
             "Download", 
-            "Oblogout", 
-            "Org.gnome.Weather.Application", 
             "Covergloobus", 
             "Zenity", 
             "Doublecmd", 
@@ -205,13 +205,21 @@ shifty.config.apps = {
             "pavucontrol", 
             "Wpa_gui", 
             "Lxappearance", 
-            "Pidgin", 
-            "Oblogout", 
+            "Pidgin",  
             "Docky",
             name = {"Developer*", "Copy*", "New*"},
             role = {"pop-up", "GtkFileChooser*"}
         },
         ontop = true
+    },
+    {
+        match = {
+            "Skype",
+            "Viber",
+            "Pidgin",
+            "Telegram", 
+        },
+        tag = "im"
     },
     {
         match = {
@@ -228,7 +236,6 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Oblogout", 
             "Kodi",
             class = {"rdesktop*", "Robin"}
         },
@@ -239,10 +246,11 @@ shifty.config.apps = {
             terminal,
             "Putty",
             "Gcolor*",
+            "Zenity",
             "URxvt*",
             "File-roller",
             "Archive*",
-            name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog"},
+            name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"}
         },
         float = true,

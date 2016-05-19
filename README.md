@@ -13,7 +13,7 @@ Tested with latest awesome-git
 * lua5.3
 * pulseaudio,pamixer (widgets and bindings)
 * nitrogen (wallpaper,optional)
-* oblogout (shutdown dialog,optional)
+* zenity (shutdown dialog,optional)
 * gksu (graphical sudo, optional)
 
 # Features

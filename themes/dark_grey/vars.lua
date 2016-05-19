@@ -98,6 +98,12 @@ naughty.config.defaults = {
     position = "top_right"
 }
 
+mywibox = {}
+mywibox_w = {}
+mypromptbox = {}
+mylayoutbox = {}
+mytaglist = {}
+
  -- {{{ Tags ₪
 -- theme.taglist_font = font_main
 -- tags = {

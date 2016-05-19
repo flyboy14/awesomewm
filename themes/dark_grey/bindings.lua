@@ -24,6 +24,31 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 
+-- mapping for modal client keys
+  client_mode = {
+    -- Set client on top
+    t = function (c) c.ontop = not c.ontop end,
+    -- Redraw the client
+    r = function (c) c:redraw() end,
+    -- Toggle floating status of the client
+    w = awful.client.floating.toggle,
+    -- toggle mark
+    o = awful.client.togglemarked,
+    -- make the client fullscreen
+    f = function (c)
+      c.fullscreen = not c.fullscreen
+      if awful.rules.match(c, {class = 'URxvt'}) or awful.rules.match(c, {class = 'Skype'}) then
+        if c.fullscreen == false then
+          c.ontop = true
+        end
+      end   
+    end,
+    -- (un)maximize the client
+    x = function (c)
+          c.maximized_horizontal = not c.maximized_horizontal
+          c.maximized_vertical   = not c.maximized_vertical
+        end
+}
 
 globalkeys = awful.util.table.join(
   awful.key({            }, "Print", function () awful.util.spawn_with_shell(sc_r) end),
@@ -58,12 +83,11 @@ globalkeys = awful.util.table.join(
                   function ()
                       shifty.send_next()
                   end),
-  awful.key({modkey}, "n", function () awful.tag.viewonly(shifty.getpos(9)) end),
-  awful.key({modkey, "Control"},
-            "n",
+  awful.key({modkey}, "Down", function () awful.tag.viewonly(shifty.getpos(9)) end),
+  awful.key({modkey, "Control"}, "n",
             function() shifty.add({ nopopup = true }) end
             ),
-awful.key({modkey}, "r", shifty.rename),
+awful.key({modkey}, "Up", shifty.rename),
 awful.key({modkey}, "d", shifty.del),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
   awful.key({ modkey,           }, "F8",  
@@ -127,16 +151,11 @@ awful.key({modkey}, "d", shifty.del),
   ),
   awful.key({            }, "XF86PowerOff",
     function ()
-      if not awful.tag.selected() == nil then
-        for i = 1, #awful.tag.selected():clients() do
-          awful.tag.selected():clients()[i].ontop = false
-        end
-      end
-      awful.util.spawn_with_shell("oblogout")
+      awful.util.spawn(scripts .. "/logout.sh")
     end
   ),
   awful.key({      modkey      }, "v", function() awful.util.spawn(musicplr) end),
-  awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("oblogout") end),
+  awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Reboot now?' && reboot") end),
   --awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
   --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
   awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo " .. fm) end),
@@ -145,6 +164,28 @@ awful.key({modkey}, "d", shifty.del),
   awful.key({ modkey }, "F1", function () awful.util.spawn_with_shell(translate_r_e) end),
   awful.key({ modkey, "Control" }, "Escape", function () awful.util.spawn_with_shell(lockscreen) end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
+-- Run or raise applications with dmenu
+-- awful.key({ modkey }, "p", function ()
+--     local f_reader = io.popen( "dmenu_path | dmenu -b -nb '".. beautiful.bg_normal .."' -nf '".. beautiful.fg_normal .."' -sb '#955'")
+--     local command = assert(f_reader:read('*a'))
+--     f_reader:close()
+--     if command == "" then return end
+
+--     -- Check throught the clients if the class match the command
+--     local lower_command=string.lower(command)
+--     for k, c in pairs(client.get()) do
+--         local class=string.lower(c.class)
+--         if string.match(class, lower_command) then
+--             for i, v in ipairs(c:tags()) do
+--                 awful.tag.viewonly(v)
+--                 c:raise()
+--                 c.minimized = false
+--                 return
+--             end
+--         end
+--     end
+--     awful.util.spawn(command)
+-- end),
   awful.key({ modkey }, "p", function () client.focus.maximized_vertical = false client.focus.maximized_horizontal = false end),
 
   -- backlight control
@@ -298,16 +339,15 @@ awful.key({modkey}, "d", shifty.del),
 
 
 clientkeys = awful.util.table.join(
-  awful.key({ modkey,           }, "f",
-    function (c)
-      c.fullscreen = not c.fullscreen
-      if awful.rules.match(c, {class = 'URxvt'}) or awful.rules.match(c, {class = 'Skype'}) then
-        if c.fullscreen == false then
-          c.ontop = true
-        end
-      end
-    end),
-  awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
+   awful.key({ modkey }, "f", function(c)
+     keygrabber.run(function(mod, key, event)
+         if event == "release" then return true end
+         keygrabber.stop()
+         if client_mode[key] then client_mode[key](c) end
+         return true
+     end)
+ end),
+  --awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
   awful.key({ alt,              }, "F4",      function (c) c:kill() end),
   awful.key({ modkey,           }, "F4",      function (c)
     local tag = awful.tag.selected()
@@ -318,7 +358,7 @@ clientkeys = awful.util.table.join(
     end
   end),
   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-  awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+  --awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
   awful.key({ alt,              }, "Escape", function (c) c.minimized = true end),
   awful.key({ alt,              }, "z", function (c) c.minimized = true end),
   awful.key({ modkey,              }, "z", function (c) c.minimized = true end),

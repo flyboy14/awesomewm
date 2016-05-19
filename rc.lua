@@ -67,7 +67,7 @@ set_wallpaper()
 -- }}}
 
 --- {{{ Autorun apps
-  awful.util.spawn_with_shell(home .. "/.config/autostart/autostart.sh")
+  run_once("kbdd", home .. "/.config/autostart/autostart.sh")
   run_once("kbdd", "slock") -- run slock only if kbdd didn't start e.g. first launch after login
   run_once("nm-applet")
   run_once("caffeine")

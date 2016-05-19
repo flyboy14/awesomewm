@@ -1,11 +1,6 @@
 require("themes/dark_grey/functions")
 local shifty = require("shifty")
 -- Create a wibox for each screen and add it
-mywibox = {}
-mywibox_w = {}
-mypromptbox = {}
-mylayoutbox = {}
-mytaglist = {}
 mytaglist.buttons = awful.util.table.join(
   awful.button({ }, 1, awful.tag.viewonly),
   awful.button({ modkey }, 1, awful.client.movetotag),
@@ -164,6 +159,7 @@ for s = 1, screen.count() do
 
   mywibox[s]:set_widget(layout)
   mywibox_w[s]:set_widget(layout_w)
+  mywibox_w[s].visible = false
 end
 -- }}}
 

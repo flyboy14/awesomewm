@@ -10,6 +10,15 @@ function is_only_client()
     return true
 end
 
+-- function dmenu_alttab()
+--   local tag = awful.tag.selected()
+--   local clientos = ""
+--   for i = 1, #tag:clients() do
+--     clientos = clientos .. "\n" .. tag:clients[i]
+--   end
+--   naughty.notify({text=clientos})
+-- end
+
 function set_cursor_in_middle_of_focused_client()
   if client.focus then
     client.focus:raise()
@@ -63,7 +72,7 @@ function wibox_color()
   local c = tag:clients() or 0
   for i=1, #c do
     if not c[i].minimized then
-      if (c[i]:geometry()['y'] <= 17 or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then
+      if (c[i]:geometry()['y'] <= 17) then -- or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748
         return beautiful.mycolor
       end
     end
@@ -115,11 +124,47 @@ end
 
 -- }}}
 -- Autorun programs
-function run_once(why, what)
-  if what == nil then
-    what = why
-  end
-  awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " || (" .. what .. ")")
+
+-- function run_once(why, what)
+--   if what == nil then
+--     what = why
+--   end
+--   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " || (" .. what .. ")")
+-- end
+
+-- {{{ Run programm once
+require("lfs") 
+local function processwalker()
+   local function yieldprocess()
+      for dir in lfs.dir("/proc") do
+        -- All directories in /proc containing a number, represent a process
+        if tonumber(dir) ~= nil then
+          local f, err = io.open("/proc/"..dir.."/cmdline")
+          if f then
+            local cmdline = f:read("*all")
+            f:close()
+            if cmdline ~= "" then
+              coroutine.yield(cmdline)
+            end
+          end
+        end
+      end
+    end
+    return coroutine.wrap(yieldprocess)
+end
+
+function run_once(process, cmd)
+   assert(type(process) == "string")
+   local regex_killer = {
+      ["+"]  = "%+", ["-"] = "%-",
+      ["*"]  = "%*", ["?"]  = "%?" }
+
+   for p in processwalker() do
+      if p:find(process:gsub("[-+?*]", regex_killer)) then
+   return
+      end
+   end
+   return awful.util.spawn_with_shell(cmd or process)
 end
 
 function run_when(why, what)
@@ -137,6 +182,19 @@ function check_for_terminal (command)
    if command:sub(1,1) == ":" then
       command = terminal .. ' -e "' .. command:sub(2) .. '"'
    end
+    -- Check throught the clients if the class match the command
+    local lower_command=string.lower(command)
+    for k, c in pairs(client.get()) do
+        local class=string.lower(c.class)
+        if string.match(class, lower_command) then
+            for i, v in ipairs(c:tags()) do
+                awful.tag.viewonly(v)
+                c:raise()
+                c.minimized = false
+                return
+            end
+        end
+    end
    awful.util.spawn_with_shell(command)
    --mypromptbox[awful.screen.focused()]:spawn_and_handle_error(command, {floating=true})
 end
