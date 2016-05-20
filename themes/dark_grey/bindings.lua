@@ -284,7 +284,6 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
 
   awful.key({ alt, }, "F2",
     function ()
-      musicwidget.widget.visible = false
       awful.prompt.run(
         {prompt="<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'> " .. "> </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
         mypromptbox[mouse.screen.index].widget,

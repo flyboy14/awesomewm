@@ -16,7 +16,6 @@ layouts =
 shifty.config.layouts = layouts
 -- }}}
 -- Shifty configured tags.
---"⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ "
 shifty.config.tags = {  
     home = {
         layout    = layouts[3],
