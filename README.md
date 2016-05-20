@@ -34,6 +34,8 @@ Tested with latest awesome-git
 
 * wisdom spider quoting fortunes
 
+* extra layouts from lain
+
 * other yummies
 
 # Usage
@@ -57,8 +59,8 @@ Tested with latest awesome-git
   * modkey + "q" : view prev active tag
   * Shift + modkey + "e" : move active client to next active tag
   * Shift + modkey + "q" : move active client to prev active tag
-  * modkey + "n" : create new tag
-  * modkey + "r" : rename active tag
+  * modkey + "Down" : create new tag
+  * modkey + "Up" : rename active tag
   * modkey + "d" : delete active tag (only if it has no clients)
   * modkey + Space : select next layout for clients on active tag
   * modkey + Control + Space : select prev layout for client on active tag
@@ -71,27 +73,34 @@ Tested with latest awesome-git
   * modkey + Tab : cycle through all clients on active tag
   * L_Alt + Escape : minimize active client
   * modkey + Escape : minimize all clients except active one
-  * modkey + "f" : toggle active client fullscreen state
-  * modkey + "w" : toggle active client floating state
-  * modkey + "t" : toggle active client ontop state
+  * modkey + "w" : toggle client control state (a few keys pressed after this combination would make various effects)
+  * (modkey + "w") + "f" : toggle active client fullscreen state
+  * (modkey + "w") + "t" : toggle active client ontop state
+  * (modkey + "w") + "s" : toggle active client sticky state
+  * (modkey + "w") + "x" : totally unmaximize active client
   * L_Alt + "F4" : kill active client
   * modkey + "F4" : kill all clients on current tag except active one
+  * modkey + "p" : increase master width factor by 0.05
+  * modkey + "Control" + "p" : decrease master width factor by 0.05
 
 * Prompts
   * L_Alt + "F2" : command prompt
   * modkey + "F2" : awesome-client's lua prompt
   * modkey + "c" : calculator prompt
+  * modkey + "g" : translation prompt (EN to RU)
+  * modkey + "Control" + "g" : translation prompt (RU to EN)
+  * modkey + "/" : Cheeky as-you-type client switcher
 
 * Launchers
-  * modkey + "b" : launch browser
-  * modkey + {Enter,KP_Enter} : launch terminal
-  * modkey + "\`" : launch graphical file manager
+  * modkey + "b" : run or raise browser
+  * modkey + {Enter,KP_Enter} : run or rise terminal
+  * modkey + {Enter,KP_Enter} : launch a new instance of terminal
+  * modkey + "\`" : run or raise graphical file manager
   * modkey + Control + "\`" : launch graphical file manager (sudo)
-  * modkey + "s" : launch skype client
-  * modkey + "v" : launch music player client
-  * modkey + "l" : launch graphical text editor
+  * modkey + "s" : run or raise skype client
+  * modkey + "l" : run or raise graphical text editor
   * modkey + Control + "l" : launch graphical text editor (sudo)
-  * {XF86PowerOff, XF86Launch1} : launch oblogout client
+  * {XF86PowerOff, XF86Launch1} : launch shutdown dialog
   * modkey + Control + Escape : activate lockscreen
   * XF86Sleep : suspend computer
   * XF86MonBrightnessUp : run bright up script
@@ -105,6 +114,7 @@ Tested with latest awesome-git
 
 * Awesome controls
   * modkey + Control + "r" : restart awesome
+  * modkey + "h" : toggle useless gaps
   * mouse2 on spider : toggle awesome theme (replaces rc.lua)
 
 * Screenshots (dark_grey theme)
