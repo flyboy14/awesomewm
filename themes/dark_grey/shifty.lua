@@ -4,14 +4,14 @@ require("themes/dark_grey/bindings")
 layouts =
 {
     awful.layout.suit.floating,               -- 1
-    awful.layout.suit.tile,                   -- 2
-    awful.layout.suit.tile.left,              -- 3
-    awful.layout.suit.tile.bottom,            -- 4
-    awful.layout.suit.tile.top,               -- 5
-    awful.layout.suit.spiral,                 -- 6
-    awful.layout.suit.max,                    -- 7
-    awful.layout.suit.max.fullscreen,         -- 8    
-    awful.layout.suit.magnifier,              -- 9
+    lain.layout.uselesstile,                  -- 2
+    lain.layout.uselesstile.bottom,            -- 3
+    lain.layout.uselesspiral,                 -- 4
+    lain.layout.cascade,                      -- 5    
+    lain.layout.termfair,                     -- 6
+    lain.layout.uselessfair,                  -- 7
+    lain.layout.centerworkd,                  -- 8
+    lain.layout.centerhwork,                  -- 9               -- 10
 }
 shifty.config.layouts = layouts
 -- }}}
@@ -19,37 +19,33 @@ shifty.config.layouts = layouts
 --"⌂ ", "℺ ", "¶ ", "⚒ ", "♫ ","♿ ", "⚔ ", "➴ "
 shifty.config.tags = {  
     home = {
-        layout    = layouts[2],
-        mwfact    = 0.60,
+        layout    = layouts[3],
         exclusive = false,    
         position  = 1,
-        screen    = 1,
         leave_kills = true,
     },
     ide = {
-        layout    = layouts[3],
-        mwfact    = 0.60,
+        layout    = layouts[8],
         exclusive = true,    
         position  = 4,
         --init      = true,
-        screen    = 1,
         slave     = true,
     },
     web = {
-        layout      = layouts[5],
+        layout      = layouts[3],
         mwfact      = 0.65,
         exclusive   = true,
         position    = 2,
-        leave_kills = true,
+        --leave_kills = true,
         --spawn       = browser,
     },
     media = {
-        layout    = layouts[7],
+        layout    = layouts[6],
         exclusive = true,
         position  = 5,
     },
-    editor = {
-        layout   = layouts[6],
+    edit = {
+        layout   = layouts[8],
         position = 3,
         exclusive = true,
         leave_kills = true,
@@ -66,8 +62,9 @@ shifty.config.tags = {
         --      leave_kills = true,
     },
     im = {
-        layout   = layouts[1],
+        layout   = layouts[8],
         position = 8,
+        mwfact = 0.65,
         --      leave_kills = true,
     },
 }
@@ -108,14 +105,27 @@ shifty.config.apps = {
             "Wps", 
             "Wpp", 
             "Et", 
+            "Atom",
+            "Subl*",
             "Libre", 
             "libreoffice-writer", 
-            "Subl3", 
             "Evince", 
             "DjView", 
-            "Atom"
         },
-        tag = "editor",
+        tag = "edit",
+    },
+    {
+        match = {
+            "Pdfeditor", 
+            "Wps", 
+            "Wpp", 
+            "Et", 
+            "Libre", 
+            "libreoffice-writer", 
+            "Evince", 
+            "DjView", 
+        },
+        tag = "doc",
     },
     {
         match = {
@@ -146,28 +156,6 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Putty", 
-            "File-roller", 
-            "Archive*",
-            "Download", 
-            "Covergloobus", 
-            "Zenity", 
-            "Doublecmd", 
-            "Nitrogen", 
-            "Wpa_gui", 
-            "Pavucontrol", 
-            "Lxappearance", 
-            "Pidgin", 
-            "terminology", 
-            "URxvt*", 
-            "Skype*", 
-            "plugin-container",
-                    
-        },
-        float = true,
-    },
-    {
-        match = {
             "VirtualBox*", 
             "Virt-manager", 
             "Remmina", 
@@ -194,9 +182,18 @@ shifty.config.apps = {
     },
     {
         match = {
+            "Skype*",
+            "Viber",
+            "Pidgin",
+            "Telegram", 
+        },
+        tag = "im"
+    },
+    {
+        match = {
             "Putty", 
             "slock", 
-            "Skype*", 
+            --"Skype*", 
             "Nitrogen", 
             "Polkit-gnome-authentication-agent-1", 
             "terminology",
@@ -207,6 +204,7 @@ shifty.config.apps = {
             "Lxappearance", 
             "Pidgin",  
             "Docky",
+            "Insync.py",
             name = {"Developer*", "Copy*", "New*"},
             role = {"pop-up", "GtkFileChooser*"}
         },
@@ -214,12 +212,31 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Skype",
-            "Viber",
-            "Pidgin",
-            "Telegram", 
+            "File-roller", 
+            "Archive*",
+            "Download", 
+            "Covergloobus", 
+            "Zenity", 
+            "Doublecmd", 
+            "Nitrogen", 
+            "Wpa_gui", 
+            "Pavucontrol", 
+            "Lxappearance", 
+            "Pidgin", 
+            --"Skype*", 
+            "plugin-container",
+            "Putty",
+            "Gcolor*",
+            "Zenity",
+            "terminology", 
+            "URxvt*",
+            "File-roller",
+            "Archive*",
+            "Insync.py",
+            name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
+            role = {"pop-up", "GtkFileChooser*"}
         },
-        tag = "im"
+        float = true,
     },
     {
         match = {
@@ -230,30 +247,35 @@ shifty.config.apps = {
             "Nitrogen",
             name = {"TeamViewer"}
         },
-        --layout  = awful.layout.suit.magnifier,
         leave_kills = "true",
         rel_index = 1
     },
     {
         match = {
             "Kodi",
-            class = {"rdesktop*", "Robin"}
+            class = {"rdesktop*", "Robin", "dota2"}
         },
         fullscreen = true
     },
     {
         match = {
-            terminal,
+            "URxvt*"
+        },
+        sticky = true
+    },
+    {
+        match = {
             "Putty",
             "Gcolor*",
             "Zenity",
             "URxvt*",
+            "terminology",
             "File-roller",
             "Archive*",
+            "Insync.py",
             name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"}
         },
-        float = true,
         --slave = true,
         intrusive = true,
     },
@@ -278,11 +300,10 @@ shifty.config.defaults = {
     layout = layouts[2],
     ncol = 1,
     mwfact = 0.60,
-    floatBars = true,
+    floatBars = false,
     guess_name = true,
     guess_position = true,
     maximized_vertical   = false,
     maximized_horizontal = false,
 }
-
 shifty.taglist = mytaglist

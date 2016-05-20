@@ -65,6 +65,20 @@ function revert_colors()
   grey_color = strongblue
 end
 
+function launch_cheeky()
+  local offset = { x = 0, y = 16 }
+
+  if client.focus then
+    offset = screen[client.focus.screen].workarea
+  end
+
+  cheeky.util.switcher({ 
+    coords = { x = offset.x + 1366/2-200, y = offset.y + 10},
+    menu_theme = { height = 20, width = 400 }, 
+    show_tag = true,   
+  })
+end
+
 -- }}}
 function wibox_color()
   local tag = awful.tag.selected()
@@ -72,7 +86,7 @@ function wibox_color()
   local c = tag:clients() or 0
   for i=1, #c do
     if not c[i].minimized then
-      if (c[i]:geometry()['y'] <= 17) then -- or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748
+      if (c[i]:geometry()['y'] <= 17 + beautiful.useless_gap_width) then -- or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748
         return beautiful.mycolor
       end
     end

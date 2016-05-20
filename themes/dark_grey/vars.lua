@@ -104,6 +104,7 @@ mypromptbox = {}
 mylayoutbox = {}
 mytaglist = {}
 
+
  -- {{{ Tags ₪
 -- theme.taglist_font = font_main
 -- tags = {

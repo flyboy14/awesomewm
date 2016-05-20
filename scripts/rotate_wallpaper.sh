@@ -36,8 +36,11 @@ export DISPLAY=":0"
 PID=$(pgrep awesome)
 export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/environ|cut -d= -f2-)
 
+# set wallpaper
+
 sed -e "s:file=.*:file=$WALL:" $HOME/.config/nitrogen/bg-saved.cfg > /tmp/bg-saved.cfg
 mv /tmp/bg-saved.cfg $HOME/.config/nitrogen/bg-saved.cfg
 echo "set_wallpaper()" | awesome-client
+echo "color_systray()" | awesome-client
 
 exit 0

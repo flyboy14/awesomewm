@@ -81,7 +81,7 @@ for s = 1, screen.count() do
   -- Create the wibox
 
   mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = beautiful.mycolor .. "44" })
-  mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = beautiful.mycolor .. "44" })
+  mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = beautiful.mycolor })
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
@@ -102,7 +102,6 @@ for s = 1, screen.count() do
 
   -- Widgets that are aligned to the right
   local right_layout = wibox.layout.fixed.horizontal()
-
   right_layout:add(bf)
   right_layout:add(gf)
   right_layout:add(yf)
@@ -130,7 +129,6 @@ for s = 1, screen.count() do
   right_layout:add(weathericon)
   right_layout:add(myweather)
   right_layout:add(spr)
-
   right_layout:add(baticon)
   right_layout:add(batwidget)
   right_layout:add(clockicon)
@@ -143,7 +141,7 @@ for s = 1, screen.count() do
   right_w:add(face)
   right_w:add(spr)
   right_w:add(bral)
-  if s == 1 then right_w:add(wibox.widget.systray()) end
+      if s == 1 then right_w:add(wibox.widget.systray()) end
     --right_w:add(brar)
   right_w:add(sepr)
   right_w:add(spr)
@@ -156,7 +154,6 @@ for s = 1, screen.count() do
   layout_w:set_middle(mytasklist[s])
   layout_w:set_right(right_w)
   layout_w:set_expand(outside)
-
   mywibox[s]:set_widget(layout)
   mywibox_w[s]:set_widget(layout_w)
   mywibox_w[s].visible = false

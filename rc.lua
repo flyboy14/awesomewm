@@ -8,10 +8,9 @@ beautiful = require("beautiful")
 vicious = require("vicious")
 awesompd = require("awesompd/awesompd")
 naughty = require("naughty")
---require("eminent")
 xdg_menu = require("archmenu")
 lain = require("lain")
---scratch = require("scratch")
+require("cheeky")
 require("awful.autofocus")
 require("themes/dark_grey/vars")
 require("themes/dark_grey/functions")
@@ -64,6 +63,7 @@ end
 
 -- Wallpaper
 set_wallpaper()
+color_systray()
 -- }}}
 
 --- {{{ Autorun apps
@@ -74,7 +74,8 @@ set_wallpaper()
   run_once("parcellite")
   if inet_on then
     run_once("skype")
-    run_once("nice -n 19 dropbox")
+    run_once("insync", "insync start")
+    run_once("dropbox")
   end
   run_once("kbdd")
   awful.util.spawn_with_shell("systemctl --user restart hidcur")

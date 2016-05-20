@@ -34,6 +34,8 @@ root.buttons(awful.util.table.join(
     w = awful.client.floating.toggle,
     -- toggle mark
     o = awful.client.togglemarked,
+    -- (un)sticky client
+    s = function (c) c.sticky = not c.sticky end,
     -- make the client fullscreen
     f = function (c)
       c.fullscreen = not c.fullscreen
@@ -51,6 +53,7 @@ root.buttons(awful.util.table.join(
 }
 
 globalkeys = awful.util.table.join(
+  awful.key({ modkey }, "/", function() launch_cheeky() end),
   awful.key({            }, "Print", function () awful.util.spawn_with_shell(sc_r) end),
   awful.key({ modkey }, "Print", function () awful.util.spawn_with_shell(sc_c) end),
   awful.key({ "Control", }, "Print", function () show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil ) end,
@@ -89,10 +92,11 @@ globalkeys = awful.util.table.join(
             ),
 awful.key({modkey}, "Up", shifty.rename),
 awful.key({modkey}, "d", shifty.del),
+awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end awful.tag.incmwfact(-0.01) awful.tag.incmwfact(0.01) end),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
   awful.key({ modkey,           }, "F8",  
     function() mywibox[mouse.screen.index].visible = not mywibox[mouse.screen.index].visible end       ),
-  awful.key({ modkey,           }, "F9",  function() mywibox_w[mouse.screen.index].visible = not mywibox_w[mouse.screen.index].visible end       ),
+  awful.key({ modkey,           }, "t",  function() mywibox_w[mouse.screen.index].visible = not mywibox_w[mouse.screen.index].visible end       ),
 
   awful.key({ modkey,           }, "j",
     function ()
@@ -154,7 +158,7 @@ awful.key({modkey}, "d", shifty.del),
       awful.util.spawn(scripts .. "/logout.sh")
     end
   ),
-  awful.key({      modkey      }, "v", function() awful.util.spawn(musicplr) end),
+  --awful.key({      modkey      }, "v", function() awful.util.spawn(musicplr) end),
   awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Reboot now?' && reboot") end),
   --awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
   --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
@@ -199,7 +203,8 @@ awful.key({modkey}, "d", shifty.del),
   awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell(vol_down) end),
   awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(vol_mute) end),
   --awful.key({ modkey }, "Control","m", function () awful.util.spawn_with_shell(vol_mute) end),
-  --awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
+  awful.key({ modkey,           }, "p",     function () awful.tag.incmwfact( 0.05)    end),
+  awful.key({ modkey,  "Control"         }, "p",     function () awful.tag.incmwfact( -0.05)    end),
   --awful.key({ modkey,           }, beautiful.mycolor,     function () awful.tag.incmwfact(-0.05)    end),
   awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
   awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
@@ -207,8 +212,8 @@ awful.key({modkey}, "d", shifty.del),
   --awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
   awful.key({ modkey,           }, "space", function () awful.layout.inc(1, s, layouts) end),
   awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(-1, s, layouts) end),
-
-
+  awful.key({ modkey, "Control"}, "Return", function () awful.util.spawn(terminal) end),
+  awful.key({ modkey, "Control"}, "KP_Enter", function () awful.util.spawn(terminal) end),
 --run or raise clients
 
   awful.key({ modkey, }, "Return",
@@ -218,7 +223,7 @@ awful.key({modkey}, "d", shifty.del),
         return awful.rules.match(c, {class = 'URxvt'})
       end
       awful.client.run_or_raise(terminal, matcher)
-      --set_cursor_in_middle_of_focused_client()
+      set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -229,7 +234,7 @@ awful.key({modkey}, "d", shifty.del),
         return awful.rules.match(c, {class = 'URxvt'})
       end
       awful.client.run_or_raise(terminal, matcher)
-      --set_cursor_in_middle_of_focused_client()
+      set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -279,6 +284,7 @@ awful.key({modkey}, "d", shifty.del),
 
   awful.key({ alt, }, "F2",
     function ()
+      musicwidget.widget.visible = false
       awful.prompt.run(
         {prompt="<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'> " .. "> </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
         mypromptbox[mouse.screen.index].widget,
@@ -339,7 +345,7 @@ awful.key({modkey}, "d", shifty.del),
 
 
 clientkeys = awful.util.table.join(
-   awful.key({ modkey }, "f", function(c)
+   awful.key({ modkey }, "w", function(c)
      keygrabber.run(function(mod, key, event)
          if event == "release" then return true end
          keygrabber.stop()

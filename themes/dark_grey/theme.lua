@@ -36,7 +36,7 @@ else
 end
 --}}}
 theme.mycolor						= "#1f1f1f"--"#383C4A"
-theme.systray                       = "#101215"
+theme.systray                       = theme.mycolor
 theme.font                          = "Fixed 8"--"Fixed 8"
 theme.taglist_font                  = "Visitor TT2 BRK 10"--"envypn 9"
 theme.fg_normal                     = "#9e9e9e"
@@ -59,7 +59,7 @@ theme.taglist_fg_focus              = "#dcdcdc" --#dcdcdc"
 theme.taglist_bg_focus              = theme.mycolor .. "00"
 theme.menu_height                   = "24"
 theme.menu_width                    = "170"
-theme.bg_systray					= "#34454E" --.. "44"--"#192732"
+theme.bg_systray					= theme.mycolor --.. "44"--"#192732"
 theme.systray_icon_spacing			= "4"
 
 theme.menu_submenu_icon             = themedir .. "/icons/sub.png"
@@ -83,6 +83,13 @@ theme.layout_max                    = themedir .. "/icons/max_x16.png"
 theme.layout_fullscreen             = themedir .. "/icons/fullscreen.png"
 theme.layout_magnifier              = themedir .. "/icons/magnifier_x16.png"
 theme.layout_floating               = themedir .. "/icons/floating_x16.png"
+
+theme.layout_termfair      = themedir .. "/lain/themes/icons/layout/default/termfairw.png"
+theme.layout_browse        = themedir .. "/lain/themes/icons/layout/default/browsew.png"
+theme.layout_gimp          = themedir .. "/lain/themes/icons/layout/default/gimpw.png"
+theme.layout_cascade       = themedir .. "/lain/themes/icons/layout/default/cascadew.png"
+theme.layout_cascadebrowse = themedir .. "/lain/themes/icons/layout/default/cascadebrowsew.png"
+theme.layout_centerwork    = themedir .. "/lain/themes/icons/layout/default/centerworkw.png"
 
 theme.widget_ac                             = themedir .. "/icons/ac_x16.png"
 theme.widget_weather                             = themedir .. "/icons/dish.png"
@@ -117,7 +124,7 @@ theme.tasklist_maximized_horizontal         = ""
 theme.tasklist_maximized_vertical           = ""
 
 -- lain related
-theme.useless_gap_width             = 0
+theme.useless_gap_width             = 8
 theme.layout_uselesstile            = themedir .. "/icons/uselesstile.png"
 theme.layout_uselesstileleft        = themedir .. "/icons/uselesstileleft.png"
 theme.layout_uselesstiletop         = themedir .. "/icons/uselesstiletop.png"
