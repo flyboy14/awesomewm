@@ -109,8 +109,6 @@ Tested with latest awesome-git
   * XF86AudioRaiseVolume : raise audio volume (no unmute)
   * XF86AudioLowerVolume : lower audio volume (no unmute)
   * XF86AudioToggle : toggle play/pause audio state
-  * L_Alt + "F1" : run translate script from EN to RU (translates currently selected text via xsel)
-  * modkey + "F1" : run translate script from RU to EN (translates currently selected text via xsel)
 
 * Awesome controls
   * modkey + Control + "r" : restart awesome
