@@ -106,3 +106,8 @@ Tested with latest awesome-git
 * Awesome controls
   * modkey + Control + "r" : restart awesome
   * mouse2 on spider : toggle awesome theme (replaces rc.lua)
+
+* Screenshots (dark_grey theme)
+  * ![Alt text](/screenshot/dark_grey_1?raw=true "1")
+  * ![Alt text](/screenshot/dark_grey_2?raw=true "2")
+  * ![Alt text](/screenshot/dark_grey_3?raw=true "3")
