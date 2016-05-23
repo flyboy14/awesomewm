@@ -1,4 +1,4 @@
-function is_only_client()
+  function is_only_client()
   local count = 0
   local tag = awful.tag.selected()
   for i = 1, #tag:clients() do
@@ -43,7 +43,7 @@ function mouse_on_wibox()
     return false
   end
 
-  if mouse.coords()["y"] >= 750 or mouse.coords()["y"] <= 18 then
+  if mouse.coords()["y"] >= 768 - mywibox_w[mouse.screen.index].height or mouse.coords()["y"] <= mywibox[mouse.screen.index].height then
     return true
   else
     return false
@@ -76,7 +76,7 @@ function wibox_color()
   local c = tag:clients()
   for i=1, #c do
     if not c[i].minimized and finished == false then
-      if (c[i]:geometry()['y'] <= 17 or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then
+      if (( c[i]:geometry()['y'] <= mywibox[mouse.screen.index].height + 1) or ( c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 766 - mywibox_w[mouse.screen.index].height )) then
         finished = true
         val = beautiful.mycolor
         break
@@ -95,7 +95,7 @@ function is_fullscreen()
   local c = tag:clients()
   for i=1, #c do
     if not c[i].minimized and finished == false then
-      if (c[i]:geometry()['y'] <= 17 and c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then
+      if ( c[i]:geometry()['y'] <= mywibox[mouse.screen.index] + 1 and c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 766 - mywibox_w[mouse.screen.index].height ) then
         val = true
         finished = true
         break

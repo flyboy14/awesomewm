@@ -86,7 +86,7 @@ function wibox_color()
   local c = tag:clients() or 0
   for i=1, #c do
     if not c[i].minimized then
-      if (c[i]:geometry()['y'] <= 17 + beautiful.useless_gap_width) then -- or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748
+      if (c[i]:geometry()['y'] <= mywibox[mouse.screen.index].height + beautiful.useless_gap_width) then -- or c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748
         return beautiful.mycolor
       end
     end
@@ -99,7 +99,7 @@ function is_fullscreen()
   local c = tag:clients()
   for i=1, #c do
     if not c[i].minimized then
-      if (c[i]:geometry()['y'] <= 17 and c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 748) then
+      if (c[i]:geometry()['y'] <= mywibox[mouse.screen.index].height and c[i]:geometry()['y'] + c[i]:geometry()['height'] >= 766 - mywibox_w[mouse.screen.index].height ) then
         return true
       end
     end
@@ -195,6 +195,10 @@ end
 function check_for_terminal (command)
    if command:sub(1,1) == ":" then
       command = terminal .. ' -e "' .. command:sub(2) .. '"'
+   end
+   if command:sub(1,1) == "!" then
+      awful.util.spawn_with_shell(command:sub(2))
+      return
    end
     -- Check throught the clients if the class match the command
     local lower_command=string.lower(command)

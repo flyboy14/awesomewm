@@ -15,6 +15,7 @@ sharedthemes  = shared .. "/themes"
 themes        = config .. "/themes"
 themename     = "/dark_grey"
 walldir	      = home .. "/Pictures/Wallpapers"
+theme.lain_icons         = os.getenv("HOME") .. "/.config/awesome/lain/icons/layout/default/"
 if not awful.util.file_readable(themes .. themename .. "/theme.lua") then
        themes = sharedthemes
 end
@@ -84,13 +85,6 @@ theme.layout_fullscreen             = themedir .. "/icons/fullscreen.png"
 theme.layout_magnifier              = themedir .. "/icons/magnifier_x16.png"
 theme.layout_floating               = themedir .. "/icons/floating_x16.png"
 
-theme.layout_termfair      = themedir .. "/lain/themes/icons/layout/default/termfairw.png"
-theme.layout_browse        = themedir .. "/lain/themes/icons/layout/default/browsew.png"
-theme.layout_gimp          = themedir .. "/lain/themes/icons/layout/default/gimpw.png"
-theme.layout_cascade       = themedir .. "/lain/themes/icons/layout/default/cascadew.png"
-theme.layout_cascadebrowse = themedir .. "/lain/themes/icons/layout/default/cascadebrowsew.png"
-theme.layout_centerwork    = themedir .. "/lain/themes/icons/layout/default/centerworkw.png"
-
 theme.widget_ac                             = themedir .. "/icons/ac_x16.png"
 theme.widget_weather                             = themedir .. "/icons/dish.png"
 theme.widget_clock                             = themedir .. "/icons/clock.png"
@@ -125,8 +119,14 @@ theme.tasklist_maximized_vertical           = ""
 
 -- lain related
 theme.useless_gap_width             = 8
-theme.layout_uselesstile            = themedir .. "/icons/uselesstile.png"
-theme.layout_uselesstileleft        = themedir .. "/icons/uselesstileleft.png"
-theme.layout_uselesstiletop         = themedir .. "/icons/uselesstiletop.png"
+theme.layout_termfair    = theme.lain_icons .. "termfairw_x16.png"
+theme.layout_uselessfair    = theme.layout_fairv
+theme.layout_cascade     = theme.lain_icons .. "cascadew_x16.png"
+theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png"
+theme.layout_centerhwork  = theme.lain_icons .. "centerworkw_x16.png"
+theme.layout_centerworkd  = theme.lain_icons .. "centerworkdw_x16.png"
+theme.layout_uselesstile  = theme.layout_tile
+theme.layout_uselesstilebottom  = theme.layout_tilebottom 
+theme.layout_uselesspiral  = theme.layout_spiral
 
 return theme
