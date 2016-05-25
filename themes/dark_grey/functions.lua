@@ -10,18 +10,9 @@ function is_only_client()
     return true
 end
 
--- function dmenu_alttab()
---   local tag = awful.tag.selected()
---   local clientos = ""
---   for i = 1, #tag:clients() do
---     clientos = clientos .. "\n" .. tag:clients[i]
---   end
---   naughty.notify({text=clientos})
--- end
-
 function set_cursor_in_middle_of_focused_client()
   if client.focus then
-    client.focus:raise()
+    client.focus:raise() 
     mouse.coords({x=client.focus:geometry()['x']+client.focus:geometry()['width']/2, y=client.focus:geometry()['y']+client.focus:geometry()['height']/2})
   end
 end

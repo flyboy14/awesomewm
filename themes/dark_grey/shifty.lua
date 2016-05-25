@@ -11,7 +11,7 @@ layouts =
     lain.layout.termfair,                     -- 6
     lain.layout.uselessfair,                  -- 7
     lain.layout.centerworkd,                  -- 8
-    lain.layout.centerhwork,                  -- 9               -- 10
+    lain.layout.centerhwork,                  -- 9
 }
 shifty.config.layouts = layouts
 -- }}}
@@ -182,6 +182,7 @@ shifty.config.apps = {
     {
         match = {
             "Skype*",
+            "TeamSpeak",
             "Viber",
             "Pidgin",
             "Telegram", 
@@ -240,7 +241,7 @@ shifty.config.apps = {
     {
         match = {
             "Viber", 
-            "Skype*", 
+            --"Skype*", 
             "telegram*", 
             "Pidgin", 
             "Nitrogen",
