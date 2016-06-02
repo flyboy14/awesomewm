@@ -988,7 +988,7 @@ end
 
 function awesompd:notify_disconnect()
    self:show_notification("Разъединён", "Не выходит подключиться к " .. self.servers[self.current_server].server ..
-		 " on port " .. self.servers[self.current_server].port,nil,1)
+		 " по порту " .. self.servers[self.current_server].port,nil,1)
 end
 
 function awesompd:update_track(file)

@@ -6,7 +6,6 @@
      {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
      {"Root Terminal", "gksu -l gnome-terminal", "/usr/share/pixmaps/gksu-root-terminal.png" },
      {"Worker", "worker", "/usr/share/pixmaps/WorkerIcon48.xpm" },
-     {"XCA", "xca ", "/usr/share/pixmaps/xca-32x32.xpm" },
      {"compton", "compton", "/usr/share/icons/hicolor/48x48/apps/compton.png" },
  }
 
@@ -29,6 +28,7 @@
 
  local menu251bd8143891238ecedc306508e29017 = {
      {"Cult of the Wind", "steam steam://rungameid/293840", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
+     {"Divinity: Original Sin - Enhanced Edition", "\"/home/pchyolki/GOG Games/Divinity Original Sin Enhanced Edition/start.sh\" \"\""},
      {"Dota 2", "steam steam://rungameid/570"},
      {"Emilia Pinball", "pinball"},
      {"Planetary Annihilation", "steam steam://rungameid/233250"},
@@ -54,12 +54,12 @@
      {"Avahi VNC Server Browser", "/usr/bin/bvnc"},
      {"Cutegram", "cutegram", "/usr/share/icons/hicolor/16x16/apps/cutegram.png" },
      {"Dropbox", "dropbox", "/usr/share/pixmaps/dropbox.png" },
-     {"Firefox", "firefox ", "/usr/share/icons/hicolor/16x16/apps/firefox.png" },
      {"Insync", "insync start"},
      {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
      {"Remmina", "/usr/bin/remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
      {"Skype", "skype ", "/usr/share/icons/hicolor/16x16/apps/skype.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
+     {"TeamSpeak 3", "teamspeak3"},
      {"TeamViewer 11", "/opt/teamviewer/tv_bin/script/teamviewer", "///opt/teamviewer/tv_bin/desktop/teamviewer.png" },
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
      {"Viber", "viber", "/usr/share/icons/hicolor/16x16/apps/viber.png" },
@@ -91,6 +91,7 @@
      {"OpenJDK 1.7.0 Monitoring & Management Console", "_BINDIR_/jconsole"},
      {"OpenJDK 1.7.0 Policy Tool", "_BINDIR_/policytool"},
      {"Qt Assistant", "/usr/lib/qt/bin/assistant", "/usr/share/icons/hicolor/32x32/apps/assistant.png" },
+     {"Qt Creator", "qtcreator ", "/usr/share/icons/hicolor/16x16/apps/QtProject-qtcreator.png" },
      {"Qt Designer", "/usr/lib/qt/bin/designer", "/usr/share/icons/hicolor/128x128/apps/QtProject-designer.png" },
      {"Qt Linguist", "/usr/lib/qt/bin/linguist", "/usr/share/icons/hicolor/16x16/apps/linguist.png" },
      {"Qt QDbusViewer ", "/usr/lib/qt/bin/qdbusviewer", "/usr/share/icons/hicolor/32x32/apps/qdbusviewer.png" },
@@ -105,7 +106,6 @@
 
  local menu52dd1c847264a75f400961bfb4d1c849 = {
      {"Kamerka", "kamerka", "/usr/share/pixmaps/kamerka.png" },
-     {"Kodi media center", "kodi", "/usr/share/icons/hicolor/16x16/apps/kodi.png" },
      {"PulseAudio Volume Control", "pavucontrol"},
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
@@ -120,6 +120,7 @@
      {"Konsole", "konsole"},
      {"Manage Printing", "/usr/bin/xdg-open http://localhost:631/", "/usr/share/icons/hicolor/16x16/apps/cups.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
+     {"Sakura", "sakura", "/usr/share/pixmaps/terminal-tango.svg" },
      {"Systemd Manager", "systemd-manager-pkexec"},
      {"Terminology", "terminology", "/usr/share/icons/terminology.png" },
      {"Thunar File Manager", "thunar ", "/usr/share/icons/hicolor/16x16/apps/Thunar.png" },

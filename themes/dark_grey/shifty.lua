@@ -24,7 +24,7 @@ shifty.config.tags = {
         leave_kills = true,
     },
     ide = {
-        layout    = layouts[8],
+        layout    = layouts[2],
         exclusive = true,    
         position  = 4,
         --init      = true,
@@ -139,11 +139,13 @@ shifty.config.apps = {
             "Shotcut" ,
             "Openshot", 
             "DraftSight", 
+            "kurs",
             class = {"sun-awt-X11*", "jetbrains-*"},
             "Eclipse", 
             "draftsight"
         },
         tag = "ide",
+        ontop = false
     },
     {
         match = {
@@ -205,6 +207,7 @@ shifty.config.apps = {
             "Pidgin",  
             "Docky",
             "Insync.py",
+            "kurs",
             name = {"Developer*", "Copy*", "New*"},
             role = {"pop-up", "GtkFileChooser*"}
         },
@@ -233,6 +236,7 @@ shifty.config.apps = {
             "File-roller",
             "Archive*",
             "Insync.py",
+            "kurs",
             name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"}
         },
@@ -259,7 +263,8 @@ shifty.config.apps = {
     },
     {
         match = {
-            "URxvt*"
+            "URxvt*",
+            "terminology",
         },
         sticky = true
     },

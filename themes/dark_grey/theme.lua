@@ -21,20 +21,6 @@ if not awful.util.file_readable(themes .. themename .. "/theme.lua") then
 end
 themedir      = themes .. themename
 
-wallpaper2    = themedir .. "/wallpapers/wee.jpg"
-wallpaper3    = themedir .. "/wallpapers/zenburn-background1.png"
-wallpaper4    = sharedthemes .. "/default/background.png"
-
-if awful.util.file_readable(wallpaper2) then
-  theme.wallpaper = wallpaper2
-elseif awful.util.file_readable(wpscript) then
-  theme.wallpaper_cmd = { "sh " .. wpscript }
-elseif awful.util.file_readable(wallpaper3) then
-  theme.wallpaper = wallpaper3
-else
-  theme.wallpaper = wallpaper4
-
-end
 --}}}
 theme.mycolor						= "#1f1f1f"--"#383C4A"
 theme.systray                       = theme.mycolor
@@ -126,7 +112,7 @@ theme.layout_cascadetile = theme.lain_icons .. "cascadetilew.png"
 theme.layout_centerhwork  = theme.lain_icons .. "centerworkw_x16.png"
 theme.layout_centerworkd  = theme.lain_icons .. "centerworkdw_x16.png"
 theme.layout_uselesstile  = theme.layout_tile
-theme.layout_uselesstilebottom  = theme.layout_tilebottom 
+theme.layout_uselesstilebottom  = theme.layout_tilebottom
 theme.layout_uselesspiral  = theme.layout_spiral
 
 return theme

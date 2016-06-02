@@ -54,11 +54,23 @@ root.buttons(awful.util.table.join(
 
 globalkeys = awful.util.table.join(
   awful.key({ modkey }, "/", function() launch_cheeky() end),
-  awful.key({            }, "Print", function () awful.util.spawn_with_shell(sc_r) end),
-  awful.key({ modkey }, "Print", function () awful.util.spawn_with_shell(sc_c) end),
-  awful.key({ "Control", }, "Print", function () show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil ) end,
-    function () awful.util.spawn_with_shell(sc_r5) end),
-  awful.key({ "Shift", }, "Print", function () show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) end, function () awful.util.spawn_with_shell(sc_a) end),
+  awful.key({            }, "Print", function () 
+    awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
+    show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
+    end),
+  awful.key({ modkey }, "Print", function () 
+    show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil )
+    awful.util.spawn_with_shell("escrotum -s -C")
+    --show_smth( nil, "Shot gonna be copied to clipboard (probably)", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )  
+    end),
+  awful.key({ "Control", }, "Print", function () 
+    show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil )
+    awful.util.spawn_with_shell("sleep 4s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") end),
+  awful.key({ "Shift", }, "Print", function () 
+    show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) 
+    awful.util.spawn_with_shell("escrotum -s $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png")
+    --show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
+    end),
   awful.key({ modkey }, "Tab",
     function()
       local tag = awful.tag.selected()
@@ -220,7 +232,7 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'URxvt'})
+        return awful.rules.match(c, {class = 'terminology'})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -231,7 +243,7 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'URxvt'})
+        return awful.rules.match(c, {class = 'terminology'})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -310,7 +322,7 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
           mypromptbox[mouse.screen.index].widget,
           function (expr)
               local result = awful.util.eval("return (" .. expr .. ")")
-              naughty.notify({ text = "<span font='Visitor TT2 BRK 13'>" .. expr .. "=" .. result .. "</span>", timeout = 10, border_width = 0, bg = wibox_color(), fg = red_color })
+              naughty.notify({ text = "<span font='Visitor TT2 BRK 13'>" .. expr .. "=" .. result .. "</span>", timeout = 0, border_width = 0, bg = wibox_color(), fg = red_color })
           end,
           nil,
           awful.util.getdir("cache") .. "/calc"
