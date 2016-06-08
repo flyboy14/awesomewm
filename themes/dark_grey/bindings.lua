@@ -53,7 +53,7 @@ root.buttons(awful.util.table.join(
 }
 
 globalkeys = awful.util.table.join(
-  awful.key({ modkey }, "/", function() launch_cheeky() end),
+  awful.key({ }, "VoidSymbol", function() launch_cheeky() end),
   awful.key({            }, "Print", function () 
     awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
     show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
@@ -232,7 +232,7 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'terminology'})
+        return awful.rules.match(c, {class = 'URxvt'})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -243,7 +243,7 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'terminology'})
+        return awful.rules.match(c, {class = 'URxvt'})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -267,7 +267,7 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
       function (c)
         return awful.rules.match(c, {class = 'Skype'})
       end
-      awful.client.run_or_raise("skype", matcher)
+      awful.client.run_or_raise("ghetto-skype", matcher)
       --set_cursor_in_middle_of_focused_client()
     end
   ),

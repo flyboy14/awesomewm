@@ -98,7 +98,7 @@ function calendar:show(t_out, inc_offset, scr)
         timeout = tims,
         border_color = "#121212",
         border_width = 0,
-        screen = scr or 1
+        screen = scr or mouse.screen.index
     })
 end
 

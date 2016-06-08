@@ -183,6 +183,7 @@ shifty.config.apps = {
     },
     {
         match = {
+            "ghetto",
             "Skype*",
             "TeamSpeak",
             "Viber",
@@ -263,8 +264,8 @@ shifty.config.apps = {
     },
     {
         match = {
-            "URxvt*",
-            "terminology",
+            --"URxvt*",
+            --"terminology",
         },
         sticky = true
     },

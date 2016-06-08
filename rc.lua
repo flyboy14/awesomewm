@@ -1,3 +1,4 @@
+
 -- Standard awesome library
 gears = require("gears")
 awful = require("awful")
@@ -73,7 +74,7 @@ color_systray()
   run_once("caffeine")
   run_once("parcellite")
   if inet_on then
-    run_once("skype")
+    run_once("skype", "ghetto-skype")
     run_once("insync", "insync start")
     run_once("dropbox")
   end

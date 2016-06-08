@@ -64,7 +64,7 @@ function launch_cheeky()
   end
 
   cheeky.util.switcher({ 
-    coords = { x = offset.x + 1366/2-200, y = offset.y + 10},
+    coords = { x = offset.x + mywibox[mouse.screen.index].width/2-200, y = offset.y + 10},
     menu_theme = { height = 20, width = 400 }, 
     show_tag = true,   
   })
