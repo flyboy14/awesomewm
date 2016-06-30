@@ -313,7 +313,7 @@ face = wibox.widget.textbox('<span color="'..red_color..'" font="Visitor TT2 BRK
 
 face:buttons(awful.util.table.join(
   awful.button({ }, 3,
-    function () awful.util.spawn_with_shell(scripts .. "/change_config.sh") end, awesome.restart),
+    function () awful.util.spawn_with_shell(scripts .. "/rotate_wallpaper.sh") end),
     --function ()
 
       --awful.util.spawn_with_shell(browser .. " mail.google.com/mail/u/1/h mail.google.com/mail/u/0/h")

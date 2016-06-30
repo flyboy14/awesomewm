@@ -15,6 +15,7 @@ Tested with latest awesome-git
 * nitrogen (wallpaper,optional)
 * zenity (shutdown dialog,optional)
 * gksu (graphical sudo, optional)
+* xclip (patched promt.lua)
 
 # Features
 

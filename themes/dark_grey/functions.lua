@@ -22,7 +22,7 @@ function record_screen()
 end
 
 function color_systray()
-  local f = io.popen(scripts .. "/getcolor2.py 1306 760")
+  local f = io.popen(scripts .. "/getcolor2.py " .. mywibox[mouse.screen.index].width .. " 760")
   beautiful.systray = f:read()
   f:close()
 end
@@ -198,8 +198,8 @@ function check_for_terminal (command)
         if string.match(class, lower_command) then
             for i, v in ipairs(c:tags()) do
                 awful.tag.viewonly(v)
-                c:raise()
                 c.minimized = false
+                c:raise()
                 return
             end
         end

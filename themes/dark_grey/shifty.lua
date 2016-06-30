@@ -9,7 +9,7 @@ layouts =
     lain.layout.uselesspiral,                 -- 4
     lain.layout.cascade,                      -- 5    
     lain.layout.termfair,                     -- 6
-    lain.layout.uselessfair,                  -- 7
+    lain.layout.uselesspiral,                  -- 7
     lain.layout.centerworkd,                  -- 8
     lain.layout.centerhwork,                  -- 9
 }
@@ -18,7 +18,7 @@ shifty.config.layouts = layouts
 -- Shifty configured tags.
 shifty.config.tags = {  
     home = {
-        layout    = layouts[3],
+        layout    = layouts[5],
         exclusive = false,    
         position  = 1,
         leave_kills = true,
@@ -31,7 +31,7 @@ shifty.config.tags = {
         slave     = true,
     },
     web = {
-        layout      = layouts[3],
+        layout      = layouts[2],
         mwfact      = 0.65,
         exclusive   = true,
         position    = 2,
@@ -61,7 +61,7 @@ shifty.config.tags = {
         --      leave_kills = true,
     },
     im = {
-        layout   = layouts[8],
+        layout   = layouts[7],
         position = 8,
         mwfact = 0.65,
         --      leave_kills = true,
@@ -74,6 +74,7 @@ shifty.config.apps = {
     {
         match = {
             "Navigator",
+            "qutebrowser",
             "Vimperator",
             "Gran Paradiso",
             "firefox",
@@ -81,7 +82,7 @@ shifty.config.apps = {
             "google*", 
             "chromium", 
             "Opera*",
-            "Pale moon"
+            "Pale moon",
         },
         tag = "web",
     },
@@ -209,6 +210,9 @@ shifty.config.apps = {
             "Docky",
             "Insync.py",
             "kurs",
+            "mplayer",
+            "mpv",
+            "bomi",
             name = {"Developer*", "Copy*", "New*"},
             role = {"pop-up", "GtkFileChooser*"}
         },
@@ -238,6 +242,9 @@ shifty.config.apps = {
             "Archive*",
             "Insync.py",
             "kurs",
+            "mpv",
+            "bomi",
+            "mplayer",
             name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"}
         },
@@ -275,6 +282,9 @@ shifty.config.apps = {
             "Gcolor*",
             "Zenity",
             "URxvt*",
+            "mplayer",
+            "mpv",
+            "bomi",
             "terminology",
             "File-roller",
             "Archive*",

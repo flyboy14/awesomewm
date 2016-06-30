@@ -52,11 +52,51 @@ root.buttons(awful.util.table.join(
         end
 }
 
+  translate_mode = {
+    -- Set client on top
+    e = function ()
+        awful.prompt.run(
+          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to RU </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          mypromptbox[mouse.screen.index].widget,
+          function (expr)
+              awful.util.spawn_with_shell(translate_e_r .. " " .. expr)
+          end,
+          nil,
+          awful.util.getdir("cache") .. "/gtranslate_en"
+        )
+    end,
+    -- Redraw the client
+    r = function ()
+        awful.prompt.run(
+          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to EN </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          mypromptbox[mouse.screen.index].widget,
+          function (expr)
+              awful.util.spawn_with_shell(translate_r_e .. " " .. expr)
+          end,
+          nil,
+          awful.util.getdir("cache") .. "/gtranslate_ru"
+        )
+    end,
+    c = function(c)
+     keygrabber.run(function(mod, key, event)
+         if event == "release" then return true end
+         keygrabber.stop()
+         if clipboardtranslate_mode[key] then clipboardtranslate_mode[key](c) end
+         return true
+     end)
+     end
+}
+
+clipboardtranslate_mode = {
+  e = function () awful.util.spawn_with_shell(translate_e_r) end,
+  r = function () awful.util.spawn_with_shell(translate_r_e) end
+}
+
 globalkeys = awful.util.table.join(
   awful.key({ }, "VoidSymbol", function() launch_cheeky() end),
   awful.key({            }, "Print", function () 
     awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
-    show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
+    --show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
     end),
   awful.key({ modkey }, "Print", function () 
     show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil )
@@ -98,7 +138,7 @@ globalkeys = awful.util.table.join(
                   function ()
                       shifty.send_next()
                   end),
-  awful.key({modkey}, "Down", function () awful.tag.viewonly(shifty.getpos(9)) end),
+  awful.key({modkey}, "Down", function () shifty.add() end),--awful.tag.viewonly(shifty.getpos(9)) end),
   awful.key({modkey, "Control"}, "n",
             function() shifty.add({ nopopup = true }) end
             ),
@@ -170,38 +210,14 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
       awful.util.spawn(scripts .. "/logout.sh")
     end
   ),
-  --awful.key({      modkey      }, "v", function() awful.util.spawn(musicplr) end),
+  awful.key({      modkey      }, "v", function() awful.util.spawn(videoplr) end),
   awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Reboot now?' && reboot") end),
   --awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
   --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
   awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo " .. fm) end),
   --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
-  awful.key({ alt }, "F1", function () awful.util.spawn_with_shell(translate_e_r) end),
-  awful.key({ modkey }, "F1", function () awful.util.spawn_with_shell(translate_r_e) end),
   awful.key({ modkey, "Control" }, "Escape", function () awful.util.spawn_with_shell(lockscreen) end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
--- Run or raise applications with dmenu
--- awful.key({ modkey }, "p", function ()
---     local f_reader = io.popen( "dmenu_path | dmenu -b -nb '".. beautiful.bg_normal .."' -nf '".. beautiful.fg_normal .."' -sb '#955'")
---     local command = assert(f_reader:read('*a'))
---     f_reader:close()
---     if command == "" then return end
-
---     -- Check throught the clients if the class match the command
---     local lower_command=string.lower(command)
---     for k, c in pairs(client.get()) do
---         local class=string.lower(c.class)
---         if string.match(class, lower_command) then
---             for i, v in ipairs(c:tags()) do
---                 awful.tag.viewonly(v)
---                 c:raise()
---                 c.minimized = false
---                 return
---             end
---         end
---     end
---     awful.util.spawn(command)
--- end),
   awful.key({ modkey }, "p", function () client.focus.maximized_vertical = false client.focus.maximized_horizontal = false end),
 
   -- backlight control
@@ -254,7 +270,7 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'vivaldi'})
+        return awful.rules.match(c, {class = browser})
       end
       awful.client.run_or_raise(browser, matcher)
       --set_cursor_in_middle_of_focused_client()
@@ -327,30 +343,6 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
           nil,
           awful.util.getdir("cache") .. "/calc"
         )
-    end),
-    awful.key({ modkey            }, "g",
-    function ()
-        awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to RU </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
-          mypromptbox[mouse.screen.index].widget,
-          function (expr)
-              awful.util.spawn_with_shell(translate_e_r .. " " .. expr)
-          end,
-          nil,
-          awful.util.getdir("cache") .. "/gtranslate_en"
-        )
-    end),
-    awful.key({ modkey, "Control"            }, "g",
-    function ()
-        awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to EN </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
-          mypromptbox[mouse.screen.index].widget,
-          function (expr)
-              awful.util.spawn_with_shell(translate_r_e .. " " .. expr)
-          end,
-          nil,
-          awful.util.getdir("cache") .. "/gtranslate_ru"
-        )
     end)
 ) --
 
@@ -361,6 +353,14 @@ clientkeys = awful.util.table.join(
          if event == "release" then return true end
          keygrabber.stop()
          if client_mode[key] then client_mode[key](c) end
+         return true
+     end)
+ end),
+  awful.key({ modkey }, "g", function(c)
+     keygrabber.run(function(mod, key, event)
+         if event == "release" then return true end
+         keygrabber.stop()
+         if translate_mode[key] then translate_mode[key](c) end
          return true
      end)
  end),

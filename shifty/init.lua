@@ -120,7 +120,7 @@ function shifty.rename(tag, prefix, no_selectall)
 
     local tag_index = tag2index(scr, t)
     -- Access to textbox widget in taglist
-    local tb_widget = shifty.taglist[scr].widgets[tag_index].widget.widgets[2].widget
+    local tb_widget = shifty.taglist[scr].widgets[tag_index]--.widget.widgets[2].widget
     awful.prompt.run({
         fg_cursor = fg, bg_cursor = bg, ul_cursor = "single",
         text = text, selectall = not no_selectall},

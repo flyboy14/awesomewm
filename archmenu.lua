@@ -39,10 +39,7 @@
  local menud334dfcea59127bedfcdbe0a3ee7f494 = {
      {"Color picker", "gcolor3"},
      {"Document Viewer", "evince ", "/usr/share/icons/hicolor/16x16/apps/evince.png" },
-     {"DraftSight", "env vblank_mode=0 /opt/dassault-systemes/DraftSight/Linux/DraftSight", "///usr/share/icons/hicolor/128x128/apps/draftsight.png" },
-     {"FontForge", "fontforge ", "/usr/share/icons/hicolor/16x16/apps/fontforge.png" },
      {"GNU Image Manipulation Program", "gimp-2.8 ", "/usr/share/icons/hicolor/16x16/apps/gimp.png" },
-     {"Image Viewer", "eog ", "/usr/share/icons/hicolor/16x16/apps/eog.png" },
      {"Inkscape", "inkscape ", "/usr/share/icons/hicolor/16x16/apps/inkscape.png" },
      {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
      {"Rawstudio", "env LIBOVERLAY_SCROLLBAR=0 rawstudio ", "/usr/share/icons/rawstudio.png" },
@@ -54,6 +51,7 @@
      {"Avahi VNC Server Browser", "/usr/bin/bvnc"},
      {"Cutegram", "cutegram", "/usr/share/icons/hicolor/16x16/apps/cutegram.png" },
      {"Dropbox", "dropbox", "/usr/share/pixmaps/dropbox.png" },
+     {"Ghetto Skype", "npm --prefix /opt/ghetto-skype start", "///opt/ghetto-skype/assets/tray/skype.png" },
      {"Insync", "insync start"},
      {"Kerberos Authentication", "krb5-auth-dialog", "/usr/share/icons/hicolor/22x22/status/krb-valid-ticket.png" },
      {"Remmina", "/usr/bin/remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
@@ -66,6 +64,7 @@
      {"Vivaldi (snapshot)", "/usr/bin/vivaldi-snapshot ", "/usr/share/icons/hicolor/16x16/apps/vivaldi-snapshot.png" },
      {"Zenmap", "zenmap ", "///usr/share/zenmap/pixmaps/zenmap.png" },
      {"Zenmap (as root)", "/usr/share/zenmap/su-to-zenmap.sh ", "///usr/share/zenmap/pixmaps/zenmap.png" },
+     {"qutebrowser", "qutebrowser ", "/usr/share/icons/hicolor/16x16/apps/qutebrowser.png" },
      {"wpa_gui", "wpa_gui", "/usr/share/pixmaps/wpa_gui.svg" },
  }
 
@@ -87,7 +86,6 @@
      {"Atom", "/usr/bin/atom ", "/usr/share/pixmaps/atom.png" },
      {"CMake", "cmake-gui ", "/usr/share/icons/hicolor/32x32/apps/CMakeSetup.png" },
      {"Elementary Test", "elementary_test", "/usr/share/icons/elementary.png" },
-     {"FLUID", "fluid ", "/usr/share/icons/hicolor/16x16/apps/fluid.png" },
      {"OpenJDK 1.7.0 Monitoring & Management Console", "_BINDIR_/jconsole"},
      {"OpenJDK 1.7.0 Policy Tool", "_BINDIR_/policytool"},
      {"Qt Assistant", "/usr/lib/qt/bin/assistant", "/usr/share/icons/hicolor/32x32/apps/assistant.png" },
@@ -105,19 +103,20 @@
  }
 
  local menu52dd1c847264a75f400961bfb4d1c849 = {
+     {"Baka-MPlayer", "baka-mplayer ", "/usr/share/pixmaps/baka-mplayer.svg" },
      {"Kamerka", "kamerka", "/usr/share/pixmaps/kamerka.png" },
      {"PulseAudio Volume Control", "pavucontrol"},
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"Sonata", "sonata", "/usr/share/pixmaps/sonata.png" },
-     {"VLC media player", "/usr/bin/vlc --started-from-file ", "/usr/share/icons/hicolor/16x16/apps/vlc.png" },
+     {"mpv Media Player", "mpv --profile=pseudo-gui -- ", "/usr/share/icons/hicolor/16x16/apps/mpv.png" },
  }
 
  local menuee69799670a33f75d45c57d1d1cd0ab3 = {
      {"Avahi Zeroconf Browser", "/usr/bin/avahi-discover"},
      {"Bulk Rename", "/usr/lib/Thunar/ThunarBulkRename ", "/usr/share/icons/hicolor/16x16/apps/Thunar.png" },
      {"GParted", "/usr/bin/gparted_polkit ", "/usr/share/icons/hicolor/16x16/apps/gparted.png" },
+     {"Hardware Locality lstopo", "lstopo"},
      {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
-     {"Konsole", "konsole"},
      {"Manage Printing", "/usr/bin/xdg-open http://localhost:631/", "/usr/share/icons/hicolor/16x16/apps/cups.png" },
      {"Oracle VM VirtualBox", "VirtualBox ", "/usr/share/icons/hicolor/16x16/mimetypes/virtualbox.png" },
      {"Sakura", "sakura", "/usr/share/pixmaps/terminal-tango.svg" },
@@ -125,6 +124,7 @@
      {"Terminology", "terminology", "/usr/share/icons/terminology.png" },
      {"Thunar File Manager", "thunar ", "/usr/share/icons/hicolor/16x16/apps/Thunar.png" },
      {"WinUSB", "winusbgui", "/usr/share/pixmaps/winusbgui-icon.png" },
+     {"Wine Wizard", "winewizard ", "/usr/share/icons/hicolor/128x128/apps/winewizard.png" },
      {"rxvt-unicode", "urxvt"},
  }
 

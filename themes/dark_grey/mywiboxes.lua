@@ -80,8 +80,9 @@ for s = 1, screen.count() do
   --mytasklist[s].set_bg(beautiful.bg_tasklist)
   -- Create the wibox
 
-  mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = beautiful.mycolor .. "44" })
+  mywibox[s] = awful.wibox({ position = "top", screen = s, height = 16, opacity = 1, bg = beautiful.mycolor .. "44", margin_left = 10 })
   mywibox_w[s] = awful.wibox({ position = "bottom", screen = s, height = 16, opacity = 1, bg = beautiful.mycolor })
+  --mywibox[s].set_margins(5)
 
   -- Widgets that are aligned to the left
   local left_layout = wibox.layout.fixed.horizontal()
