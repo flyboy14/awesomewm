@@ -16,7 +16,10 @@ layouts =
 shifty.config.layouts = layouts
 -- }}}
 -- Shifty configured tags.
-shifty.config.tags = {  
+shifty.config.tags = { 
+    doc = {
+        rel_index = 1,
+    }, 
     home = {
         layout    = layouts[5],
         exclusive = false,    
@@ -35,6 +38,7 @@ shifty.config.tags = {
         mwfact      = 0.65,
         exclusive   = true,
         position    = 2,
+        max_clients = 2,
         --leave_kills = true,
         --spawn       = browser,
     },

@@ -57,7 +57,6 @@
      {"Remmina", "/usr/bin/remmina", "/usr/share/icons/hicolor/16x16/apps/remmina.png" },
      {"Skype", "skype ", "/usr/share/icons/hicolor/16x16/apps/skype.png" },
      {"Steam", "/usr/bin/steam ", "/usr/share/icons/hicolor/16x16/apps/steam.png" },
-     {"TeamSpeak 3", "teamspeak3"},
      {"TeamViewer 11", "/opt/teamviewer/tv_bin/script/teamviewer", "///opt/teamviewer/tv_bin/desktop/teamviewer.png" },
      {"Transmission", "transmission-gtk ", "/usr/share/icons/hicolor/16x16/apps/transmission.png" },
      {"Viber", "viber", "/usr/share/icons/hicolor/16x16/apps/viber.png" },

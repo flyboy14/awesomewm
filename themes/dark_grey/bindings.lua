@@ -92,6 +92,11 @@ clipboardtranslate_mode = {
   r = function () awful.util.spawn_with_shell(translate_r_e) end
 }
 
+gist_mode = {
+  a = function () awful.util.spawn_with_shell(gist_clipboard) end,
+  o = function () awful.util.spawn_with_shell(gist_open) end
+}
+
 globalkeys = awful.util.table.join(
   awful.key({ }, "VoidSymbol", function() launch_cheeky() end),
   awful.key({            }, "Print", function () 
@@ -148,7 +153,7 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
   awful.key({ modkey,           }, "F8",  
     function() mywibox[mouse.screen.index].visible = not mywibox[mouse.screen.index].visible end       ),
-  awful.key({ modkey,           }, "t",  function() mywibox_w[mouse.screen.index].visible = not mywibox_w[mouse.screen.index].visible end       ),
+  awful.key({ modkey,           }, "f",  function() mywibox_w[mouse.screen.index].visible = not mywibox_w[mouse.screen.index].visible end       ),
 
   awful.key({ modkey,           }, "j",
     function ()
@@ -238,8 +243,8 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
   awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
   --awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol( 1)         end),
   --awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
-  awful.key({ modkey,           }, "space", function () awful.layout.inc(1, s, layouts) end),
-  awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(-1, s, layouts) end),
+  awful.key({ modkey,           }, "space", function () awful.layout.inc(1, s, shifty.config.layouts) end),
+  awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(-1, s, shifty.config.layouts) end),
   awful.key({ modkey, "Control"}, "Return", function () awful.util.spawn(terminal) end),
   awful.key({ modkey, "Control"}, "KP_Enter", function () awful.util.spawn(terminal) end),
 --run or raise clients
@@ -356,11 +361,19 @@ clientkeys = awful.util.table.join(
          return true
      end)
  end),
-  awful.key({ modkey }, "g", function(c)
+  awful.key({ modkey }, "t", function(c)
      keygrabber.run(function(mod, key, event)
          if event == "release" then return true end
          keygrabber.stop()
          if translate_mode[key] then translate_mode[key](c) end
+         return true
+     end)
+ end),
+  awful.key({ modkey }, "g", function(c)
+     keygrabber.run(function(mod, key, event)
+         if event == "release" then return true end
+         keygrabber.stop()
+         if gist_mode[key] then gist_mode[key](c) end
          return true
      end)
  end),
