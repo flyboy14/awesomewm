@@ -16,6 +16,7 @@ Tested with latest awesome-git
 * zenity (shutdown dialog,optional)
 * gksu (graphical sudo, optional)
 * xclip (patched promt.lua)
+* gist (github gist mode)
 
 # Features
 
@@ -41,7 +42,9 @@ Tested with latest awesome-git
 
 # Usage
 
-* First backup your ~/.config/awesome folder as ~/.config/awesome.bak, then replace it with my config cloning this repo into ~/.config/awesome
+* Backup your ~/.config/awesome folder as ~/.config/awesome.bak, then replace it with my config cloning this repo into ~/.config/awesome
+
+* Make a symbolic link prompt.lua.patched to /usr/share/awesome/lib/awful/prompt.lua (sudo ln -svf ~/.config/awesome/prompt.lua.patched /usr/share/awesome/lib/awful/prompt.lua)
 
 * Edit local variables and keybindings in themes/_theme-name_/{vars, bindings}.lua
   * Custom rules for windows placing and behavior can be set in theme/_theme-name_/{shifty,myrules}.lua
@@ -74,11 +77,6 @@ Tested with latest awesome-git
   * modkey + Tab : cycle through all clients on active tag
   * L_Alt + Escape : minimize active client
   * modkey + Escape : minimize all clients except active one
-  * modkey + "w" : toggle client control state (a few keys pressed after this combination would make various effects)
-  * (modkey + "w") + "f" : toggle active client fullscreen state
-  * (modkey + "w") + "t" : toggle active client ontop state
-  * (modkey + "w") + "s" : toggle active client sticky state
-  * (modkey + "w") + "x" : totally unmaximize active client
   * L_Alt + "F4" : kill active client
   * modkey + "F4" : kill all clients on current tag except active one
   * modkey + "p" : increase master width factor by 0.05
@@ -87,10 +85,24 @@ Tested with latest awesome-git
 * Prompts
   * L_Alt + "F2" : command prompt
   * modkey + "F2" : awesome-client's lua prompt
+  * VoidSymbol(CapsLock) : Cheeky as-you-type client switcher (bound via setxkbmap -option caps:none )
   * modkey + "c" : calculator prompt
-  * modkey + "g" : translation prompt (EN to RU)
-  * modkey + "Control" + "g" : translation prompt (RU to EN)
-  * modkey + "/" : Cheeky as-you-type client switcher
+
+* Keychains
+  * modkey + "w" + .. : client mode
+    * "w" : toggle floating state
+    * "f" : toggle fullscreen state
+    * "t" : toggle ontop state
+    * "x" : unmaximize vertically and horizontally
+  * modkey + "t" + .. : translate mode
+    * "e" : translate ENG to RUS prompt
+    * "r" : translate RU to ENG prompt
+    * "c" + .. : translate from clipboard
+      * "e" : ENG to RUS
+      * "r" : RUS to ENG
+  * modkey + "g" + .. : gist mode
+    * "a" : pull clipboard containments to gist.github.com and copy link to clipboard
+    * "o" : pull clipboard containments to gist.github.com and open link in browser
 
 * Launchers
   * modkey + "b" : run or raise browser
@@ -115,6 +127,7 @@ Tested with latest awesome-git
   * modkey + Control + "r" : restart awesome
   * modkey + "h" : toggle useless gaps
   * mouse2 on spider : toggle awesome theme (replaces rc.lua)
+  * modkey + "f" : show/hide bottom wibox with tray
 
 * Screenshots (dark_grey theme)
   * ![Alt text](/screenshot/dark_grey_1?raw=true "1")
