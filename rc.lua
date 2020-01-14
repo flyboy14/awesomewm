@@ -68,21 +68,16 @@ color_systray()
 -- }}}
 
 --- {{{ Autorun apps
-  run_once("kbdd", home .. "/.config/autostart/autostart.sh")
-  run_once("kbdd", "slock") -- run slock only if kbdd didn't start e.g. first launch after login
-  run_once("nm-applet")
-  run_once("caffeine")
-  run_once("parcellite")
-  if inet_on then
-    run_once("skype", "ghetto-skype")
-    run_once("insync", "insync start")
-    run_once("dropbox")
-  end
-  run_once("kbdd")
-  awful.util.spawn_with_shell("systemctl --user restart hidcur")
-  run_once("compton", "compton -b --sw-opti --shadow-blue 0.05 --inactive-dim 0.35 -cfGz -r 6 -t -8 -l -8 -D 5 -I 0.03 -O 0.03 --xrender-sync --respect-prop-shadow --mark-ovredir-focused --mark-wmwin-focused --config ~/.config/compton.conf")
-  --detect-transient --detect-client-leader 
-  run_once("urxvtd", "urxvtd -o -f -q")
+  run_once_ifnot("kbdd", home .. "/.config/autostart/autostart.sh")
+  run_once_ifnot("kbdd", "slock") -- run slock only if kbdd didn't start e.g. first launch after login
+  --run_once("nm-applet")
+  --run_once("parcellite")
+  --run_once("kbdd")
+  run_once("skypeforlinux")
+  run_once("telegram-desktop")
+  --run_once("udiskie", "udiskie -as")
+  run_once_ifnot("picom", "picom -b --shadow-blue 0.05 -cGz -r 12 -t -8 -l -8 -D 5 -I 0.02 -O 0.02 --xrender-sync-fence --use-ewmh-active-win" )
+  ----inactive-dim 0.35 
   --"xcowsay 'Moo, brother, moo.'"
 -- }}}
 

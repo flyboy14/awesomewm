@@ -172,8 +172,11 @@ function run_once(process, cmd)
    return awful.util.spawn_with_shell(cmd or process)
 end
 
-function run_when(why, what)
+function run_once_if(why, what)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " && (" .. what .. ")")
+end
+function run_once_ifnot(why, what)
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " || (" .. what .. ")")
 end
 
 function run_when_once(why, why2, what)

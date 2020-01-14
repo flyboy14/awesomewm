@@ -39,7 +39,7 @@ root.buttons(awful.util.table.join(
     -- make the client fullscreen
     f = function (c)
       c.fullscreen = not c.fullscreen
-      if awful.rules.match(c, {class = 'URxvt'}) or awful.rules.match(c, {class = 'Skype'}) then
+      if awful.rules.match(c, {class = 'Tilix'}) or awful.rules.match(c, {class = 'Skype'}) then
         if c.fullscreen == false then
           c.ontop = true
         end
@@ -98,24 +98,31 @@ gist_mode = {
 }
 
 globalkeys = awful.util.table.join(
-  awful.key({ }, "VoidSymbol", function() launch_cheeky() end),
+  awful.key({ }, "VoidSymbol", 
+    function() launch_cheeky() 
+    end
+  ),
   awful.key({            }, "Print", function () 
     awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
-    --show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
-    end),
+    show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
+    end
+  ),
   awful.key({ modkey }, "Print", function () 
-    show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil )
+    --show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil )
     awful.util.spawn_with_shell("escrotum -s -C")
-    --show_smth( nil, "Shot gonna be copied to clipboard (probably)", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )  
-    end),
+    show_smth( nil, "Shot gonna be copied to clipboard (probably)", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )  
+    end
+  ),
   awful.key({ "Control", }, "Print", function () 
     show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil )
-    awful.util.spawn_with_shell("sleep 4s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") end),
+    awful.util.spawn_with_shell("sleep 4s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
+    end
+  ),
   awful.key({ "Shift", }, "Print", function () 
     show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) 
     awful.util.spawn_with_shell("escrotum -s $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png")
-    --show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
-    end),
+    end
+  ),
   awful.key({ modkey }, "Tab",
     function()
       local tag = awful.tag.selected()
@@ -123,14 +130,14 @@ globalkeys = awful.util.table.join(
         tag:clients()[i].minimized=false
       end
       awful.client.focus.byidx(1)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({ alt }, "Tab",
     function()
       local tag = awful.tag.selected()
       awful.client.focus.byidx(1)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({modkey}, "q", awful.tag.viewprev),
@@ -149,7 +156,14 @@ globalkeys = awful.util.table.join(
             ),
 awful.key({modkey}, "Up", shifty.rename),
 awful.key({modkey}, "d", shifty.del),
-awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end awful.tag.incmwfact(-0.01) awful.tag.incmwfact(0.01) end),
+
+--awful.key({ modkey, "Control" }, "l", function () if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end awful.tag.incmwfact(+0.01) awful.tag.incmwfact(0.01) end),
+
+awful.key({ modkey, "Control" }, "h", function () --if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end 
+  awful.tag.incmwfact(-0.01) awful.tag.incmwfact(-0.01) end),
+awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end awful.tag.incmwfact(0.01) 
+  awful.tag.incmwfact(0.01) end),
+
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
   awful.key({ modkey,           }, "F8",  
     function() mywibox[mouse.screen.index].visible = not mywibox[mouse.screen.index].visible end       ),
@@ -158,13 +172,13 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
   awful.key({ modkey,           }, "j",
     function ()
       awful.client.focus.byidx( 1)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({ modkey,           }, "k",
     function ()
       awful.client.focus.byidx(-1)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -173,14 +187,14 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
     function ()
       c = client.focus
       awful.client.swap.byidx(1)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
       end
   ),
   awful.key({ modkey, "Shift"   }, "k",
     function ()
       c = client.focus
       awful.client.swap.byidx( -1)
-      set_cursor_in_middle_of_focused_client()
+      --set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
@@ -212,10 +226,9 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
   ),
   awful.key({            }, "XF86PowerOff",
     function ()
-      awful.util.spawn(scripts .. "/logout.sh")
+      awful.util.spawn(scripts .. "/shutdown_dialog.sh")
     end
   ),
-  awful.key({      modkey      }, "v", function() awful.util.spawn(videoplr) end),
   awful.key({            }, "XF86Launch1",  function () awful.util.spawn_with_shell("zenity --question --text 'Reboot now?' && reboot") end),
   --awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo pcmanfm") end),
   --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
@@ -245,15 +258,23 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
   --awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
   awful.key({ modkey,           }, "space", function () awful.layout.inc(1, s, shifty.config.layouts) end),
   awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(-1, s, shifty.config.layouts) end),
-  awful.key({ modkey, "Control"}, "Return", function () awful.util.spawn(terminal) end),
-  awful.key({ modkey, "Control"}, "KP_Enter", function () awful.util.spawn(terminal) end),
 --run or raise clients
+
+  awful.key({      modkey      }, "v", 
+    function() 
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = videoplr})
+      end
+      awful.client.run_or_raise(videoplr, matcher)
+      set_cursor_in_middle_of_focused_client()
+    end),
 
   awful.key({ modkey, }, "Return",
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'URxvt'})
+        return awful.rules.match(c, {class = 'Tilix'})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -264,7 +285,7 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'URxvt'})
+        return awful.rules.match(c, {class = 'Tilix'})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -275,9 +296,20 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = browser})
+        return awful.rules.match(c, {class = "Chromium"})
       end
       awful.client.run_or_raise(browser, matcher)
+      --set_cursor_in_middle_of_focused_client()
+    end
+  ),
+
+  awful.key({ modkey, "Shift" }, "b",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = "Chromium"})
+      end
+      awful.client.run_or_raise(browser .. " --incognito", matcher)
       --set_cursor_in_middle_of_focused_client()
     end
   ),
@@ -353,31 +385,53 @@ awful.key({ modkey }, "h", function () if beautiful.useless_gap_width == 8 then 
 
 
 clientkeys = awful.util.table.join(
-   awful.key({ modkey }, "w", function(c)
-     keygrabber.run(function(mod, key, event)
-         if event == "release" then return true end
-         keygrabber.stop()
-         if client_mode[key] then client_mode[key](c) end
-         return true
-     end)
- end),
-  awful.key({ modkey }, "t", function(c)
-     keygrabber.run(function(mod, key, event)
-         if event == "release" then return true end
-         keygrabber.stop()
-         if translate_mode[key] then translate_mode[key](c) end
-         return true
-     end)
- end),
-  awful.key({ modkey }, "g", function(c)
-     keygrabber.run(function(mod, key, event)
-         if event == "release" then return true end
-         keygrabber.stop()
-         if gist_mode[key] then gist_mode[key](c) end
-         return true
-     end)
- end),
-  --awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
+ --   awful.key({ modkey }, "w", function(c)
+ --     keygrabber.run(function(mod, key, event)
+ --         if event == "release" then return true end
+ --         keygrabber.stop()
+ --         if client_mode[key] then client_mode[key](c) end
+ --         return true
+ --     end)
+ -- end),
+ --  awful.key({ modkey }, "t", function(c)
+ --     keygrabber.run(function(mod, key, event)
+ --         if event == "release" then return true end
+ --         keygrabber.stop()
+ --         if translate_mode[key] then translate_mode[key](c) end
+ --         return true
+ --     end)
+ -- end),
+ --  awful.key({ modkey }, "g", function(c)
+ --     keygrabber.run(function(mod, key, event)
+ --         if event == "release" then return true end
+ --         keygrabber.stop()
+ --         if gist_mode[key] then gist_mode[key](c) end
+ --         return true
+ --     end)
+ --end),
+  awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
+  awful.key({ modkey,           }, "r",      
+        function (c)
+          c.maximized_horizontal = false
+          c.maximized_vertical   = false
+          c.immobilized = false
+        end),
+  awful.key({ modkey,           }, "o",      awful.client.togglemarked),
+  awful.key({modkey,            }, "s",      function (c) c.sticky = not c.sticky end),
+  awful.key({ modkey,           }, "x",      
+    function (c)
+          c.maximized_horizontal = not c.maximized_horizontal
+          c.maximized_vertical   = not c.maximized_vertical
+        end),
+  awful.key({                   }, "F11",    
+    function (c)
+      c.fullscreen = not c.fullscreen
+      if awful.rules.match(c, {class = 'Tilix'}) or awful.rules.match(c, {class = 'Skype'}) then
+        if c.fullscreen == false then
+          c.ontop = true
+        end
+      end   
+    end),
   awful.key({ alt,              }, "F4",      function (c) c:kill() end),
   awful.key({ modkey,           }, "F4",      function (c)
     local tag = awful.tag.selected()
@@ -388,7 +442,7 @@ clientkeys = awful.util.table.join(
     end
   end),
   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
-  --awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
+  awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
   awful.key({ alt,              }, "Escape", function (c) c.minimized = true end),
   awful.key({ alt,              }, "z", function (c) c.minimized = true end),
   awful.key({ modkey,              }, "z", function (c) c.minimized = true end),

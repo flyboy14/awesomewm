@@ -213,7 +213,7 @@ function awesompd:create()
 
 -- Default user options
    instance.servers = { { server = "localhost", port = 6600 } }
-   instance.font = "Monospace"
+   instance.font = "Terminus"
    instance.font_color = beautiful.fg_normal
    instance.font_color_dark = beautiful.fg_normal
    instance.background = "#31363B"

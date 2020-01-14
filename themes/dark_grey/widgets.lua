@@ -56,13 +56,13 @@ batwidget = lain.widgets.bat({
   end
       if status == "Discharging" then
         time_color = red_color
-        time = '<span font="Clean 9" rise="-1000" color="'..time_color..'">↓ <span rise="400" font="Visitor TT2 BRK 10">'..time..'</span></span>'
+        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">↓ <span rise="1" font="Visitor TT2 BRK 10">'..time..'</span></span>'
       elseif status == "Charging" and perc ~= 100 then
         time_color = green_color
-        time = '<span font="Clean 9" rise="-1000" color="'..time_color..'">↑ <span rise="400" font="Visitor TT2 BRK 10">'..time..'</span></span>'
+        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">↑ <span rise="1" font="Visitor TT2 BRK 10">'..time..'</span></span>'
       else
         time_color = blue_color
-        time = '<span font="Clean 9" rise="-1000" color="'..time_color..'">⚡ <span rise="400" font="Visitor TT2 BRK 10">full</span></span>'
+        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">⚡ <span rise="400" font="Visitor TT2 BRK 10">full</span></span>'
       end
       widget:set_markup(markup(color, time..'<span font="Visitor TT2 BRK 10">p'..perc..' </span>'))
     end
@@ -301,7 +301,7 @@ vicious.register(
     wireless_name = args['{ssid}']
     myweather.forecast_update()
     myweather.update()
-    return '<span font="Clean 8" color="#aeaeae"> ' .. wireless_name .. '</span>'
+    return '<span font="Tomorrow 8" color="#aeaeae"> ' .. wireless_name .. '</span>'
   end,
   2,
   myinterface
@@ -324,7 +324,7 @@ face:buttons(awful.util.table.join(
       local f = io.popen("fortune -s")
       local quote = f:read("*all")
       f:close()
-      show_smth("Wisdom spider", quote, nil, 0, nil, nil, "Clean 9", "bottom_right")
+      show_smth("Wisdom spider", quote, nil, 0, nil, nil, "Tomorrow 8", "bottom_right")
       color_systray()
     end
   )
@@ -336,7 +336,7 @@ face:connect_signal("mouse::enter",
     local f = io.popen("fortune -s")
     local quote = f:read("*all")
     f:close()
-    show_smth("Wisdom spider :", quote, nil, 0, nil, nil, "Clean 9", "bottom_right")
+    show_smth("Wisdom spider :", quote, nil, 0, nil, nil, "Tomorrow 8", "bottom_right")
   end
 )
 
@@ -350,7 +350,7 @@ face:connect_signal("mouse::leave",
 bral = wibox.widget.textbox('<span color="#aeaeae"> </span>')
 brar = wibox.widget.textbox('<span color="#aeaeae">> </span>')
 spr = wibox.widget.textbox(' ')
-arrows = wibox.widget.textbox('<span font="Clean 9" color="#aeaeae">' .. '↓↑ ' .. '</span>')
+arrows = wibox.widget.textbox('<span font="Tomorrow 8" color="#aeaeae">' .. '↓↑ ' .. '</span>')
 
 sepl = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> tasks ></span>')
 sepr = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> > systray </span>')
@@ -358,7 +358,7 @@ arrl = wibox.widget.imagebox()
 arrl:set_image(beautiful.arrl)
 
 yf = my_launcher({ image = beautiful.yf, command = terminal })
-bf = my_launcher({ image = beautiful.bf, command = terminal })
+bf = my_launcher({ image = beautiful.bf, command = "guake -t" })
 gf = my_launcher({ image = beautiful.gf, command = terminal })
 
 -- Create a textclock widget
@@ -371,7 +371,7 @@ lain.widgets.calendar:attach(mytextclock, { font_size = 9 })
 lain.widgets.calendar:attach(clockicon, { font_size = 9 })
 
 musicwidget = awesompd:create() -- Create awesompd widget
-musicwidget.font = "Clean 9"
+musicwidget.font = "Tomorrow 8"
 musicwidget.font_color = "#e54c62"
 musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
 musicwidget.output_size = 30 -- Set the size of widget in symbols
@@ -380,7 +380,7 @@ musicwidget.path_to_icons = confdir .. "/awesompd/icons"
 musicwidget.jamendo_format = awesompd.FORMAT_MP3
 musicwidget.show_album_cover = true
 musicwidget.album_cover_size = 50
-musicwidget.mpd_config = home .. "/.mpd/mpd.conf"
+musicwidget.mpd_config = home .. "/.config/mpd/mpd.conf"
 musicwidget.browser = browser
 
 musicwidget.ldecorator = " "

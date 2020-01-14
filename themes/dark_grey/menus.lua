@@ -127,6 +127,7 @@ mytaskmenu = awful.menu({ items = {
 mymainmenu = awful.menu({ items = {
                                     { "Sandbox", myvirtualmenu },
                                     { "Apps", xdgmenu },
+                                    { "Regenerate menu", scripts .. "/menu_gen.sh"},
                                     --{ "Worker", "worker" },
                                     { " Wallpaper", "nitrogen", iconsdir .. "/greylink-dc.png" }
                                   }

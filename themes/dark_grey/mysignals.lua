@@ -1,4 +1,5 @@
 require("themes/dark_grey/mywiboxes")
+require("themes/dark_grey/functions")
 gears = require("gears")
 awful = require("awful")
 -- {{{ Signals
@@ -6,13 +7,13 @@ awful = require("awful")
 
 client.connect_signal("manage",
   function (c, startup)
-  -- Enable sloppy focus
-    c:connect_signal("mouse::enter",
-      function(c)
-        if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier and awful.client.focus.filter(c) then
-          client.focus = c
-        end
-      end)
+--   Enable sloppy focus
+    -- c:connect_signal("mouse::enter",
+       -- function(c)
+       --   if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier and awful.client.focus.filter(c) then
+       --     client.focus = c
+       --   end
+       -- end)
 
     if not startup then
         -- Set the windows at the slave,
@@ -117,6 +118,7 @@ client.connect_signal("request::activate",
   function(c)
     local val = wibox_color()
     mywibox[mouse.screen.index]:set_bg(val)
+              --set_cursor_in_middle_of_focused_client()
     -- mywibox_w[mouse.screen.index]:set_bg(val)
     -- if val == beautiful.mycolor then
     --   beautiful.bg_systray = beautiful.mycolor
@@ -174,9 +176,10 @@ client.connect_signal("property::floating",
 )
 
 client.connect_signal("property::minimized",
-  function()
+  function(c)
     val = wibox_color()
     mywibox[mouse.screen.index]:set_bg(val)
+    --client.focus() = c
     -- mywibox_w[mouse.screen.index]:set_bg(val)
     -- if val == beautiful.mycolor then
     --   beautiful.bg_systray = beautiful.mycolor
@@ -189,7 +192,7 @@ client.connect_signal("property::minimized",
 )
 
 client.connect_signal("unmanage",
-  function()
+  function(c)
     val = wibox_color()
     mywibox[mouse.screen.index]:set_bg(val)
     -- mywibox_w[mouse.screen.index]:set_bg(val)

@@ -21,14 +21,14 @@ shifty.config.tags = {
         rel_index = 1,
     }, 
     home = {
-        layout    = layouts[5],
+        layout    = layouts[6],
         exclusive = false,    
         position  = 1,
         leave_kills = true,
     },
     ide = {
         layout    = layouts[2],
-        exclusive = true,    
+        exclusive = false,    
         position  = 4,
         --init      = true,
         slave     = true,
@@ -36,21 +36,22 @@ shifty.config.tags = {
     web = {
         layout      = layouts[2],
         mwfact      = 0.65,
-        exclusive   = true,
+        exclusive   = false,
         position    = 2,
         max_clients = 2,
+        leave_kills = true,
         --leave_kills = true,
         --spawn       = browser,
     },
     media = {
         layout    = layouts[6],
-        exclusive = true,
+        exclusive = false,
         position  = 5,
     },
     edit = {
         layout   = layouts[8],
         position = 3,
-        exclusive = true,
+        exclusive = false,
         leave_kills = true,
     },
     wine = {
@@ -66,6 +67,7 @@ shifty.config.tags = {
     },
     im = {
         layout   = layouts[7],
+        exclusive = true,
         position = 8,
         mwfact = 0.65,
         --      leave_kills = true,
@@ -89,6 +91,7 @@ shifty.config.apps = {
             "Pale moon",
         },
         tag = "web",
+        ontop = false,
     },
     {
         match = {
@@ -111,6 +114,7 @@ shifty.config.apps = {
             "Et", 
             "Atom",
             "Subl*",
+            "Simplenote",
             "Libre", 
             "libreoffice-writer", 
             "Evince", 
@@ -147,7 +151,8 @@ shifty.config.apps = {
             "kurs",
             class = {"sun-awt-X11*", "jetbrains-*"},
             "Eclipse", 
-            "draftsight"
+            "draftsight",
+            "Linuxdcpp"
         },
         tag = "ide",
         ontop = false
@@ -155,7 +160,8 @@ shifty.config.apps = {
     {
         match = {
             "Mplayer.*",
-            "Vlc",
+            "vlc",
+            "mpv",
             "Sonata",
         },
         tag = "media",
@@ -195,7 +201,8 @@ shifty.config.apps = {
             "Pidgin",
             "Telegram", 
         },
-        tag = "im"
+        tag = "im",
+        minimized = true
     },
     {
         match = {
@@ -205,7 +212,8 @@ shifty.config.apps = {
             "Nitrogen", 
             "Polkit-gnome-authentication-agent-1", 
             "terminology",
-            "URxvt*", 
+            "URxvt*",
+            "Tilix", 
             "Zenity", 
             "pavucontrol", 
             "Wpa_gui", 
@@ -217,6 +225,7 @@ shifty.config.apps = {
             "mplayer",
             "mpv",
             "bomi",
+            "Guake",
             name = {"Developer*", "Copy*", "New*"},
             role = {"pop-up", "GtkFileChooser*"}
         },
@@ -242,13 +251,20 @@ shifty.config.apps = {
             "Zenity",
             "terminology", 
             "URxvt*",
+            "Tilix",
             "File-roller",
             "Archive*",
             "Insync.py",
             "kurs",
             "mpv",
             "bomi",
+            "Gnome-alsamixer",
             "mplayer",
+            "Gnome-sound-recorder",
+            "Shotwell",
+            "feh",
+            "Guake",
+            "Gnome-alsamixer",
             name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"}
         },
@@ -263,7 +279,7 @@ shifty.config.apps = {
             "Nitrogen",
             name = {"TeamViewer"}
         },
-        leave_kills = "true",
+        leave_kills = false,
         rel_index = 1
     },
     {
@@ -276,23 +292,29 @@ shifty.config.apps = {
     {
         match = {
             --"URxvt*",
-            --"terminology",
+            "Tilix",
+            "Guake"
         },
         sticky = true
     },
     {
         match = {
             "Putty",
+            "Pavucontrol",
             "Gcolor*",
             "Zenity",
             "URxvt*",
+            "Tilix",
             "mplayer",
             "mpv",
             "bomi",
             "terminology",
             "File-roller",
+            "Gnome-alsamixer",
             "Archive*",
+            "Gnome-sound-recorder",
             "Insync.py",
+            "Guake",
             name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"}
         },
