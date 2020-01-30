@@ -32,6 +32,7 @@ shifty.config.tags = {
         position  = 4,
         --init      = true,
         slave     = true,
+        leave_kills = true,
     },
     web = {
         layout      = layouts[2],
@@ -40,7 +41,6 @@ shifty.config.tags = {
         position    = 2,
         max_clients = 2,
         leave_kills = true,
-        --leave_kills = true,
         --spawn       = browser,
     },
     media = {
@@ -49,7 +49,7 @@ shifty.config.tags = {
         position  = 5,
     },
     edit = {
-        layout   = layouts[8],
+        layout   = layouts[2],
         position = 3,
         exclusive = false,
         leave_kills = true,
@@ -70,7 +70,7 @@ shifty.config.tags = {
         exclusive = true,
         position = 8,
         mwfact = 0.65,
-        --      leave_kills = true,
+        leave_kills = true,
     },
 }
 
@@ -225,6 +225,7 @@ shifty.config.apps = {
             "mplayer",
             "mpv",
             "bomi",
+            "File-roller",
             "Guake",
             name = {"Developer*", "Copy*", "New*"},
             role = {"pop-up", "GtkFileChooser*"}
@@ -233,9 +234,6 @@ shifty.config.apps = {
     },
     {
         match = {
-            "File-roller", 
-            "Archive*",
-            "Download", 
             "Covergloobus", 
             "Zenity", 
             "Doublecmd", 
@@ -255,13 +253,11 @@ shifty.config.apps = {
             "File-roller",
             "Archive*",
             "Insync.py",
-            "kurs",
             "mpv",
             "bomi",
             "Gnome-alsamixer",
-            "mplayer",
+            "*mplayer",
             "Gnome-sound-recorder",
-            "Shotwell",
             "feh",
             "Guake",
             "Gnome-alsamixer",

@@ -130,14 +130,14 @@ globalkeys = awful.util.table.join(
         tag:clients()[i].minimized=false
       end
       awful.client.focus.byidx(1)
-      --set_cursor_in_middle_of_focused_client()
+      set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({ alt }, "Tab",
     function()
       local tag = awful.tag.selected()
       awful.client.focus.byidx(1)
-      --set_cursor_in_middle_of_focused_client()
+      set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({modkey}, "q", awful.tag.viewprev),
@@ -234,7 +234,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
   --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
   awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo " .. fm) end),
   --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
-  awful.key({ modkey, "Control" }, "Escape", function () awful.util.spawn_with_shell(lockscreen) end),
+  awful.key({ modkey, "Control" }, "l", function () awful.util.spawn_with_shell(lockscreen) end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
   awful.key({ modkey }, "p", function () client.focus.maximized_vertical = false client.focus.maximized_horizontal = false end),
 
