@@ -163,13 +163,17 @@ shifty.config.apps = {
             "vlc",
             "mpv",
             "Sonata",
+            "Deadbeef",
+            "Android*",
+            "baka-mplayer*"
         },
         tag = "media",
     },
     {
         match = {
             "VirtualBox*", 
-            "Virt-manager", 
+            "Virt-manager*",
+            "virt-manager", 
             "Remmina", 
             class = { "rdesktop"},
         },
@@ -200,6 +204,7 @@ shifty.config.apps = {
             "Viber",
             "Pidgin",
             "Telegram", 
+            "Zoom"
         },
         tag = "im",
         minimized = true
@@ -217,8 +222,7 @@ shifty.config.apps = {
             "Zenity", 
             "pavucontrol", 
             "Wpa_gui", 
-            "Lxappearance", 
-            "Pidgin",  
+            "Lxappearance",  
             "Docky",
             "Insync.py",
             "kurs",
@@ -234,14 +238,11 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Covergloobus", 
             "Zenity", 
-            "Doublecmd", 
             "Nitrogen", 
             "Wpa_gui", 
             "Pavucontrol", 
             "Lxappearance", 
-            "Pidgin", 
             --"Skype*", 
             "plugin-container",
             "Putty",
@@ -251,6 +252,7 @@ shifty.config.apps = {
             "URxvt*",
             "Tilix",
             "File-roller",
+            "*mplayer",
             "Archive*",
             "Insync.py",
             "mpv",
@@ -288,7 +290,7 @@ shifty.config.apps = {
     {
         match = {
             --"URxvt*",
-            "Tilix",
+            --"Tilix",
             "Guake"
         },
         sticky = true

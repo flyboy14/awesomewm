@@ -37,14 +37,14 @@ root.buttons(awful.util.table.join(
     -- (un)sticky client
     s = function (c) c.sticky = not c.sticky end,
     -- make the client fullscreen
-    f = function (c)
-      c.fullscreen = not c.fullscreen
-      if awful.rules.match(c, {class = 'Tilix'}) or awful.rules.match(c, {class = 'Skype'}) then
-        if c.fullscreen == false then
-          c.ontop = true
-        end
-      end   
-    end,
+    -- f = function (c)
+    --   c.fullscreen = not c.fullscreen
+    --   if awful.rules.match(c, {class = 'Tilix'}) or awful.rules.match(c, {class = 'Skype'}) then
+    --     if c.fullscreen == false then
+    --       c.ontop = true
+    --     end
+    --   end   
+    -- end,
     -- (un)maximize the client
     x = function (c)
           c.maximized_horizontal = not c.maximized_horizontal
@@ -104,13 +104,13 @@ globalkeys = awful.util.table.join(
   ),
   awful.key({            }, "Print", function () 
     awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
-    show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
+    --show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
     end
   ),
   awful.key({ modkey }, "Print", function () 
     --show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil )
     awful.util.spawn_with_shell("escrotum -s -C")
-    show_smth( nil, "Shot gonna be copied to clipboard (probably)", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )  
+    --show_smth( nil, "Shot gonna be copied to clipboard (probably)", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )  
     end
   ),
   awful.key({ "Control", }, "Print", function () 
@@ -172,13 +172,13 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
   awful.key({ modkey,           }, "j",
     function ()
       awful.client.focus.byidx( 1)
-      --set_cursor_in_middle_of_focused_client()
+    set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({ modkey,           }, "k",
     function ()
       awful.client.focus.byidx(-1)
-      --set_cursor_in_middle_of_focused_client()
+      set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -187,14 +187,14 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
     function ()
       c = client.focus
       awful.client.swap.byidx(1)
-      --set_cursor_in_middle_of_focused_client()
+      set_cursor_in_middle_of_focused_client()
       end
   ),
   awful.key({ modkey, "Shift"   }, "k",
     function ()
       c = client.focus
       awful.client.swap.byidx( -1)
-      --set_cursor_in_middle_of_focused_client()
+      set_cursor_in_middle_of_focused_client()
     end
   ),
   awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
@@ -234,7 +234,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
   --awful.key({ modkey }, "`", function () awful.util.spawn("pcmanfm") end),
   awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo " .. fm) end),
   --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
-  awful.key({ modkey, "Control" }, "l", function () awful.util.spawn_with_shell(lockscreen) end),
+  awful.key({ modkey, }, "F5", function () awful.util.spawn_with_shell(lockscreen) end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
   awful.key({ modkey }, "p", function () client.focus.maximized_vertical = false client.focus.maximized_horizontal = false end),
 

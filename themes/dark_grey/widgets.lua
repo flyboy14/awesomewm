@@ -1,3 +1,6 @@
+require("themes/dark_grey/vars")
+
+
 -- Memory widget
 --memwidget = wibox.widget.textbox()
 memicon = wibox.widget.imagebox()
@@ -301,7 +304,7 @@ vicious.register(
     wireless_name = args['{ssid}']
     myweather.forecast_update()
     myweather.update()
-    return '<span font="Tomorrow 8" color="#aeaeae"> ' .. wireless_name .. '</span>'
+    return '<span font="Visitor TT2 BRK 10" color="#aeaeae"> ' .. wireless_name .. '</span>'
   end,
   2,
   myinterface
@@ -324,7 +327,7 @@ face:buttons(awful.util.table.join(
       local f = io.popen("fortune -s")
       local quote = f:read("*all")
       f:close()
-      show_smth("Wisdom spider", quote, nil, 0, nil, nil, "Tomorrow 8", "bottom_right")
+      show_smth("Wisdom spider", quote, nil, 0, nil, nil, font_main, "bottom_right")
       color_systray()
     end
   )
@@ -336,7 +339,7 @@ face:connect_signal("mouse::enter",
     local f = io.popen("fortune -s")
     local quote = f:read("*all")
     f:close()
-    show_smth("Wisdom spider :", quote, nil, 0, nil, nil, "Tomorrow 8", "bottom_right")
+    show_smth("Wisdom spider :", quote, nil, 0, nil, nil, font_main, "bottom_right")
   end
 )
 
@@ -350,7 +353,7 @@ face:connect_signal("mouse::leave",
 bral = wibox.widget.textbox('<span color="#aeaeae"> </span>')
 brar = wibox.widget.textbox('<span color="#aeaeae">> </span>')
 spr = wibox.widget.textbox(' ')
-arrows = wibox.widget.textbox('<span font="Tomorrow 8" color="#aeaeae">' .. '↓↑ ' .. '</span>')
+arrows = wibox.widget.textbox('<span color="#aeaeae">' .. '↓↑ ' .. '</span>')
 
 sepl = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> tasks ></span>')
 sepr = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> > systray </span>')
@@ -371,7 +374,7 @@ lain.widgets.calendar:attach(mytextclock, { font_size = 9 })
 lain.widgets.calendar:attach(clockicon, { font_size = 9 })
 
 musicwidget = awesompd:create() -- Create awesompd widget
-musicwidget.font = "Tomorrow 8"
+musicwidget.font = font_main
 musicwidget.font_color = "#e54c62"
 musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
 musicwidget.output_size = 30 -- Set the size of widget in symbols
