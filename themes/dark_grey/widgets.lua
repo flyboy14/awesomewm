@@ -5,7 +5,6 @@ require("themes/dark_grey/vars")
 --memwidget = wibox.widget.textbox()
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
--- vicious.register(memwidget, vicious.widgets.mem, "<span font='Visitor TT2 BRK 10' color='#aeaeae'>$2MB/$3MB  </span>", 3)
 
 memwidget = lain.widgets.mem({
   timeout = 3,
@@ -120,20 +119,6 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
   end)
 -- }}}
 --
-
--- Mail widget
-
--- mygmail = wibox.widget.textbox()
--- vicious.register(
---   mygmail,
---   vicious.widgets.gmail,
---   '<span color="#FFA963" font="Visitor TT2 BRK 10"> +${count}</span>',
---   260
--- )
- mygmailimg = my_launcher({
-   image = beautiful.widget_mail,
-   command = browser .. " mail.google.com/mail/u/1/h mail.google.com/mail/u/0/h"
- })
 
 -- CPU widget
 
@@ -288,14 +273,16 @@ vicious.register(
       neticon:set_image(beautiful.widget_net_wired)
       inet_on = true
     elseif myinterface:find("wl") then
-      -- naughty.notify({text = link})
-      -- if link > 65 then
-         neticon:set_image(beautiful.widget_net_hi)
-      -- elseif link > 30 and link <= 65 then
-      --   neticon:set_image(beautiful.widget_net_mid)
-      -- elseif link > 0 and link <= 30 then
-      --   neticon:set_image(beautiful.widget_net_low)
-      -- end
+      if link then
+        neticon:set_image(beautiful.widget_net_hi)
+      end
+      if link > 65 then
+        neticon:set_image(beautiful.widget_net_hi)
+      elseif link > 30 and link <= 65 then
+        neticon:set_image(beautiful.widget_net_mid)
+      elseif link > 0 and link <= 30 then
+        neticon:set_image(beautiful.widget_net_low)
+      end
       inet_on = true
     else
         neticon:set_image(beautiful.widget_net_no)
@@ -317,11 +304,7 @@ face = wibox.widget.textbox('<span color="'..red_color..'" font="Visitor TT2 BRK
 face:buttons(awful.util.table.join(
   awful.button({ }, 3,
     function () awful.util.spawn_with_shell(scripts .. "/rotate_wallpaper.sh") end),
-    --function ()
 
-      --awful.util.spawn_with_shell(browser .. " mail.google.com/mail/u/1/h mail.google.com/mail/u/0/h")
-    --end
-  --),
   awful.button({ }, 1,
     function(c)
       local f = io.popen("fortune -s")
@@ -370,6 +353,16 @@ clockicon:set_image(beautiful.widget_clock)
 mytextclock = awful.widget.textclock("<span font='Visitor TT2 BRK 10' color='#aeaeae'>%I%M </span>")
 
 -- Calendar
+
+-- mycal = lain.widgets.cal {
+--     attach_to = { mytextclock, clockicon },
+--     notification_preset = {
+--       font = "Monospace 9", 
+--       fg = "#aeaeae", 
+--       bg = "#121212"
+--     }
+--     -- [...]
+-- }
 lain.widgets.calendar:attach(mytextclock, { font_size = 9 })
 lain.widgets.calendar:attach(clockicon, { font_size = 9 })
 

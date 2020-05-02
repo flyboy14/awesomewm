@@ -114,8 +114,8 @@ globalkeys = awful.util.table.join(
     end
   ),
   awful.key({ "Control", }, "Print", function () 
-    show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", nil, nil, nil, nil, nil )
-    awful.util.spawn_with_shell("sleep 4s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
+    show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", 2, nil, nil, nil, nil )
+    awful.util.spawn_with_shell("sleep 5s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
     end
   ),
   awful.key({ "Shift", }, "Print", function () 
@@ -236,7 +236,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
   --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
   awful.key({ modkey, }, "F5", function () awful.util.spawn_with_shell(lockscreen) end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
-  awful.key({ modkey }, "p", function () client.focus.maximized_vertical = false client.focus.maximized_horizontal = false end),
+  awful.key({ modkey }, "p", function () awful.util.spawn_with_shell('keepassxc') end),
 
   -- backlight control
 
@@ -296,7 +296,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = "Chromium"})
+        return awful.rules.match(c, {class = "Google-chrome"})
       end
       awful.client.run_or_raise(browser, matcher)
       --set_cursor_in_middle_of_focused_client()
@@ -307,7 +307,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = "Chromium"})
+        return awful.rules.match(c, {class = "Google-chrome"})
       end
       awful.client.run_or_raise(browser .. " --incognito", matcher)
       --set_cursor_in_middle_of_focused_client()

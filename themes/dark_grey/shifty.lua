@@ -213,7 +213,7 @@ shifty.config.apps = {
         match = {
             "Putty", 
             "slock", 
-            --"Skype*", 
+            "KeePassXC",
             "Nitrogen", 
             "Polkit-gnome-authentication-agent-1", 
             "terminology",
@@ -243,7 +243,7 @@ shifty.config.apps = {
             "Wpa_gui", 
             "Pavucontrol", 
             "Lxappearance", 
-            --"Skype*", 
+            "KeePassXC",
             "plugin-container",
             "Putty",
             "Gcolor*",
@@ -290,7 +290,7 @@ shifty.config.apps = {
     {
         match = {
             --"URxvt*",
-            --"Tilix",
+            "KeePassXC",
             "Guake"
         },
         sticky = true
@@ -299,6 +299,7 @@ shifty.config.apps = {
         match = {
             "Putty",
             "Pavucontrol",
+            "KeePassXC",
             "Gcolor*",
             "Zenity",
             "URxvt*",
