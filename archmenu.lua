@@ -2,6 +2,7 @@
      {"Archive Manager", "file-roller "},
      {"Caffeine-ng", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
      {"Double Commander", "doublecmd ", "/usr/share/pixmaps/doublecmd.png" },
+     {"KeePassXC", "keepassxc ", "/usr/share/icons/hicolor/256x256/apps/keepassxc.png" },
      {"Passwords and Keys", "seahorse"},
      {"Simplenote", "/opt/Simplenote/simplenote ", "/usr/share/icons/hicolor/16x16/apps/simplenote.png" },
      {"Vim", "xterm -e vim ", "/usr/share/icons/hicolor/48x48/apps/gvim.png" },
@@ -16,6 +17,10 @@
      {"LibreOffice Math", "libreoffice --math ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-math.png" },
  }
 
+ local menu251bd8143891238ecedc306508e29017 = {
+     {"League of Legends", "leagueoflegends launch", "/usr/share/icons/hicolor/256x256/apps/leagueoflegends.png" },
+ }
+
  local menud334dfcea59127bedfcdbe0a3ee7f494 = {
      {"Document Viewer", "evince "},
      {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
@@ -27,8 +32,8 @@
  local menuc8205c7636e728d448c2774e6a4a944b = {
      {"Avahi SSH Server Browser", "/usr/bin/bssh"},
      {"Avahi VNC Server Browser", "/usr/bin/bvnc"},
-     {"Chromium", "/usr/bin/chromium ", "/usr/share/icons/hicolor/16x16/apps/chromium.png" },
      {"Geary", "geary "},
+     {"Google Chrome", "/usr/bin/google-chrome-stable ", "/usr/share/icons/hicolor/16x16/apps/google-chrome.png" },
      {"LinuxDC++", "linuxdcpp", "/usr/share/icons/hicolor/16x16/apps/linuxdcpp.png" },
      {"Remmina", "remmina-file-wrapper ", "/usr/share/icons/hicolor/16x16/apps/org.remmina.Remmina.png" },
      {"Skype", "/usr/bin/skypeforlinux ", "/usr/share/icons/hicolor/16x16/apps/skypeforlinux.png" },
@@ -50,6 +55,7 @@
 
  local menue6f43c40ab1c07cd29e4e83e4ef6bf85 = {
      {"CMake", "cmake-gui ", "/usr/share/icons/hicolor/32x32/apps/CMakeSetup.png" },
+     {"Groovy Console", "groovyConsole", "/usr/share/pixmaps/groovy.png" },
      {"Qt Assistant", "assistant", "/usr/share/icons/hicolor/32x32/apps/assistant.png" },
      {"Qt Designer", "designer ", "/usr/share/icons/hicolor/128x128/apps/QtProject-designer.png" },
      {"Qt Linguist", "linguist ", "/usr/share/icons/hicolor/16x16/apps/linguist.png" },
@@ -68,6 +74,7 @@
      {"PulseAudio Volume Control", "pavucontrol"},
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"Qt V4L2 video capture utility", "qvidcap", "/usr/share/icons/hicolor/16x16/apps/qvidcap.png" },
+     {"Sonata", "sonata"},
      {"VLC media player", "/usr/bin/vlc --started-from-file ", "/usr/share/icons/hicolor/16x16/apps/vlc.png" },
      {"Webcamoid", "webcamoid", "/usr/share/icons/hicolor/16x16/apps/webcamoid.png" },
      {"Xfmpc", "xfmpc"},
@@ -91,6 +98,7 @@
 xdgmenu = {
     {"Accessories", menu98edb85b00d9527ad5acebe451b3fae6},
     {"Education", menude7a22a0c94aa64ba2449e520aa20c99},
+    {"Games", menu251bd8143891238ecedc306508e29017},
     {"Graphics", menud334dfcea59127bedfcdbe0a3ee7f494},
     {"Internet", menuc8205c7636e728d448c2774e6a4a944b},
     {"Office", menudf814135652a5a308fea15bff37ea284},
