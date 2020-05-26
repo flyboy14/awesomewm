@@ -1,12 +1,10 @@
 #!/bin/bash
-if [[ $# -eq 3 ]]; then
-  WORDS="$3"
-else
-  WORDS="`xsel -o`"
-fi
-FROM="$1"
-TO="$2"
-OUTPUT=`translate $FROM $TO $WORDS`
-#OUTPUT=`trans -b -s $FROM -t $TO $WORDS`
-echo "show_smth(nil, '"$OUTPUT"', '"$HOME/.config/awesome/icons/comicdee/translate.svg"', 0)"| awesome-client
 
+if [[ "$1" == "ru" ]]; then 
+	L_IN="en"
+else
+	L_IN="ru"
+fi
+RES="$(translate -s $L_IN -d $1 "$2" | grep "\[$1\]" | cut -d' ' -f2-)"
+PRON="$(translate -s $L_IN -d $1 "$2" | grep "pron." | cut -d' ' -f2-)"
+notify-send -i ~/.config/awesome/icons/comicdee/translate.svg "$RES" "($PRON)"

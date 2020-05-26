@@ -59,7 +59,7 @@ root.buttons(awful.util.table.join(
           { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to RU </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
           mypromptbox[mouse.screen.index].widget,
           function (expr)
-              awful.util.spawn_with_shell(translate_e_r .. " " .. expr)
+              awful.util.spawn_with_shell(translate_e_r .. " \"" .. expr .. "\"")
           end,
           nil,
           awful.util.getdir("cache") .. "/gtranslate_en"
@@ -71,25 +71,12 @@ root.buttons(awful.util.table.join(
           { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to EN </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
           mypromptbox[mouse.screen.index].widget,
           function (expr)
-              awful.util.spawn_with_shell(translate_r_e .. " " .. expr)
+              awful.util.spawn_with_shell(translate_r_e .. " \"" .. expr .. "\"")
           end,
           nil,
           awful.util.getdir("cache") .. "/gtranslate_ru"
         )
-    end,
-    c = function(c)
-     keygrabber.run(function(mod, key, event)
-         if event == "release" then return true end
-         keygrabber.stop()
-         if clipboardtranslate_mode[key] then clipboardtranslate_mode[key](c) end
-         return true
-     end)
-     end
-}
-
-clipboardtranslate_mode = {
-  e = function () awful.util.spawn_with_shell(translate_e_r) end,
-  r = function () awful.util.spawn_with_shell(translate_r_e) end
+    end
 }
 
 gist_mode = {
@@ -368,6 +355,11 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
       )
     end
   ),
+  awful.key({ modkey }, "F3",
+    function ()
+      awful.util.spawn_with_shell(translate_e_r .. " \"$(xsel -o)\"")
+    end
+  ),
   awful.key({ modkey            }, "c",
     function ()
         awful.prompt.run(
@@ -375,7 +367,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
           mypromptbox[mouse.screen.index].widget,
           function (expr)
               local result = awful.util.eval("return (" .. expr .. ")")
-              naughty.notify({ text = "<span font='Visitor TT2 BRK 13'>" .. expr .. "=" .. result .. "</span>", timeout = 0, border_width = 0, bg = wibox_color(), fg = red_color })
+              naughty.notify({ text = expr .. "=<span color='" .. green_color .. "'>" .. result .. "</span>", timeout = 0, border_width = 0, bg = wibox_color() })
           end,
           nil,
           awful.util.getdir("cache") .. "/calc"
@@ -389,18 +381,18 @@ clientkeys = awful.util.table.join(
  --     keygrabber.run(function(mod, key, event)
  --         if event == "release" then return true end
  --         keygrabber.stop()
- --         if client_mode[key] then client_mode[key](c) end
+ --         if client_mode[key] then client_mode[krey](c) end
  --         return true
  --     end)
  -- end),
- --  awful.key({ modkey }, "t", function(c)
- --     keygrabber.run(function(mod, key, event)
- --         if event == "release" then return true end
- --         keygrabber.stop()
- --         if translate_mode[key] then translate_mode[key](c) end
- --         return true
- --     end)
- -- end),
+  awful.key({ modkey }, "g", function(c)
+     keygrabber.run(function(mod, key, event)
+         if event == "release" then return true end
+         keygrabber.stop()
+         if translate_mode[key] then translate_mode[key](c) end
+         return true
+     end)
+ end),
  --  awful.key({ modkey }, "g", function(c)
  --     keygrabber.run(function(mod, key, event)
  --         if event == "release" then return true end

@@ -5,11 +5,11 @@ layouts =
 {
     awful.layout.suit.floating,               -- 1
     lain.layout.uselesstile,                  -- 2
-    lain.layout.uselesstile.bottom,            -- 3
+    lain.layout.uselesstile.bottom,           -- 3
     lain.layout.uselesspiral,                 -- 4
     lain.layout.cascade,                      -- 5    
     lain.layout.termfair,                     -- 6
-    lain.layout.uselesspiral,                  -- 7
+    lain.layout.uselesspiral,                 -- 7
     lain.layout.centerworkd,                  -- 8
     lain.layout.centerhwork,                  -- 9
 }
@@ -18,6 +18,7 @@ shifty.config.layouts = layouts
 -- Shifty configured tags.
 shifty.config.tags = { 
     doc = {
+        position  = 0,
         rel_index = 1,
     }, 
     home = {
@@ -81,8 +82,6 @@ shifty.config.apps = {
         match = {
             "Navigator",
             "qutebrowser",
-            "Vimperator",
-            "Gran Paradiso",
             "firefox",
             "vivaldi*",
             "google*", 
@@ -102,6 +101,7 @@ shifty.config.apps = {
             "Nemo", 
             "Thunar",
             "Caja",
+            "Doublecmd",
             name = {"Copy*"}
         },
         tag = "home",
@@ -115,8 +115,6 @@ shifty.config.apps = {
             "Atom",
             "Subl*",
             "Simplenote",
-            "Libre", 
-            "libreoffice-writer", 
             "Evince", 
             "DjView", 
         },
@@ -131,13 +129,13 @@ shifty.config.apps = {
             "Libre", 
             "libreoffice-writer", 
             "Evince", 
-            "DjView", 
+            "DjView",
+            "draw.io"
         },
         tag = "doc",
     },
     {
         match = {
-            "GitKraken", 
             "Rawstudio", 
             "Audacity", 
             "Ninja-ide", 
@@ -152,7 +150,8 @@ shifty.config.apps = {
             class = {"sun-awt-X11*", "jetbrains-*"},
             "Eclipse", 
             "draftsight",
-            "Linuxdcpp"
+            "Linuxdcpp",
+            "Anydesk"
         },
         tag = "ide",
         ontop = false
@@ -263,6 +262,7 @@ shifty.config.apps = {
             "feh",
             "Guake",
             "Gnome-alsamixer",
+            "Webcamoid",
             name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"}
         },
@@ -289,7 +289,6 @@ shifty.config.apps = {
     },
     {
         match = {
-            --"URxvt*",
             "KeePassXC",
             "Guake"
         },
@@ -313,6 +312,7 @@ shifty.config.apps = {
             "Archive*",
             "Gnome-sound-recorder",
             "Insync.py",
+            "Webcamoid",
             "Guake",
             name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"}
