@@ -20,7 +20,8 @@ VALUE=$(cat /sys/class/backlight/intel_backlight/brightness)
     echo 'show_smth(nil, nil,  "'$HOME/.config/awesome/themes/dark_grey/icons/bri_50_x16.png'", 2, nil, nil, nil, nil)' | awesome-client
   elif [ $VALUE -lt 3800 ]; then
     echo 'show_smth(nil, nil,  "'$HOME/.config/awesome/themes/dark_grey/icons/bri_75_x16.png'", 2, nil, nil, nil, nil)' | awesome-client
-  elif [ $VALUE -lt 4500 ]; then
+  elif [ $VALUE -lt 7501 ]; then
     echo 'show_smth(nil, nil,  "'$HOME/.config/awesome/themes/dark_grey/icons/bri_100_x16.png'", 2, nil, nil, nil, nil)' | awesome-client
   fi
 exit 0
+

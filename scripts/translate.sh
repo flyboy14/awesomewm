@@ -5,6 +5,6 @@ if [[ "$1" == "ru" ]]; then
 else
 	L_IN="ru"
 fi
-RES="$(translate -s $L_IN -d $1 "$2" | grep "\[$1\]" | cut -d' ' -f2-)"
-PRON="$(translate -s $L_IN -d $1 "$2" | grep "pron." | cut -d' ' -f2-)"
-notify-send -i ~/.config/awesome/icons/comicdee/translate.svg "$RES" "($PRON)"
+RES=$(trans -b $L_IN:$1 "$2")
+#notify-send -i ~/.config/awesome/icons/comicdee/translate.svg "$RES"
+echo "show_smth(\"$2\", \"$RES\", '/home/twiceaday/.config/awesome/icons/comicdee/translate.svg', 0, nil, nil, 'Sans 10')" | awesome-client

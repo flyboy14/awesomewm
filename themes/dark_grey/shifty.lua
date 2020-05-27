@@ -263,7 +263,7 @@ shifty.config.apps = {
             "Guake",
             "Gnome-alsamixer",
             "Webcamoid",
-            name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
+            name = {"Developer*", "Copy*", "Move*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"}
         },
         float = true,

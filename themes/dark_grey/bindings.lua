@@ -89,23 +89,23 @@ globalkeys = awful.util.table.join(
     function() launch_cheeky() 
     end
   ),
-  awful.key({            }, "Print", function () 
+  awful.key({            }, "Insert", function () 
     awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
     --show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
     end
   ),
-  awful.key({ modkey }, "Print", function () 
+  awful.key({ modkey }, "Insert", function () 
     --show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil )
     awful.util.spawn_with_shell("escrotum -s -C")
     --show_smth( nil, "Shot gonna be copied to clipboard (probably)", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )  
     end
   ),
-  awful.key({ "Control", }, "Print", function () 
+  awful.key({ "Control", }, "Insert", function () 
     show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", 2, nil, nil, nil, nil )
     awful.util.spawn_with_shell("sleep 5s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
     end
   ),
-  awful.key({ "Shift", }, "Print", function () 
+  awful.key({ "Shift", }, "Insert", function () 
     show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) 
     awful.util.spawn_with_shell("escrotum -s $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png")
     end

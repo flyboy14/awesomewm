@@ -30,8 +30,8 @@ baticon:set_image(beautiful.widget_battery)
 batwidget = lain.widgets.bat({
   timeout = 3,
   notify = "on",
-  settings = 
-    function()
+  settings =
+     function()
       local color = grey
       local perc = math.floor(bat_now.perc)
       local time = bat_now.time

@@ -22,7 +22,7 @@ function record_screen()
 end
 
 function color_systray()
-  local f = io.popen(scripts .. "/getcolor2.py " .. mywibox[mouse.screen.index].width .. " 760")
+  local f = io.popen(scripts .. "/getcolor2.py " .. mywibox[mouse.screen.index].width .. " 1080")
   beautiful.systray = f:read()
   f:close()
 end
@@ -31,7 +31,7 @@ function mouse_on_wibox()
   -- if mouse.object_under_pointer() == client.focus then
   --   return false
   -- end
-  if mouse.coords()["y"] >= 750 or mouse.coords()["y"] <= 18 then
+  if mouse.coords()["y"] >= 1062 or mouse.coords()["y"] <= 18 then
     return true
   else
     return false

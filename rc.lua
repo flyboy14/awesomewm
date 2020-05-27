@@ -68,16 +68,14 @@ color_systray()
 -- }}}
 
 --- {{{ Autorun apps
+  run_once_ifnot("kbdd", "slock") -- run slock only if kbdd didn't start e.g. first launch after login
   run_once("nm-applet")
-  --run_once_ifnot("kbdd", "slock") -- run slock only if kbdd didn't start e.g. first launch after login
-  --run_once("nm-applet")
-  --run_once("parcellite")
-  --run_once("kbdd")
+  run_once("parcellite")
+  run_once("kbdd")
   run_once("skypeforlinux")
   run_once("telegram-desktop")
-  run_once("viber")
-  --run_once("udiskie", "udiskie -as")
---  run_once_ifnot("picom", "picom --shadow-blue 0.05 -cGz -r 9 -t -8 -l -8 -D 5 -I 0.02 -O 0.02 --xrender-sync-fence --inactive-dim 0.35 --no-fading-destroyed-argb" )
+  run_once("udiskie", "udiskie -as")
+  run_once_ifnot("picom", "picom --shadow-blue 0.05 -cGz -r 9 -t -8 -l -8 -D 5 -I 0.05 -O 0.05 --xrender-sync-fence --no-fading-destroyed-argb" )
   ----inactive-dim 0.35 
   --"xcowsay 'Moo, brother, moo.'"
 -- }}}
