@@ -22,7 +22,7 @@ function record_screen()
 end
 
 function color_systray()
-  local f = io.popen(scripts .. "/getcolor2.py " .. mywibox[mouse.screen.index].width .. " 1080")
+  local f = io.popen(scripts .. "/getcolor2.py " .. mywibox[mouse.screen.index].width .. " 1078")
   beautiful.systray = f:read()
   f:close()
 end

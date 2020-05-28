@@ -197,13 +197,14 @@ shifty.config.apps = {
     },
     {
         match = {
-            "ghetto",
+            "Slack",
             "Skype*",
             "TeamSpeak",
             "Viber",
             "Pidgin",
             "Telegram", 
-            "Zoom"
+            "Zoom",
+            "Discord"
         },
         tag = "im",
         minimized = true

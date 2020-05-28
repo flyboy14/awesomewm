@@ -74,8 +74,10 @@ color_systray()
   run_once("kbdd")
   run_once("skypeforlinux")
   run_once("telegram-desktop")
+  run_once("slack")
+  run_once_ifnot("xbanish", "xbanish -bt4000")
   run_once("udiskie", "udiskie -as")
-  run_once_ifnot("picom", "picom --shadow-blue 0.05 -cGz -r 9 -t -8 -l -8 -D 5 -I 0.05 -O 0.05 --xrender-sync-fence --no-fading-destroyed-argb" )
+  run_once_ifnot("picom", "picom --shadow-blue 0.05 -cGz -r 9 -t -8 -l -8 -D 5 -I 1 -O 1 --xrender-sync-fence --no-fading-destroyed-argb" )
   ----inactive-dim 0.35 
   --"xcowsay 'Moo, brother, moo.'"
 -- }}}

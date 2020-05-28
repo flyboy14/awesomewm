@@ -125,7 +125,7 @@ mytaskmenu = awful.menu({ items = {
 })
 
 mymainmenu = awful.menu({ items = {
-                                    { "Sandbox", myvirtualmenu },
+                                    { "LeagueOfLegends", "snap run leagueoflegends", iconsdir .. "/lol.png" },
                                     { "Apps", xdgmenu },
                                     --{ "Worker", "worker" },
                                     { " Wallpaper", "nitrogen", iconsdir .. "/greylink-dc.png" }
