@@ -164,7 +164,7 @@ shifty.config.apps = {
             "Sonata",
             "Deadbeef",
             "Android*",
-            "baka-mplayer*"
+            class = {"baka*"}
         },
         tag = "media",
     },
@@ -174,6 +174,7 @@ shifty.config.apps = {
             "Virt-manager*",
             "virt-manager", 
             "Remmina", 
+            "Anydesk",
             class = { "rdesktop"},
         },
         tag = "virtual"
@@ -189,8 +190,6 @@ shifty.config.apps = {
             ".TMP", 
             "._mp",
             "._MP"},
-            "Baumalein", 
-            "teeworlds"
         },
         tag = "wine",
         float = true
@@ -260,12 +259,14 @@ shifty.config.apps = {
             "Gnome-alsamixer",
             "*mplayer",
             "Gnome-sound-recorder",
-            "feh",
+            "Vimiv",
             "Guake",
             "Gnome-alsamixer",
             "Webcamoid",
+            class = {"baka*"},
             name = {"Developer*", "Copy*", "Move*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
-            role = {"pop-up", "GtkFileChooser*"}
+            role = {"pop-up", "GtkFileChooser*"},
+            "Blueberry*"
         },
         float = true,
     },
@@ -316,7 +317,8 @@ shifty.config.apps = {
             "Webcamoid",
             "Guake",
             name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
-            role = {"pop-up", "GtkFileChooser*"}
+            role = {"pop-up", "GtkFileChooser*"},
+            "Blueberry*"
         },
         --slave = true,
         intrusive = true,

@@ -24,7 +24,7 @@ themedir      = themes .. themename
 --}}}
 theme.mycolor						= "#1f1f1f"--"#383C4A"
 theme.systray                       = theme.mycolor
-theme.font                          = "Fixed 8"--"Fixed 8"
+theme.font                          = "Ubuntu 10"--"Fixed 8"
 theme.taglist_font                  = "Visitor TT2 BRK 10"--"envypn 9"
 theme.fg_normal                     = "#9e9e9e"
 theme.fg_focus                      = "#7D96C8"--"#FFF9A4"
@@ -44,10 +44,10 @@ theme.titlebar_bg_focus             = "#292929aa"
 
 theme.taglist_fg_focus              = "#dcdcdc" --#dcdcdc"
 theme.taglist_bg_focus              = theme.mycolor .. "00"
-theme.menu_height                   = "24"
-theme.menu_width                    = "170"
+theme.menu_height                   = "32"
+theme.menu_width                    = "200"
 theme.bg_systray					= theme.mycolor --.. "44"--"#192732"
-theme.systray_icon_spacing			= "4"
+theme.systray_icon_spacing			= "5"
 
 theme.menu_submenu_icon             = themedir .. "/icons/sub.png"
 theme.taglist_squares_sel           = themedir .. "/icons/square_sel.png"

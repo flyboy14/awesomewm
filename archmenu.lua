@@ -1,9 +1,9 @@
  local menu98edb85b00d9527ad5acebe451b3fae6 = {
      {"Archive Manager", "file-roller "},
+     {"Caffeine-ng", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
      {"KeePassXC", "keepassxc ", "/usr/share/icons/hicolor/256x256/apps/keepassxc.png" },
      {"Simplenote", "/opt/Simplenote/simplenote ", "/usr/share/icons/hicolor/16x16/apps/simplenote.png" },
      {"Vim", "xterm -e vim ", "/usr/share/icons/hicolor/48x48/apps/gvim.png" },
-     {"Winetricks", "winetricks --gui"},
      {"Worker", "worker", "/usr/share/pixmaps/WorkerIcon48.xpm" },
      {"compton", "compton", "/usr/share/icons/hicolor/48x48/apps/compton.png" },
      {"nitrogen", "nitrogen", "/usr/share/icons/hicolor/16x16/apps/nitrogen.png" },
@@ -15,23 +15,29 @@
  }
 
  local menu251bd8143891238ecedc306508e29017 = {
-     {"League of Legends", "leagueoflegends launch", "/usr/share/icons/hicolor/256x256/apps/leagueoflegends.png" },
+     {"League of Legends", "env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/leagueoflegends_leagueoflegends.desktop /var/lib/snapd/snap/bin/leagueoflegends", "///var/lib/snapd/snap/leagueoflegends/75/meta/gui/leagueoflegends.png" },
+     {"League of Legends (NVIDIA Optimus)", "env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/leagueoflegends_leagueoflegendsnv.desktop /var/lib/snapd/snap/bin/leagueoflegends.leagueoflegendsnv", "///var/lib/snapd/snap/leagueoflegends/75/meta/gui/leagueoflegends.png" },
  }
 
  local menud334dfcea59127bedfcdbe0a3ee7f494 = {
      {"FontForge", "fontforge ", "/usr/share/icons/hicolor/16x16/apps/org.fontforge.FontForge.png" },
+     {"Image Viewer", "eog "},
      {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
-     {"Shotwell", "shotwell ", "/usr/share/icons/hicolor/16x16/apps/shotwell.png" },
+     {"Viewnior", "viewnior ", "/usr/share/icons/hicolor/16x16/apps/viewnior.png" },
      {"draw.io", "/opt/draw.io/drawio ", "/usr/share/icons/hicolor/16x16/apps/drawio.png" },
      {"mtPaint", "mtpaint ", "/usr/share/pixmaps/mtpaint.png" },
+     {"vimiv", "vimiv --start-from-desktop ", "/usr/share/icons/hicolor/16x16/apps/vimiv.png" },
  }
 
  local menuc8205c7636e728d448c2774e6a4a944b = {
      {"AnyDesk", "env GTK2_RC_FILES=/usr/share/themes/Adwaita/gtk-2.0/gtkrc /usr/bin/anydesk ", "/usr/share/pixmaps/anydesk.svg" },
      {"Avahi SSH Server Browser", "/usr/bin/bssh"},
      {"Avahi VNC Server Browser", "/usr/bin/bvnc"},
+     {"Discord", "/usr/bin/discord", "/usr/share/pixmaps/discord.png" },
      {"Google Chrome", "/usr/bin/google-chrome-stable ", "/usr/share/icons/hicolor/16x16/apps/google-chrome.png" },
+     {"Jitsi Meet", "jitsi-meet-desktop", "/usr/share/icons/hicolor/16x16/apps/jitsi-meet.png" },
      {"Skype", "/usr/bin/skypeforlinux ", "/usr/share/icons/hicolor/16x16/apps/skypeforlinux.png" },
+     {"Slack", "/usr/bin/slack -s ", "/usr/share/pixmaps/slack.png" },
      {"Telegram Desktop", "telegram-desktop -- ", "/usr/share/icons/hicolor/16x16/apps/telegram.png" },
  }
 
@@ -56,7 +62,9 @@
 
  local menu52dd1c847264a75f400961bfb4d1c849 = {
      {"Audacity", "env UBUNTU_MENUPROXY=0 audacity ", "/usr/share/icons/hicolor/16x16/apps/audacity.png" },
+     {"Audio Recorder", "audio-recorder"},
      {"Baka-MPlayer", "baka-mplayer ", "/usr/share/pixmaps/baka-mplayer.svg" },
+     {"Jitsi Meet", "jitsi-meet-desktop", "/usr/share/icons/hicolor/16x16/apps/jitsi-meet.png" },
      {"PulseAudio Volume Control", "pavucontrol"},
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"Qt V4L2 video capture utility", "qvidcap", "/usr/share/icons/hicolor/16x16/apps/qvidcap.png" },
@@ -68,6 +76,8 @@
      {"Avahi Zeroconf Browser", "/usr/bin/avahi-discover"},
      {"GParted", "/usr/bin/gparted ", "/usr/share/icons/hicolor/16x16/apps/gparted.png" },
      {"Hardware Locality lstopo", "lstopo"},
+     {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
+     {"LSHW", "/usr/sbin/gtk-lshw", "///usr/share/lshw/artwork/logo.svg" },
      {"Tilix", "tilix"},
  }
 

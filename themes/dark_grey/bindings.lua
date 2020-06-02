@@ -90,24 +90,26 @@ globalkeys = awful.util.table.join(
     end
   ),
   awful.key({            }, "Insert", function () 
-    awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
+    -- awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
     --show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
+    awful.util.spawn(sc_r)
     end
   ),
   awful.key({ modkey }, "Insert", function () 
-    --show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil )
-    awful.util.spawn_with_shell("escrotum -s -C")
-    --show_smth( nil, "Shot gonna be copied to clipboard (probably)", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )  
+    -- awful.util.spawn_with_shell("escrotum -s -C")
+    awful.util.spawn_with_shell(sc_r5)
     end
   ),
   awful.key({ "Control", }, "Insert", function () 
     show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", 2, nil, nil, nil, nil )
-    awful.util.spawn_with_shell("sleep 5s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
+    awful.util.spawn(sc_c)
+    -- awful.util.spawn_with_shell("sleep 5s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
     end
   ),
   awful.key({ "Shift", }, "Insert", function () 
-    show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) 
-    awful.util.spawn_with_shell("escrotum -s $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png")
+    -- show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) 
+    --awful.util.spawn_with_shell("escrotum -s $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png")
+      awful.util.spawn(sc_a)
     end
   ),
   awful.key({ modkey }, "Tab",

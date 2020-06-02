@@ -1,29 +1,32 @@
 #!/bin/bash
 
-STEP=750
-BRI_CUR=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
+#STEP=750
+#BRI_CUR=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
 
 case "$1" in
-    "up")
-			RES=$(($STEP+$BRI_CUR))
-			if [ $RES -lt 7500 ]; then
-				sudo bash -c "echo $RES > /sys/class/backlight/intel_backlight/brightness"
-			else
-				sudo bash -c "echo 7500 > /sys/class/backlight/intel_backlight/brightness"
-			fi
-			;;
+	"up")
+#			RES=$(($STEP+$BRI_CUR))
+#			if [ $RES -lt 7500 ]; then
+#				sudo bash -c "echo $RES > /sys/class/backlight/intel_backlight/brightness"
+#			else
+#				sudo bash -c "echo 7500 > /sys/class/backlight/intel_backlight/brightness"
+#			fi
+		brightnessctl s +10%
+		;;
   "down")
-			RES=$(($BRI_CUR-$STEP))
-			if [ $RES -gt 0 ]; then
-				sudo bash -c "echo $RES > /sys/class/backlight/intel_backlight/brightness"
-			else
-				sudo bash -c "echo 0 > /sys/class/backlight/intel_backlight/brightness"
-			fi
-	        ;;
+#			RES=$(($BRI_CUR-$STEP))
+#			if [ $RES -gt 0 ]; then
+#				sudo bash -c "echo $RES > /sys/class/backlight/intel_backlight/brightness"
+#			else
+#				sudo bash -c "echo 0 > /sys/class/backlight/intel_backlight/brightness"
+#			fi
+		brightnessctl s 10%-
+	  ;;
 esac
 
 # Get current brightness
-VALUE=$(cat /sys/class/backlight/intel_backlight/brightness)
+#VALUE=$(cat /sys/class/backlight/intel_backlight/actual_brightness)
+VALUE=$(brightnessctl g)
   if [ $VALUE -le 1501 ]; then
     echo 'show_smth(nil, nil,  "'$HOME/.config/awesome/themes/dark_grey/icons/bri_0_x16.png'", 2, nil, nil, nil, nil)' | awesome-client
   elif [ $VALUE -lt 3001 ]; then

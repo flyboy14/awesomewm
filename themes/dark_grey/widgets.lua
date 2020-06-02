@@ -336,7 +336,7 @@ face:connect_signal("mouse::leave",
 bral = wibox.widget.textbox('<span color="#aeaeae"> </span>')
 brar = wibox.widget.textbox('<span color="#aeaeae">> </span>')
 spr = wibox.widget.textbox(' ')
-arrows = wibox.widget.textbox('<span color="#aeaeae">' .. '↓↑ ' .. '</span>')
+arrows = wibox.widget.textbox('<span color="#aeaeae" font="Sans 6">' .. '↓↑   ' .. '</span>')
 
 sepl = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> tasks ></span>')
 sepr = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> > systray </span>')
