@@ -1,6 +1,6 @@
  local menu98edb85b00d9527ad5acebe451b3fae6 = {
      {"Archive Manager", "file-roller "},
-     {"Caffeine-ng", "/usr/bin/caffeine", "/usr/share/icons/hicolor/16x16/apps/caffeine.png" },
+     {"Double Commander", "doublecmd ", "/usr/share/pixmaps/doublecmd.png" },
      {"KeePassXC", "keepassxc ", "/usr/share/icons/hicolor/256x256/apps/keepassxc.png" },
      {"Simplenote", "/opt/Simplenote/simplenote ", "/usr/share/icons/hicolor/16x16/apps/simplenote.png" },
      {"Vim", "xterm -e vim ", "/usr/share/icons/hicolor/48x48/apps/gvim.png" },
@@ -20,10 +20,12 @@
  }
 
  local menud334dfcea59127bedfcdbe0a3ee7f494 = {
+     {"Flameshot", "flameshot", "/usr/share/icons/hicolor/48x48/apps/flameshot.png" },
      {"FontForge", "fontforge ", "/usr/share/icons/hicolor/16x16/apps/org.fontforge.FontForge.png" },
      {"Image Viewer", "eog "},
      {"LibreOffice Draw", "libreoffice --draw ", "/usr/share/icons/hicolor/16x16/apps/libreoffice-draw.png" },
      {"Viewnior", "viewnior ", "/usr/share/icons/hicolor/16x16/apps/viewnior.png" },
+     {"XDvi", "xdvi "},
      {"draw.io", "/opt/draw.io/drawio ", "/usr/share/icons/hicolor/16x16/apps/drawio.png" },
      {"mtPaint", "mtpaint ", "/usr/share/pixmaps/mtpaint.png" },
      {"vimiv", "vimiv --start-from-desktop ", "/usr/share/icons/hicolor/16x16/apps/vimiv.png" },
@@ -39,6 +41,7 @@
      {"Skype", "/usr/bin/skypeforlinux ", "/usr/share/icons/hicolor/16x16/apps/skypeforlinux.png" },
      {"Slack", "/usr/bin/slack -s ", "/usr/share/pixmaps/slack.png" },
      {"Telegram Desktop", "telegram-desktop -- ", "/usr/share/icons/hicolor/16x16/apps/telegram.png" },
+     {"Transmission", "transmission-gtk ", "/usr/share/pixmaps/transmission.png" },
  }
 
  local menudf814135652a5a308fea15bff37ea284 = {
@@ -69,6 +72,7 @@
      {"Qt V4L2 test Utility", "qv4l2", "/usr/share/icons/hicolor/16x16/apps/qv4l2.png" },
      {"Qt V4L2 video capture utility", "qvidcap", "/usr/share/icons/hicolor/16x16/apps/qvidcap.png" },
      {"Webcamoid", "webcamoid", "/usr/share/icons/hicolor/16x16/apps/webcamoid.png" },
+     {"Xfmpc", "xfmpc"},
      {"mpv Media Player", "mpv --player-operation-mode=pseudo-gui -- ", "/usr/share/icons/hicolor/16x16/apps/mpv.png" },
  }
 
@@ -76,7 +80,6 @@
      {"Avahi Zeroconf Browser", "/usr/bin/avahi-discover"},
      {"GParted", "/usr/bin/gparted ", "/usr/share/icons/hicolor/16x16/apps/gparted.png" },
      {"Hardware Locality lstopo", "lstopo"},
-     {"Htop", "xterm -e htop", "/usr/share/pixmaps/htop.png" },
      {"LSHW", "/usr/sbin/gtk-lshw", "///usr/share/lshw/artwork/logo.svg" },
      {"Tilix", "tilix"},
  }

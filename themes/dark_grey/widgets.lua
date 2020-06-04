@@ -354,23 +354,22 @@ mytextclock = awful.widget.textclock("<span font='Visitor TT2 BRK 10' color='#ae
 
 -- Calendar
 
--- mycal = lain.widgets.cal {
---     attach_to = { mytextclock, clockicon },
---     notification_preset = {
---       font = "Monospace 9", 
---       fg = "#aeaeae", 
---       bg = "#121212"
---     }
---     -- [...]
--- }
-lain.widgets.calendar:attach(mytextclock, { font_size = 9 })
-lain.widgets.calendar:attach(clockicon, { font_size = 9 })
+mycal = lain.widgets.cal {
+    attach_to = { mytextclock, clockicon },
+    notification_preset = {
+      font = "Monospace 9", 
+      fg = "#bebebe",
+      bg = "#1f1f1f"
+    }
+}
+-- lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
+-- lain.widgets.calendar:attach(clockicon, { font_size = 10 })
 
 musicwidget = awesompd:create() -- Create awesompd widget
-musicwidget.font = font_main
+musicwidget.font = "Terminus 9"
 musicwidget.font_color = "#e54c62"
 musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
-musicwidget.output_size = 30 -- Set the size of widget in symbols
+musicwidget.output_size = 52 -- Set the size of widget in symbols
 musicwidget.update_interval = 1 -- Set the update interval in seconds
 musicwidget.path_to_icons = confdir .. "/awesompd/icons"
 musicwidget.jamendo_format = awesompd.FORMAT_MP3
@@ -393,10 +392,10 @@ musicwidget:register_buttons({
   { "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
   { "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
   { "", awesompd.MOUSE_RIGHT, musicwidget:command_show_menu() },
-  { "", "XF86AudioPlay", musicwidget:command_playpause() },
-  { "", "XF86AudioNext", musicwidget:command_next_track() },
-  { "", "XF86AudioPrev", musicwidget:command_prev_track() },
-  { "", "XF86AudioStop", musicwidget:command_stop() },
+  { modkey, "F10", musicwidget:command_playpause() },
+  { modkey, "F12", musicwidget:command_next_track() },
+  { modkey, "F11", musicwidget:command_prev_track() },
+  { modkey, "XF86AudioStop", musicwidget:command_stop() },
 })
 
 -- Music icon

@@ -96,6 +96,17 @@ myworkspacemenu = {
     },
 }
 mytaskmenu = awful.menu({ items = {
+                                    { "DEBUFF", 
+                                      function ()
+                                        c = client.focus
+                                        c.ontop = false
+                                        c.togglemarked = false
+                                        c.sticky = false
+                                        c.maximized = false
+                                        c.maximized_vertical = false
+                                        c.maximized_horizontal = false
+                                      end,
+                                    },
                                     { "Send to tag:", myworkspacemenu },
                                     { "  Toggle ontop",
                                       function ()

@@ -14,7 +14,7 @@ DEPTH=1
 
 # Script variables
 
-RANGE=`find $WPDIRS |wc -l`
+RANGE=`find $WPDIRS -type f | wc -l`
 NUMBER=$RANDOM
 let "NUMBER %= $RANGE"
 

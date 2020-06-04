@@ -32,7 +32,7 @@ local function factory(args)
         week_number_format  = args.week_number_format or args.week_number == "left" and "%3d | " or "| %-3d",
         icons               = args.icons or helpers.icons_dir .. "cal/white/",
         notification_preset = args.notification_preset or {
-            font = "Monospace 10", fg = "#FFFFFF", bg = "#000000"
+            font = "Monospace 10", fg = "#FFFFFF", bg = "#000000",
         }
     }
 
@@ -141,6 +141,7 @@ local function factory(args)
         cal.hide()
         cal.notification = naughty.notify {
             preset  = cal.notification_preset,
+            bg = wibox_color(),
             screen  = cal.followtag and awful.screen.focused() or scr or 1,
             icon    = cal.icon,
             timeout = type(seconds) == "number" and seconds or cal.notification_preset.timeout or 5

@@ -38,8 +38,8 @@ asyncshell = awesompd.try_require("asyncshell")
 local jamendo = awesompd.try_require("jamendo")
 
 -- Constants
-awesompd.PLAYING = "Проигрывается"
-awesompd.PAUSED = "Пауза"
+awesompd.PLAYING = "Playing"
+awesompd.PAUSED = "Paused"
 awesompd.STOPPED = "<span rise='1200' font='Visitor TT2 BRK 10' color='#e54c62'>Stopped</span>"
 awesompd.DISCONNECTED = "<span rise='1200' font='Visitor TT2 BRK 10' color='#e54c62'>music</span>"
 
@@ -226,7 +226,7 @@ function awesompd:create()
    instance.jamendo_format = awesompd.FORMAT_MP3
    instance.show_album_cover = true
    instance.album_cover_size = 50
-   instance.browser = "chromium"
+   instance.browser = "google-chrome-stable"
    instance.bg_noti = beautiful.border_normal
    
 -- Widget configuration
@@ -481,11 +481,11 @@ function awesompd:command_show_menu()
          then 
             self:check_list() 
             self:check_playlists()
-            local jamendo_menu = { { "Искать по:", 
-                                     { { "100 лучших", self:menu_jamendo_top() },
-                                       { "Исполнитель", self:menu_jamendo_search_by(jamendo.SEARCH_ARTIST) },
-                                       { "Альбом", self:menu_jamendo_search_by(jamendo.SEARCH_ALBUM) },
-                                       { "Тэг", self:menu_jamendo_search_by(jamendo.SEARCH_TAG) }}} }
+            local jamendo_menu = { { "Search by:", 
+                                     { { "Top 100", self:menu_jamendo_top() },
+                                       { "Artist", self:menu_jamendo_search_by(jamendo.SEARCH_ARTIST) },
+                                       { "Album", self:menu_jamendo_search_by(jamendo.SEARCH_ALBUM) },
+                                       { "Tag", self:menu_jamendo_search_by(jamendo.SEARCH_TAG) }}} }
             local browse_menu = self:menu_jamendo_browse()
             if browse_menu then 
                table.insert(jamendo_menu, browse_menu)
@@ -493,14 +493,14 @@ function awesompd:command_show_menu()
             table.insert(jamendo_menu, self:menu_jamendo_format())
             table.insert(jamendo_menu, self:menu_jamendo_order())
 
-            new_menu = { { "Состояние", self:menu_playback() },
-                         { "Опции", self:menu_options() },
-                         { "Текущий список", self:menu_list() },
-                         { "Плейлисты", self:menu_playlists() },
+            new_menu = { { "State", self:menu_playback() },
+                         { "Options", self:menu_options() },
+                         { "Current playlist", self:menu_list() },
+                         { "Playlists", self:menu_playlists() },
                          { "Jamendo", jamendo_menu } }
          end 
-         table.insert(new_menu, { "Сервера", self:menu_servers() }) 
-         self.main_menu = awful.menu({ items = new_menu, theme = { width = 150 },
+         table.insert(new_menu, { "Servers", self:menu_servers() }) 
+         self.main_menu = awful.menu({ items = new_menu, theme = { width = 300 },
       properties = { border_width = 5,
                      border_color = "[5]#31363B",
                      opacity = 1 }
@@ -534,13 +534,13 @@ end
 function awesompd:menu_playback()
    if self.recreate_playback then
       local new_menu = {}
-      table.insert(new_menu, { "Пуск\\Пауза", 
+      table.insert(new_menu, { "Play\\Pause", 
                                self:command_toggle(), 
                                self.ICONS.PLAY_PAUSE })
       if self:playing_or_paused() then
          if self.list_array and self.list_array[self.current_number-1] then
             table.insert(new_menu, 
-                         { "Предыдущая: " .. 
+                         { "Prev: " .. 
                            awesompd.protect_string(jamendo.replace_link(
                                                       self.list_array[self.current_number - 1]),
                                                    true),
@@ -548,16 +548,16 @@ function awesompd:menu_playback()
          end
          if self.list_array and self.current_number ~= #self.list_array then
             table.insert(new_menu, 
-                         { "Следующая: " .. 
+                         { "Next: " .. 
                            awesompd.protect_string(jamendo.replace_link(
                                                       self.list_array[self.current_number + 1]), 
                                                    true), 
                         self:command_next_track(), self.ICONS.NEXT })
          end
-         table.insert(new_menu, { "Стоп", self:command_stop(), self.ICONS.STOP })
+         table.insert(new_menu, { "Stop", self:command_stop(), self.ICONS.STOP })
          table.insert(new_menu, { "", nil })
       end
-      table.insert(new_menu, { "Очистить плейлист", self:command_clear_playlist() })
+      table.insert(new_menu, { "Wipe playlist", self:command_clear_playlist() })
       self.recreate_playback = false
       playback_menu = new_menu
    end
@@ -593,13 +593,13 @@ function awesompd:menu_playlists()
       if #self.playlists_array > 0 then
 	 for i = 1, #self.playlists_array do
 	    local submenu = {}
-	    submenu[1] = { "Добавить к текущему", self:command_load_playlist(self.playlists_array[i]) }
-	    submenu[2] = { "Заменить текущий", self:command_replace_playlist(self.playlists_array[i]) }
+	    submenu[1] = { "Insert into current", self:command_load_playlist(self.playlists_array[i]) }
+	    submenu[2] = { "Replace current", self:command_replace_playlist(self.playlists_array[i]) }
 	    new_menu[i] = { self.playlists_array[i], submenu }
 	 end
 	 table.insert(new_menu, {"", ""}) -- This is a separator
       end
-      table.insert(new_menu, { "Обновить", function() self:check_playlists() end })
+      table.insert(new_menu, { "Refresh", function() self:check_playlists() end })
       self.recreate_playlists = false
       self.playlists_menu = new_menu
    end
@@ -611,8 +611,8 @@ function awesompd:menu_servers()
    if self.recreate_servers then
       local new_menu = {}
       for i = 1, #self.servers do
-	 table.insert(new_menu, {"Сервер: " .. self.servers[i].server .. 
-				 ", порт: " .. self.servers[i].port,
+	 table.insert(new_menu, {"Server: " .. self.servers[i].server .. 
+				 ", port: " .. self.servers[i].port,
 			      function() self:change_server(i) end,
                               self:menu_item_radio(i == self.current_server)})
       end
@@ -624,13 +624,13 @@ end
 -- Returns the options menu. Menu works like checkboxes for it's elements.
 function awesompd:menu_options()
    if self.recreate_options then 
-      local new_menu = { { "Повтор", self:menu_toggle_repeat(), 
+      local new_menu = { { "Repeat", self:menu_toggle_repeat(), 
                            self:menu_item_toggle(self.state_repeat == "+")},
-                         { "Случайная", self:menu_toggle_random(), 
+                         { "Random", self:menu_toggle_random(), 
                            self:menu_item_toggle(self.state_random == "+")},
-                         { "Одиночная", self:menu_toggle_single(), 
+                         { "Single", self:menu_toggle_single(), 
                            self:menu_item_toggle(self.state_single == "+")},
-                         { "Поглощать", self:menu_toggle_consume(), 
+                         { "Consume", self:menu_toggle_consume(), 
                            self:menu_item_toggle(self.state_consume == "+")} }
       self.options_menu = new_menu
       self.recreate_options = false      
@@ -671,12 +671,12 @@ function awesompd:menu_jamendo_top()
    function ()
       local track_table = jamendo.return_track_table()
       if not track_table then
-         self:show_notification("Не выходит подключиться к Jamendo", "Проверь соединение с интернетом",nil,1)
+         self:show_notification("Can't connect to Jamendo", "Check your internet connection",nil,1)
       else
          self:add_jamendo_tracks(track_table)
-         self:show_notification("100 лучших на Jamendo по " ..
+         self:show_notification("Top 100 on Jamendo as " ..
                                 jamendo.current_request_table.params.order.short_display,
-                                format("Добавлено %s трэков в плейлист",
+                                format("Inserted %s track(s) into playlist",
                                        #track_table),nil,1)
       end
    end
@@ -706,7 +706,7 @@ function awesompd:menu_jamendo_format()
       end
       self.recreate_jamendo_formats = false
       self.jamendo_formats_menu = { 
-         "Формат: " ..
+         "Format: " ..
             jamendo.current_request_table.params.streamencoding.short_display,
          new_menu }
    end
@@ -982,12 +982,12 @@ function awesompd:check_notify()
 end
 
 function awesompd:notify_connect()
-   self:show_notification("Соединён", "Установлено соединение с " .. self.servers[self.current_server].server ..
+   self:show_notification("Connected", "Connection established to " .. self.servers[self.current_server].server ..
 		 " on port " .. self.servers[self.current_server].port,nil,1)
 end
 
 function awesompd:notify_disconnect()
-   self:show_notification("Разъединён", "Не выходит подключиться к " .. self.servers[self.current_server].server ..
+   self:show_notification("Disconnected", "Cannot connect to " .. self.servers[self.current_server].server ..
 		 " по порту " .. self.servers[self.current_server].port,nil,1)
 end
 

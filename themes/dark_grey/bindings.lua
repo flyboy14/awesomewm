@@ -309,8 +309,8 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
       function (c)
         return awful.rules.match(c, {class = 'Skype'})
       end
-      awful.client.run_or_raise("ghetto-skype", matcher)
-      --set_cursor_in_middle_of_focused_client()
+      awful.client.run_or_raise("skypeforlinux", matcher)
+      set_cursor_in_middle_of_focused_client()
     end
   ),
 
@@ -411,7 +411,7 @@ clientkeys = awful.util.table.join(
           c.immobilized = false
         end),
   awful.key({ modkey,           }, "o",      awful.client.togglemarked),
-  awful.key({modkey,            }, "s",      function (c) c.sticky = not c.sticky end),
+--  awful.key({modkey,            }, "s",      function (c) c.sticky = not c.sticky end),
   awful.key({ modkey,           }, "x",      
     function (c)
           c.maximized_horizontal = not c.maximized_horizontal
