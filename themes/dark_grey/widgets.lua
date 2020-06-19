@@ -1,6 +1,5 @@
 require("themes/dark_grey/vars")
 
-
 -- Memory widget
 --memwidget = wibox.widget.textbox()
 memicon = wibox.widget.imagebox()
@@ -12,9 +11,9 @@ memwidget = lain.widgets.mem({
     function()
       local color = grey
       local mem = math.floor(mem_now.used)
-      if mem < 1000 then color = green_color 
-      elseif mem < 4000 then color = yellow_color
-      elseif mem < 6000 then color = orange_color
+      if mem < 4000 then color = green_color 
+      elseif mem < 10000 then color = yellow_color
+      elseif mem < 14000 then color = orange_color
       else color = red_color
       end
       widget:set_markup(markup(color, "<span color='"..grey_color.."' font='Visitor TT2 BRK 10'>RAM </span><span font='Visitor TT2 BRK 10'>"..mem.."MB </span>"))
@@ -37,9 +36,10 @@ batwidget = lain.widgets.bat({
       local time = bat_now.time
       local status = bat_now.status
       local time_color = green_color
-      --if (batstate() == 'Cable plugged') then
---     baticon:set_image(beautiful.widget_ac)
---     return '<span font="Visitor TT2 BRK 10" color="#46A8C3">AC </span>'
+      -- if (batstate() == 'Cable plugged') then
+      --   baticon:set_image(beautiful.widget_ac)
+      --   return '<span font="Visitor TT2 BRK 10" color="#46A8C3">AC </span>'
+      -- end
 --     -- critical
   if (perc <= 7 and state == 'Discharging') then
     baticon:set_image(beautiful.widget_battery_empty)
@@ -159,8 +159,6 @@ tempwidget = lain.widgets.temp({
 })
 
 -- Weather widget
-
-
 
 myweather = lain.widgets.weather({
   city_id = 625144, -- placeholder

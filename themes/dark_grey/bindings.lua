@@ -1,4 +1,6 @@
 local shifty = require("shifty")
+-- local quake = lain.util.quake { app = "tilix" }
+
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
   awful.button({ }, 1,
@@ -56,7 +58,7 @@ root.buttons(awful.util.table.join(
     -- Set client on top
     e = function ()
         awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to RU </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          { prompt = "<span font='Visitor TT2 BRK 10' rise='1000' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' rise='1000' color='" .. white .. "'> to RU </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
           mypromptbox[mouse.screen.index].widget,
           function (expr)
               awful.util.spawn_with_shell(translate_e_r .. " \"" .. expr .. "\"")
@@ -68,7 +70,7 @@ root.buttons(awful.util.table.join(
     -- Redraw the client
     r = function ()
         awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> to EN </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          { prompt = "<span font='Visitor TT2 BRK 10' rise='1000' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' rise='1000' color='" .. white .. "'> to EN </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
           mypromptbox[mouse.screen.index].widget,
           function (expr)
               awful.util.spawn_with_shell(translate_r_e .. " \"" .. expr .. "\"")
@@ -139,11 +141,11 @@ globalkeys = awful.util.table.join(
                   function ()
                       shifty.send_next()
                   end),
-  awful.key({modkey}, "Down", function () shifty.add() end),--awful.tag.viewonly(shifty.getpos(9)) end),
+  awful.key({modkey}, "Down", function () shifty.add({name = "fresh"}) end),--awful.tag.viewonly(shifty.getpos(9)) end),
   awful.key({modkey, "Control"}, "n",
             function() shifty.add({ nopopup = true }) end
             ),
-awful.key({modkey}, "Up", shifty.rename),
+awful.key({modkey}, "Up", function () shifty.rename() end),
 awful.key({modkey}, "d", shifty.del),
 
 --awful.key({ modkey, "Control" }, "l", function () if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end awful.tag.incmwfact(+0.01) awful.tag.incmwfact(0.01) end),
@@ -238,8 +240,8 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
   awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn_with_shell(vol_down) end),
   awful.key({ modkey }, "m", function () awful.util.spawn_with_shell(vol_mute) end),
   --awful.key({ modkey }, "Control","m", function () awful.util.spawn_with_shell(vol_mute) end),
-  awful.key({ modkey,           }, "p",     function () awful.tag.incmwfact( 0.05)    end),
-  awful.key({ modkey,  "Control"         }, "p",     function () awful.tag.incmwfact( -0.05)    end),
+  -- awful.key({ modkey,           }, "p",     function () awful.tag.incmwfact( 0.05)    end),
+  -- awful.key({ modkey,  "Control"         }, "p",     function () awful.tag.incmwfact( -0.05)    end),
   --awful.key({ modkey,           }, beautiful.mycolor,     function () awful.tag.incmwfact(-0.05)    end),
   awful.key({ modkey, "Shift"   }, "h",     function () awful.tag.incnmaster( 1)      end),
   awful.key({ modkey, "Shift"   }, "l",     function () awful.tag.incnmaster(-1)      end),
@@ -339,7 +341,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
   awful.key({ alt, }, "F2",
     function ()
       awful.prompt.run(
-        {prompt="<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'> " .. "> </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+        {prompt="<span font='Visitor TT2 BRK 10' rise='1000' color='" .. green_color .. "'> ~ </span><span font='Visitor TT2 BRK 10' rise='1000' color='" .. white .. "'> " .. ": </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
         mypromptbox[mouse.screen.index].widget,
         check_for_terminal,
         clean_for_completion,
@@ -349,7 +351,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
   ),
   awful.key({ modkey }, "F2",
     function ()
-      awful.prompt.run({ prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~</span><span color='" .. white .. "'>" .. " >> </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+      awful.prompt.run({ prompt = "<span font='Visitor TT2 BRK 10' rise='1000' color='" .. red_color .. "'> ~ </span><span font='Visitor TT2 BRK 10' rise='1000' color='" .. white .. "'> " .. ": </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
         mypromptbox[mouse.screen.index].widget,
         awful.util.eval,
         nil,
@@ -362,10 +364,20 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
       awful.util.spawn_with_shell(translate_e_r .. " \"$(xsel -o)\"")
     end
   ),
+  awful.key({ modkey, "Shift" }, "F3",
+    function ()
+      awful.util.spawn_with_shell(translate_r_e .. " \"$(xsel -o)\"")
+    end
+  ),
+  awful.key({ modkey }, "F1",
+    function ()
+      awful.util.spawn_with_shell(ltrans .. " $(xsel -o)")
+    end
+  ),
   awful.key({ modkey            }, "c",
     function ()
         awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' color='" .. white .. "'> calculate </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          { prompt = "<span font='Visitor TT2 BRK 10' rise='1000' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' rise='1000' color='" .. white .. "'> calculate </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
           mypromptbox[mouse.screen.index].widget,
           function (expr)
               local result = awful.util.eval("return (" .. expr .. ")")
@@ -438,8 +450,7 @@ clientkeys = awful.util.table.join(
   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
   awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
   awful.key({ alt,              }, "Escape", function (c) c.minimized = true end),
-  awful.key({ alt,              }, "z", function (c) c.minimized = true end),
-  awful.key({ modkey,              }, "z", function (c) c.minimized = true end),
+  -- awful.key({ modkey, }, "z", function () quake:toggle() end),
   awful.key({ modkey,           }, "Escape", function (c)
     local tag = awful.tag.selected()
     for i=1, #tag:clients() do

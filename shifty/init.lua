@@ -100,7 +100,7 @@ end
 --@param no_selectall:
 function shifty.rename(tag, prefix, no_selectall)
     local theme = beautiful.get()
-    local t = tag or awful.tag.selected(capi.mouse.screen.index)
+    local t = tag or awful.tag.selected()
 
     if t == nil then return end
 

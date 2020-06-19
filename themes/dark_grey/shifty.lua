@@ -151,7 +151,8 @@ shifty.config.apps = {
             "Eclipse", 
             "draftsight",
             "Linuxdcpp",
-            "Anydesk"
+            "Anydesk",
+            "NeoLoad"
         },
         tag = "ide",
         ontop = false
@@ -182,6 +183,7 @@ shifty.config.apps = {
     {
         match = {
             "Wine", 
+            "Lutris",
             "Steam",
             "dota2",
             class = {".exe", 
@@ -203,7 +205,8 @@ shifty.config.apps = {
             "Pidgin",
             "Telegram", 
             "Zoom",
-            "Discord"
+            "Discord",
+            "Jitsi Meet"
         },
         tag = "im",
         minimized = true
