@@ -16,7 +16,7 @@ memwidget = lain.widgets.mem({
       elseif mem < 14000 then color = orange_color
       else color = red_color
       end
-      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='Visitor TT2 BRK 10'>RAM </span><span font='Visitor TT2 BRK 10'>"..mem.."MB </span>"))
+      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='"..font_wibox.."'>RAM </span><span font='"..font_wibox.."'>"..mem.."MB </span>"))
     end
 })
 
@@ -38,7 +38,7 @@ batwidget = lain.widgets.bat({
       local time_color = green_color
       -- if (batstate() == 'Cable plugged') then
       --   baticon:set_image(beautiful.widget_ac)
-      --   return '<span font="Visitor TT2 BRK 10" color="#46A8C3">AC </span>'
+      --   return '<span font="'..font_wibox..'" color="#46A8C3">AC </span>'
       -- end
 --     -- critical
   if (perc <= 7 and state == 'Discharging') then
@@ -58,15 +58,15 @@ batwidget = lain.widgets.bat({
   end
       if status == "Discharging" then
         time_color = red_color
-        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">↓ <span rise="1" font="Visitor TT2 BRK 10">'..time..'</span></span>'
+        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">↓ <span rise="1" font="'..font_wibox..'">'..time..'</span></span>'
       elseif status == "Charging" and perc ~= 100 then
         time_color = green_color
-        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">↑ <span rise="1" font="Visitor TT2 BRK 10">'..time..'</span></span>'
+        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">↑ <span rise="1" font="'..font_wibox..'">'..time..'</span></span>'
       else
         time_color = blue_color
-        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">⚡ <span rise="400" font="Visitor TT2 BRK 10">full</span></span>'
+        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">⚡ <span rise="400" font="'..font_wibox..'">full</span></span>'
       end
-      widget:set_markup(markup(color, time..'<span font="Visitor TT2 BRK 10">p'..perc..' </span>'))
+      widget:set_markup(markup(color, time..'<span font="'..font_wibox..'">p'..perc..' </span>'))
     end
 })
 
@@ -94,7 +94,7 @@ kbdwidget = wibox.widget.textbox()
 -- kbdwidget.border_width = 1
 -- kbdwidget.border_color = beautiful.fg_normal
 kbdwidget.align="center"
-kbdwidget:set_markup("<span font='Visitor TT2 BRK 10' color='#aeaeae'>en-us</span>")
+kbdwidget:set_markup("<span font='"..font_wibox.."' color='#aeaeae'>en-us</span>")
 --kbdwidget.bg_image = image (kbd_img_path .. "us.png")
 kbdwidget.bg_align = "center"
 --kbdwidget.bg_resize = true
@@ -114,7 +114,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
   local layout = data[2]
   lts = {[0] = "en-us", [1] = "ru-ru"}
   --lts_img = {[0] = kbd_img_path .. "us.png", [1] = kbd_img_path .. "ru.png", [2] = kbd_img_path .. "il.png", [3] = kbd_img_path .. "de.png" }
-  kbdwidget:set_markup("<span font='Visitor TT2 BRK 10' color='#aeaeae'>"..lts[layout].."</span>")
+  kbdwidget:set_markup("<span font='"..font_wibox.."' color='#aeaeae'>"..lts[layout].."</span>")
   --kbdwidget.bg_image = image(lts_img[layout])
   end)
 -- }}}
@@ -135,7 +135,7 @@ cpuwidget = lain.widgets.cpu({
       elseif cpu < 75 then color = orange_color
       else color = red_color
       end
-      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='Visitor TT2 BRK 10'>CPU </span><span font='Visitor TT2 BRK 10'>"..cpu.."% </span>"))
+      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='"..font_wibox.."'>CPU </span><span font='"..font_wibox.."'>"..cpu.."% </span>"))
     end
 })
 
@@ -154,7 +154,7 @@ tempwidget = lain.widgets.temp({
       elseif temp < 75 then color = orange_color
       else color = red_color
       end
-      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='Visitor TT2 BRK 10'></span><span font='Visitor TT2 BRK 10'>"..temp.."°C </span>"))
+      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='"..font_wibox.."'>"..temp.."°C </span>"))
     end
 })
 
@@ -163,6 +163,7 @@ tempwidget = lain.widgets.temp({
 myweather = lain.widgets.weather({
   city_id = 625144, -- placeholder
   lang = "en",
+  w_notification_preset = { font = font_main },
   appid = "1830df4055002d2fac6351616ee174d9",
   settings =
     function()
@@ -182,7 +183,7 @@ myweather = lain.widgets.weather({
       end
       widget:set_markup(markup(
         unitscolor,
-        "<span font='Visitor TT2 BRK 10'><span color='#9e9e9e'>" .. descr .. "</span> " .. units .. "°C</span>"
+        "<span font='"..font_wibox.."'><span color='#9e9e9e'>" .. descr .. "</span> " .. units .. "°C</span>"
       ))
     end
 })
@@ -236,11 +237,11 @@ vicious.register(
 
     else
       volicon:set_image(beautiful.widget_vol_mute)
-    return '<span font="Visitor TT2 BRK 10" color="'..volcolor..'">p' .. args[1] .. '<span color="'..red_color..'">m  </span></span>'
-    --return '<span font="Visitor TT2 BRK 10" color="#e54c62">muted<span font="Visitor TT2 BRK 10" color="#aeaeae">'.. args[3] ..'</span><span color="#aeaeae">%</span></span>'
+    return '<span font="'..font_wibox..'" color="'..volcolor..'">p' .. args[1] .. '<span color="'..red_color..'">m  </span></span>'
+    --return '<span font="'..font_wibox..'" color="#e54c62">muted<span font="'..font_wibox..'" color="#aeaeae">'.. args[3] ..'</span><span color="#aeaeae">%</span></span>'
     end
-    return '<span font="Visitor TT2 BRK 10" color="'..volcolor..'">p' .. args[1] .. '  </span>'
-      --return '<span font="Visitor TT2 BRK 10" color="#aeaeae">' .. args[3] ..'<span font="Visitor TT2 BRK 10">%</span></span>'
+    return '<span font="'..font_wibox..'" color="'..volcolor..'">p' .. args[1] .. '  </span>'
+      --return '<span font="'..font_wibox..'" color="#aeaeae">' .. args[3] ..'<span font="'..font_wibox..'">%</span></span>'
   end,
   1,
   "Master"
@@ -257,8 +258,8 @@ netupinfo = lain.widgets.net({
   settings =
   function()
     myinterface = iface
-    widget:set_markup(markup(green_color, "<span font='Visitor TT2 BRK 10'>" .. net_now.received .. " </span>"))
-    netdowninfo:set_markup(markup(blue_color, "<span font='Visitor TT2 BRK 10'>" .. net_now.sent .. " </span>"))
+    widget:set_markup(markup(green_color, "<span font='"..font_wibox.."'>" .. net_now.received .. " </span>"))
+    netdowninfo:set_markup(markup(blue_color, "<span font='"..font_wibox.."'>" .. net_now.sent .. " </span>"))
   end
 })
 
@@ -289,7 +290,7 @@ vicious.register(
     wireless_name = args['{ssid}']
     myweather.forecast_update()
     myweather.update()
-    return '<span font="Visitor TT2 BRK 10" color="#aeaeae"> ' .. wireless_name .. '</span>'
+    return '<span font="'..font_wibox..'" color="#aeaeae"> ' .. wireless_name .. '</span>'
   end,
   2,
   myinterface
@@ -297,7 +298,7 @@ vicious.register(
 
 
 -- Separators
-face = wibox.widget.textbox('<span color="'..red_color..'" font="Visitor TT2 BRK 10">//\\(o.o_)/\\\\</span>')
+face = wibox.widget.textbox('<span color="'..red_color..'" font="'..font_wibox..'">//\\(o.o_)/\\\\</span>')
 
 face:buttons(awful.util.table.join(
   awful.button({ }, 3,
@@ -334,10 +335,10 @@ face:connect_signal("mouse::leave",
 bral = wibox.widget.textbox('<span color="#aeaeae"> </span>')
 brar = wibox.widget.textbox('<span color="#aeaeae">> </span>')
 spr = wibox.widget.textbox(' ')
-arrows = wibox.widget.textbox('<span color="#aeaeae" font="Sans 6">' .. '↓↑   ' .. '</span>')
+arrows = wibox.widget.textbox('<span color="#aeaeae" font="Ubuntu 8">' .. '↓↑   ' .. '</span>')
 
-sepl = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> tasks ></span>')
-sepr = wibox.widget.textbox('<span color="#aeaeae" font="Visitor TT2 BRK 10"> > systray </span>')
+sepl = wibox.widget.textbox('<span color="#aeaeae" font="'..font_wibox..'"> tasks ></span>')
+sepr = wibox.widget.textbox('<span color="#aeaeae" font="'..font_wibox..'"> > systray </span>')
 arrl = wibox.widget.imagebox()
 arrl:set_image(beautiful.arrl)
 
@@ -348,14 +349,14 @@ gf = my_launcher({ image = beautiful.gf, command = terminal })
 -- Create a textclock widget
 clockicon = wibox.widget.imagebox()
 clockicon:set_image(beautiful.widget_clock)
-mytextclock = awful.widget.textclock("<span font='Visitor TT2 BRK 10' color='#aeaeae'>%I%M </span>")
+mytextclock = awful.widget.textclock("<span font='"..font_wibox.."' color='#aeaeae'>%I%M </span>")
 
 -- Calendar
 
 mycal = lain.widgets.cal {
     attach_to = { mytextclock, clockicon },
     notification_preset = {
-      font = "Monospace 9", 
+      font = font_main, 
       fg = "#bebebe",
       bg = "#1f1f1f"
     }
