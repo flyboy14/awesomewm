@@ -40,8 +40,8 @@ local jamendo = awesompd.try_require("jamendo")
 -- Constants
 awesompd.PLAYING = "Playing"
 awesompd.PAUSED = "Paused"
-awesompd.STOPPED = "<span rise='1200' font='Visitor TT2 BRK 10' color='#e54c62'>Stopped</span>"
-awesompd.DISCONNECTED = "<span rise='1200' font='Visitor TT2 BRK 10' color='#e54c62'>music</span>"
+awesompd.STOPPED = "<span font='Gameover 12' color='#e54c62'>Stopped</span>"
+awesompd.DISCONNECTED = "<span font='Gameover 12' color='#e54c62'>music</span>"
 
 awesompd.MOUSE_LEFT = 1
 awesompd.MOUSE_MIDDLE = 2

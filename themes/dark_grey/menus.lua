@@ -7,11 +7,6 @@ mmyawesomemenu = {
     { " quit", "pkill -9 awesome", iconsdir .. "/media-no.svg" }
 }
 
-myvirtualmenu = {
-  { "vboxdrv", "gksu modprobe vboxdrv", "/home/pchyolki/.config/awesome/icons/comicdee/driver.svg" },
-  { "CentOS 7", "vboxmanage startvm centos --type headless", "/home/pchyolki/.config/awesome/icons/comicdee/cuteball-windows.png" },
-}
-
 myworkspacemenu = {
     { "Home",
     function ()
@@ -138,7 +133,6 @@ mytaskmenu = awful.menu({ items = {
 mymainmenu = awful.menu({ items = {
                                     { "Apps", xdgmenu },
                                     { "Regenerate menu", scripts .. "/menu_gen.sh"},
-                                    {"  LeagueOfLegends", "snap run leagueoflegends", iconsdir .. "/lol.png"},
                                     --{ "Worker", "worker" },
                                     { "  Wallpaper", "nitrogen", iconsdir .. "/greylink-dc.png" }
                                   }

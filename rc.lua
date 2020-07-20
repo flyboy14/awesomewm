@@ -76,11 +76,10 @@ color_systray()
   run_once("telegram-desktop")
   run_once("slack", "slack -us")
   run_once_ifnot("xbanish", "xbanish -bt4000")
-  run_once("blueberry")
   run_once("udiskie", "udiskie -as")
-  run_once_ifnot("picom", "picom --shadow-blue 0.05 -cGz -r 9 -t -8 -l -8 -D 5 -I 1 -O 1 --xrender-sync-fence" )
-  ----inactive-dim 0.35 
-  --"xcowsay 'Moo, brother, moo.'"
+  run_once("blueman", "blueman-applet")
+  run_once_ifnot("picom", "picom --shadow-blue 0.05 -z -r 11 -t -8 -l -8 -D 5 -I 1 -O 1 --xrender-sync-fence --use-ewmh-active-win --backend xrender" )
+  ----inactive-dim 0.35 --inactive-dim-fixed
 -- }}}
 
 --awesompd

@@ -2,7 +2,7 @@ require("themes/dark_grey/vars")
 
 -- Memory widget
 --memwidget = wibox.widget.textbox()
-memicon = wibox.widget.imagebox()
+memicon = wibox.widget.imagebox(nil, false)
 memicon:set_image(beautiful.widget_mem)
 
 memwidget = lain.widgets.mem({
@@ -16,7 +16,7 @@ memwidget = lain.widgets.mem({
       elseif mem < 14000 then color = orange_color
       else color = red_color
       end
-      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='"..font_wibox.."'>RAM </span><span font='"..font_wibox.."'>"..mem.."MB </span>"))
+      widget:set_markup(markup(color, "<span rise='-15000' color='"..blue_color.."' font='"..font_wibox.."'>RAM </span><span rise='-15000' font='"..font_wibox.."'>"..mem.."mb </span>"))
     end
 })
 
@@ -24,7 +24,7 @@ memwidget = lain.widgets.mem({
 
 
 
-baticon = wibox.widget.imagebox()
+baticon = wibox.widget.imagebox(nil, false)
 baticon:set_image(beautiful.widget_battery)
 batwidget = lain.widgets.bat({
   timeout = 3,
@@ -58,15 +58,12 @@ batwidget = lain.widgets.bat({
   end
       if status == "Discharging" then
         time_color = red_color
-        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">↓ <span rise="1" font="'..font_wibox..'">'..time..'</span></span>'
       elseif status == "Charging" and perc ~= 100 then
         time_color = green_color
-        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">↑ <span rise="1" font="'..font_wibox..'">'..time..'</span></span>'
       else
         time_color = blue_color
-        time = '<span font="Tomorrow 8" rise="-1000" color="'..time_color..'">⚡ <span rise="400" font="'..font_wibox..'">full</span></span>'
       end
-      widget:set_markup(markup(color, time..'<span font="'..font_wibox..'">p'..perc..' </span>'))
+      widget:set_markup(markup(color, '<span rise="-15000" font="'..font_wibox..'" color="'..time_color..'">'..perc..'%</span>'))
     end
 })
 
@@ -94,7 +91,7 @@ kbdwidget = wibox.widget.textbox()
 -- kbdwidget.border_width = 1
 -- kbdwidget.border_color = beautiful.fg_normal
 kbdwidget.align="center"
-kbdwidget:set_markup("<span font='"..font_wibox.."' color='#aeaeae'>en-us</span>")
+kbdwidget:set_markup("<span rise='-15000' font='"..font_wibox.."' color='#aeaeae'>en-us</span>")
 --kbdwidget.bg_image = image (kbd_img_path .. "us.png")
 kbdwidget.bg_align = "center"
 --kbdwidget.bg_resize = true
@@ -114,7 +111,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
   local layout = data[2]
   lts = {[0] = "en-us", [1] = "ru-ru"}
   --lts_img = {[0] = kbd_img_path .. "us.png", [1] = kbd_img_path .. "ru.png", [2] = kbd_img_path .. "il.png", [3] = kbd_img_path .. "de.png" }
-  kbdwidget:set_markup("<span font='"..font_wibox.."' color='#aeaeae'>"..lts[layout].."</span>")
+  kbdwidget:set_markup("<span rise='-15000' font='"..font_wibox.."' color='#aeaeae'>"..lts[layout].."</span>")
   --kbdwidget.bg_image = image(lts_img[layout])
   end)
 -- }}}
@@ -122,7 +119,7 @@ dbus.connect_signal("ru.gentoo.kbdd", function(...)
 
 -- CPU widget
 
-cpuicon = wibox.widget.imagebox()
+cpuicon = wibox.widget.imagebox(nil, false)
 cpuicon:set_image(beautiful.widget_cpu)
 cpuwidget = lain.widgets.cpu({
   timeout = 3,
@@ -135,13 +132,13 @@ cpuwidget = lain.widgets.cpu({
       elseif cpu < 75 then color = orange_color
       else color = red_color
       end
-      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='"..font_wibox.."'>CPU </span><span font='"..font_wibox.."'>"..cpu.."% </span>"))
+      widget:set_markup(markup(color, "<span rise='-15000' color='"..blue_color.."' font='"..font_wibox.."'>CPU </span><span rise='-15000' font='"..font_wibox.."'>"..cpu.."% </span>"))
     end
 })
 
 -- Temp widget
 
-tempicon = wibox.widget.imagebox()
+tempicon = wibox.widget.imagebox(nil, false)
 tempicon:set_image(beautiful.widget_temp)
 tempwidget = lain.widgets.temp({
   timeout = 5,
@@ -154,7 +151,7 @@ tempwidget = lain.widgets.temp({
       elseif temp < 75 then color = orange_color
       else color = red_color
       end
-      widget:set_markup(markup(color, "<span color='"..grey_color.."' font='"..font_wibox.."'>"..temp.."°C </span>"))
+      widget:set_markup(markup(color, "<span rise='-16000' font='"..font_wibox.."'>"..temp.."°c </span>"))
     end
 })
 
@@ -183,22 +180,25 @@ myweather = lain.widgets.weather({
       end
       widget:set_markup(markup(
         unitscolor,
-        "<span font='"..font_wibox.."'><span color='#9e9e9e'>" .. descr .. "</span> " .. units .. "°C</span>"
+        "<span rise='-16000' font='"..font_wibox.."'><span color='#9e9e9e'>" .. descr .. "</span> " .. units .. "°c</span>"
       ))
     end
 })
 
-weathericon = my_launcher({
-  image = beautiful.widget_weather,
-  command = "echo 'myweather.update()'|awesome-client"
-})
+weathericon = wibox.widget.imagebox(beautiful.widget_weather, false)
+-- my_launcher({
+--   image = beautiful.widget_weather,
+--   command = "echo 'myweather.update()'|awesome-client",
+-- })
 
 --Volume widget
 
-volicon = my_launcher({
-  image = beautiful.widget_vol_hi,
-  command = vol_mute
-})
+volicon = wibox.widget.imagebox(beautiful.widget_vol_no, false)
+
+-- volicon = my_launcher({
+--   image = beautiful.widget_vol_hi,
+--   command = vol_mute
+-- })
 
 volumewidget = wibox.widget.textbox()
 volumewidget:buttons(awful.util.table.join(
@@ -237,20 +237,25 @@ vicious.register(
 
     else
       volicon:set_image(beautiful.widget_vol_mute)
-    return '<span font="'..font_wibox..'" color="'..volcolor..'">p' .. args[1] .. '<span color="'..red_color..'">m  </span></span>'
+    return '<span rise="-15000" font="'..font_wibox..'" color="'..volcolor..'">' .. args[1] .. '<span color="'..red_color..'">M </span></span>'
     --return '<span font="'..font_wibox..'" color="#e54c62">muted<span font="'..font_wibox..'" color="#aeaeae">'.. args[3] ..'</span><span color="#aeaeae">%</span></span>'
     end
-    return '<span font="'..font_wibox..'" color="'..volcolor..'">p' .. args[1] .. '  </span>'
+    return '<span rise="-15000" font="'..font_wibox..'" color="'..volcolor..'">' .. args[1] .. '% </span>'
       --return '<span font="'..font_wibox..'" color="#aeaeae">' .. args[3] ..'<span font="'..font_wibox..'">%</span></span>'
   end,
   1,
   "Master"
 )
 
+volicon:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () awful.util.spawn_with_shell(vol_mute) end)
+))
+
 -- Net widget
 
 netwidget = wibox.widget.textbox()
-neticon = my_launcher({ image = beautiful.widget_net_no, command = "systemctl restart NetworkManager" })
+neticon = wibox.widget.imagebox(beautiful.widget_net_no, false)
+-- neticon = my_launcher({ image = beautiful.widget_net_no, command = "systemctl restart NetworkManager" })
 
 
 netdowninfo = wibox.widget.textbox()
@@ -258,8 +263,8 @@ netupinfo = lain.widgets.net({
   settings =
   function()
     myinterface = iface
-    widget:set_markup(markup(green_color, "<span font='"..font_wibox.."'>" .. net_now.received .. " </span>"))
-    netdowninfo:set_markup(markup(blue_color, "<span font='"..font_wibox.."'>" .. net_now.sent .. " </span>"))
+    widget:set_markup(markup(green_color, "<span rise='-15000' font='"..font_wibox.."'>" .. net_now.received .. "kb/s </span>"))
+    netdowninfo:set_markup(markup(blue_color, "<span rise='-15000' font='"..font_wibox.."'>" .. net_now.sent .. "kb/s </span>"))
   end
 })
 
@@ -271,34 +276,55 @@ vicious.register(
     if myinterface:find("enp") then  -- wired interfaces
       neticon:set_image(beautiful.widget_net_wired)
       inet_on = true
+      return ''
     elseif myinterface:find("wl") then
       if link then
         neticon:set_image(beautiful.widget_net_hi)
+        wireless_name = args['{ssid}']
+        return '<span rise="-15000" font="'..font_wibox..'">' .. wireless_name .. '</span>'
       end
       if link > 65 then
         neticon:set_image(beautiful.widget_net_hi)
+        return '<span rise="-15000" font="'..font_wibox..'">' .. wireless_name .. '</span>'
       elseif link > 30 and link <= 65 then
         neticon:set_image(beautiful.widget_net_mid)
+        return '<span rise="-15000" font="'..font_wibox..'">' .. wireless_name .. '</span>'
       elseif link > 0 and link <= 30 then
         neticon:set_image(beautiful.widget_net_low)
+        return '<span rise="-15000" font="'..font_wibox..'">' .. wireless_name .. '</span>'
       end
       inet_on = true
     else
         neticon:set_image(beautiful.widget_net_no)
         inet_on = false
+        return ''
     end
-    wireless_name = args['{ssid}']
     myweather.forecast_update()
     myweather.update()
-    return '<span font="'..font_wibox..'" color="#aeaeae"> ' .. wireless_name .. '</span>'
   end,
   2,
   myinterface
 )
 
+netwidget:buttons(awful.util.table.join(
+  awful.button({ }, 1,
+    function(c)
+      local f = io.popen("fortune -s")
+      local quote = f:read("*all")
+      f:close()
+      show_smth("Wisdom spider", quote, nil, 0, nil, nil, font_main, "bottom_right")
+      color_systray()
+    end
+  )
+))
+
+neticon:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () awful.util.spawn_with_shell("systemctl restart NetworkManager") end)
+))
+
 
 -- Separators
-face = wibox.widget.textbox('<span color="'..red_color..'" font="'..font_wibox..'">//\\(o.o_)/\\\\</span>')
+face = wibox.widget.textbox('<span color="'..red_color..'" font="Visitor TT2 BRK 10">//\\(o.o )/\\\\</span>')
 
 face:buttons(awful.util.table.join(
   awful.button({ }, 3,
@@ -335,21 +361,40 @@ face:connect_signal("mouse::leave",
 bral = wibox.widget.textbox('<span color="#aeaeae"> </span>')
 brar = wibox.widget.textbox('<span color="#aeaeae">> </span>')
 spr = wibox.widget.textbox(' ')
+spr_huge = wibox.widget.textbox('     ')
 arrows = wibox.widget.textbox('<span color="#aeaeae" font="Ubuntu 8">' .. '↓↑   ' .. '</span>')
 
-sepl = wibox.widget.textbox('<span color="#aeaeae" font="'..font_wibox..'"> tasks ></span>')
-sepr = wibox.widget.textbox('<span color="#aeaeae" font="'..font_wibox..'"> > systray </span>')
-arrl = wibox.widget.imagebox()
+sepl = wibox.widget.textbox('<span color="#aeaeae" font="'..beautiful.taglist_font..'">  tasks  ></span>')
+sepr = wibox.widget.textbox('<span color="#aeaeae" font="'..beautiful.taglist_font..'">   >  systray </span>')
+arrl = wibox.widget.imagebox(nil, false)
 arrl:set_image(beautiful.arrl)
 
-yf = my_launcher({ image = beautiful.yf, command = terminal })
-bf = my_launcher({ image = beautiful.bf, command = "guake -t" })
-gf = my_launcher({ image = beautiful.gf, command = terminal })
+yf = wibox.widget.imagebox(beautiful.yf, false)
+
+yf:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () awful.util.spawn_with_shell("blueman-manager") end)
+))
+
+bf = wibox.widget.imagebox(beautiful.bf, false)
+
+bf:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () awful.util.spawn_with_shell("blueman-manager") end)
+))
+
+gf = wibox.widget.imagebox(beautiful.gf, false)
+
+gf:buttons(awful.util.table.join(
+  awful.button({ }, 1, function () awful.util.spawn_with_shell("blueman-manager") end)
+))
+
+-- yf = my_launcher({ image = beautiful.yf, command = terminal, resize = false })
+-- bf = my_launcher({ image = beautiful.bf, command = "guake -t" })
+-- gf = my_launcher({ image = beautiful.gf, command = terminal })
 
 -- Create a textclock widget
-clockicon = wibox.widget.imagebox()
+clockicon = wibox.widget.imagebox(nil, false)
 clockicon:set_image(beautiful.widget_clock)
-mytextclock = awful.widget.textclock("<span font='"..font_wibox.."' color='#aeaeae'>%I%M </span>")
+mytextclock = awful.widget.textclock("<span rise='-15000' font='"..font_wibox.."' color='#aeaeae'>%I:%M </span>")
 
 -- Calendar
 
@@ -365,7 +410,7 @@ mycal = lain.widgets.cal {
 -- lain.widgets.calendar:attach(clockicon, { font_size = 10 })
 
 musicwidget = awesompd:create() -- Create awesompd widget
-musicwidget.font = "Terminus 9"
+musicwidget.font = beautiful.taglist_font
 musicwidget.font_color = "#e54c62"
 musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
 musicwidget.output_size = 52 -- Set the size of widget in symbols
@@ -399,3 +444,6 @@ musicwidget:register_buttons({
 
 -- Music icon
 mpdicon = my_launcher({ image = beautiful.arrl, command = music })
+
+mysystray = wibox.widget.systray()
+mysystray:set_base_size(16)

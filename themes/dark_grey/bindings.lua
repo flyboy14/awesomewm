@@ -55,10 +55,10 @@ root.buttons(awful.util.table.join(
 }
 
   translate_mode = {
-    -- Set client on top
+
     e = function ()
         awful.prompt.run(
-          { prompt = "<span font='Visitor TT2 BRK 10' rise='1000' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' rise='1000' color='" .. white .. "'> to RU </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
+          { prompt = "<span font='e' rise='1000' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' rise='1000' color='" .. white .. "'> to RU </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
           mypromptbox[mouse.screen.index].widget,
           function (expr)
               awful.util.spawn_with_shell(translate_e_r .. " \"" .. expr .. "\"")
@@ -67,7 +67,7 @@ root.buttons(awful.util.table.join(
           awful.util.getdir("cache") .. "/gtranslate_en"
         )
     end,
-    -- Redraw the client
+
     r = function ()
         awful.prompt.run(
           { prompt = "<span font='Visitor TT2 BRK 10' rise='1000' color='" .. green_color .. "'> ~<span font='Visitor TT2 BRK 10' rise='1000' color='" .. white .. "'> to EN </span>: </span>", fg_cursor=green_color, selectall = not no_selectall, ul_cursor = "single" },
@@ -155,6 +155,7 @@ awful.key({ modkey, "Control" }, "h", function () --if beautiful.useless_gap_wid
 awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end awful.tag.incmwfact(0.01) 
   awful.tag.incmwfact(0.01) end),
 
+  --awful.key({ }, "Caps_Lock", function () awful.util.spawn_with_shell(btswitch) end),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
   awful.key({ modkey,           }, "F8",  
     function() mywibox[mouse.screen.index].visible = not mywibox[mouse.screen.index].visible end       ),
@@ -226,6 +227,8 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
   awful.key({ "Control", modkey        }, "`", function () awful.util.spawn("gksudo " .. fm) end),
   --awful.key({ "Control",           }, "m", function () awful.util.spawn("sonata") end),
   awful.key({ modkey, }, "F5", function () awful.util.spawn_with_shell(lockscreen) end),
+  awful.key({ modkey, }, "F6", function () awful.util.spawn_with_shell(btswitch) end),
+  awful.key({ modkey, }, "F7", function () awful.util.spawn_with_shell(touchpad_toggle) end),
   awful.key({ modkey, "Control" }, "r", awesome.restart),
   awful.key({ modkey }, "p", function () awful.util.spawn_with_shell('keepassxc') end),
 
@@ -291,6 +294,16 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
       end
       awful.client.run_or_raise(browser, matcher)
       --set_cursor_in_middle_of_focused_client()
+    end
+  ),
+
+  awful.key({ modkey }, "z",
+    function ()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = "Telegram"})
+      end
+      awful.client.run_or_raise("telegram-desktop", matcher)
     end
   ),
 
@@ -450,7 +463,6 @@ clientkeys = awful.util.table.join(
   awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end),
   awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
   awful.key({ alt,              }, "Escape", function (c) c.minimized = true end),
-  -- awful.key({ modkey, }, "z", function () quake:toggle() end),
   awful.key({ modkey,           }, "Escape", function (c)
     local tag = awful.tag.selected()
     for i=1, #tag:clients() do

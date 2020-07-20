@@ -24,7 +24,7 @@ orange_color = orange
 red_color = strongred
 blue_color = strongblue
 green_color = stronggreen
-grey_color = strongblue
+grey_color = grey
 -- }}}
 
 modkey = "Mod4"
@@ -42,8 +42,8 @@ wireless_name = ""
 myinterface = ""
 inet_on = false
 wpaper = beautiful.wallpaper
-font_main = "Ubuntu Mono 12"
-font_wibox = "Visitor TT2 BRK 10"
+font_main = "Ubuntu Mono 11"
+font_wibox = "Arcade 11"
 terminal = "tilix"
 browser = "google-chrome-stable"
 editor = "subl3"
@@ -71,6 +71,9 @@ gist_open = scripts .. "/gist_clipboard.sh 1"
 ltrans = scripts .. "/ltrans.sh"
 translate_e_r = scripts .. "/translate.sh ru"
 translate_r_e = scripts .. "/translate.sh en"
+btswitch = home .. "/scripts/btswitch.sh"
+touchpad_toggle = scripts .. "/touchpad_toggle.sh"
+
 tagimage_current = iconsdir .. "/media-record-green.svg"
 tagimage_other = iconsdir .. "/media-record.svg"
 tagico = tagimage_other                                                        

@@ -7,11 +7,10 @@ layouts =
     lain.layout.uselesstile,                  -- 2
     lain.layout.uselesstile.bottom,           -- 3
     lain.layout.uselesspiral,                 -- 4
-    lain.layout.cascade,                      -- 5    
-    lain.layout.termfair,                     -- 6
-    lain.layout.uselesspiral,                 -- 7
-    lain.layout.centerworkd,                  -- 8
-    lain.layout.centerhwork,                  -- 9
+--    lain.layout.cascade,                      -- 5    
+--    lain.layout.termfair,                     -- 6
+--    lain.layout.centerworkd,                  -- 8
+--    lain.layout.centerhwork,                  -- 9
 }
 shifty.config.layouts = layouts
 -- }}}
@@ -22,7 +21,7 @@ shifty.config.tags = {
         rel_index = 1,
     }, 
     home = {
-        layout    = layouts[6],
+        layout    = layouts[4],
         exclusive = false,    
         position  = 1,
         leave_kills = true,
@@ -45,7 +44,7 @@ shifty.config.tags = {
         --spawn       = browser,
     },
     media = {
-        layout    = layouts[6],
+        layout    = layouts[3],
         exclusive = false,
         position  = 5,
     },
@@ -67,7 +66,7 @@ shifty.config.tags = {
         --      leave_kills = true,
     },
     im = {
-        layout   = layouts[7],
+        layout   = layouts[2],
         exclusive = true,
         position = 8,
         mwfact = 0.65,
@@ -136,9 +135,8 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Rawstudio", 
+            "DBeaver", 
             "Audacity", 
-            "Ninja-ide", 
             "Inkscape" ,
             "Gimp", 
             "QtCreator", 
@@ -146,13 +144,11 @@ shifty.config.apps = {
             "Shotcut" ,
             "Openshot", 
             "DraftSight", 
-            "kurs",
             class = {"sun-awt-X11*", "jetbrains-*"},
             "Eclipse", 
             "draftsight",
             "Linuxdcpp",
             "Anydesk",
-            "NeoLoad"
         },
         tag = "ide",
         ontop = false
@@ -165,7 +161,8 @@ shifty.config.apps = {
             "Sonata",
             "Deadbeef",
             "Android*",
-            class = {"baka*"}
+            class = {"baka*"},
+            class = {"Twitch"}
         },
         tag = "media",
     },
@@ -234,7 +231,8 @@ shifty.config.apps = {
             "File-roller",
             "Guake",
             name = {"Developer*", "Copy*", "New*"},
-            role = {"pop-up", "GtkFileChooser*"}
+            role = {"pop-up", "GtkFileChooser*"},
+            "Blueman*"
         },
         ontop = true
     },
@@ -269,7 +267,8 @@ shifty.config.apps = {
             class = {"baka*"},
             name = {"Developer*", "Copy*", "Move*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"},
-            "Blueberry*"
+            "Blueberry*",
+            "Blueman*"
         },
         float = true,
     },
