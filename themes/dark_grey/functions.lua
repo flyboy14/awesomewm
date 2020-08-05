@@ -56,20 +56,6 @@ function revert_colors()
   grey_color = strongblue
 end
 
-function launch_cheeky()
-  local offset = { x = 0, y = 16 }
-
-  if client.focus then
-    offset = screen[client.focus.screen].workarea
-  end
-
-  cheeky.util.switcher({ 
-    coords = { x = offset.x + mywibox[mouse.screen.index].width/2-200, y = offset.y + 10},
-    menu_theme = { height = 20, width = 400 }, 
-    show_tag = true,   
-  })
-end
-
 -- }}}
 function wibox_color()
   local tag = awful.tag.selected()
@@ -82,7 +68,7 @@ function wibox_color()
       end
     end
   end
-  return beautiful.mycolor .. "44"
+  return beautiful.mycolor .. "91"
 end
 
 function is_fullscreen()
@@ -130,52 +116,14 @@ end
 -- }}}
 -- Autorun programs
 
--- function run_once(why, what)
---   if what == nil then
---     what = why
---   end
---   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " || (" .. what .. ")")
--- end
-
--- {{{ Run programm once
-require("lfs") 
-local function processwalker()
-   local function yieldprocess()
-      for dir in lfs.dir("/proc") do
-        -- All directories in /proc containing a number, represent a process
-        if tonumber(dir) ~= nil then
-          local f, err = io.open("/proc/"..dir.."/cmdline")
-          if f then
-            local cmdline = f:read("*all")
-            f:close()
-            if cmdline ~= "" then
-              coroutine.yield(cmdline)
-            end
-          end
-        end
-      end
-    end
-    return coroutine.wrap(yieldprocess)
-end
-
-function run_once(process, cmd)
-   assert(type(process) == "string")
-   local regex_killer = {
-      ["+"]  = "%+", ["-"] = "%-",
-      ["*"]  = "%*", ["?"]  = "%?" }
-
-   for p in processwalker() do
-      if p:find(process:gsub("[-+?*]", regex_killer)) then
-   return
-      end
-   end
-   return awful.util.spawn_with_shell(cmd or process)
-end
 
 function run_once_if(why, what)
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " && (" .. what .. ")")
 end
 function run_once_ifnot(why, what)
+  if what == nil then
+    what = why
+  end
   awful.util.spawn_with_shell("pgrep -u $USER -x " .. why .. " || (" .. what .. ")")
 end
 

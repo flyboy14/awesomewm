@@ -94,7 +94,8 @@ for s = 1, screen.count() do
   --left_layout:add(arrl)
     left_layout:add(mypromptbox[s])
   left_layout:add(mpdicon)
-  left_layout:add(musicwidget.widget)
+  left_layout:add(music)
+  -- left_layout:add(musicwidget.widget)
   left_layout:add(spr)
 
   local left_w = wibox.layout.fixed.horizontal()

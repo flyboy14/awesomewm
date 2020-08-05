@@ -7,11 +7,11 @@ my_launcher = require("launcher_my")
 wibox = require("wibox")
 beautiful = require("beautiful")
 vicious = require("vicious")
-awesompd = require("awesompd/awesompd")
+--awesompd = require("awesompd/awesompd")
 naughty = require("naughty")
 xdg_menu = require("archmenu")
 lain = require("lain")
-require("cheeky")
+--require("cheeky")
 require("awful.autofocus")
 require("themes/dark_grey/vars")
 require("themes/dark_grey/functions")
@@ -63,30 +63,31 @@ do
 end
 
 -- Wallpaper
-set_wallpaper()
+run_once_ifnot("dwall", "dwall -s forest")
+--set_wallpaper()
 color_systray()
 -- }}}
 
 --- {{{ Autorun apps
   run_once_ifnot("kbdd", "slock") -- run slock only if kbdd didn't start e.g. first launch after login
-  run_once("nm-applet")
-  run_once("parcellite")
-  run_once("kbdd")
-  run_once("skypeforlinux")
-  run_once("telegram-desktop")
-  run_once("slack", "slack -us")
-  run_once_ifnot("xbanish", "xbanish -bt4000")
-  run_once("udiskie", "udiskie -as")
-  run_once("blueman", "blueman-applet")
-  run_once_ifnot("picom", "picom --shadow-blue 0.05 -z -r 11 -t -8 -l -8 -D 5 -I 1 -O 1 --xrender-sync-fence --use-ewmh-active-win --backend xrender" )
+  run_once_ifnot("nm-applet")
+  run_once_ifnot("copyq")
+  run_once_ifnot("kbdd")
+  run_once_ifnot("telegram-desktop")
+  run_once_ifnot("skypeforlinux")
+  run_once_ifnot("slack", "slack -us")
+  run_once_ifnot("xbanish", "xbanish -bt5000")
+  run_once_ifnot("udiskie", "udiskie -as")
+  run_once_ifnot("blueman", "blueman-applet")
+  run_once_ifnot("picom", "picom --shadow-blue 0.05 -z -r 11 -t -8 -l -8 -D 5 -I 1 -O 1 --xrender-sync-fence --use-ewmh-active-win --backend xrender " )
   ----inactive-dim 0.35 --inactive-dim-fixed
 -- }}}
 
 --awesompd
-musicwidget:run()
+--musicwidget:run()
 
 -- Set keys
-musicwidget:append_global_keys()
+--musicwidget:append_global_keys()
 root.keys(globalkeys)
 -- }}}
 
@@ -98,4 +99,3 @@ root.keys(globalkeys)
 --   oldspawn(s, false)
 -- end
 -- }}}
-

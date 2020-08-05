@@ -7,7 +7,7 @@ layouts =
     lain.layout.uselesstile,                  -- 2
     lain.layout.uselesstile.bottom,           -- 3
     lain.layout.uselesspiral,                 -- 4
---    lain.layout.cascade,                      -- 5    
+--    lain.layout.cascade,                      -- 5
 --    lain.layout.termfair,                     -- 6
 --    lain.layout.centerworkd,                  -- 8
 --    lain.layout.centerhwork,                  -- 9
@@ -15,23 +15,15 @@ layouts =
 shifty.config.layouts = layouts
 -- }}}
 -- Shifty configured tags.
-shifty.config.tags = { 
+shifty.config.tags = {
     doc = {
         position  = 0,
         rel_index = 1,
-    }, 
+    },
     home = {
         layout    = layouts[4],
-        exclusive = false,    
+        exclusive = false,
         position  = 1,
-        leave_kills = true,
-    },
-    ide = {
-        layout    = layouts[2],
-        exclusive = false,    
-        position  = 4,
-        --init      = true,
-        slave     = true,
         leave_kills = true,
     },
     web = {
@@ -43,7 +35,14 @@ shifty.config.tags = {
         leave_kills = true,
         --spawn       = browser,
     },
-    media = {
+    audio = {
+        layout   = layouts[2],
+        exclusive = true,
+        position = 4,
+        mwfact = 0.65,
+        leave_kills = true,
+    },
+    video = {
         layout    = layouts[3],
         exclusive = false,
         position  = 5,
@@ -54,17 +53,25 @@ shifty.config.tags = {
         exclusive = false,
         leave_kills = true,
     },
+    ide = {
+        layout    = layouts[2],
+        exclusive = false,
+        position  = 6,
+        --init      = true,
+        slave     = true,
+        leave_kills = true,
+    },
     wine = {
         layout   = layouts[1],
-        position = 6,
-        nopopup = false,
-        exclusive = true,  
-    },
-    virtual = {
-        layout   = layouts[1],
         position = 7,
-        --      leave_kills = true,
+        nopopup = false,
+        exclusive = true,
     },
+    -- virtual = {
+    --     layout   = layouts[1],
+    --     position = 7,
+    --     --      leave_kills = true,
+    -- },
     im = {
         layout   = layouts[2],
         exclusive = true,
@@ -83,8 +90,8 @@ shifty.config.apps = {
             "qutebrowser",
             "firefox",
             "vivaldi*",
-            "google*", 
-            "chromium", 
+            "google*",
+            "chromium",
             "Opera*",
             "Pale moon",
         },
@@ -95,39 +102,39 @@ shifty.config.apps = {
         match = {
             "Worker",
             "Pcmanfm",
-            "Dolphin", 
-            "Nautilus", 
-            "Nemo", 
+            "Dolphin",
+            "Nautilus",
+            "Nemo",
             "Thunar",
             "Caja",
             "Doublecmd",
-            name = {"Copy*"}
+            name = {"^Copy*"}
         },
         tag = "home",
     },
     {
         match = {
-            "Pdfeditor", 
-            "Wps", 
-            "Wpp", 
-            "Et", 
+            "Pdfeditor",
+            "Wps",
+            "Wpp",
+            "Et",
             "Atom",
-            "Subl*",
+            "Subl",
             "Simplenote",
-            "Evince", 
-            "DjView", 
+            "Evince",
+            "DjView",
         },
         tag = "edit",
     },
     {
         match = {
-            "Pdfeditor", 
-            "Wps", 
-            "Wpp", 
-            "Et", 
-            "Libre", 
-            "libreoffice-writer", 
-            "Evince", 
+            "Pdfeditor",
+            "Wps",
+            "Wpp",
+            "Et",
+            "Libre",
+            "libreoffice-writer",
+            "Evince",
             "DjView",
             "draw.io"
         },
@@ -135,17 +142,18 @@ shifty.config.apps = {
     },
     {
         match = {
-            "DBeaver", 
-            "Audacity", 
+            "DBeaver",
+            "Audacity",
+            "REAPER",
             "Inkscape" ,
-            "Gimp", 
-            "QtCreator", 
-            "SpiderOak", 
+            "Gimp",
+            "QtCreator",
+            "SpiderOak",
             "Shotcut" ,
-            "Openshot", 
-            "DraftSight", 
+            "Openshot",
+            "DraftSight",
             class = {"sun-awt-X11*", "jetbrains-*"},
-            "Eclipse", 
+            "Eclipse",
             "draftsight",
             "Linuxdcpp",
             "Anydesk",
@@ -158,20 +166,26 @@ shifty.config.apps = {
             "Mplayer.*",
             "vlc",
             "mpv",
-            "Sonata",
-            "Deadbeef",
             "Android*",
             class = {"baka*"},
-            class = {"Twitch"}
+            class = {"Twitch"},
         },
-        tag = "media",
+        tag = "video",
     },
     {
         match = {
-            "VirtualBox*", 
+            "Sonata",
+            "Deadbeef",
+            class = {"Spotify"}
+        },
+        tag = "audio",
+    },
+    {
+        match = {
+            "VirtualBox*",
             "Virt-manager*",
-            "virt-manager", 
-            "Remmina", 
+            "virt-manager",
+            "Remmina",
             "Anydesk",
             class = { "rdesktop"},
         },
@@ -179,14 +193,14 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Wine", 
+            "Wine",
             "Lutris",
             "Steam",
             "dota2",
-            class = {".exe", 
-            ".EXE",  
-            ".tmp", 
-            ".TMP", 
+            class = {".exe",
+            ".EXE",
+            ".tmp",
+            ".TMP",
             "._mp",
             "._MP"},
         },
@@ -200,7 +214,7 @@ shifty.config.apps = {
             "TeamSpeak",
             "Viber",
             "Pidgin",
-            "Telegram", 
+            "Telegram",
             "Zoom",
             "Discord",
             "Jitsi Meet"
@@ -210,18 +224,18 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Putty", 
-            "slock", 
+            "Putty",
+            "slock",
             "KeePassXC",
-            "Nitrogen", 
-            "Polkit-gnome-authentication-agent-1", 
+            "Nitrogen",
+            "Polkit-gnome-authentication-agent-1",
             "terminology",
             "URxvt*",
-            "Tilix", 
-            "Zenity", 
-            "pavucontrol", 
-            "Wpa_gui", 
-            "Lxappearance",  
+            "copyq",
+            "Zenity",
+            "pavucontrol",
+            "Wpa_gui",
+            "Lxappearance",
             "Docky",
             "Insync.py",
             "kurs",
@@ -238,19 +252,19 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Zenity", 
-            "Nitrogen", 
-            "Wpa_gui", 
-            "Pavucontrol", 
-            "Lxappearance", 
+            "Zenity",
+            "Nitrogen",
+            "Wpa_gui",
+            "Pavucontrol",
+            "Lxappearance",
             "KeePassXC",
             "plugin-container",
             "Putty",
             "Gcolor*",
             "Zenity",
-            "terminology", 
+            "terminology",
             "URxvt*",
-            "Tilix",
+            "copyq",
             "File-roller",
             "*mplayer",
             "Archive*",
@@ -274,10 +288,10 @@ shifty.config.apps = {
     },
     {
         match = {
-            "Viber", 
-            --"Skype*", 
-            "telegram*", 
-            "Pidgin", 
+            "Viber",
+            --"Skype*",
+            "telegram*",
+            "Pidgin",
             "Nitrogen",
             name = {"TeamViewer"}
         },
@@ -294,7 +308,9 @@ shifty.config.apps = {
     {
         match = {
             "KeePassXC",
-            "Guake"
+            "Guake",
+            "Blueman*",
+            "Pavucontrol"
         },
         sticky = true
     },
@@ -318,6 +334,7 @@ shifty.config.apps = {
             "Insync.py",
             "Webcamoid",
             "Guake",
+            "copyq",
             name = {"Developer*", "Copy*", "New*", "Worker Configuration", "Directory bookmarks", "start prog", "Search:"},
             role = {"pop-up", "GtkFileChooser*"},
             "Blueberry*"

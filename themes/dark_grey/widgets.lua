@@ -1,4 +1,5 @@
 require("themes/dark_grey/vars")
+require("themes/dark_grey/functions")
 
 -- Memory widget
 --memwidget = wibox.widget.textbox()
@@ -11,7 +12,7 @@ memwidget = lain.widgets.mem({
     function()
       local color = grey
       local mem = math.floor(mem_now.used)
-      if mem < 4000 then color = green_color 
+      if mem < 6000 then color = green_color 
       elseif mem < 10000 then color = yellow_color
       elseif mem < 14000 then color = orange_color
       else color = red_color
@@ -409,41 +410,56 @@ mycal = lain.widgets.cal {
 -- lain.widgets.calendar:attach(mytextclock, { font_size = 10 })
 -- lain.widgets.calendar:attach(clockicon, { font_size = 10 })
 
-musicwidget = awesompd:create() -- Create awesompd widget
-musicwidget.font = beautiful.taglist_font
-musicwidget.font_color = "#e54c62"
-musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
-musicwidget.output_size = 52 -- Set the size of widget in symbols
-musicwidget.update_interval = 1 -- Set the update interval in seconds
-musicwidget.path_to_icons = confdir .. "/awesompd/icons"
-musicwidget.jamendo_format = awesompd.FORMAT_MP3
-musicwidget.show_album_cover = true
-musicwidget.album_cover_size = 50
-musicwidget.mpd_config = home .. "/.config/mpd/mpd.conf"
-musicwidget.browser = browser
 
-musicwidget.ldecorator = " "
-musicwidget.rdecorator = " "
+music = wibox.widget.textbox('<span color="#e54c62" font="' .. beautiful.taglist_font .. '">  music  </span>')
+music:buttons(awful.util.table.join(
+  awful.button({ }, 1, function()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = "Spotify"})
+      end
+      awful.client.run_or_raise("spotify", matcher)
+      set_cursor_in_middle_of_focused_client()
+    end)
+))
+-- musicwidget = awesompd:create() -- Create awesompd widget
+-- musicwidget.font = beautiful.taglist_font
+-- musicwidget.font_color = "#e54c62"
+-- musicwidget.scrolling = false -- If true, the text in the widget will be scrolled
+-- musicwidget.output_size = 52 -- Set the size of widget in symbols
+-- musicwidget.update_interval = 1 -- Set the update interval in seconds
+-- musicwidget.path_to_icons = confdir .. "/awesompd/icons"
+-- musicwidget.jamendo_format = awesompd.FORMAT_MP3
+-- musicwidget.show_album_cover = true
+-- musicwidget.album_cover_size = 50
+-- musicwidget.mpd_config = home .. "/.config/mpd/mpd.conf"
+-- musicwidget.browser = browser
 
--- Set all the servers to work with (here can be any servers you use)
-musicwidget.servers = {
-  { server = "localhost",
-    port = 6600
-  },
-}
-musicwidget:register_buttons({
-  { "", awesompd.MOUSE_LEFT, musicwidget:command_toggle() },
-  { "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
-  { "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
-  { "", awesompd.MOUSE_RIGHT, musicwidget:command_show_menu() },
-  { modkey, "F10", musicwidget:command_playpause() },
-  { modkey, "F12", musicwidget:command_next_track() },
-  { modkey, "F11", musicwidget:command_prev_track() },
-  { modkey, "XF86AudioStop", musicwidget:command_stop() },
-})
+-- musicwidget.ldecorator = " "
+-- musicwidget.rdecorator = " "
+
+-- -- Set all the servers to work with (here can be any servers you use)
+-- musicwidget.servers = {
+--   { server = "localhost",
+--     port = 6600
+--   },
+-- }
+-- musicwidget:register_buttons({
+--   { "", awesompd.MOUSE_LEFT, musicwidget:command_toggle() },
+--   { "", awesompd.MOUSE_SCROLL_UP, musicwidget:command_volume_up() },
+--   { "", awesompd.MOUSE_SCROLL_DOWN, musicwidget:command_volume_down() },
+--   { "", awesompd.MOUSE_RIGHT, musicwidget:command_show_menu() },
+--   { modkey, "F10", musicwidget:command_playpause() },
+--   { modkey, "F12", musicwidget:command_next_track() },
+--   { modkey, "F11", musicwidget:command_prev_track() },
+--   { modkey, "XF86AudioStop", musicwidget:command_stop() },
+-- })
 
 -- Music icon
 mpdicon = my_launcher({ image = beautiful.arrl, command = music })
+
+-- mpdicon = wibox.widget.imagebox(nil, false)
+-- mpdicon:set_image(beautiful.arrl)
 
 mysystray = wibox.widget.systray()
 mysystray:set_base_size(16)

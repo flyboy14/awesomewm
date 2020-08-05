@@ -29,7 +29,8 @@ theme.taglist_font                  = "Gameover 12"--"envypn 9"
 theme.fg_normal                     = "#9e9e9e"
 theme.fg_focus                      = "#7D96C8"--"#FFF9A4"
 theme.bg_normal                     = theme.mycolor
-theme.menu_bg_normal                = theme.mycolor --.."aa"
+theme.menu_bg_normal                = theme.mycolor .. "cc"
+theme.menu_bg_focus                	= theme.mycolor .. "88"
 theme.tasklist_bg_normal            = theme.mycolor .. "00"
 theme.tasklist_bg_focus            	= theme.mycolor .. "22"
 theme.bg_focus                      = theme.mycolor
@@ -105,7 +106,7 @@ theme.tasklist_maximized_horizontal         = ""
 theme.tasklist_maximized_vertical           = ""
 
 -- lain related
-theme.useless_gap_width             = 8
+theme.useless_gap_width = 8
 theme.layout_termfair    = theme.lain_icons .. "termfairw_x16.png"
 theme.layout_uselessfair    = theme.layout_fairv
 theme.layout_cascade     = theme.lain_icons .. "cascadew_x16.png"

@@ -7,18 +7,18 @@ root.buttons(awful.util.table.join(
     function ()
       mymainmenu:hide()
       mytaskmenu:hide()
-      if musicwidget.main_menu ~= nil then
-        musicwidget.main_menu:hide()
-      end
+      -- if musicwidget.main_menu ~= nil then
+      --   musicwidget.main_menu:hide()
+      -- end
     end
   ),
   awful.button({ }, 3,
     function ()
       mymainmenu:toggle()
       mytaskmenu:hide()
-      if musicwidget.main_menu ~= nil then
-        musicwidget.main_menu:hide()
-      end
+      -- if musicwidget.main_menu ~= nil then
+      --   musicwidget.main_menu:hide()
+      -- end
     end
   )
 ))
@@ -45,7 +45,7 @@ root.buttons(awful.util.table.join(
     --     if c.fullscreen == false then
     --       c.ontop = true
     --     end
-    --   end   
+    --   end
     -- end,
     -- (un)maximize the client
     x = function (c)
@@ -87,29 +87,29 @@ gist_mode = {
 }
 
 globalkeys = awful.util.table.join(
-  awful.key({ }, "VoidSymbol", 
-    function() launch_cheeky() 
-    end
-  ),
-  awful.key({            }, "Insert", function () 
-    -- awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
+  -- awful.key({ }, "VoidSymbol",
+  --   function() launch_cheeky()
+  --   end
+  -- ),
+  awful.key({            }, "Insert", function ()
+    -- awful.util.spawn_with_shell("escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png")
     --show_smth( nil, "Shot taken", iconsdir .. "/camera.svg", 2, nil, nil, nil, nil )
     awful.util.spawn(sc_r)
     end
   ),
-  awful.key({ modkey }, "Insert", function () 
+  awful.key({ modkey }, "Insert", function ()
     -- awful.util.spawn_with_shell("escrotum -s -C")
     awful.util.spawn_with_shell(sc_r5)
     end
   ),
-  awful.key({ "Control", }, "Insert", function () 
-    show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", 2, nil, nil, nil, nil )
+  awful.key({ "Control", }, "Insert", function ()
+    --show_smth( nil, "Taking shot in 5s", iconsdir .. "/clock.svg", 2, nil, nil, nil, nil )
     awful.util.spawn(sc_c)
-    -- awful.util.spawn_with_shell("sleep 5s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png") 
+    -- awful.util.spawn_with_shell("sleep 5s && escrotum $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png")
     end
   ),
-  awful.key({ "Shift", }, "Insert", function () 
-    -- show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil ) 
+  awful.key({ "Shift", }, "Insert", function ()
+    -- show_smth(nil, "Choose area or window", iconsdir .. "/screen-measure.svg", 2, nil, nil, nil, nil )
     --awful.util.spawn_with_shell("escrotum -s $HOME/Pictures/Screenshots/screenshot-%0Y%0m%0d-%0k%0M%0S.png")
       awful.util.spawn(sc_a)
     end
@@ -150,29 +150,29 @@ awful.key({modkey}, "d", shifty.del),
 
 --awful.key({ modkey, "Control" }, "l", function () if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end awful.tag.incmwfact(+0.01) awful.tag.incmwfact(0.01) end),
 
-awful.key({ modkey, "Control" }, "h", function () --if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end 
+awful.key({ modkey, "Control" }, "h", function () --if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end
   awful.tag.incmwfact(-0.01) awful.tag.incmwfact(-0.01) end),
-awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end awful.tag.incmwfact(0.01) 
+awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_width == 8 then beautiful.useless_gap_width = 0 else beautiful.useless_gap_width = 8 end awful.tag.incmwfact(0.01)
   awful.tag.incmwfact(0.01) end),
 
   --awful.key({ }, "Caps_Lock", function () awful.util.spawn_with_shell(btswitch) end),
   awful.key({ "Control",           }, "Escape", function () mymainmenu:toggle() end),
-  awful.key({ modkey,           }, "F8",  
+  awful.key({ modkey,           }, "F8",
     function() mywibox[mouse.screen.index].visible = not mywibox[mouse.screen.index].visible end       ),
   awful.key({ modkey,           }, "f",  function() mywibox_w[mouse.screen.index].visible = not mywibox_w[mouse.screen.index].visible end       ),
 
-  awful.key({ modkey,           }, "j",
-    function ()
-      awful.client.focus.byidx( 1)
-    set_cursor_in_middle_of_focused_client()
-    end
-  ),
-  awful.key({ modkey,           }, "k",
-    function ()
-      awful.client.focus.byidx(-1)
-      set_cursor_in_middle_of_focused_client()
-    end
-  ),
+  -- awful.key({ modkey,           }, "j",
+  --   function ()
+  --     awful.client.focus.byidx( 1)
+  --   set_cursor_in_middle_of_focused_client()
+  --   end
+  -- ),
+  -- awful.key({ modkey,           }, "k",
+  --   function ()
+  --     awful.client.focus.byidx(-1)
+  --     set_cursor_in_middle_of_focused_client()
+  --   end
+  -- ),
 
     -- Layout manipulation
   awful.key({ modkey, "Shift"   }, "j",
@@ -254,13 +254,23 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
   awful.key({ modkey, "Control"   }, "space", function () awful.layout.inc(-1, s, shifty.config.layouts) end),
 --run or raise clients
 
-  awful.key({      modkey      }, "v", 
-    function() 
+  awful.key({      modkey      }, "v",
+    function()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = videoplr})
+        return awful.rules.match(c, {class = "Twitch"})
       end
-      awful.client.run_or_raise(videoplr, matcher)
+      awful.client.run_or_raise("twitch", matcher)
+      set_cursor_in_middle_of_focused_client()
+    end),
+
+  awful.key({      modkey      }, "j",
+    function()
+      local matcher =
+      function (c)
+        return awful.rules.match(c, {class = "Spotify"})
+      end
+      awful.client.run_or_raise("spotify", matcher)
       set_cursor_in_middle_of_focused_client()
     end),
 
@@ -268,7 +278,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'Tilix'})
+        return awful.rules.match(c, {class = terminal})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -279,7 +289,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'Tilix'})
+        return awful.rules.match(c, {class = terminal})
       end
       awful.client.run_or_raise(terminal, matcher)
       set_cursor_in_middle_of_focused_client()
@@ -322,6 +332,17 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
     function ()
       local matcher =
       function (c)
+        return awful.rules.match(c, {class = 'Slack'})
+      end
+      awful.client.run_or_raise("slack", matcher)
+      set_cursor_in_middle_of_focused_client()
+    end
+  ),
+
+  awful.key({ modkey, "Shift" }, "s",
+    function ()
+      local matcher =
+      function (c)
         return awful.rules.match(c, {class = 'Skype'})
       end
       awful.client.run_or_raise("skypeforlinux", matcher)
@@ -333,7 +354,7 @@ awful.key({ modkey, "Control" }, "l", function () --if beautiful.useless_gap_wid
     function ()
       local matcher =
       function (c)
-        return awful.rules.match(c, {class = 'Subl3'})
+        return awful.rules.match(c, {class = 'Subl'})
       end
       awful.client.run_or_raise(editor, matcher)
       --set_cursor_in_middle_of_focused_client()
@@ -429,7 +450,7 @@ clientkeys = awful.util.table.join(
  --     end)
  --end),
   awful.key({ modkey,           }, "w",      awful.client.floating.toggle),
-  awful.key({ modkey,           }, "r",      
+  awful.key({ modkey,           }, "r",
         function (c)
           c.maximized_horizontal = false
           c.maximized_vertical   = false
@@ -437,19 +458,19 @@ clientkeys = awful.util.table.join(
         end),
   awful.key({ modkey,           }, "o",      awful.client.togglemarked),
 --  awful.key({modkey,            }, "s",      function (c) c.sticky = not c.sticky end),
-  awful.key({ modkey,           }, "x",      
+  awful.key({ modkey,           }, "x",
     function (c)
           c.maximized_horizontal = not c.maximized_horizontal
           c.maximized_vertical   = not c.maximized_vertical
         end),
-  awful.key({                   }, "F11",    
+  awful.key({                   }, "F11",
     function (c)
       c.fullscreen = not c.fullscreen
       if awful.rules.match(c, {class = 'Tilix'}) or awful.rules.match(c, {class = 'Skype'}) then
         if c.fullscreen == false then
           c.ontop = true
         end
-      end   
+      end
     end),
   awful.key({ alt,              }, "F4",      function (c) c:kill() end),
   awful.key({ modkey,           }, "F4",      function (c)
