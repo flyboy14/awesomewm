@@ -49,7 +49,7 @@ Tested with latest awesome-git
 * Edit local variables and keybindings in themes/_theme-name_/{vars, bindings}.lua
   * Custom rules for windows placing and behavior can be set in theme/_theme-name_/{shifty,myrules}.lua
 
-* If issue any problems, feel free to report it on github or contact me at https://vk.com/iq137724845
+* If issue any problems, feel free to report it on github or contact me at https://t.me/twiceaday28
 
 * Have fun!
 
